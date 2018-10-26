@@ -5,10 +5,10 @@
 @section('journal-content')
 <div class="sticky-top pt-5 bg-white border-bottom">
 
-    <nav class="nav justify-content-between">
-        <a class="nav-item nav-link" href="#"><i class="fas fa-backward mr-2"></i>Previous Entry</a>
+    <nav class="nav justify-content-between mb-4">
+        <a class="nav-item nav-link" href="#"><i class="fas fa-backward mr-2"></i><span class="d-none d-md-inline">Previous Entry</span></a>
         <a class="nav-item nav-link" href="#">Table of Contents</a>
-        <a class="nav-item nav-link" href="#">Next Entry<i class="fas fa-forward ml-2"></i></a>
+        <a class="nav-item nav-link" href="#"><span class="d-none d-md-inline">Next Entry</span><i class="fas fa-forward ml-2"></i></a>
     </nav>
 
     <div class="float-right m-2">
@@ -24,10 +24,10 @@
 
 <div class="row no-gutters">
     <div class="col-lg-8">
-        <div class="entry-body pl-2">{!! $journal['body'] !!}</div>
+        <div class="entry-body p-2">{!! $journal['body'] !!}</div>
     </div>
 
-    <div class="d-none d-lg-block col-lg-4">
+    <div class="d-none d-lg-block col-lg-4 p-2">
         (Comment area)
     </div>
 </div>
