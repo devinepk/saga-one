@@ -14,7 +14,7 @@
             font-family: "Roboto", sans-serif;
             font-size: .875rem;
         }
-        [role="main"] {
+        .below-topbar {
             padding-top: 64px;
         }
         .brand {

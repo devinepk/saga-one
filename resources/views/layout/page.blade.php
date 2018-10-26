@@ -7,6 +7,8 @@
 @section('body')
 <div class="container-fluid">
     @include('component.topbar')
-    @yield('page-content')
+    <div class="below-topbar">
+        @yield('page-content')
+    </div>
 </div>
 @endsection
