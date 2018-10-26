@@ -11,6 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function() { return view('welcome'); });
+
+Route::get('/read', function() {
+    return view('journal.read');
 });
+
+Route::get('/write', function() {
+    return view('journal.add_entry');
+});
+
+
+
