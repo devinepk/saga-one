@@ -61,16 +61,9 @@ Danger    | &nbsp;    | &nbsp;  | &nbsp;          | &nbsp;
 
 ### Fonts
 
-Brand Font Options:
-1. [Comfortaa](https://fonts.google.com/specimen/Comfortaa)
-1. [Cinzel Decorative](https://fonts.google.com/specimen/Cinzel+Decorative)
-1. [Corben](https://fonts.google.com/specimen/Corben)
-1. [Budo](https://fonts.google.com/specimen/Buda)
-1. [Jacques Francois Shadow](https://fonts.google.com/specimen/Jacques+Francois+Shadow)
+Brand Font: [Cinzel Decorative](https://fonts.google.com/specimen/Cinzel+Decorative)
 
-Body Font Options:
-1. [Source Sans Pro](https://fonts.google.com/specimen/Source+Sans+Pro)
-1. [Roboto](https://fonts.google.com/specimen/Roboto)
+Body Font: [Roboto](https://fonts.google.com/specimen/Roboto)
 
 ## Data
 
