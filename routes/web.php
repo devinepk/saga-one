@@ -44,5 +44,10 @@ Route::get('/journal/write', function() {
     return view('journal.add_entry');
 });
 
+Route::get('/journal/create', function() {
+    $friends = ['Bobbert Bob', 'Bonnie Bobbington', 'Boris Bobford', 'Billy Bobbly', 'Bongo Bor'];
+    return view('journal.create', compact('friends'));
+});
+
 
 
