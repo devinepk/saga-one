@@ -1,8 +1,8 @@
-@extends('layout.page')
+@extends('layout.journal')
 
-@section('title', 'Read')
+@section('page-title', 'Read')
 
-@section('page-content')
+@section('journal-content')
 <div class="sticky-top pt-5 bg-white border-bottom">
     <div class="float-right">
         <a class="text-muted" href="#"><i class="fas fa-edit ml-3"></i></a>
