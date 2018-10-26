@@ -14,7 +14,11 @@
 Route::get('/', function() { return view('welcome'); });
 
 Route::get('/journal', function() {
-    return view('journal.index');
+    $journals = [
+        ['title' => 'Journal 1', 'cover_url' => '#', 'participants' => ['Bobbert Bob', 'Bonnie Bobbington', 'Boris Bobford']],
+        ['title' => 'Journal 2', 'cover_url' => '#', 'participants' => ['Billy Bobbly', 'Bongo Bor']]
+    ];
+    return view('journal.index', compact('journals'));
 });
 
 Route::get('/journal/contents', function() {
