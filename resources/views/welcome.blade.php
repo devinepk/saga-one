@@ -1,4 +1,4 @@
-@extends('default')
+@extends('layout.default')
 
 @section('title')
     SagaOne
