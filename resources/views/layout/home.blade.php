@@ -1,9 +1,12 @@
-@extends('layout.default')
+@extends('layout.master')
 
 @section('title')
     @yield('title')
 @endsection
 
 @section('content')
-    @yield('content')
+    @parent
+    <div class="container">
+        @yield('content')
+    </div>
 @endsection
