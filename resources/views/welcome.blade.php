@@ -1,7 +1,9 @@
-@extends('layout.home')
+@extends('layout.master')
 
 @section('title', 'SagaOne')
 
-@section('content')
-    <h1>SagaOne</h1>
+@section('body')
+<div class="flex-center full-height">
+    <h1 class="brand"><span class="saga">Saga</span>one</h1>
+</div>
 @endsection
