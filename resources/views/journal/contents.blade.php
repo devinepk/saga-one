@@ -1,12 +1,15 @@
 @extends('layout.journal')
 
-@section('page-title', 'Journal Contents')
+@section('page-title', $journal['title'])
 
 @section('journal-content')
-<h1>Journal Contents</h1>
+<h1 class="m-5">{{ $journal['title'] }}</h1>
     @foreach ($entries as $entry)
         <div class="card m-5">
-            <a href="/journal/read"><h2 class="card-header">{{ $entry['title'] }}</h2></a>
+            <div class="card-header">
+                <a class="float-right m-2 text-muted" href="/journal/write"><i class="fas fa-edit"></i></a>
+                <h2 class="m-0"><a href="/journal/read">{{ $entry['title'] }}</a></h2>
+            </div>
             <div class="card-body">
                 <p class="m-0 excerpt">{{ $entry['excerpt'] }}</p>
             </div>

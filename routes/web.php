@@ -29,7 +29,10 @@ Route::get('/journal/contents', function() {
         ['title' => 'Entry 4', 'author' => 'Boris Bobford', 'created' => 'October 1, 2018 at 3:37 PM', 'excerpt' => 'Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic...'],
         ['title' => 'Entry 5', 'author' => 'Boris Bobford', 'created' => 'October 1, 2018 at 3:37 PM', 'excerpt' => 'Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic...']
     ];
-    return view('journal.contents', compact('entries'));
+    $journal = [
+        'title' => 'Journal 1'
+    ];
+    return view('journal.contents', compact('entries', 'journal'));
 });
 
 Route::get('/journal/read', function() {
@@ -41,7 +44,7 @@ Route::get('/journal/read', function() {
 });
 
 Route::get('/journal/write', function() {
-    return view('journal.add_entry');
+    return view('journal.edit_entry');
 });
 
 Route::get('/journal/create', function() {
