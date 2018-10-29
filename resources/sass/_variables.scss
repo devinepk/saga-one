@@ -1,20 +1,34 @@
-
-// Body
-$body-bg: #fff;
-
 // Typography
-$font-family-sans-serif: "Roboto", sans-serif;
+$font-family-sans-serif: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 $font-size-base: 0.875rem;
 $line-height-base: 1.6;
 
-// Colors
-$blue: #3490dc;
-$indigo: #6574cd;
-$purple: #9561e2;
-$pink: #f66D9b;
-$red: #e3342f;
-$orange: #f6993f;
-$yellow: #ffed4a;
-$green: #38c172;
-$teal: #4dc0b5;
-$cyan: #6cb2eb;
+// LARAVEL DEFAULT COLORS
+// $blue: #3490dc;
+// $indigo: #6574cd;
+// $purple: #9561e2;
+// $pink: #f66D9b;
+// $red: #e3342f;
+// $orange: #f6993f;
+// $yellow: #ffed4a;
+// $green: #38c172;
+// $teal: #4dc0b5;
+// $cyan: #6cb2eb;
+
+// "Old Library" Color Scheme
+$cadet:     #517174;
+$burlywood: #DCBE87;
+$fireopal:  #EF5D58;
+
+$primary:   $cadet;
+$secondary: $burlywood;
+$accent:    $fireopal;
+
+// General Bootstrap settings
+$enable-rounded: false;
+
+// Body defaults
+// $body-bg: $white;
+// $body-color: $gray-900;
+
+

@@ -9,22 +9,24 @@
 @import '~bootstrap/scss/bootstrap';
 
 
-
-
-.below-topbar {
-    padding-top: 64px;
+/**
+ * WELCOME PAGE
+ */
+.welcome {
+    background-color: $primary;
+    color: $gray-200;
 }
 .brand {
     font-family: "Cinzel Decorative", cursive;
+    .saga {
+        font-weight: 900;
+        text-transform: uppercase;
+    }
 }
-.brand .saga {
-    font-weight: 900;
-    text-transform: uppercase;
-}
-.full-height .brand {
-    font-size: 10vh;
-    text-align: center;
-}
+
+/**
+ * COMMON ELEMENTS
+ */
 .full-height {
     height: 100vh;
 }
@@ -33,9 +35,13 @@
     display: flex;
     justify-content: center;
 }
+.below-topbar {
+    padding-top: 64px;
+}
+
 /*
-    * Sidebar
-    */
+ * SIDEBAR
+ */
 .sidebar {
     position: fixed;
     top: 0;
