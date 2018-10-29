@@ -6,12 +6,39 @@ use Illuminate\Http\Request;
 
 class JournalController extends Controller
 {
+    protected $journal1 = [
+        'title' => 'Journal 1',
+        'description' => 'A journal for friends',
+        'cover_url' => '/img/cover1.jpg',
+        'participants' => [
+            ['name' => 'Bobby Bob'],
+            ['name' => 'Bobbert Bob'],
+            ['name' => 'Bonnie Bobbington'],
+            ['name' => 'Boris Bobford']
+        ]
+    ];
+
+    protected $journal2 = [
+        'title' => 'Journal 2',
+        'description' => 'A journal for family',
+        'cover_url' => '/img/cover1.jpg',
+        'participants' => [
+            ['name' => 'Bobby Bob'],
+            ['name' => 'Billy Bobbly'],
+            ['name' => 'Bongo Bor']
+        ]
+    ];
+
+    protected $journal3 = [
+        'title' => 'Journal 3',
+        'description' => 'A journal for everybody!',
+        'cover_url' => '/img/cover1.jpg',
+        'participants' => [
+        ]
+    ];
+
     public function index() {
-        $journals = [
-            ['title' => 'Journal 1', 'cover_url' => '/img/cover1.jpg', 'participants' => ['Bobbert Bob', 'Bonnie Bobbington', 'Boris Bobford']],
-            ['title' => 'Journal 2', 'cover_url' => '/img/cover1.jpg', 'participants' => ['Billy Bobbly', 'Bongo Bor']]
-        ];
-        return view('journal.index', compact('journals'));
+        return view('journal.index', ['journals' => [$this->journal1, $this->journal2, $this->journal3]]);
     }
 
     public function contents() {
@@ -22,9 +49,7 @@ class JournalController extends Controller
             ['title' => 'Entry 4', 'author' => 'Boris Bobford', 'created' => 'October 1, 2018 at 3:37 PM', 'excerpt' => 'Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic...'],
             ['title' => 'Entry 5', 'author' => 'Boris Bobford', 'created' => 'October 1, 2018 at 3:37 PM', 'excerpt' => 'Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic...']
         ];
-        $journal = [
-            'title' => 'Journal 1'
-        ];
+
         return view('journal.contents', compact('entries', 'journal'));
     }
 
@@ -37,7 +62,7 @@ class JournalController extends Controller
     }
 
     public function write() {
-        return view('journal.edit_entry');
+        return view('journal.edit_entry', ['journal' => $this->journal1]);
     }
 
     public function create() {
@@ -45,9 +70,6 @@ class JournalController extends Controller
     }
 
     public function invite() {
-        $journal = [
-            'title' => 'Journal 1'
-        ];
-        return view('journal.invite', compact('journal'));
+        return view('journal.invite', ['journal' => $this->journal1]);
     }
 }
