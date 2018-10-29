@@ -1,6 +1,6 @@
 
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Cinzel+Decorative:400,900|Roboto:400,400i,700');
 
 // Variables
 @import 'variables';
@@ -8,7 +8,73 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+
+
+
+.below-topbar {
+    padding-top: 64px;
+}
+.brand {
+    font-family: "Cinzel Decorative", cursive;
+}
+.brand .saga {
+    font-weight: 900;
+    text-transform: uppercase;
+}
+.full-height .brand {
+    font-size: 10vh;
+    text-align: center;
+}
+.full-height {
+    height: 100vh;
+}
+.flex-center {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+/*
+    * Sidebar
+    */
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100; /* Behind the navbar */
+    padding: 64px 0 0; /* Height of navbar */
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+.sidebar-sticky {
+    position: relative;
+    top: 0;
+    height: calc(100vh - 64px);
+    padding-top: .5rem;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+@supports ((position: -webkit-sticky) or (position: sticky)) {
+    .sidebar-sticky {
+        position: -webkit-sticky;
+        position: sticky;
+    }
+}
+.user-pic {
+    margin-right: 8px;
+}
+.entry-body {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+/*JOURNAL CARDS*/
+.journal-card-cover {
+    height: 200px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.journal-card-cover a {
+    width: 100%;
+    height:100%;
+    display:block;
 }
