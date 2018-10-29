@@ -15,6 +15,10 @@
 .welcome {
     background-color: $primary;
     color: $gray-200;
+    .brand {
+        font-size: 3.5rem;
+        transition: 0.2s;
+    }
     @include media-breakpoint-up(sm) {
         .brand {
             font-size: 6rem;
@@ -23,8 +27,6 @@
 }
 .brand {
     font-family: "Cinzel Decorative", cursive;
-    font-size: 3.5rem;
-    transition: 0.2s;
     .saga {
         font-weight: 900;
         text-transform: uppercase;

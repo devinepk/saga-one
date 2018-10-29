@@ -10245,6 +10245,12 @@ a.text-dark:focus {
   color: #e9ecef;
 }
 
+.welcome .brand {
+  font-size: 3.5rem;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
 @media (min-width: 576px) {
   .welcome .brand {
     font-size: 6rem;
@@ -10253,9 +10259,6 @@ a.text-dark:focus {
 
 .brand {
   font-family: "Cinzel Decorative", cursive;
-  font-size: 3.5rem;
-  -webkit-transition: 0.2s;
-  transition: 0.2s;
 }
 
 .brand .saga {
