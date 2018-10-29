@@ -11,8 +11,8 @@
             <div class="card journal-card border-0 mb-5">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md mb-3 mb-md-0 journal-card-cover" style="background-image:url('{{ $journal['cover_url'] }}')">
-                            <a href="#"></a>
+                        <div class="col-md mb-3 mb-md-0 text-center">
+                            <a href="#"><img src="{{ $journal['cover_url'] }}" width="150" height="217"></a>
                         </div>
                         <div class="col-md">
                             <h2 class="card-title"><a href="/journal/read">{{ $journal['title'] }}</a></h2>
