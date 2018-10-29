@@ -32,5 +32,6 @@
         </div>
     @endforeach
     </div>
+    <a class="btn btn-block py-3 my-5" style="border: 3px dashed #ccc;" href="/journal/create"><i class="fas fa-plus"></i></a>
 </main>
 @endsection
