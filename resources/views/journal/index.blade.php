@@ -9,12 +9,18 @@
     @foreach ($journals as $journal)
         <div class="col-md">
             <div class="card mb-5">
-                <img class="card-img-top" src="{{ $journal['cover_url'] }}" width="150" height="217">
                 <div class="card-body">
-                    <h2 class="card-title">{{ $journal['title'] }}</h2>
-                    <p class="card-text">You are writing this journal with:</p>
+                    <div class="row">
+                        <div class="col-md mb-3 mb-md-0 journal-card-cover" style="background-image:url('{{ $journal['cover_url'] }}')">
+                            <a href="#"></a>
+                        </div>
+                        <div class="col-md">
+                            <h2 class="card-title"><a href="#">{{ $journal['title'] }}</a></h2>
+                        </div>
+                    </div>
                 </div>
                 <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><h5 class="m-0">Participants</h5></li>
                     @foreach ($journal['participants'] as $participant)
                         <li class="list-group-item"><a href="#"><i class="fas fa-user user-pic"></i>{{ $participant }}</a></li>
                     @endforeach

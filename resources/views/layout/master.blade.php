@@ -69,6 +69,18 @@
             font-size: 1rem;
             line-height: 1.6;
         }
+        /*JOURNAL CARDS*/
+        .journal-card-cover {
+            height: 200px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .journal-card-cover a {
+            width: 100%;
+            height:100%;
+            display:block;
+        }
     </style>
 </head>
 <body>

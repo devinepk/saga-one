@@ -15,8 +15,8 @@ Route::get('/', 'PagesController@home');
 
 Route::get('/journal', function() {
     $journals = [
-        ['title' => 'Journal 1', 'cover_url' => '#', 'participants' => ['Bobbert Bob', 'Bonnie Bobbington', 'Boris Bobford']],
-        ['title' => 'Journal 2', 'cover_url' => '#', 'participants' => ['Billy Bobbly', 'Bongo Bor']]
+        ['title' => 'Journal 1', 'cover_url' => '/img/cover1.jpg', 'participants' => ['Bobbert Bob', 'Bonnie Bobbington', 'Boris Bobford']],
+        ['title' => 'Journal 2', 'cover_url' => '/img/cover1.jpg', 'participants' => ['Billy Bobbly', 'Bongo Bor']]
     ];
     return view('journal.index', compact('journals'));
 });
