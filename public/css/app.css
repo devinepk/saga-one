@@ -10245,8 +10245,17 @@ a.text-dark:focus {
   color: #e9ecef;
 }
 
+@media (min-width: 576px) {
+  .welcome .brand {
+    font-size: 6rem;
+  }
+}
+
 .brand {
   font-family: "Cinzel Decorative", cursive;
+  font-size: 3.5rem;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
 }
 
 .brand .saga {
@@ -10278,6 +10287,10 @@ a.text-dark:focus {
   padding-top: 64px;
 }
 
+.list-user-pic {
+  margin-right: 0.5rem;
+}
+
 /*
  * SIDEBAR
  */
@@ -10293,27 +10306,9 @@ a.text-dark:focus {
   /* Height of navbar */
   -webkit-box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
           box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
-}
-
-.sidebar-sticky {
-  position: relative;
-  top: 0;
-  height: calc(100vh - 64px);
-  padding-top: .5rem;
   overflow-x: hidden;
   overflow-y: auto;
   /* Scrollable contents if viewport is shorter than content. */
-}
-
-@supports ((position: -webkit-sticky) or (position: sticky)) {
-  .sidebar-sticky {
-    position: -webkit-sticky;
-    position: sticky;
-  }
-}
-
-.user-pic {
-  margin-right: 8px;
 }
 
 .entry-body {
@@ -10321,16 +10316,18 @@ a.text-dark:focus {
   line-height: 1.6;
 }
 
-/*JOURNAL CARDS*/
+/**
+ * JOURNAL CARDS
+ */
 
-.journal-card-cover {
+.journal-card .journal-card-cover {
   height: 200px;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
 
-.journal-card-cover a {
+.journal-card .journal-card-cover a {
   width: 100%;
   height: 100%;
   display: block;
