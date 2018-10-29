@@ -11,11 +11,16 @@
             <input class="form-control" id="title" name="title">
         </div>
         <div class="form-group my-5">
+            <label for="description">Give this journal a short description:</label>
+            <input type="text" class="form-control" id="description" name="description">
+        </div>
+        <div class="form-group my-5">
             <div class="custom-file">
                 <label class="custom-file-label" for="cover_img">Upload a cover image for this journal</label>
                 <input type="file" class="custom-file-input" id="cover_img" name="cover_img">
             </div>
         </div>
+        {{--
         <div class="form-group my-5">
             <label for="participants">Add some friends to this journal:</label>
             <input type="text" id="participants" class="form-control" placeholder="Search friends">
@@ -29,6 +34,7 @@
                 @endforeach
             </ul>
         </div>
+        --}}
         <div class="form-group my-5">
             <button type="submit" class="btn btn-block btn-primary">Create</button>
         </div>

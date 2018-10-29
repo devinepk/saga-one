@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'PagesController@home');
+Route::view('/', 'welcome');
 
 Route::get('/journal', function() {
     $journals = [
@@ -50,6 +50,13 @@ Route::get('/journal/write', function() {
 Route::get('/journal/create', function() {
     $friends = ['Bobbert Bob', 'Bonnie Bobbington', 'Boris Bobford', 'Billy Bobbly', 'Bongo Bor'];
     return view('journal.create', compact('friends'));
+});
+
+Route::get('/journal/invite', function() {
+    $journal = [
+        'title' => 'Journal 1'
+    ];
+    return view('journal.invite', compact('journal'));
 });
 
 
