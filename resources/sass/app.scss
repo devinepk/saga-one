@@ -87,3 +87,20 @@
         }
     }
 }
+
+/**
+ * ENTRY EDITOR
+ */
+#edit-content {
+    #editor, .ql-toolbar.ql-snow {
+        border-left: 0;
+        border-right: 0;
+    }
+}
+#editor {
+    font-size: $font-size-lg;
+    font-family: $font-family-base;
+    p {
+        line-height: $line-height-base;
+    }
+}

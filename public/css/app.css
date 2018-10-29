@@ -10336,3 +10336,22 @@ a.text-dark:focus {
   display: block;
 }
 
+/**
+ * ENTRY EDITOR
+ */
+
+#edit-content #editor,
+#edit-content .ql-toolbar.ql-snow {
+  border-left: 0;
+  border-right: 0;
+}
+
+#editor {
+  font-size: 1.09375rem;
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+#editor p {
+  line-height: 1.6;
+}
+
