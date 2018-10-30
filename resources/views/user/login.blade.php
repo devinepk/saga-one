@@ -19,6 +19,7 @@
 
             <button type="submit" class="btn btn-block btn-secondary">Log in</button>
         </form>
+        <small class="text-muted mt-1"><a href="#">Forgot password?</a></small>
     </div>
 </main>
 @endsection
