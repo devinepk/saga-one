@@ -16,7 +16,7 @@
     </div>
 
     <div class="m-2">
-        <h1 class="entry-title mb-0">{{ $journal['title'] }}</h1>
+        <h1 class="entry-title mb-0">{{ $entry['title'] }}</h1>
         <small class="entry-meta text-muted">Posted on Friday, October 26 at 3:59 PM by <a href="#">Bobby Bob</a></small>
     </div>
 
@@ -24,7 +24,7 @@
 
 <div class="row no-gutters">
     <div class="col-lg-8">
-        <div class="entry-body p-2">{!! $journal['body'] !!}</div>
+        <div class="entry-body p-2">{!! $entry['body'] !!}</div>
     </div>
 
     <div class="d-none d-lg-block col-lg-4 p-2">

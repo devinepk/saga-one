@@ -12,10 +12,10 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg mb-3 text-center">
-                            <a href="#"><img src="{{ $journal['cover_url'] }}" width="150" height="217"></a>
+                            <a href="/journal"><img src="{{ $journal['cover_url'] }}" width="150" height="217"></a>
                         </div>
                         <div class="col-lg">
-                            <h2 class="card-title text-center"><a href="/journal/read">{{ $journal['title'] }}</a></h2>
+                            <h2 class="card-title text-center"><a href="/journal">{{ $journal['title'] }}</a></h2>
                             <nav class="nav flex-column">
                                 <a class="nav-link py-1" href="/journal/write"><i class="fas fa-fw fa-plus mr-2"></i>Write</a>
                                 <a class="nav-link py-1" href="/journal/read"><i class="fas fa-fw fa-book-reader mr-2"></i>Read</a>

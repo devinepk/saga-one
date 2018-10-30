@@ -1,9 +1,9 @@
-@extends('layout.page')
+@extends('layout.journal')
 
 @section('page-title', 'Invite a friend')
 
-@section('page-content')
-<main class="container p-md-5">
+@section('journal-content')
+<div class="container p-md-5">
     <h1>Invite a friend to join {{ $journal['title'] }}</h1>
     <p class="font-italic">{{ $journal['description'] }}</p>
     <form method="post" action="">
@@ -15,5 +15,5 @@
             <button type="submit" class="btn btn-block btn-primary">Invite</button>
         </div>
     </form>
-</main>
+</div>
 @endsection

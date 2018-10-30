@@ -27,4 +27,4 @@ Route::prefix('journal')->group(function() {
 Route::view('signup', 'user.register')->name('register');
 Route::view('login', 'user.login')->name('login');
 
-Route::view('dashboard', 'user.index');
+Route::get('user', 'UsersController@index');

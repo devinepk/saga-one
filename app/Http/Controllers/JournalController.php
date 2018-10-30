@@ -46,7 +46,11 @@ class JournalController extends Controller
     ];
 
     public function index() {
-        return view('journal.index', ['journals' => [$this->journal1, $this->journal2, $this->journal3]]);
+        $entries = [
+            ['title' => 'Entry 5', 'author' => 'Boris Bobford', 'created' => 'October 1, 2018 at 3:37 PM', 'excerpt' => 'Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic...'],
+            ['title' => 'Entry 4', 'author' => 'Boris Bobford', 'created' => 'October 1, 2018 at 3:37 PM', 'excerpt' => 'Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic...']
+        ];
+        return view('journal.index', ['journal' => $this->journal1, 'entries' => $entries]);
     }
 
     public function contents() {
@@ -58,12 +62,12 @@ class JournalController extends Controller
             ['title' => 'Entry 5', 'author' => 'Boris Bobford', 'created' => 'October 1, 2018 at 3:37 PM', 'excerpt' => 'Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic...']
         ];
 
-        return view('journal.contents', compact('entries', 'journal'));
+        return view('journal.contents', ['journal' => $this->journal1, 'entries' => $entries]);
     }
 
     public function read() {
 
-        return view('journal.read', compact('journal'));
+        return view('journal.read', ['journal' => $this->journal1, 'entry' => $this->entry]);
     }
 
     public function write() {
