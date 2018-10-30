@@ -28,7 +28,7 @@
 
                 @if ($journal['participants'])
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><h5 class="m-0">Friends in this journal:</h5></li>
+                    <li class="list-group-item"><h5 class="m-0">Next up for this journal:</h5></li>
                     @foreach ($journal['participants'] as $participant)
                         <li class="list-group-item"><a href="#"><i class="fas fa-user list-user-pic"></i>{{ $participant['name'] }}</a></li>
                     @endforeach
