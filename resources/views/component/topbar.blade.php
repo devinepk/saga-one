@@ -7,8 +7,14 @@
 
     <div class="collapse navbar-collapse justify-content-end" id="navMenu">
         <ul class="navbar-nav">
-            <li class="nav-item px-3">
-                <a class="nav-link"><i class="fas fa-bell mr-2"></i>Notifications</a>
+            <li class="nav-item dropdown px-3">
+                <a class="nav-link" id="notificationsLabel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-bell mr-2"></i>Notifications<span class="badge badge-light rounded ml-2 align-text-bottom">1</span></a>
+
+                <div class="dropdown-menu dropdown-menu-right px-3 py-2" aria-labelledby="notificationsLabel">
+                    <p class="mb-0">Journal "Journal 1" is now in your possession!</p>
+                </div>
+
+
             </li>
 
             <li class="nav-item dropdown px-3">
