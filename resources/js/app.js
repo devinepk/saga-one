@@ -16,6 +16,7 @@ window.Vue = require('vue');
  */
 
 Vue.component('entry-card', require('./components/EntryCard.vue'));
+Vue.component('entry-body', require('./components/EntryBody.vue'));
 
 const app = new Vue({
     el: '#app'

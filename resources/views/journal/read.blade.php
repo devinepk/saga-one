@@ -17,14 +17,17 @@
 
     <div class="m-2">
         <h1 class="entry-title mb-0">{{ $entry['title'] }}</h1>
-        <small class="entry-meta text-muted">Posted on Friday, October 26 at 3:59 PM by <a href="#">Bobby Bob</a></small>
+        <small class="entry-meta text-muted">Written on Friday, October 26 at 3:59 PM by <a href="#">Bobby Bob</a></small>
     </div>
 
 </div>
 
 <div class="row no-gutters">
     <div class="col-lg-8">
-        <div class="entry-body p-2">{!! $entry['body'] !!}</div>
+
+        <entry-body body="{!! $entry['body'] !!}">
+
+        </entry-body>
     </div>
 
     <div class="d-none d-lg-block col-lg-4 p-2">
