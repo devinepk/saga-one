@@ -12,6 +12,7 @@
 <body class="@yield('body_classes')">
     @yield('body')
 
+    <script src="js/app.js"></script>
     @yield('bottom_of_body')
 </body>
 </html>
