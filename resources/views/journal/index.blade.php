@@ -6,8 +6,9 @@
 <div class="container p-md-5">
     <h1>{{ $journal['title'] }}</h1>
     <p class="font-italic">{{ $journal['description'] }}</p>
-
-    <h2>Details</h2>
+    @if ($journal['participantCount'])
+        <p>Shared with {{ $journal['participantCount'] }} friends.</p>
+    @endif
 
     <h2>Latest entries</h2>
     @foreach ($entries as $entry)

@@ -16,7 +16,8 @@ class JournalController extends Controller
             ['name' => 'Bobbert Bob'],
             ['name' => 'Bonnie Bobbington'],
             ['name' => 'Boris Bobford']
-        ]
+        ],
+        'participantCount' => 4
     ];
 
     protected $journal2 = [
@@ -28,7 +29,8 @@ class JournalController extends Controller
             ['name' => 'Bobby Bob'],
             ['name' => 'Billy Bobbly'],
             ['name' => 'Bongo Bor']
-        ]
+        ],
+        'participantCount' => 3
     ];
 
     protected $journal3 = [
@@ -37,7 +39,8 @@ class JournalController extends Controller
         'description' => 'A journal for everybody!',
         'cover_url' => '/img/cover1.jpg',
         'participants' => [
-        ]
+        ],
+        'participantCount' => 0
     ];
 
     protected $entry = [
