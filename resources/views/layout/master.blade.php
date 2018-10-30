@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/css/app.css">
     <title>@yield('title')</title>
 </head>
-<body>
+<body class="@yield('body_classes')">
     @yield('body')
 
     @yield('bottom_of_body')

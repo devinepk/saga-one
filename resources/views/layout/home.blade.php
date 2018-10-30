@@ -1,12 +1,7 @@
 @extends('layout.master')
 
-@section('title')
-    @yield('title')
-@endsection
+@section('body_classes', 'home')
 
-@section('content')
-    @parent
-    <div class="container">
-        @yield('content')
-    </div>
+@section('body')
+    @yield('content')
 @endsection

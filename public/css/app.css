@@ -10237,22 +10237,25 @@ a.text-dark:focus {
 }
 
 /**
- * WELCOME PAGE
+ * "HOME" LAYOUT
  */
 
-.welcome {
+.home {
   background-color: #517174;
+}
+
+.home .welcome {
   color: #e9ecef;
 }
 
-.welcome .brand {
+.home .welcome .brand {
   font-size: 3.5rem;
   -webkit-transition: 0.2s;
   transition: 0.2s;
 }
 
 @media (min-width: 576px) {
-  .welcome .brand {
+  .home .welcome .brand {
     font-size: 6rem;
   }
 }

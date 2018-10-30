@@ -23,3 +23,6 @@ Route::prefix('journal')->group(function() {
     Route::get('invite', 'JournalController@invite');
 
 });
+
+Route::view('signup', 'user.register')->name('register');
+Route::view('login', 'user.login')->name('login');
