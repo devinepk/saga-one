@@ -10,6 +10,18 @@
     <h2>Details</h2>
 
     <h2>Latest entries</h2>
+    @foreach ($entries as $entry)
+        <entry-card
+            title="{{ $entry['title'] }}"
+            edit-url="/journal/write"
+            read-url="/journal/read"
+            author="{{ $entry['author'] }}"
+            author-url="#"
+            created-on="{{ $entry['created'] }}"
+        >
+            {!! $entry['excerpt'] !!}
+        </entry-card>
+    @endforeach
 
     <a href="/journal/contents">View all entries</a>
 </div>
