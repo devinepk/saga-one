@@ -10,7 +10,11 @@
     <title>@yield('title')</title>
 </head>
 <body class="@yield('body_classes')">
+    <div id="app">
+
     @yield('body')
+
+    </div>
 
     <script src="/js/app.js"></script>
     @yield('bottom_of_body')
