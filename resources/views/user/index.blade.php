@@ -17,7 +17,7 @@
                         <div class="col-lg">
                             <h2 class="card-title text-center"><a href="/journal">{{ $journal['title'] }}</a></h2>
                             <nav class="nav flex-column">
-                                <a class="nav-link py-1" href="/journal/write"><i class="fas fa-fw fa-plus mr-2"></i>Write</a>
+                                <a class="nav-link py-1" href="/journal/write"><i class="fas fa-fw fa-pencil-alt mr-2"></i>Write</a>
                                 <a class="nav-link py-1" href="/journal/read"><i class="fas fa-fw fa-book-reader mr-2"></i>Read</a>
                                 <a class="nav-link py-1" href="/journal/contents"><i class="fab fa-fw fa-readme mr-2"></i>Contents</a>
                                 <a class="nav-link py-1" href="/journal/invite"><i class="fas fa-fw fa-user-plus mr-2"></i>Invite</a>
