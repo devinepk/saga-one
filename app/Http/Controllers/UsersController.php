@@ -56,4 +56,10 @@ class UsersController extends Controller
     {
         return view('user.account', ['user' => Auth::user()]);
     }
+
+    public function logout()
+    {
+        Auth::logout();
+        return view('welcome');
+    }
 }

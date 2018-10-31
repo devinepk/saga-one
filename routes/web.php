@@ -20,15 +20,17 @@ Route::prefix('journal')->group(function() {
     Route::get('read', 'JournalController@read');
     Route::get('write', 'JournalController@write');
     Route::get('create', 'JournalController@create');
-    Route::get('invite', 'JournalController@invite');
+    Route::get('invite', 'JournalController@invite')->middleware('verified');
 
 });
 
 Route::prefix('user')->group(function() {
 
-    Route::get('/', 'UsersController@index');
+    Route::get('/', 'UsersController@index')->name('dashboard');
     Route::get('account', 'UsersController@account');
 
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
+
+Route::get('logout', 'UsersController@logout');

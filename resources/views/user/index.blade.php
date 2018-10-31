@@ -4,7 +4,7 @@
 
 @section('page-content')
 <main class="container">
-    <h1 class="my-5">Bob's Journals</h1>
+    <h1 class="my-5">Your journals</h1>
     <div class="row">
     @foreach ($journals as $journal)
         <div class="col-sm col-xl-4">
