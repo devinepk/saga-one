@@ -15,14 +15,16 @@
         </div>
         <div class="col-md">
             <form class="container" method="post" action="">
+                @csrf
+
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input id="name" name="name" type="text" class="form-control" value="Bobby Bob">
+                    <input id="name" name="name" type="text" class="form-control" value="{{ $user->name }}">
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input id="email" name="email" type="email" class="form-control" value="bobby@example.com">
+                    <input id="email" name="email" type="email" class="form-control" value="{{ $user->email }}">
                 </div>
 
                 <div class="form-group">

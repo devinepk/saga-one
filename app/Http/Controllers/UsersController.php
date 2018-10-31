@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -41,11 +42,18 @@ class UsersController extends Controller
         ]
     ];
 
-    public function index() {
-        return view('user.index', ['journals' => [$this->journal1, $this->journal2, $this->journal3]]);
+    public function __construct()
+    {
+        $this->middleware('auth');
     }
 
-    public function account() {
-        return view('user.account');
+    public function index(Request $request)
+    {
+        return view('user.index', ['user' => Auth::user(), 'journals' => [$this->journal1, $this->journal2, $this->journal3]]);
+    }
+
+    public function account(Request $request)
+    {
+        return view('user.account', ['user' => Auth::user()]);
     }
 }

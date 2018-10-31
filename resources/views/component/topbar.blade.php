@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark text-light p-0 shadow">
     <a class="brand navbar-brand mx-3" href="/"><span class="saga">Saga</span>one</a>
 
+
     @if (isset($journal))
         <a class="nav-link d-md-none text-light" href="/journal"><font-awesome-icon :icon="['fab', 'readme']"></font-awesome-icon><span class="ml-2">{{ $journal['title'] }}</span></a>
     @endif
@@ -11,6 +12,8 @@
 
     <div class="collapse navbar-collapse justify-content-end" id="navMenu">
         <ul class="navbar-nav">
+
+            @auth
             <li class="nav-item dropdown px-3">
                 <a class="nav-link" id="notificationsLabel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><font-awesome-icon icon="bell"></font-awesome-icon><span class="ml-2">Notifications</span><span class="badge badge-light rounded ml-2 align-text-bottom">1</span></a>
 
@@ -22,7 +25,7 @@
             </li>
 
             <li class="nav-item dropdown px-3">
-                <a class="nav-link dropdown-toggle" id="userMenuLabel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><font-awesome-icon icon="user"></font-awesome-icon><span class="ml-2">Bobby Bob</span></a>
+                <a class="nav-link dropdown-toggle" id="userMenuLabel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><font-awesome-icon icon="user"></font-awesome-icon><span class="ml-2">{{ $user->name }}</span></a>
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenuLabel">
                     <a class="dropdown-item" href="/user/account"><font-awesome-icon icon="user-circle"></font-awesome-icon><span class="ml-2">Account</span></a>
@@ -30,9 +33,19 @@
                     <a class="dropdown-item" href="/user"><font-awesome-icon icon="book"></font-awesome-icon><span class="ml-2">Journals</span></a>
                     <a class="dropdown-item" href="/journal/create"><font-awesome-icon icon="plus"></font-awesome-icon><span class="ml-2">Create a journal</span></a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#"><font-awesome-icon icon="sign-out-alt"></font-awesome-icon><span class="ml-2">Log out</span></a>
+                    <a class="dropdown-item" href="{{ route('logout') }}"><font-awesome-icon icon="sign-out-alt"></font-awesome-icon><span class="ml-2">Log out</span></a>
                 </div>
             </li>
+            @else
+            <a href="{{ route('login') }}">Login</a>
+
+            @if (Route::has('register'))
+                <a href="{{ route('register') }}">Register</a>
+            @endif
+
+            @endauth
         </ul>
     </div>
+
 </nav>
+

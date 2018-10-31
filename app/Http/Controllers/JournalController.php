@@ -53,7 +53,13 @@ class JournalController extends Controller
         ['author' => 'Bobby Bob', 'message' => 'Will do!']
     ];
 
-    public function index() {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function index()
+    {
         $entries = [
             ['title' => 'Entry 5', 'author' => 'Boris Bobford', 'created' => 'October 1, 2018 at 3:37 PM', 'excerpt' => 'Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic...'],
             ['title' => 'Entry 4', 'author' => 'Boris Bobford', 'created' => 'October 1, 2018 at 3:37 PM', 'excerpt' => 'Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic...']
@@ -61,7 +67,8 @@ class JournalController extends Controller
         return view('journal.index', ['journal' => $this->journal1, 'entries' => $entries]);
     }
 
-    public function contents() {
+    public function contents()
+    {
         $entries = [
             ['title' => 'Entry 1', 'author' => 'Bobbert Bob', 'created' => 'October 1, 2018 at 3:37 PM', 'excerpt' => 'Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic...'],
             ['title' => 'Entry 2', 'author' => 'Bobby Bob', 'created' => 'October 1, 2018 at 3:37 PM', 'excerpt' => 'Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic...'],
@@ -73,20 +80,24 @@ class JournalController extends Controller
         return view('journal.contents', ['journal' => $this->journal1, 'entries' => $entries]);
     }
 
-    public function read() {
+    public function read()
+    {
 
         return view('journal.read', ['journal' => $this->journal1, 'entry' => $this->entry, 'comments' => $this->comments]);
     }
 
-    public function write() {
+    public function write()
+    {
         return view('journal.write', ['journal' => $this->journal1, 'entry' => $this->entry]);
     }
 
-    public function create() {
+    public function create()
+    {
         return view('journal.create');
     }
 
-    public function invite() {
+    public function invite()
+    {
         return view('journal.invite', ['journal' => $this->journal1]);
     }
 }
