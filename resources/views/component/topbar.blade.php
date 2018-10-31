@@ -1,6 +1,10 @@
 <nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark text-light p-0 shadow">
     <a class="brand navbar-brand mx-3" href="/"><span class="saga">Saga</span>one</a>
 
+    @if ($journal)
+        <a class="nav-link d-md-none text-light" href="/journal"><i class="fab fa-fw fa-readme mr-2"></i>{{ $journal['title'] }}</a>
+    @endif
+
     <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navMenu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>

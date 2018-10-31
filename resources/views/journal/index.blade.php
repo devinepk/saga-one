@@ -3,25 +3,37 @@
 @section('page-title', $journal['title'])
 
 @section('journal-content')
-<div class="container p-md-5">
+<div class="container pb-5 p-md-5">
 
-    <div class="float-right m-2 text-right">
+    <button type="button" class="d-md-none btn btn-block btn-info mb-4">Deliver this journal to Bobbert<i class="fas fa-arrow-alt-circle-right ml-2"></i></button>
+    <div class="d-none d-md-block float-right">
         <button type="button" class="btn btn-info">Deliver this journal to Bobbert<i class="fas fa-arrow-alt-circle-right ml-2"></i></button>
     </div>
 
     <h1>{{ $journal['title'] }}</h1>
     <p class="font-italic">{{ $journal['description'] }}</p>
+    <table class="mb-3"><tr><th>Countdown:</th><td>23 hours, 23 minutes</td></tr></table>
 
-    <div class="alert alert-warning alert-dismissible fade show">
+    <div class="my-5 alert alert-warning alert-dismissible fade show">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
         <strong>Time is almost out!</strong> Your time with this journal will end in 23 hours.
     </div>
 
-    <table class="mb-3"><tr><th>Countdown:</th><td>23 hours, 23 minutes</td></tr></table>
 
-    <h2>Latest entries</h2>
+    @if ($journal['participants'])
+    <div class="d-md-none mb-4">
+        <h6 class="mx-3">In this journal:</h6>
+        <div class="list-group">
+            @foreach ($journal['participants'] as $participant)
+                <a class="list-group-item list-group-item-action" href="#"><i class="fas fa-user list-user-pic"></i>{{ $participant['name'] }}</a>
+            @endforeach
+        </div>
+    </div>
+    @endif
+
+    <h2>Your entries</h2>
     @foreach ($entries as $entry)
         <entry-card
             title="{{ $entry['title'] }}"
