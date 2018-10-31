@@ -10289,7 +10289,8 @@ a.text-dark:focus {
           justify-content: center;
 }
 
-.below-topbar {
+.below-topbar,
+.belowTopbar {
   padding-top: 64px;
 }
 
