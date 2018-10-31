@@ -37,12 +37,12 @@
                 </div>
             </li>
             @else
-            <a href="{{ route('login') }}">Login</a>
-
-            @if (Route::has('register'))
-                <a href="{{ route('register') }}">Register</a>
-            @endif
-
+            <li class="nav-item px-3">
+                <a class="nav-link" href="{{ route('login') }}">Login</a>
+            </li>
+            <li class="nav-item px-3">
+                <a class="nav-link" href="{{ route('register') }}">Register</a>
+            </li>
             @endauth
         </ul>
     </div>
