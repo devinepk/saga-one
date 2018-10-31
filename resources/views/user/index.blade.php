@@ -17,10 +17,10 @@
                         <div class="col-lg">
                             <h2 class="card-title text-center"><a href="/journal">{{ $journal['title'] }}</a></h2>
                             <nav class="nav flex-column">
-                                <a class="nav-link py-1" href="/journal/write"><i class="fas fa-fw fa-pencil-alt mr-2"></i>Write</a>
-                                <a class="nav-link py-1" href="/journal/read"><i class="fas fa-fw fa-book-reader mr-2"></i>Read</a>
-                                <a class="nav-link py-1" href="/journal/contents"><i class="fab fa-fw fa-readme mr-2"></i>Contents</a>
-                                <a class="nav-link py-1" href="/journal/invite"><i class="fas fa-fw fa-user-plus mr-2"></i>Invite</a>
+                                <a class="nav-link py-1" href="/journal/write"><font-awesome-icon icon="pencil-alt"></font-awesome-icon><span class="ml-2">Write</span></a>
+                                <a class="nav-link py-1" href="/journal/read"><font-awesome-icon icon="book-reader"></font-awesome-icon><span class="ml-2">Read</span></a>
+                                <a class="nav-link py-1" href="/journal/contents"><font-awesome-icon :icon="['fab', 'readme']"></font-awesome-icon><span class="ml-2">Contents</span></a>
+                                <a class="nav-link py-1" href="/journal/invite"><font-awesome-icon icon="user-plus"></font-awesome-icon><span class="ml-2">Invite</span></a>
                             </nav>
                         </div>
                     </div>
@@ -30,7 +30,7 @@
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item"><h5 class="m-0">Next up for this journal:</h5></li>
                     @foreach ($journal['participants'] as $participant)
-                        <li class="list-group-item"><a href="#"><i class="fas fa-user list-user-pic"></i>{{ $participant['name'] }}</a></li>
+                        <li class="list-group-item"><a href="#"><font-awesome-icon icon="user"></font-awesome-icon><span class="ml-2">{{ $participant['name'] }}</span></a></li>
                     @endforeach
                 </ul>
 

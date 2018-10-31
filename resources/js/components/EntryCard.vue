@@ -1,7 +1,7 @@
 <template>
 <div class="card mb-5">
     <div class="card-header">
-        <a v-if="editUrl" class="float-right m-2 text-muted" :href="editUrl"><i class="fas fa-edit"></i></a>
+        <a v-if="editUrl" class="float-right m-2 text-muted" :href="editUrl"><font-awesome-icon icon="edit" /></a>
         <h2 class="m-0"><a :href="readUrl">{{ title }}</a><span v-if="unread" class="badge badge-info ml-3 rounded">unread</span></h2>
     </div>
     <div class="card-body">

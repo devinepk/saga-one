@@ -7,7 +7,7 @@
             <h6 class="mx-3 mt-5">In this journal:</h6>
             <div class="list-group list-group-flush border-right border-bottom">
                 @foreach ($journal['participants'] as $participant)
-                    <a class="list-group-item list-group-item-action" href="#"><i class="fas fa-user list-user-pic"></i>{{ $participant['name'] }}</a>
+                    <a class="list-group-item list-group-item-action" href="#"><font-awesome-icon icon="user"></font-awesome-icon><span class="ml-2">{{ $participant['name'] }}</span></a>
                 @endforeach
             </div>
         </div>
