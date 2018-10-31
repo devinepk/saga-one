@@ -21,7 +21,7 @@
     </div>
 
     <div class="col-lg-4 p-2">
-        <div class="card">
+        <div class="card mb-3">
             <div class="card-body border-0">
                 @foreach ($comments as $comment)
                 <entry-comment author="{{ $comment['author'] }}">
