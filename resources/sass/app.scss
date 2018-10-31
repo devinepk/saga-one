@@ -90,16 +90,10 @@
 /**
  * ENTRY EDITOR
  */
-#edit-content {
-    #editor, .ql-toolbar.ql-snow {
-        border-left: 0;
-        border-right: 0;
-    }
-}
-#editor {
+
+#editor, #toolbar, .ql-editor {
+    border: 0;
     font-size: $font-size-lg;
     font-family: $font-family-base;
-    p {
-        line-height: $line-height-base;
-    }
+    line-height: $line-height-base;
 }
