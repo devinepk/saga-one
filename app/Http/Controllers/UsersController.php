@@ -44,4 +44,8 @@ class UsersController extends Controller
     public function index() {
         return view('user.index', ['journals' => [$this->journal1, $this->journal2, $this->journal3]]);
     }
+
+    public function account() {
+        return view('user.account');
+    }
 }
