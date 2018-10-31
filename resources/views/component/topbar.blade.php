@@ -25,7 +25,7 @@
             </li>
 
             <li class="nav-item dropdown px-3">
-                <a class="nav-link dropdown-toggle" id="userMenuLabel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><font-awesome-icon icon="user"></font-awesome-icon><span class="ml-2">{{ $user->name }}</span></a>
+                <a class="nav-link dropdown-toggle" id="userMenuLabel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><font-awesome-icon icon="user"></font-awesome-icon><span class="ml-2">{{ Auth::user()->name }}</span></a>
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenuLabel">
                     <a class="dropdown-item" href="/user/account"><font-awesome-icon icon="user-circle"></font-awesome-icon><span class="ml-2">Account</span></a>

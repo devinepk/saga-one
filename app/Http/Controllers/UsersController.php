@@ -49,12 +49,12 @@ class UsersController extends Controller
 
     public function index(Request $request)
     {
-        return view('user.index', ['user' => Auth::user(), 'journals' => [$this->journal1, $this->journal2, $this->journal3]]);
+        return view('user.index', ['journals' => [$this->journal1, $this->journal2, $this->journal3]]);
     }
 
     public function account(Request $request)
     {
-        return view('user.account', ['user' => Auth::user()]);
+        return view('user.account');
     }
 
     public function logout()

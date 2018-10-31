@@ -1,9 +1,13 @@
-@extends('layouts.app')
+@extends('layout.page')
 
-@section('content')
+@section('page-title', 'Verify your email')
+
+@section('body_classes', 'bg-primary')
+
+@section('page-content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-8 pt-5">
             <div class="card">
                 <div class="card-header">{{ __('Verify Your Email Address') }}</div>
 
