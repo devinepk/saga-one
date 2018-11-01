@@ -14,7 +14,13 @@
     @if ($journal->description)
     <p class="font-italic">{{ $journal->description }}</p>
     @endif
-    <table class="mb-3"><tr><th>Countdown:</th><td>23 hours, 23 minutes</td></tr></table>
+
+    {{-- Journal actions --}}
+    <nav class="nav my-3">
+        <a class="nav-link" href="{{ route('journal.edit', $journal) }}"><font-awesome-icon icon="edit"></font-awesome-icon><span class="ml-2">Edit</span></a>
+    </nav>
+
+    <table class="my-3"><tr><th>Countdown:</th><td>23 hours, 23 minutes</td></tr></table>
 
     <div class="my-4 alert alert-warning alert-dismissible fade show">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">

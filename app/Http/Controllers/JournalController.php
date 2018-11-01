@@ -22,7 +22,8 @@ class JournalController extends Controller
      */
     public function index()
     {
-        return view('journal.index', ['journals' => Journal::all()]);
+        $journals = Journal::all();
+        return view('journal.index', compact('journals'));
     }
 
     /**
@@ -49,7 +50,7 @@ class JournalController extends Controller
         $journal->title = $request->title;
         $journal->description = $request->description;
         $journal->save();
-        return redirect()->route('journal.show', ['journal' => $journal]);
+        return redirect()->route('journal.show', compact('journal'));
     }
 
     /**
@@ -60,7 +61,7 @@ class JournalController extends Controller
      */
     public function show(Journal $journal)
     {
-        return view('journal.show', ['journal' => $journal]);
+        return view('journal.show', compact('journal'));
     }
 
     /**
@@ -71,7 +72,7 @@ class JournalController extends Controller
      */
     public function edit(Journal $journal)
     {
-        //
+        return view('journal.edit', compact('journal'));
     }
 
     /**
@@ -83,7 +84,12 @@ class JournalController extends Controller
      */
     public function update(Request $request, Journal $journal)
     {
-        //
+        // TODO: Validate the request
+
+        $journal->title = $request->title;
+        $journal->description = $request->description;
+        $journal->save();
+        return redirect()->route('journal.show', compact('journal'));
     }
 
     /**
