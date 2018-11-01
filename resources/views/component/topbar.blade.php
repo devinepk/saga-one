@@ -33,7 +33,15 @@
                     <a class="dropdown-item" href="/user"><font-awesome-icon icon="book"></font-awesome-icon><span class="ml-2">Journals</span></a>
                     <a class="dropdown-item" href="/journal/create"><font-awesome-icon icon="plus"></font-awesome-icon><span class="ml-2">Create a journal</span></a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ route('logout') }}"><font-awesome-icon icon="sign-out-alt"></font-awesome-icon><span class="ml-2">Log out</span></a>
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                        <font-awesome-icon icon="sign-out-alt"></font-awesome-icon><span class="ml-2">{{ __('Logout') }}</span>
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                 </div>
             </li>
             @else
