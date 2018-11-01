@@ -47,11 +47,6 @@ class UsersController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(Request $request)
-    {
-        return view('user.index', ['journals' => [$this->journal1, $this->journal2, $this->journal3]]);
-    }
-
     public function account(Request $request)
     {
         return view('user.account');

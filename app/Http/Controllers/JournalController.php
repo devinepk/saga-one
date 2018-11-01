@@ -14,7 +14,8 @@ class JournalController extends Controller
      */
     public function index()
     {
-        //
+        // return "This is journal.index";
+        return view('journal.index', ['journals' => Journal::all()]);
     }
 
     /**
@@ -52,7 +53,7 @@ class JournalController extends Controller
      */
     public function show(Journal $journal)
     {
-        return view('journal.index', ['journal' => $journal]);
+        return view('journal.show', ['journal' => $journal]);
     }
 
     /**

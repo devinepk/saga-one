@@ -15,11 +15,8 @@ Route::view('/', 'welcome');
 
 Route::resource('journal', 'JournalController');
 
-Route::prefix('user')->group(function() {
-
-    Route::get('/', 'UsersController@index')->name('dashboard');
-    Route::get('account', 'UsersController@account');
-
+Route::name('user.')->group(function () {
+    Route::get('account', 'UsersController@account')->name('account');
 });
 
 Auth::routes(['verify' => true]);
