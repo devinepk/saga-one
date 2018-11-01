@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark text-light p-0 shadow">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark text-light p-0 shadow">
     <a class="brand navbar-brand mx-3" href="/"><span class="saga">Saga</span>one</a>
 
     <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navMenu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

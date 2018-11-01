@@ -14,7 +14,8 @@
 Route::view('/', 'welcome');
 
 Route::resource('journal', 'JournalController');
-Route::get('journal/invite/{journal}', 'JournalController@invite')->name('journal.invite');
+Route::get('journal/{journal}/invite', 'JournalController@invite')->name('journal.invite');
+Route::get('journal/{journal}/contents', 'JournalController@contents')->name('journal.contents');
 
 Route::get('account', 'UsersController@account')->name('user.account');
 

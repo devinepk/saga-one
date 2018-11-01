@@ -20,9 +20,9 @@
                         </div>
                         <div class="col-lg">
                             <nav class="nav flex-column">
-                                <a class="nav-link py-1" href="/journal/write"><font-awesome-icon icon="pencil-alt"></font-awesome-icon><span class="ml-2">Write</span></a>
-                                <a class="nav-link py-1" href="/journal/read"><font-awesome-icon icon="book-reader"></font-awesome-icon><span class="ml-2">Read</span></a>
-                                <a class="nav-link py-1" href="{{ route('journal.show', $journal) }}"><font-awesome-icon :icon="['fab', 'readme']"></font-awesome-icon><span class="ml-2">Contents</span></a>
+                                <a class="nav-link py-1" href="#"><font-awesome-icon icon="pencil-alt"></font-awesome-icon><span class="ml-2">Write</span></a>
+                                <a class="nav-link py-1" href="#"><font-awesome-icon icon="book-reader"></font-awesome-icon><span class="ml-2">Read</span></a>
+                                <a class="nav-link py-1" href="{{ route('journal.contents', $journal) }}"><font-awesome-icon :icon="['fab', 'readme']"></font-awesome-icon><span class="ml-2">Contents</span></a>
                                 <a class="nav-link py-1" href="{{ route('journal.invite', $journal) }}"><font-awesome-icon icon="user-plus"></font-awesome-icon><span class="ml-2">Invite</span></a>
                             </nav>
                         </div>
@@ -42,7 +42,7 @@
                 </div>
                 @else
                 <div class="card-footer">
-                    <span>No one else is participating in this journal. <a href="/journal/invite">Invite a friend!</a></span>
+                    <span>No one else is participating in this journal. The real magic begins when you share this journal with others. <a href="/journal/invite">Invite a friend</a> now!</span>
                 </div>
                 @endif
             </div>
