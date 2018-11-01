@@ -5,6 +5,11 @@
 @section('page-content')
 <main class="container">
     <h1 class="my-5">My journals</h1>
+    @if (session('status'))
+        <div class="alert alert-success" role="alert">
+            {{ session('status') }}
+        </div>
+    @endif
     <div class="row">
     @foreach ($journals as $journal)
         <div class="col-sm col-lg-4">
