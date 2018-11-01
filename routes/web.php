@@ -15,8 +15,6 @@ Route::view('/', 'welcome');
 
 Route::resource('journal', 'JournalController');
 
-Route::name('user.')->group(function () {
-    Route::get('account', 'UsersController@account')->name('account');
-});
+Route::get('account', 'UsersController@account')->name('user.account');
 
 Auth::routes(['verify' => true]);
