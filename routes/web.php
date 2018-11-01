@@ -13,16 +13,7 @@
 
 Route::view('/', 'welcome');
 
-Route::prefix('journal')->group(function() {
-
-    Route::get('/', 'JournalController@index');
-    Route::get('contents', 'JournalController@contents');
-    Route::get('read', 'JournalController@read');
-    Route::get('write', 'JournalController@write');
-    Route::get('create', 'JournalController@create');
-    Route::get('invite', 'JournalController@invite')->middleware('verified');
-
-});
+Route::resource('journal', 'JournalController');
 
 Route::prefix('user')->group(function() {
 

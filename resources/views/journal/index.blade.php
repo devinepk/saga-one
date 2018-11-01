@@ -1,6 +1,6 @@
 @extends('layout.journal')
 
-@section('page-title', $journal['title'])
+@section('page-title', $journal->title)
 
 @section('journal-content')
 <div class="container pb-5 p-md-5">
@@ -10,8 +10,8 @@
         <button type="button" class="btn btn-info">Deliver this journal to Bobbert<i class="fas fa-arrow-alt-circle-right ml-2"></i></button>
     </div>
 
-    <h1>{{ $journal['title'] }}</h1>
-    <p class="font-italic">{{ $journal['description'] }}</p>
+    <h1>{{ $journal->title }}</h1>
+    <p class="font-italic">{{ $journal->description }}</p>
     <table class="mb-3"><tr><th>Countdown:</th><td>23 hours, 23 minutes</td></tr></table>
 
     <div class="my-4 alert alert-warning alert-dismissible fade show">
@@ -36,6 +36,7 @@
     <a class="my-4 btn btn-block btn-primary" href="/journal/write"><font-awesome-icon icon="plus"></font-awesome-icon><span class="ml-2">Add a new entry</span></a>
 
     <h2>Your entries</h2>
+    @if (isset($entries))
     @foreach ($entries as $entry)
         <entry-card
             title="{{ $entry['title'] }}"
@@ -48,6 +49,7 @@
             {!! $entry['excerpt'] !!}
         </entry-card>
     @endforeach
+    @endif
 
 </div>
 @endsection

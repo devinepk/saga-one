@@ -5,8 +5,9 @@
 @section('page-content')
 <main class="container p-md-5">
     <h1>Create a new journal</h1>
-    <form method="post" action="">
+    <form method="post" action="/journal/">
         @csrf
+        <input type="hidden" name="action" value="store">
         <div class="form-group my-5">
             <label for="title">Give this journal a title:</label>
             <input class="form-control" id="title" name="title">

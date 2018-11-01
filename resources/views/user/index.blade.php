@@ -46,6 +46,6 @@
         </div>
     @endforeach
     </div>
-    <a class="btn btn-block btn-primary py-3 mb-5" href="/journal/create"><i class="fas fa-plus"></i></a>
+    <a class="btn btn-block btn-primary py-3 mb-5" href="/journal/create"><font-awesome-icon icon="plus"></font-awesome-icon></a>
 </main>
 @endsection
