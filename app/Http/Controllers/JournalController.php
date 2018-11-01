@@ -8,13 +8,20 @@ use Illuminate\Http\Request;
 class JournalController extends Controller
 {
     /**
+     * Require authentication
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        // return "This is journal.index";
         return view('journal.index', ['journals' => Journal::all()]);
     }
 
@@ -88,5 +95,16 @@ class JournalController extends Controller
     public function destroy(Journal $journal)
     {
         //
+    }
+
+    /**
+     * Display journal invitation form
+     *
+     * @param  \App\Journal  $journal
+     * @return \Illuminate\Http\Response
+     */
+    public function invite(Journal $journal)
+    {
+        return view('journal.invite', compact('journal'));
     }
 }

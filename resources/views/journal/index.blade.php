@@ -4,23 +4,26 @@
 
 @section('page-content')
 <main class="container">
-    <h1 class="my-5">Your journals</h1>
+    <h1 class="my-5">My journals</h1>
     <div class="row">
     @foreach ($journals as $journal)
-        <div class="col-sm col-xl-4">
+        <div class="col-sm col-lg-4">
             <div class="card journal-card border-0 mb-5">
                 <div class="card-body">
+                    <h2 class="card-title"><a href="{{ route('journal.show', $journal) }}">{{ $journal->title }}</a></h2>
+                    @if ($journal->description)
+                    <p class="font-italic">{{ $journal->description }}</p>
+                    @endif
                     <div class="row">
                         <div class="col-lg mb-3 text-center">
-                            <a href="/journal"><img src="{{ $journal['cover_url'] }}" width="150" height="217"></a>
+                            <a href="{{ route('journal.show', $journal) }}"><img src="{{ asset('/img/cover1.jpg') }}" width="150" height="217"></a>
                         </div>
                         <div class="col-lg">
-                            <h2 class="card-title text-center"><a href="/journal">{{ $journal['title'] }}</a></h2>
                             <nav class="nav flex-column">
                                 <a class="nav-link py-1" href="/journal/write"><font-awesome-icon icon="pencil-alt"></font-awesome-icon><span class="ml-2">Write</span></a>
                                 <a class="nav-link py-1" href="/journal/read"><font-awesome-icon icon="book-reader"></font-awesome-icon><span class="ml-2">Read</span></a>
-                                <a class="nav-link py-1" href="/journal/contents"><font-awesome-icon :icon="['fab', 'readme']"></font-awesome-icon><span class="ml-2">Contents</span></a>
-                                <a class="nav-link py-1" href="/journal/invite"><font-awesome-icon icon="user-plus"></font-awesome-icon><span class="ml-2">Invite</span></a>
+                                <a class="nav-link py-1" href="{{ route('journal.show', $journal) }}"><font-awesome-icon :icon="['fab', 'readme']"></font-awesome-icon><span class="ml-2">Contents</span></a>
+                                <a class="nav-link py-1" href="{{ route('journal.invite', $journal) }}"><font-awesome-icon icon="user-plus"></font-awesome-icon><span class="ml-2">Invite</span></a>
                             </nav>
                         </div>
                     </div>

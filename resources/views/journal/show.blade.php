@@ -11,7 +11,9 @@
     </div>
 
     <h1>{{ $journal->title }}</h1>
+    @if ($journal->description)
     <p class="font-italic">{{ $journal->description }}</p>
+    @endif
     <table class="mb-3"><tr><th>Countdown:</th><td>23 hours, 23 minutes</td></tr></table>
 
     <div class="my-4 alert alert-warning alert-dismissible fade show">
