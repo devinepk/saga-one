@@ -18,6 +18,8 @@
     {{-- Journal actions --}}
     <nav class="nav my-3">
         <a class="nav-link" href="{{ route('journal.edit', $journal) }}"><font-awesome-icon icon="edit"></font-awesome-icon><span class="ml-2">Edit</span></a>
+        <a class="nav-link" href="{{ route('journal.destroy', $journal) }}" onclick="event.preventDefault(); document.getElementById('delete-form').submit();"><font-awesome-icon icon="trash-alt"></font-awesome-icon><span class="ml-2">Delete</span></a>
+        <form id="delete-form" action="{{ route('journal.destroy', $journal) }}" method="POST" style="display: none;">@method('DELETE')@csrf</form>
     </nav>
 
     <table class="my-3"><tr><th>Countdown:</th><td>23 hours, 23 minutes</td></tr></table>

@@ -93,14 +93,15 @@ class JournalController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Perform a soft delete
      *
      * @param  \App\Journal  $journal
      * @return \Illuminate\Http\Response
      */
     public function destroy(Journal $journal)
     {
-        //
+        $journal->delete();
+        return redirect()->route('journal.index');
     }
 
     /**
