@@ -6,6 +6,7 @@
 <main class="container p-md-5">
     <h1>Create a new journal</h1>
     <form method="post" action="">
+        @csrf
         <div class="form-group my-5">
             <label for="title">Give this journal a title:</label>
             <input class="form-control" id="title" name="title">
