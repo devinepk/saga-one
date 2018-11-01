@@ -46,10 +46,10 @@
             </li>
             @else
             <li class="nav-item px-3">
-                <a class="nav-link" href="{{ route('login') }}">Login</a>
+                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
             </li>
             <li class="nav-item px-3">
-                <a class="nav-link" href="{{ route('register') }}">Register</a>
+                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
             </li>
             @endauth
         </ul>
