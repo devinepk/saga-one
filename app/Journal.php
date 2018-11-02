@@ -38,7 +38,7 @@ class Journal extends Model
     public function users()
     {
         return $this->belongsToMany('App\User')
-            ->as('subscriber')
+            ->as('subscription')
             ->withPivot('next_user_id', 'deleted_at')
             ->withTimestamps();
     }

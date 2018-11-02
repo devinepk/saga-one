@@ -51,7 +51,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function journals()
     {
         return $this->belongsToMany('App\Journal')
-            ->as('subscriber')
+            ->as('subscription')
             ->withPivot('next_user_id', 'deleted_at')
             ->withTimestamps();
     }

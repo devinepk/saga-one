@@ -23,8 +23,12 @@ class JournalController extends Controller
      */
     public function index()
     {
-        // $journals = Journal::all();
         $journals = Auth::user()->journals;
+
+        // Load the queue for each journal
+        foreach ($journals as $journal) {
+            $journal->queue = $this->get_queue($journal);
+        }
         return view('journal.index', compact('journals'));
     }
 
@@ -134,5 +138,53 @@ class JournalController extends Controller
         ];
 
         return view('journal.contents', compact('journal', 'entries'));
+    }
+
+
+    /**
+     * Get the queue of users that belong to this journal,
+     * starting with the current user.
+     *
+     * @param  \App\Journal  $journal
+     * @return \Illuminate\Support\Collection
+     *
+     * THERE IS PROBABLY A CLEARER WAY TO DO THIS...
+     * The problem is that $this->current_user doesn't come preloaded
+     * with info from the pivot table. But $this->users does...
+     */
+    public function get_queue(Journal $journal)
+    {
+        $queue = [];
+        $user = $journal->users->search(function ($user, $key) use ($journal) {
+            return $user->id == $journal->current_user->id;
+        });
+        $user = $journal->users->get($user);
+        do {
+            $queue[] = $user;
+            $user = $this->next_user($journal, $user);
+        } while ($user->id != $journal->current_user->id);
+
+        return $queue;
+    }
+
+    /**
+     * Utility function
+     * Finds the next user in the queue for a given user
+     *
+     * @param \App\Journal $journal
+     * @param \App\User $user
+     * @return \App\User
+     */
+    public function next_user(Journal $journal, \App\User $user) {
+        $temp_user = $journal->users->search(function ($item, $key) use ($user) {
+            return $item->id == $user->id;
+        });
+        $temp_user = $journal->users->get($temp_user);
+
+        $temp_user =  $journal->users->search(function ($item, $key) use ($temp_user) {
+            return $item->id == $temp_user->subscription->next_user_id;
+        });
+
+        return $journal->users->get($temp_user);
     }
 }
