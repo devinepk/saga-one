@@ -17,6 +17,8 @@ Route::get('journal/{journal}/invite', 'JournalController@invite')->name('journa
 Route::get('journal/{journal}/contents', 'JournalController@contents')->name('journal.contents');
 Route::resource('journal', 'JournalController');
 
+Route::resource('entry', 'EntryController');
+
 Route::get('account', 'UsersController@account')->name('user.account');
 
 Auth::routes(['verify' => true]);
