@@ -13,7 +13,7 @@
 
             <ul class="list-group list-group-flush border-right border-bottom">
 
-                @foreach ($journal->users as $user)
+                @foreach ($journal->queue as $user)
 
                     <li class="list-group-item list-group-item-action">
 

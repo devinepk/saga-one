@@ -67,6 +67,7 @@ class JournalController extends Controller
      */
     public function show(Journal $journal)
     {
+        $journal->queue = $this->get_queue($journal);
         return view('journal.show', compact('journal'));
     }
 
@@ -118,6 +119,7 @@ class JournalController extends Controller
      */
     public function invite(Journal $journal)
     {
+        $journal->queue = $this->get_queue($journal);
         return view('journal.invite', compact('journal'));
     }
 
@@ -136,6 +138,8 @@ class JournalController extends Controller
             ['title' => 'Entry 4', 'author' => 'Boris Bobford', 'created' => 'October 1, 2018 at 3:37 PM', 'excerpt' => 'Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic...'],
             ['title' => 'Entry 5', 'author' => 'Boris Bobford', 'created' => 'October 1, 2018 at 3:37 PM', 'excerpt' => 'Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic...']
         ];
+
+        $journal->queue = $this->get_queue($journal);
 
         return view('journal.contents', compact('journal', 'entries'));
     }
