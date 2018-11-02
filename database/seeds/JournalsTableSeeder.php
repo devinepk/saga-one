@@ -26,7 +26,7 @@ class JournalsTableSeeder extends Seeder
             'title' => 'Journal 1',
             'description' => 'A journal for friends',
             'creator_id' => $bobbyBob->id,
-            'current_user_id' => $bobbyBob->id,
+            'current_user_id' => $bobbertBob->id,
             'created_at' => $now,
             'updated_at' => $now
         ]);

@@ -5,11 +5,12 @@
         </a>
 
         <h5 class="text-center mt-1">
-            <a href="{{ route('journal.show', $journal) }}">{{ $journal['title'] }}</a>
+            <a href="{{ route('journal.show', $journal) }}">{{ $journal->title }}</a>
         </h5>
 
+        @if ($journal->queue->count())
         <div>
-            <h6 class="mx-3 mt-5">In this journal:</h6>
+            <h6 class="mx-3 mt-5">Journal queue:</h6>
 
             <ul class="list-group list-group-flush border-right border-bottom">
 
@@ -26,4 +27,5 @@
 
             </ul>
         </div>
+        @endif
 </nav>
