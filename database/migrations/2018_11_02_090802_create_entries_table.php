@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateJournalUserTable extends Migration
+class CreateEntriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,16 @@ class CreateJournalUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('journal_user', function (Blueprint $table) {
+        Schema::create('entries', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title', 512)->nullable()->default('[Untitled]');
+            $table->text('body')->nullable();
+
             $table->unsignedInteger('journal_id');
             $table->foreign('journal_id')->references('id')->on('journals')->onDelete('cascade');
 
-            $table->unsignedInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
-            $table->unsignedInteger('next_user_id')->nullable();
-            $table->foreign('next_user_id')->references('id')->on('users')->onDelete('cascade');
-
-            $table->primary(['journal_id', 'user_id']);
-            $table->unique(['journal_id', 'next_user_id']);
+            $table->unsignedInteger('author_id');
+            $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->softDeletes();
             $table->timestamps();
@@ -38,6 +36,6 @@ class CreateJournalUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('journal_user');
+        Schema::dropIfExists('entries');
     }
 }

@@ -55,4 +55,12 @@ class User extends Authenticatable implements MustVerifyEmail
             ->withPivot('next_user_id', 'deleted_at')
             ->withTimestamps();
     }
+
+    /**
+     * Get the entries that this user has written
+     */
+    public function entries()
+    {
+        return $this->hasMany('App\Entry', 'author_id');
+    }
 }

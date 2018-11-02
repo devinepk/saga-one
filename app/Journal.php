@@ -42,4 +42,12 @@ class Journal extends Model
             ->withPivot('next_user_id', 'deleted_at')
             ->withTimestamps();
     }
+
+    /**
+     * Get the entries for this journal.
+     */
+    public function entries()
+    {
+        return $this->hasMany('App\Entry');
+    }
 }

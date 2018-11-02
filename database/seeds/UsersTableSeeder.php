@@ -14,7 +14,6 @@ class UsersTableSeeder extends Seeder
         $now = now();
 
         DB::table('users')->insert([
-            'id' => 1,
             'name' => 'Ben Patterson',
             'email' => 'bmizepatterson@gmail.com',
             'password' => bcrypt('benpatterson'),
@@ -24,7 +23,6 @@ class UsersTableSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            'id' => 2,
             'name' => 'Bobby Bob',
             'email' => 'bobbybob@gmail.com',
             'password' => bcrypt('secret'),
@@ -34,7 +32,6 @@ class UsersTableSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            'id' => 3,
             'name' => 'Bobbert Bob',
             'email' => 'bobbertbob@gmail.com',
             'password' => bcrypt('secret'),
@@ -44,7 +41,6 @@ class UsersTableSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            'id' => 4,
             'name' => 'Bonnie Bobbington',
             'email' => 'bonniebobbington@gmail.com',
             'password' => bcrypt('secret'),
@@ -54,7 +50,6 @@ class UsersTableSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            'id' => 5,
             'name' => 'Boris Bobford',
             'email' => 'borisbobford@gmail.com',
             'password' => bcrypt('secret'),
@@ -64,7 +59,6 @@ class UsersTableSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            'id' => 6,
             'name' => 'Billy Bobbly',
             'email' => 'billybobbly@gmail.com',
             'password' => bcrypt('secret'),
@@ -74,7 +68,6 @@ class UsersTableSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            'id' => 7,
             'name' => 'Bongo Bor',
             'email' => 'bongobor@gmail.com',
             'password' => bcrypt('secret'),
