@@ -17,6 +17,10 @@ class CreateJournalsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->text('description')->nullable();
+            $table->unsignedInteger('creator_id');
+            $table->foreign('creator_id')->references('id')->on('users');
+            $table->unsignedInteger('current_user_id');
+            $table->foreign('current_user_id')->references('id')->on('users');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -15,4 +15,31 @@ class Journal extends Model
      * @var array
      */
     protected $dates = ['deleted_at'];
+
+    /**
+     * Get the user that created this journal
+     */
+    public function creator()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    /**
+     * Get the user that currently has this journal in possession
+     */
+    public function current_user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    /**
+     * Get the users that belong to this journal
+     */
+    public function users()
+    {
+        return $this->belongsToMany('App\User')
+            ->as('subscriber')
+            ->withPivot('next_user_id', 'deleted_at')
+            ->withTimestamps();
+    }
 }
