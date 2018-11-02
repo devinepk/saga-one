@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Journal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class JournalController extends Controller
 {
@@ -22,7 +23,8 @@ class JournalController extends Controller
      */
     public function index()
     {
-        $journals = Journal::all();
+        // $journals = Journal::all();
+        $journals = Auth::user()->journals;
         return view('journal.index', compact('journals'));
     }
 

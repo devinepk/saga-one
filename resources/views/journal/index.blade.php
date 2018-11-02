@@ -34,11 +34,11 @@
                     </div>
                 </div>
 
-                @if ($journal['participants'])
+                @if ($journal->users->count() > 1)
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item"><h5 class="m-0">Next up for this journal:</h5></li>
-                    @foreach ($journal['participants'] as $participant)
-                        <li class="list-group-item"><a href="#"><font-awesome-icon icon="user"></font-awesome-icon><span class="ml-2">{{ $participant['name'] }}</span></a></li>
+                    @foreach ($journal->users as $user)
+                        <li class="list-group-item"><font-awesome-icon icon="user"></font-awesome-icon><span class="ml-2">{{ $user->name }}</span></li>
                     @endforeach
                 </ul>
 
