@@ -1,11 +1,28 @@
-@extends('layout.page')
+@extends('layout.master')
 
-@section('page-content')
-<div class="row no-gutters">
-    @include('component.sidebar')
+@section('title')
+    @yield('page-title') | SagaOne
+@endsection
 
-    <main role="main" class="col-md-9 ml-sm-auto">
-        @yield('journal-content')
-    </main>
+@section('body')
+<div class="container-fluid">
+
+    @include('component.topbar')
+
+    <div class="below-topbar">
+
+        <div class="row no-gutters">
+
+            @include('component.sidebar')
+
+            <main role="main" class="col-md-9 ml-sm-auto">
+
+                @include('component.flashMessage')
+
+                @yield('journal-content')
+
+            </main>
+        </div>
+    </div>
 </div>
 @endsection
