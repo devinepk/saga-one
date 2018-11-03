@@ -10,7 +10,8 @@ class Journal extends Model
     use SoftDeletes;
 
     /**
-     * The accessors to append to the model's array form.
+     * The attributes that shoudl be append to the model's array form
+     * and can be accessed with the accessor methods below.
      *
      * @var array
      */
@@ -90,5 +91,20 @@ class Journal extends Model
     public function entries()
     {
         return $this->hasMany('App\Entry');
+    }
+
+    /**
+     * Check whether a given user subscribes to this journal
+     *
+     * @param  \App\User  $user
+     * @return boolean
+     */
+    public function hasUser(User $user) {
+        foreach ($this->users as $journal_user) {
+            if ($user->id == $journal_user->id) {
+                return true;
+            }
+        }
+        return false;
     }
 }

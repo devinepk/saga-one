@@ -61,12 +61,24 @@ class JournalController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Journal  $journal
      * @return \Illuminate\Http\Response
      */
-    public function show(Journal $journal)
+    public function show(Request $request, Journal $journal)
     {
-        return view('journal.show', compact('journal'));
+        // Show the journal to the current user only.
+        if (Auth::id() == $journal->current_user->id) {
+            return view('journal.show', compact('journal'));
+        }
+
+        // Show a flash message if the user belongs to the journal.
+        if (Auth::user()->isInJournal($journal)) {
+            $request->session()->flash('status', "{$journal->current_user->name} has <strong>{$journal->title}</strong> right now. You'll be able to view it when it's your turn.");
+        }
+
+        // Redirect to journal index
+        return redirect()->route('journal.index');
     }
 
     /**

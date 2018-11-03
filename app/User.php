@@ -63,4 +63,19 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany('App\Entry', 'author_id');
     }
+
+    /**
+     * Check whether the user belongs to a given journal
+     *
+     * @param  \App\Journal  $journal
+     * @return boolean
+     */
+    public function isInJournal(Journal $journal) {
+        foreach ($this->journals as $user_journal) {
+            if ($journal->id == $user_journal->id) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
