@@ -53627,7 +53627,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             type: String,
             required: true
         },
-        createdOn: {
+        createdAt: {
             type: String,
             required: true
         },
@@ -53678,7 +53678,7 @@ var render = function() {
     _c("div", { staticClass: "card-footer text-muted" }, [
       _c("span", [
         _vm._v(
-          "Written by " + _vm._s(_vm.author) + " on " + _vm._s(_vm.createdOn)
+          "Written by " + _vm._s(_vm.author) + " on " + _vm._s(_vm.createdAt)
         )
       ])
     ])
@@ -53982,7 +53982,7 @@ module.exports = {
             required: false,
             default: ''
         },
-        createdOn: {
+        createdAt: {
             type: String,
             required: false,
             default: ''
@@ -53992,10 +53992,20 @@ module.exports = {
             required: false,
             default: ''
         },
-        authorUrl: {
+        previousUrl: {
             type: String,
             required: false,
-            default: '#'
+            default: ''
+        },
+        contentsUrl: {
+            type: String,
+            required: false,
+            default: ''
+        },
+        nextUrl: {
+            type: String,
+            required: false,
+            default: ''
         }
     },
 
@@ -54033,7 +54043,10 @@ var render = function() {
         ? _c("nav", { staticClass: "nav justify-content-between mb-4" }, [
             _c(
               "a",
-              { staticClass: "nav-item nav-link", attrs: { href: "#" } },
+              {
+                staticClass: "nav-item nav-link",
+                attrs: { href: _vm.previousUrl }
+              },
               [
                 _c("font-awesome-icon", { attrs: { icon: "backward" } }),
                 _c("span", { staticClass: "d-none d-md-inline ml-2" }, [
@@ -54045,13 +54058,19 @@ var render = function() {
             _vm._v(" "),
             _c(
               "a",
-              { staticClass: "nav-item nav-link", attrs: { href: "#" } },
+              {
+                staticClass: "nav-item nav-link",
+                attrs: { href: _vm.contentsUrl }
+              },
               [_vm._v("Table of Contents")]
             ),
             _vm._v(" "),
             _c(
               "a",
-              { staticClass: "nav-item nav-link", attrs: { href: "#" } },
+              {
+                staticClass: "nav-item nav-link",
+                attrs: { href: _vm.nextUrl }
+              },
               [
                 _c("span", { staticClass: "d-none d-md-inline mr-2" }, [
                   _vm._v("Next Entry")
@@ -54067,7 +54086,7 @@ var render = function() {
         ? _c("div", { staticClass: "float-right m-2" }, [
             _c(
               "a",
-              { staticClass: "text-muted", attrs: { href: "#" } },
+              { staticClass: "text-muted", attrs: { href: _vm.editUrl } },
               [_c("font-awesome-icon", { attrs: { icon: "edit" } })],
               1
             )
@@ -54077,12 +54096,14 @@ var render = function() {
       _c("div", { staticClass: "m-2" }, [
         _c("h1", { staticClass: "entry-title mb-0" }, [_vm._t("default")], 2),
         _vm._v(" "),
-        _vm.createdOn
+        _vm.createdAt
           ? _c("small", { staticClass: "entry-meta text-muted" }, [
-              _vm._v("Written on " + _vm._s(_vm.createdOn) + " by "),
-              _c("a", { attrs: { href: _vm.authorUrl } }, [
-                _vm._v(_vm._s(_vm.author))
-              ])
+              _vm._v(
+                "Written on " +
+                  _vm._s(_vm.createdAt) +
+                  " by " +
+                  _vm._s(_vm.author)
+              )
             ])
           : _vm._e()
       ])

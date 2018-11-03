@@ -13,7 +13,7 @@ class Entry extends Model
      *
      * @var array
      */
-    protected $appends = ['excerpt'];
+    protected $appends = ['excerpt', 'formatted_created_at'];
 
     /**
      * Get the journal that owns this entry.
@@ -50,12 +50,12 @@ class Entry extends Model
     }
 
     /**
-     * Format the created_at attribute
+     * Format the created_at attribute for display
      *
      * @return string
      */
-    public function getCreatedAtAttribute($value) {
-        $created_at = new Carbon($value, config('app.timezone'));
+    public function getFormattedCreatedAtAttribute() {
+        $created_at = new Carbon($this->created_at, config('app.timezone'));
         $weekday = 'l';
         $month_day = '';
         if ($created_at->diffInDays() > 5) {

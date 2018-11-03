@@ -8,7 +8,7 @@
         <p class="m-0 excerpt"><slot></slot></p>
     </div>
     <div class="card-footer text-muted">
-        <span>Written by {{ author }} on {{ createdOn }}</span>
+        <span>Written by {{ author }} on {{ createdAt }}</span>
     </div>
 </div>
 </template>
@@ -33,7 +33,7 @@ export default {
             type: String,
             required: true
         },
-        createdOn: {
+        createdAt: {
             type: String,
             required: true
         },

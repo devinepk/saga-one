@@ -37,9 +37,9 @@ class EntryController extends Controller
      */
     public function show(Entry $entry)
     {
-        $comments = [];
-        $journal = $entry->journal::with('users')->firstOrFail();
-        return view('entry.read', compact('entry', 'journal', 'comments'));
+        // TODO: Validate request
+        $journal = $entry->journal;
+        return view('entry.show', compact('entry', 'journal'));
     }
 
     /**
