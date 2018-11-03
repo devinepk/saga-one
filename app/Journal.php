@@ -79,7 +79,7 @@ class Journal extends Model
      * Access the computed attribute "next_user", which represents
      * the next user in line for this journal
      *
-     * @return Illuminate\Database\Eloquent\Collection
+     * @return int id of the next user
      */
     public function getNextUserAttribute() {
         return $this->users()->find($this->current_user->id)->subscription->next_user_id;
@@ -106,5 +106,26 @@ class Journal extends Model
             }
         }
         return false;
+    }
+
+    /**
+     * Get the next entry in the journal, or an empty string if there is none
+     *
+     * @param \App\Entry
+     * @return \App\Entry | string
+     */
+    public function getNextEntry(Entry $entry) {
+        $ordered_entries = $this->entries->sortBy('created_at');
+        // dd($ordered_entries);
+
+        $next = '';
+        foreach ($ordered_entries as $key => $ordered_entry) {
+            if ($ordered_entry->id == $entry->id) {
+                return $ordered_entries[$key-1];
+            }
+        }
+        return '';
+
+
     }
 }
