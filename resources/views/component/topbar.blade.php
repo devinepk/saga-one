@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark text-light p-0 shadow">
-    <a class="brand navbar-brand mx-3" href="/"><span class="saga">Saga</span>one</a>
+    <a class="brand navbar-brand mx-3" href="{{ route('journal.index') }}"><span class="saga">Saga</span>one</a>
 
     <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navMenu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -12,7 +12,7 @@
 
             @if (isset($journal))
             <li class="nav-item px-3">
-                <a class="nav-link d-md-none text-light" href="/journal"><font-awesome-icon :icon="['fab', 'readme']"></font-awesome-icon><span class="ml-2">{{ $journal->title }}</span></a>
+                <a class="nav-link d-md-none text-light" href="{{ route('journal.show', $journal) }}"><font-awesome-icon :icon="['fab', 'readme']"></font-awesome-icon><span class="ml-2">{{ $journal->title }}</span></a>
             </li>
             @endif
 
@@ -46,9 +46,9 @@
 
                     <div class="dropdown-divider"></div>
 
-                    <a class="dropdown-item" href="/journal"><font-awesome-icon icon="book"></font-awesome-icon><span class="ml-2">Journals</span></a>
+                    <a class="dropdown-item" href="{{ route('journal.index') }}"><font-awesome-icon icon="book"></font-awesome-icon><span class="ml-2">Journals</span></a>
 
-                    <a class="dropdown-item" href="/journal/create"><font-awesome-icon icon="plus"></font-awesome-icon><span class="ml-2">Create a journal</span></a>
+                    <a class="dropdown-item" href="{{ route('journal.create') }}"><font-awesome-icon icon="plus"></font-awesome-icon><span class="ml-2">Create a journal</span></a>
 
                     <div class="dropdown-divider"></div>
 
