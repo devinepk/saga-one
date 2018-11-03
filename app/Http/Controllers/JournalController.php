@@ -23,8 +23,7 @@ class JournalController extends Controller
      */
     public function index()
     {
-        $journals = Auth::user()->journals;
-        return view('journal.index', compact('journals'));
+        return view('journal.index');
     }
 
     /**
@@ -84,12 +83,24 @@ class JournalController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Journal  $journal
      * @return \Illuminate\Http\Response
      */
-    public function edit(Journal $journal)
+    public function edit(Request $request, Journal $journal)
     {
-        return view('journal.edit', compact('journal'));
+        // Only the journal creator can edit journal details
+        if (Auth::id() == $journal->creator->id) {
+            return view('journal.edit', compact('journal'));
+        }
+
+        // Show a flash message if the user belongs to the journal.
+        if (Auth::user()->isInJournal($journal)) {
+            $request->session()->flash('status', "Only {$journal->creator->name} can edit the settings for <strong>{$journal->title}</strong>.");
+        }
+
+        // Redirect to journal index
+        return redirect()->route('journal.index');
     }
 
     /**

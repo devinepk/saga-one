@@ -15,11 +15,24 @@
     <p class="font-italic">{{ $journal->description }}</p>
     @endif
 
-    {{-- Journal actions --}}
-    <nav class="nav my-3">
-        <a class="nav-link" href="{{ route('journal.edit', $journal) }}"><font-awesome-icon icon="edit"></font-awesome-icon><span class="ml-2">Edit</span></a>
-        <a class="nav-link" href="{{ route('journal.confirmDelete', $journal) }}"><font-awesome-icon icon="trash-alt"></font-awesome-icon><span class="ml-2">Delete</span></a>
+    @if (Auth::id() == $journal->creator->id)
+    <nav class="nav d-md-none">
+        <a class="nav-link py-1" href="{{ route('journal.invite', $journal) }}">
+            <font-awesome-icon icon="user-plus"></font-awesome-icon>
+            <span class="ml-2">Invite</span>
+        </a>
+
+        <a class="nav-link py-1" href="{{ route('journal.edit', $journal) }}">
+            <font-awesome-icon icon="edit"></font-awesome-icon>
+            <span class="ml-2">Edit</span>
+        </a>
+
+        <a class="nav-link py-1" href="{{ route('journal.confirmDelete', $journal) }}">
+            <font-awesome-icon icon="trash-alt"></font-awesome-icon>
+            <span class="ml-2">Delete</span>
+        </a>
     </nav>
+    @endif
 
     <table class="my-3"><tr><th>Countdown:</th><td>23 hours, 23 minutes</td></tr></table>
 

@@ -50,6 +50,16 @@
                                     <font-awesome-icon icon="user-plus"></font-awesome-icon>
                                     <span class="ml-2">Invite</span>
                                 </a>
+
+                                <a class="nav-link py-1" href="{{ route('journal.edit', $journal) }}">
+                                    <font-awesome-icon icon="edit"></font-awesome-icon>
+                                    <span class="ml-2">Edit</span>
+                                </a>
+
+                                <a class="nav-link py-1" href="{{ route('journal.confirmDelete', $journal) }}">
+                                    <font-awesome-icon icon="trash-alt"></font-awesome-icon>
+                                    <span class="ml-2">Delete</span>
+                                </a>
                                 @endif
 
                             </nav>
