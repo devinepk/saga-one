@@ -130,6 +130,8 @@ class JournalController extends Controller
      */
     public function destroy(Request $request, Journal $journal)
     {
+        // TODO: Validate request
+
         $journal->delete();
         $request->session()->flash('status',
             "<strong>{$journal->title}</strong> has been deleted.
@@ -150,6 +152,8 @@ class JournalController extends Controller
      */
     public function confirmDelete(Journal $journal)
     {
+        // TODO: Validate request
+
         return view('journal.confirmDelete', compact('journal'));
     }
 
@@ -161,6 +165,8 @@ class JournalController extends Controller
      */
     public function undoDelete(Request $request)
     {
+        // TODO: Validate request
+
         $journal = \App\Journal::withTrashed()->find($request->input('journal_id'));
         $journal->restore();
         $request->session()->flash('status', "<strong>{$journal->title}</strong> has been restored.");
@@ -175,6 +181,8 @@ class JournalController extends Controller
      */
     public function invite(Journal $journal)
     {
+        // TODO: Validate request
+
         return view('journal.invite', compact('journal'));
     }
 
@@ -186,14 +194,8 @@ class JournalController extends Controller
      */
     public function contents(Journal $journal)
     {
-        $entries = [
-            ['title' => 'Entry 1', 'author' => 'Bobbert Bob', 'created' => 'October 1, 2018 at 3:37 PM', 'excerpt' => 'Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic...'],
-            ['title' => 'Entry 2', 'author' => 'Bobby Bob', 'created' => 'October 1, 2018 at 3:37 PM', 'excerpt' => 'Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic...'],
-            ['title' => 'Entry 3', 'author' => 'Bonnie Bobbington', 'created' => 'October 1, 2018 at 3:37 PM', 'excerpt' => 'Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic...'],
-            ['title' => 'Entry 4', 'author' => 'Boris Bobford', 'created' => 'October 1, 2018 at 3:37 PM', 'excerpt' => 'Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic...'],
-            ['title' => 'Entry 5', 'author' => 'Boris Bobford', 'created' => 'October 1, 2018 at 3:37 PM', 'excerpt' => 'Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic...']
-        ];
+        // TODO: Validate request
 
-        return view('journal.contents', compact('journal', 'entries'));
+        return view('entry.index', compact('journal'));
     }
 }

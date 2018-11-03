@@ -8,6 +8,9 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+[v-cloak] {
+    display:none;
+}
 
 /**
  * "HOME" LAYOUT

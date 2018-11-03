@@ -79,7 +79,7 @@ class Journal extends Model
      * Access the computed attribute "next_user", which represents
      * the next user in line for this journal
      *
-     * return Illuminate\Database\Eloquent\Collection
+     * @return Illuminate\Database\Eloquent\Collection
      */
     public function getNextUserAttribute() {
         return $this->users()->find($this->current_user->id)->subscription->next_user_id;

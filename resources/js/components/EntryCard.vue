@@ -8,7 +8,7 @@
         <p class="m-0 excerpt"><slot></slot></p>
     </div>
     <div class="card-footer text-muted">
-        <span>Written by <a :href="authorUrl">{{ author }}</a> on {{ createdOn }}</span>
+        <span>Written by {{ author }} on {{ createdOn }}</span>
     </div>
 </div>
 </template>
@@ -30,10 +30,6 @@ export default {
             required: true
         },
         author: {
-            type: String,
-            required: true
-        },
-        authorUrl: {
             type: String,
             required: true
         },

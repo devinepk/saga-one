@@ -53627,10 +53627,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             type: String,
             required: true
         },
-        authorUrl: {
-            type: String,
-            required: true
-        },
         createdOn: {
             type: String,
             required: true
@@ -53681,11 +53677,9 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "card-footer text-muted" }, [
       _c("span", [
-        _vm._v("Written by "),
-        _c("a", { attrs: { href: _vm.authorUrl } }, [
-          _vm._v(_vm._s(_vm.author))
-        ]),
-        _vm._v(" on " + _vm._s(_vm.createdOn))
+        _vm._v(
+          "Written by " + _vm._s(_vm.author) + " on " + _vm._s(_vm.createdOn)
+        )
       ])
     ])
   ])
