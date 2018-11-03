@@ -30,6 +30,14 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
+     * The attributes that should be append to the model's array form
+     * and can be accessed with the accessor methods below.
+     *
+     * @var array
+     */
+    protected $appends = ['current_journals', 'other_journals'];
+
+    /**
      * Get the journals that this user has created
      */
     public function journals_created()
@@ -77,5 +85,39 @@ class User extends Authenticatable implements MustVerifyEmail
             }
         }
         return false;
+    }
+
+    /**
+     * Get the journals currently in the user's possession
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public function getCurrentJournalsAttribute() {
+        $current_journals = [];
+
+        foreach ($this->journals as $journal) {
+            if ($journal->current_user->id == $this->id) {
+                $current_journals[] = $journal;
+            }
+        }
+
+        return collect($current_journals);
+    }
+
+    /**
+     * Get the journals NOT currently in the user's possession
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public function getOtherJournalsAttribute() {
+        $other_journals = [];
+
+        foreach ($this->journals as $journal) {
+            if ($journal->current_user->id != $this->id) {
+                $other_journals[] = $journal;
+            }
+        }
+
+        return collect($other_journals);
     }
 }

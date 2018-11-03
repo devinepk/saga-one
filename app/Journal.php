@@ -10,7 +10,7 @@ class Journal extends Model
     use SoftDeletes;
 
     /**
-     * The attributes that shoudl be append to the model's array form
+     * The attributes that should be append to the model's array form
      * and can be accessed with the accessor methods below.
      *
      * @var array
@@ -56,7 +56,7 @@ class Journal extends Model
      * the list of users "waiting" for the journal. The current user
      * will not be in this list.
      *
-     * return Illuminate\Database\Eloquent\Collection
+     * @return Illuminate\Database\Eloquent\Collection
      */
     public function getQueueAttribute()
     {
