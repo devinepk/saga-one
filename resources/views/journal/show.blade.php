@@ -48,19 +48,8 @@
     <div class="d-md-none mb-4">
         <h6 class="mx-3">Journal queue:</h6>
         <ul class="list-group list-group-flush border-right border-bottom">
-
-                @foreach ($journal->queue as $user)
-
-                    <li class="list-group-item list-group-item-action">
-
-                        <font-awesome-icon icon="user"></font-awesome-icon>
-                        <span class="ml-2">{{ $user->name }}</span>
-
-                    </li>
-
-                @endforeach
-
-            </ul>
+            @include('component.queue')
+        </ul>
     </div>
     @endif
 

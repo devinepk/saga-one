@@ -71,9 +71,7 @@
 
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><h5 class="m-0">Journal queue:</h5></li>
-                        @foreach ($journal->queue as $user)
-                            <li class="list-group-item"><font-awesome-icon icon="user"></font-awesome-icon><span class="ml-2">{{ $user->name }}</span></li>
-                        @endforeach
+                        @include('component.queue')
                     </ul>
 
                     <div class="card-footer">
