@@ -8,10 +8,10 @@
 
 @section('journal-content')
 <entry-header>
-    {{ $entry['title'] }}
+    {{ $entry->title }}
 </entry-header>
 
-<button class="float-right btn btn-primary btn-save">Save</button>
+<button class="float-right btn btn-primary btn-save" onclick="save()">Save</button>
 <div id="toolbar" class="ql-toolbar ql-snow">
     <span class="ql-formats">
         <button class="ql-bold" type="button"></button>
@@ -261,8 +261,16 @@
 </div>
 
 <div id="editor" class="p-2">
-    {!! $entry['body'] !!}
+    {!! $entry->body !!}
 </div>
+
+{{-- HIDDEN EDIT FORM --}}
+<form id="entry-edit-form" class="d-none" method="post" action="{{ route('entry.update', $entry) }}">
+    @csrf
+    @method('PUT')
+    <input type="hidden" name="body">
+    <input type="hidden" name="title">
+</form>
 @endsection
 
 @section('bottom_of_body')
@@ -271,13 +279,22 @@
 
 <!-- Initialize Quill -->
 <script>
-var quill = new Quill('#editor', {
+let quill = new Quill('#editor', {
     theme: 'snow',
     modules: {
         toolbar: "#toolbar"
     }
 });
 // Enable all tooltips
-$('[data-toggle="tooltip"]').tooltip();
+// $('[data-toggle="tooltip"]').tooltip();
+
+// Populate hidden form on submit
+function save() {
+
+    document.querySelector('input[name=body]').value = JSON.stringify(quill.getContents());
+    document.querySelector('input[name=title]').value = document.getElementById('entry-title').innerHTML;
+    document.getElementById('entry-edit-form').submit();
+}
+
 </script>
 @endsection

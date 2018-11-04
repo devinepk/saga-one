@@ -53608,6 +53608,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -53616,6 +53619,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             required: true
         },
         editUrl: {
+            type: String,
+            required: false,
+            default: ''
+        },
+        deleteUrl: {
             type: String,
             required: false,
             default: ''
@@ -53657,16 +53665,26 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card mb-5" }, [
     _c("div", { staticClass: "card-header" }, [
-      _vm.editUrl
-        ? _c(
-            "a",
-            {
-              staticClass: "float-right m-2 text-muted",
-              attrs: { href: _vm.editUrl }
-            },
-            [_c("font-awesome-icon", { attrs: { icon: "edit" } })],
-            1
-          )
+      _vm.editUrl || _vm.deleteUrl
+        ? _c("div", { staticClass: "float-right pt-1 text-muted" }, [
+            _vm.editUrl
+              ? _c(
+                  "a",
+                  { staticClass: "m-2", attrs: { href: _vm.editUrl } },
+                  [_c("font-awesome-icon", { attrs: { icon: "edit" } })],
+                  1
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.deleteUrl
+              ? _c(
+                  "a",
+                  { staticClass: "m-2", attrs: { href: _vm.deleteUrl } },
+                  [_c("font-awesome-icon", { attrs: { icon: "trash-alt" } })],
+                  1
+                )
+              : _vm._e()
+          ])
         : _vm._e(),
       _vm._v(" "),
       _c("h2", { staticClass: "m-0" }, [
@@ -54138,7 +54156,12 @@ var render = function() {
         : _vm._e(),
       _vm._v(" "),
       _c("div", { staticClass: "m-2" }, [
-        _c("h1", { staticClass: "entry-title mb-0" }, [_vm._t("default")], 2),
+        _c(
+          "h1",
+          { staticClass: "entry-title mb-0", attrs: { id: "entry-title" } },
+          [_vm._t("default")],
+          2
+        ),
         _vm._v(" "),
         _vm.createdAt
           ? _c("small", { staticClass: "entry-meta text-muted" }, [

@@ -52,7 +52,10 @@ class EntryController extends Controller
      */
     public function edit(Entry $entry)
     {
-        //
+        if ($entry->status == 'draft') {
+            $journal = $entry->journal;
+            return view('entry.edit', compact('entry', 'journal'));
+        }
     }
 
     /**
@@ -64,7 +67,12 @@ class EntryController extends Controller
      */
     public function update(Request $request, Entry $entry)
     {
-        //
+        $entry->body = $request->body;
+        $entry->title = $request->title;
+        $entry->save();
+
+        $request->session()->flash('status', "<strong>{$entry->title}</strong> has been saved.");
+        return redirect()->route('entry.edit', compact('entry'));
     }
 
     /**
