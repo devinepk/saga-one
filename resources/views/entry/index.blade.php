@@ -12,8 +12,7 @@
                 title="{{ $entry->title }}"
                 read-url="{{ route('entry.show', $entry) }}"
                 author="{{ $entry->author->name }}"
-                author-url="#"
-                created-at="{{ $entry->formatted_created_at }}"
+                updated-at="{{ $entry->formatted_updated_at }}"
             >
                 {!! $entry->excerpt !!}
             </entry-card>
