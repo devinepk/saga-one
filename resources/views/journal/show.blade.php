@@ -44,33 +44,43 @@
     </div>
 
 
-    @if ($journal['participants'])
+    @if ($journal->queue->count())
     <div class="d-md-none mb-4">
-        <h6 class="mx-3">In this journal:</h6>
-        <div class="list-group">
-            @foreach ($journal['participants'] as $participant)
-                <a class="list-group-item list-group-item-action" href="#"><font-awesome-icon icon="user"></font-awesome-icon><span class="ml-2">{{ $participant['name'] }}</span></a>
-            @endforeach
-        </div>
+        <h6 class="mx-3">Journal queue:</h6>
+        <ul class="list-group list-group-flush border-right border-bottom">
+
+                @foreach ($journal->queue as $user)
+
+                    <li class="list-group-item list-group-item-action">
+
+                        <font-awesome-icon icon="user"></font-awesome-icon>
+                        <span class="ml-2">{{ $user->name }}</span>
+
+                    </li>
+
+                @endforeach
+
+            </ul>
     </div>
     @endif
 
-    <a class="my-4 btn btn-block btn-primary" href="/journal/write"><font-awesome-icon icon="plus"></font-awesome-icon><span class="ml-2">Add a new entry</span></a>
+    <a class="my-4 btn btn-block btn-primary" href="{{ route('entry.create') }}"><font-awesome-icon icon="plus"></font-awesome-icon><span class="ml-2">Add a new entry</span></a>
 
     <h2>Your entries</h2>
-    @if (isset($entries))
-    @foreach ($entries as $entry)
-        <entry-card
-            title="{{ $entry['title'] }}"
-            edit-url="/journal/write"
-            read-url="/journal/read"
-            author="{{ $entry['author'] }}"
-            author-url="#"
-            created-on="{{ $entry['created'] }}"
-        >
-            {!! $entry['excerpt'] !!}
-        </entry-card>
-    @endforeach
+    @if (count($drafts))
+        @foreach ($drafts as $draft)
+            <entry-card
+                title="{{ $draft->title }}"
+                edit-url="{{ route('entry.edit', $draft) }}"
+                read-url="{{ route('entry.show', $draft) }}"
+                created-at="{{ $draft->formatted_created_at }}"
+                updated-at="{{ $draft->formatted_updated_at }}"
+            >
+                {!! $draft->excerpt !!}
+            </entry-card>
+        @endforeach
+    @else
+        <div class="alert alert-info">You haven't started any new entries. Time to get writing!</div>
     @endif
 
 </div>

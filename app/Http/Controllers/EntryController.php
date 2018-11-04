@@ -39,7 +39,9 @@ class EntryController extends Controller
     {
         // TODO: Validate request
         $journal = $entry->journal;
-        return view('entry.show', compact('entry', 'journal'));
+        $nextEntry = $journal->getEntryAfter($entry);
+        $previousEntry = $journal->getEntryBefore($entry);
+        return view('entry.show', compact('entry', 'journal', 'nextEntry', 'previousEntry'));
     }
 
     /**

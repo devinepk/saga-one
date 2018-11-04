@@ -53607,6 +53607,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -53625,11 +53626,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         author: {
             type: String,
-            required: true
+            required: false,
+            default: ''
         },
         createdAt: {
             type: String,
-            required: true
+            required: false,
+            default: ''
+        },
+        updatedAt: {
+            type: String,
+            required: false,
+            default: ''
         },
         unread: {
             type: Boolean,
@@ -53676,11 +53684,25 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "card-footer text-muted" }, [
-      _c("span", [
-        _vm._v(
-          "Written by " + _vm._s(_vm.author) + " on " + _vm._s(_vm.createdAt)
-        )
-      ])
+      _vm.author
+        ? _c("span", [
+            _vm._v(
+              "Written by " +
+                _vm._s(_vm.author) +
+                " on " +
+                _vm._s(_vm.updatedAt) +
+                "."
+            )
+          ])
+        : _c("span", [
+            _vm._v(
+              "Created on " +
+                _vm._s(_vm.createdAt) +
+                ". Last updated on " +
+                _vm._s(_vm.updatedAt) +
+                "."
+            )
+          ])
     ])
   ])
 }
@@ -53969,6 +53991,12 @@ module.exports = Component.exports
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 module.exports = {
     props: {
@@ -54040,46 +54068,62 @@ var render = function() {
     },
     [
       _vm.displayEntryNav
-        ? _c("nav", { staticClass: "nav justify-content-between mb-4" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-item nav-link",
-                attrs: { href: _vm.previousUrl }
-              },
-              [
-                _c("font-awesome-icon", { attrs: { icon: "backward" } }),
-                _c("span", { staticClass: "d-none d-md-inline ml-2" }, [
-                  _vm._v("Previous Entry")
-                ])
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "nav-item nav-link",
-                attrs: { href: _vm.contentsUrl }
-              },
-              [_vm._v("Table of Contents")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "nav-item nav-link",
-                attrs: { href: _vm.nextUrl }
-              },
-              [
-                _c("span", { staticClass: "d-none d-md-inline mr-2" }, [
-                  _vm._v("Next Entry")
-                ]),
-                _c("font-awesome-icon", { attrs: { icon: "forward" } })
-              ],
-              1
-            )
-          ])
+        ? _c(
+            "nav",
+            { staticClass: "nav justify-content-between mb-4 row no-gutters" },
+            [
+              _c("div", { staticClass: "col-2 col-md-4" }, [
+                _vm.previousUrl
+                  ? _c(
+                      "a",
+                      {
+                        staticClass: "nav-item nav-link",
+                        attrs: { href: _vm.previousUrl }
+                      },
+                      [
+                        _c("font-awesome-icon", {
+                          attrs: { icon: "backward" }
+                        }),
+                        _c("span", { staticClass: "d-none d-md-inline ml-2" }, [
+                          _vm._v("Previous Entry")
+                        ])
+                      ],
+                      1
+                    )
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "text-center" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "nav-item nav-link",
+                    attrs: { href: _vm.contentsUrl }
+                  },
+                  [_vm._v("Table of Contents")]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-2 col-md-4 text-right" }, [
+                _vm.nextUrl
+                  ? _c(
+                      "a",
+                      {
+                        staticClass: "nav-item nav-link",
+                        attrs: { href: _vm.nextUrl }
+                      },
+                      [
+                        _c("span", { staticClass: "d-none d-md-inline mr-2" }, [
+                          _vm._v("Next Entry")
+                        ]),
+                        _c("font-awesome-icon", { attrs: { icon: "forward" } })
+                      ],
+                      1
+                    )
+                  : _vm._e()
+              ])
+            ]
+          )
         : _vm._e(),
       _vm._v(" "),
       _vm.editUrl

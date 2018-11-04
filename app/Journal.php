@@ -109,23 +109,30 @@ class Journal extends Model
     }
 
     /**
-     * Get the next entry in the journal, or an empty string if there is none
+     * Get the next entry in the journal, or null if there is none
      *
      * @param \App\Entry
-     * @return \App\Entry | string
+     * @return \App\Entry || null
      */
-    public function getNextEntry(Entry $entry) {
-        $ordered_entries = $this->entries->sortBy('created_at');
-        // dd($ordered_entries);
+    public function getEntryAfter(Entry $entry) {
+        return $this->entries()
+            ->where('created_at', '>', $entry->created_at)
+            ->get()
+            ->sortBy('created_at')
+            ->first();
+    }
 
-        $next = '';
-        foreach ($ordered_entries as $key => $ordered_entry) {
-            if ($ordered_entry->id == $entry->id) {
-                return $ordered_entries[$key-1];
-            }
-        }
-        return '';
-
-
+    /**
+     * Get the previous entry in the journal, or null if there is none
+     *
+     * @param \App\Entry
+     * @return \App\Entry || null
+     */
+    public function getEntryBefore(Entry $entry) {
+        return $this->entries()
+            ->where('created_at', '<', $entry->created_at)
+            ->get()
+            ->sortByDesc('created_at')
+            ->first();
     }
 }

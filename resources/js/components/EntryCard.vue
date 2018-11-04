@@ -8,7 +8,8 @@
         <p class="m-0 excerpt"><slot></slot></p>
     </div>
     <div class="card-footer text-muted">
-        <span>Written by {{ author }} on {{ createdAt }}</span>
+        <span v-if="author">Written by {{ author }} on {{ updatedAt }}.</span>
+        <span v-else>Created on {{ createdAt }}. Last updated on {{ updatedAt }}.</span>
     </div>
 </div>
 </template>
@@ -31,11 +32,18 @@ export default {
         },
         author: {
             type: String,
-            required: true
+            required: false,
+            default: ''
         },
         createdAt: {
             type: String,
-            required: true
+            required: false,
+            default: ''
+        },
+        updatedAt: {
+            type: String,
+            required: false,
+            default: ''
         },
         unread: {
             type: Boolean,

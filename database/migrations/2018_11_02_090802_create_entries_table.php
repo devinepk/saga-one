@@ -24,6 +24,8 @@ class CreateEntriesTable extends Migration
             $table->unsignedInteger('author_id');
             $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
 
+            $table->enum('status', ['draft', 'final']);
+
             $table->softDeletes();
             $table->timestamps();
         });

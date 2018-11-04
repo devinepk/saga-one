@@ -68,7 +68,8 @@ class JournalController extends Controller
     {
         // Show the journal to the current user only.
         if (Auth::id() == $journal->current_user->id) {
-            return view('journal.show', compact('journal'));
+            $drafts = $journal->entries()->where('status', 'draft')->get()->sortByDesc('created_at');
+            return view('journal.show', compact('journal', 'drafts'));
         }
 
         // Show a flash message if the user belongs to the journal.
@@ -196,6 +197,8 @@ class JournalController extends Controller
     {
         // TODO: Validate request
 
-        return view('entry.index', compact('journal'));
+        $entries = $journal->entries()->where('status', 'final')->get()->sortByDesc('created_at');
+
+        return view('entry.index', compact('journal', 'entries'));
     }
 }

@@ -13,7 +13,7 @@ class Entry extends Model
      *
      * @var array
      */
-    protected $appends = ['excerpt', 'formatted_created_at'];
+    protected $appends = ['excerpt', 'formatted_created_at', 'formatted_updated_at'];
 
     /**
      * Get the journal that owns this entry.
@@ -55,16 +55,28 @@ class Entry extends Model
      * @return string
      */
     public function getFormattedCreatedAtAttribute() {
-        $created_at = new Carbon($this->created_at, config('app.timezone'));
+        return $this->formatDate(new Carbon($this->created_at, config('app.timezone')));
+    }
+
+    /**
+     * Format the updated_at attribute for display
+     *
+     * @return string
+     */
+    public function getFormattedUpdatedAtAttribute() {
+        return $this->formatDate(new Carbon($this->updated_at, config('app.timezone')));
+    }
+
+    protected function formatDate(Carbon $date) {
         $weekday = 'l';
         $month_day = '';
-        if ($created_at->diffInDays() > 5) {
+        if ($date->diffInDays() > 5) {
             $weekday = 'D';
             $month_day = ', M j';
         }
-        $year = (now()->year == $created_at->year) ? '' : ', Y';
+        $year = (now()->year == $date->year) ? '' : ', Y';
         $format_string = "{$weekday}{$month_day}{$year} \\a\\t g:ia";
 
-        return $created_at->format($format_string);
+        return $date->format($format_string);
     }
 }

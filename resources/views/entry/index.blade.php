@@ -5,12 +5,11 @@
 @section('journal-content')
 <div class="container p-md-5">
 
-    @if ($journal->entries()->count())
-    <h1>Entries in {{ $journal->title }}</h1>
-        @foreach ($journal->entries as $entry)
+    @if (count($entries))
+    <h1>{{ $journal->title }}</h1>
+        @foreach ($entries as $entry)
             <entry-card
                 title="{{ $entry->title }}"
-                edit-url="{{ route('entry.edit', $entry) }}"
                 read-url="{{ route('entry.show', $entry) }}"
                 author="{{ $entry->author->name }}"
                 author-url="#"

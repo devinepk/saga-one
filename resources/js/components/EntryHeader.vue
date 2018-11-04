@@ -1,10 +1,16 @@
 <template>
 <div id="entry-header" class="sticky-top bg-white border-bottom" :class="{ belowTopbar: belowTopbar }">
 
-    <nav v-if="displayEntryNav" class="nav justify-content-between mb-4">
-        <a class="nav-item nav-link" :href="previousUrl"><font-awesome-icon icon="backward" /><span class="d-none d-md-inline ml-2">Previous Entry</span></a>
-        <a class="nav-item nav-link" :href="contentsUrl">Table of Contents</a>
-        <a class="nav-item nav-link" :href="nextUrl"><span class="d-none d-md-inline mr-2">Next Entry</span><font-awesome-icon icon="forward" /></a>
+    <nav v-if="displayEntryNav" class="nav justify-content-between mb-4 row no-gutters">
+        <div class="col-2 col-md-4">
+            <a v-if="previousUrl" class="nav-item nav-link" :href="previousUrl"><font-awesome-icon icon="backward" /><span class="d-none d-md-inline ml-2">Previous Entry</span></a>
+        </div>
+        <div class="text-center">
+            <a class="nav-item nav-link" :href="contentsUrl">Table of Contents</a>
+        </div>
+        <div class="col-2 col-md-4 text-right">
+            <a v-if="nextUrl" class="nav-item nav-link" :href="nextUrl"><span class="d-none d-md-inline mr-2">Next Entry</span><font-awesome-icon icon="forward" /></a>
+        </div>
     </nav>
 
     <div v-if="editUrl" class="float-right m-2">
