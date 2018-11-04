@@ -8,8 +8,8 @@
             <a href="{{ route('journal.show', $journal) }}">{{ $journal->title }}</a>
         </h5>
 
-        @if (Auth::id() == $journal->creator->id)
         <nav class="nav justify-content-around">
+            @if (Auth::id() == $journal->creator->id)
             <a class="nav-link py-1" href="{{ route('journal.invite', $journal) }}">
                 <font-awesome-icon icon="user-plus"></font-awesome-icon>
                 <span class="ml-2">Invite</span>
@@ -24,8 +24,13 @@
                 <font-awesome-icon icon="trash-alt"></font-awesome-icon>
                 <span class="ml-2">Delete</span>
             </a>
+            @endif
+
+            <a class="nav-link py-1" href="{{ route('journal.contents', $journal) }}">
+                <font-awesome-icon :icon="['fab', 'readme']"></font-awesome-icon>
+                <span class="ml-2">Contents</span>
+            </a>
         </nav>
-        @endif
 
         @if ($journal->queue->count())
         <div>
