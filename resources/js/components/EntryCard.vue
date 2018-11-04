@@ -1,7 +1,10 @@
 <template>
 <div class="card mb-5">
     <div class="card-header">
-        <a v-if="editUrl" class="float-right m-2 text-muted" :href="editUrl"><font-awesome-icon icon="edit" /></a>
+        <div v-if="editUrl || deleteUrl" class="float-right pt-1 text-muted">
+            <a v-if="editUrl" class="m-2" :href="editUrl"><font-awesome-icon icon="edit" /></a>
+            <a v-if="deleteUrl" class="m-2" :href="deleteUrl"><font-awesome-icon icon="trash-alt" /></a>
+        </div>
         <h2 class="m-0"><a :href="readUrl">{{ title }}</a><span v-if="unread" class="badge badge-info ml-3 rounded">unread</span></h2>
     </div>
     <div class="card-body">
@@ -22,6 +25,11 @@ export default {
             required: true
         },
         editUrl: {
+            type: String,
+            required: false,
+            default: ''
+        },
+        deleteUrl: {
             type: String,
             required: false,
             default: ''

@@ -30,6 +30,11 @@
                 <font-awesome-icon :icon="['fab', 'readme']"></font-awesome-icon>
                 <span class="ml-2">Contents</span>
             </a>
+
+            <a class="nav-link py-1" href="{{ route('journal.show', $journal) }}">
+                <font-awesome-icon icon="edit"></font-awesome-icon>
+                <span class="ml-2">Your drafts</span>
+            </a>
         </nav>
 
         @if ($journal->queue->count())

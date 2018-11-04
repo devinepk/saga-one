@@ -4,6 +4,10 @@
 
 @section('journal-content')
 <div class="container p-md-5">
+    @component('component.addButton')
+        @slot('url', route('entry.create'))
+        Add a new entry
+    @endcomponent
 
     @if (count($entries))
     <h1>{{ $journal->title }}</h1>
@@ -19,7 +23,7 @@
         @endforeach
 
     @else
-    <div class="alert alert-info">The are no entries in this journal. Time to get writing!</div>
+        <div class="alert alert-info">The are no entries in this journal. Time to get writing!</div>
     @endif
 
 </div>
