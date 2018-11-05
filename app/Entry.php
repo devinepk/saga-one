@@ -104,19 +104,4 @@ class Entry extends Model
 
         return $date->format($format_string);
     }
-
-    /**
-     * Format the entry body for display
-     *
-     * @param string $value from the database
-     * @return string
-     */
-    public function getBodyAttribute($value)
-    {
-        // Quill saves content from the text editor as a Delta object.
-        // See https://quilljs.com/docs/delta/
-
-        $patterns = ['/^{"ops":/', '/}$/'];
-        return preg_replace($patterns, '', $value);
-    }
 }
