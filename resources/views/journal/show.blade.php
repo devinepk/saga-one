@@ -78,6 +78,7 @@
             updated-at="{{ $draft->formatted_updated_at }}"
         >
             {!! $draft->excerpt !!}
+            <template slot="deleteformfields">@csrf @method('DELETE')</template>
         </entry-card>
     @endforeach
 

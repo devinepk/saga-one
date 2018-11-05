@@ -3,7 +3,10 @@
     <div class="card-header">
         <div v-if="editUrl || deleteUrl" class="float-right pt-1 text-muted">
             <a v-if="editUrl" class="m-2" :href="editUrl"><font-awesome-icon icon="edit" /></a>
-            <a v-if="deleteUrl" class="m-2" :href="deleteUrl"><font-awesome-icon icon="trash-alt" /></a>
+            <a v-if="deleteUrl" class="m-2" href="#" @click="submitDeleteForm"><font-awesome-icon icon="trash-alt" /></a>
+            <form class="d-none" ref="deleteForm" method="post" :action="deleteUrl">
+                <slot name="deleteformfields"></slot>
+            </form>
         </div>
         <h2 class="m-0"><a :href="readUrl">{{ title }}</a><span v-if="unread" class="badge badge-info ml-3 rounded">unread</span></h2>
     </div>
@@ -57,6 +60,12 @@ export default {
             type: Boolean,
             required: false,
             default: false
+        }
+    },
+
+    methods: {
+        submitDeleteForm: function() {
+            this.$refs.deleteForm.submit();
         }
     }
 }

@@ -53611,6 +53611,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -53652,6 +53655,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             required: false,
             default: false
         }
+    },
+
+    methods: {
+        submitDeleteForm: function submitDeleteForm() {
+            this.$refs.deleteForm.submit();
+        }
     }
 });
 
@@ -53679,11 +53688,26 @@ var render = function() {
             _vm.deleteUrl
               ? _c(
                   "a",
-                  { staticClass: "m-2", attrs: { href: _vm.deleteUrl } },
+                  {
+                    staticClass: "m-2",
+                    attrs: { href: "#" },
+                    on: { click: _vm.submitDeleteForm }
+                  },
                   [_c("font-awesome-icon", { attrs: { icon: "trash-alt" } })],
                   1
                 )
-              : _vm._e()
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
+              "form",
+              {
+                ref: "deleteForm",
+                staticClass: "d-none",
+                attrs: { method: "post", action: _vm.deleteUrl }
+              },
+              [_vm._t("deleteformfields")],
+              2
+            )
           ])
         : _vm._e(),
       _vm._v(" "),

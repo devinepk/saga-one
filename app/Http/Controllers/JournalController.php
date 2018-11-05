@@ -126,6 +126,7 @@ class JournalController extends Controller
     /**
      * Perform a soft delete
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Journal  $journal
      * @return \Illuminate\Http\Response
      */
@@ -161,7 +162,7 @@ class JournalController extends Controller
     /**
      * Reverse a soft delete
      *
-     * @param  \App\Journal  $journal
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function undoDelete(Request $request)

@@ -101,11 +101,13 @@ class EntryController extends Controller
     /**
      * Perform a soft delete
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Entry  $entry
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, Entry $entry)
     {
+        $journal = $entry->journal;
         $entry->delete();
         $request->session()->flash('status',
             "<strong>{$entry->title}</strong> has been deleted.
@@ -115,6 +117,6 @@ class EntryController extends Controller
                 <input type='hidden' name='entry_id' value='{$entry->id}'>
             </form>"
         );
-        return redirect()->route('journal.show');
+        return redirect()->route('journal.show', compact('journal'));
     }
 }
