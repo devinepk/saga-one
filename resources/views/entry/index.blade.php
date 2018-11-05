@@ -5,7 +5,7 @@
 @section('journal-content')
 <div class="container p-md-5">
     @component('component.addButton')
-        @slot('url', route('entry.create'))
+        @slot('url', route('entry.create', $journal))
         Add a new entry
     @endcomponent
 

@@ -64,7 +64,7 @@
     @endif
 
     @component('component.addButton')
-        @slot('url', route('entry.create'))
+        @slot('url', route('journal.addEntry', $journal))
         Add a new entry
     @endcomponent
 

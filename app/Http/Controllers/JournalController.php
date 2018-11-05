@@ -201,4 +201,14 @@ class JournalController extends Controller
 
         return view('entry.index', compact('journal', 'entries'));
     }
+
+    /**
+     * Display all the entries in a journal
+     *
+     * @param  \App\Journal  $journal
+     * @return \Illuminate\Http\Response
+     */
+    public function addEntry(Journal $journal) {
+        return view('entry.create', compact('journal'));
+    }
 }

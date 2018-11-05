@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Entry;
+use App\Journal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EntryController extends Controller
 {
@@ -15,7 +17,7 @@ class EntryController extends Controller
      */
     public function create()
     {
-        //
+        // Use route journal.addEntry instead
     }
 
     /**
@@ -26,7 +28,18 @@ class EntryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $journal = Journal::find($request->journal_id);
+
+        $entry = new Entry;
+        $entry->title = $request->title ? $request->title : '[Untitled]';
+        $entry->body = $request->body;
+        $entry->journal_id = $journal->id;
+        $entry->author_id = Auth::id();
+        $entry->status = 'draft';
+        $entry->save();
+
+        $request->session()->flash('status', "<strong>{$entry->title}</strong> has been saved.");
+        return redirect()->route('journal.show', compact('journal'));
     }
 
     /**
