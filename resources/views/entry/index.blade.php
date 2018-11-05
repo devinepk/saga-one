@@ -14,7 +14,7 @@
         @foreach ($entries as $entry)
             <entry-card
                 title="{{ $entry->title }}"
-                read-url="{{ route('entry.show', $entry) }}"
+                read-url="{{ route('entry.show', ['journal' => $journal, 'entry' => $entry]) }}"
                 author="{{ $entry->author->name }}"
                 updated-at="{{ $entry->formatted_updated_at }}"
             >

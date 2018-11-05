@@ -68,7 +68,7 @@ class JournalController extends Controller
     {
         // Show the journal to the current user only.
         if (Auth::id() == $journal->current_user->id) {
-            $drafts = $journal->entries()->where('status', 'draft')->get()->sortByDesc('created_at');
+            $drafts = $journal->entries()->where('status', 'draft')->simplePaginate(15)->sortByDesc('created_at');
             return view('journal.show', compact('journal', 'drafts'));
         }
 

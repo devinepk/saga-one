@@ -71,9 +71,9 @@
     @foreach ($drafts as $draft)
         <entry-card
             title="{{ $draft->title }}"
-            edit-url="{{ route('entry.edit', $draft) }}"
-            read-url="{{ route('entry.show', $draft) }}"
-            delete-url="{{ route('entry.destroy', $draft) }}"
+            edit-url="{{ route('entry.edit', ['entry' => $draft, 'journal' => $journal]) }}"
+            title-url="{{ route('entry.edit', ['entry' => $draft, 'journal' => $journal]) }}"
+            delete-url="{{ route('entry.destroy', ['entry' => $draft, 'journal' => $journal]) }}"
             created-at="{{ $draft->formatted_created_at }}"
             updated-at="{{ $draft->formatted_updated_at }}"
         >
@@ -82,9 +82,12 @@
         </entry-card>
     @endforeach
 
-    @unless(count($drafts))
+    @if(count($drafts))
+        {{ $drafts->links() }}
+    @else
         <div class="alert alert-info">You haven't started any new entries. Time to get writing!</div>
     @endif
+
 
 </div>
 @endsection

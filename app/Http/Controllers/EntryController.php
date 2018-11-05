@@ -53,12 +53,12 @@ class EntryController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Entry  $entry
+     * @param \App\Journal $journal
      * @return \Illuminate\Http\Response
      */
-    public function show(Entry $entry)
+    public function show(Entry $entry, Journal $journal)
     {
         // TODO: Validate request
-        $journal = $entry->journal;
         $nextEntry = $journal->getEntryAfter($entry);
         $previousEntry = $journal->getEntryBefore($entry);
         return view('entry.show', compact('entry', 'journal', 'nextEntry', 'previousEntry'));
@@ -68,12 +68,12 @@ class EntryController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Entry  $entry
+     * @param \App\Journal $journal
      * @return \Illuminate\Http\Response
      */
-    public function edit(Entry $entry)
+    public function edit(Entry $entry, Journal $journal)
     {
         if ($entry->status == 'draft') {
-            $journal = $entry->journal;
             return view('entry.edit', compact('entry', 'journal'));
         }
     }
@@ -83,15 +83,14 @@ class EntryController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Entry  $entry
+     * @param \App\Journal $journal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Entry $entry)
+    public function update(Request $request, Entry $entry, Journal $journal)
     {
         $entry->body = $request->body;
         $entry->title = $request->title;
         $entry->save();
-
-        $journal = $entry->journal;
 
         $request->session()->flash('status', "<strong>{$entry->title}</strong> has been saved.");
         return redirect()->route('journal.show', compact('journal'));
@@ -102,11 +101,11 @@ class EntryController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Entry  $entry
+     * @param \App\Journal $journal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Entry $entry)
+    public function destroy(Request $request, Entry $entry, Journal $journal)
     {
-        $journal = $entry->journal;
         $entry->delete();
         $request->session()->flash('status',
             "<strong>{$entry->title}</strong> has been deleted.
