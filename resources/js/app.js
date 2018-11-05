@@ -46,6 +46,7 @@ Vue.component('entry-body', require('./components/EntryBody.vue'));
 Vue.component('entry-comment', require('./components/EntryComment.vue'));
 Vue.component('entry-header', require('./components/EntryHeader.vue'));
 Vue.component('journal-countdown', require('./components/JournalCountdown.vue'));
+Vue.component('alert', require('./components/Alert.vue'));
 
 const app = new Vue({
     el: '#app'
