@@ -13,7 +13,12 @@
                     @csrf
                     <div class="form-group">
                         <label for="title">Change this journal's title:</label>
-                        <input class="form-control" id="title" name="title" value="{{ $journal->title }}">
+                        <input class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" id="title" name="title" value="{{ $errors->has('title') ? old('title') : $journal->title }}">
+                        @if ($errors->has('title'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('title') }}</strong>
+                            </span>
+                        @endif
                     </div>
                     <div class="form-group">
                         <label for="description">Change this journal's description:</label>

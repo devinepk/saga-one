@@ -45,7 +45,9 @@ class JournalController extends Controller
      */
     public function store(Request $request)
     {
-        // TODO: Validate the request
+        $request->validate([
+            'title' => 'required|max:255'
+        ]);
 
         $journal = new Journal;
         $journal->title = $request->title;
@@ -116,7 +118,9 @@ class JournalController extends Controller
      */
     public function update(Request $request, Journal $journal)
     {
-        // TODO: Validate the request
+        $request->validate([
+            'title' => 'required|max:255'
+        ]);
 
         $journal->title = $request->title;
         $journal->description = $request->description;
