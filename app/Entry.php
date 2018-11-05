@@ -3,10 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
 
 class Entry extends Model
 {
+    use SoftDeletes;
+
     /**
      * The attributes that should be append to the model's array form
      * and can be accessed with the accessor methods below.

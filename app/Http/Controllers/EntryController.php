@@ -119,4 +119,21 @@ class EntryController extends Controller
         );
         return redirect()->route('journal.show', compact('journal'));
     }
+
+    /**
+     * Reverse a soft delete
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function undoDelete(Request $request)
+    {
+        // TODO: Validate request
+
+        $entry = Entry::withTrashed()->find($request->input('entry_id'));
+        $entry->restore();
+        $request->session()->flash('status', "<strong>{$entry->title}</strong> has been restored.");
+        $journal = $entry->journal;
+        return redirect()->route('journal.show', compact('journal'));
+    }
 }

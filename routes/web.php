@@ -20,6 +20,7 @@ Route::get('journal/{journal}/addEntry', 'JournalController@addEntry')->name('jo
 Route::post('journal/undodelete', 'JournalController@undoDelete')->name('journal.undoDelete');
 Route::resource('journal', 'JournalController');
 
+Route::post('entry/undodelete', 'EntryController@undoDelete')->name('entry.undoDelete');
 Route::resource('entry', 'EntryController');
 
 Route::get('account', 'UsersController@account')->name('user.account');
