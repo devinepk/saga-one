@@ -68,6 +68,12 @@
         Add a new entry
     @endcomponent
 
+    @if(count($drafts))
+        {{ $drafts->links() }}
+    @else
+        <div class="alert alert-info">You haven't started any new entries. Time to get writing!</div>
+    @endif
+
     @foreach ($drafts as $draft)
         <entry-card
             title="{{ $draft->title }}"
@@ -81,13 +87,6 @@
             <template slot="deleteformfields">@csrf @method('DELETE')</template>
         </entry-card>
     @endforeach
-
-    @if(count($drafts))
-        {{ $drafts->links() }}
-    @else
-        <div class="alert alert-info">You haven't started any new entries. Time to get writing!</div>
-    @endif
-
 
 </div>
 @endsection

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Journal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class JournalController extends Controller
 {
@@ -68,7 +69,9 @@ class JournalController extends Controller
     {
         // Show the journal to the current user only.
         if (Auth::id() == $journal->current_user->id) {
-            $drafts = $journal->entries()->where('status', 'draft')->simplePaginate(15)->sortByDesc('created_at');
+            $drafts = $journal->entries()->where('status', 'draft')->paginate(2);
+            $drafts->withPath(route('journal.show', $journal));
+
             return view('journal.show', compact('journal', 'drafts'));
         }
 
