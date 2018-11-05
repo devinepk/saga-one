@@ -11,6 +11,14 @@ class EntryController extends Controller
 {
 
     /**
+     * Require authentication
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -91,13 +99,22 @@ class EntryController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Perform a soft delete
      *
      * @param  \App\Entry  $entry
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Entry $entry)
+    public function destroy(Request $request, Entry $entry)
     {
-        //
+        $entry->delete();
+        $request->session()->flash('status',
+            "<strong>{$entry->title}</strong> has been deleted.
+            <a href=\"#\" onclick=\"event.preventDefault(); document.getElementById('undo-form').submit();\">Undo</a>
+            <form id=\"undo-form\" class=\"d-none\" method=\"post\" action='/entry/undodelete'>
+                <input type='hidden' name='_token' value='" . csrf_token() . "'>
+                <input type='hidden' name='entry_id' value='{$entry->id}'>
+            </form>"
+        );
+        return redirect()->route('journal.show');
     }
 }
