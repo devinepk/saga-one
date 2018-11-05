@@ -34,8 +34,12 @@ class EntryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Journal $journal)
     {
+        $request->validate([
+            'title' => 'nullable|max:512'
+        ]);
+
         $entry = new Entry;
         $entry->title = $request->title ? $request->title : '[Untitled]';
         $entry->body = $request->body;
@@ -73,6 +77,7 @@ class EntryController extends Controller
      */
     public function edit(Entry $entry, Journal $journal)
     {
+
         if ($entry->status == 'draft') {
             return view('entry.edit', compact('entry', 'journal'));
         }
@@ -88,6 +93,9 @@ class EntryController extends Controller
      */
     public function update(Request $request, Entry $entry, Journal $journal)
     {
+        $request->validate([
+            'title' => 'nullable|max:512'
+        ]);
         $entry->body = $request->body;
         $entry->title = $request->title;
         $entry->save();
