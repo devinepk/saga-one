@@ -36,15 +36,14 @@ class EntryController extends Controller
      */
     public function store(Request $request)
     {
-        $journal = Journal::find($request->journal_id);
-
         $entry = new Entry;
         $entry->title = $request->title ? $request->title : '[Untitled]';
         $entry->body = $request->body;
-        $entry->journal_id = $journal->id;
-        $entry->author_id = Auth::id();
         $entry->status = 'draft';
-        $entry->save();
+        $entry->author()->associate(Auth::user());
+
+        $journal = Journal::find($request->journal_id);
+        $journal->entries()->save($entry);
 
         $request->session()->flash('status', "<strong>{$entry->title}</strong> has been saved.");
         return redirect()->route('journal.show', compact('journal'));
@@ -92,7 +91,7 @@ class EntryController extends Controller
         $entry->title = $request->title;
         $entry->save();
 
-        $journal = Journal::find($request->journal_id);
+        $journal = $entry->journal;
 
         $request->session()->flash('status', "<strong>{$entry->title}</strong> has been saved.");
         return redirect()->route('journal.show', compact('journal'));
