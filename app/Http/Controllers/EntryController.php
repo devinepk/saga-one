@@ -84,8 +84,10 @@ class EntryController extends Controller
         $entry->title = $request->title;
         $entry->save();
 
+        $journal = Journal::find($request->journal_id);
+
         $request->session()->flash('status', "<strong>{$entry->title}</strong> has been saved.");
-        return redirect()->route('entry.edit', compact('entry'));
+        return redirect()->route('journal.show', compact('journal'));
     }
 
     /**
