@@ -24,5 +24,9 @@
         "@fortawesome/free-brands-svg-icons": "^5.4.2",
         "@fortawesome/free-solid-svg-icons": "^5.4.2",
         "@fortawesome/vue-fontawesome": "^0.1.2"
+    },
+    "dependencies": {
+        "moment": "^2.22.2",
+        "moment-duration-format": "^2.2.2"
     }
 }

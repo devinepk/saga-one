@@ -27,19 +27,25 @@ import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 import { faReadme } from '@fortawesome/free-brands-svg-icons';
 
-window.Vue = require('vue');
-
 library.add(
     faBell, faUser, faBook, faPlus, faSignOutAlt, faReadme, faEdit,
     faBackward, faForward, faArrowAltCircleRight, faPencilAlt, faBookReader,
     faUserPlus, faUserCircle, faTrashAlt
 );
 
+// Moment
+window.Moment = require('moment');
+var momentDurationFormatSetup = require("moment-duration-format");
+momentDurationFormatSetup(Moment);
+
+// Vue
+window.Vue = require('vue');
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('entry-card', require('./components/EntryCard.vue'));
 Vue.component('entry-body', require('./components/EntryBody.vue'));
 Vue.component('entry-comment', require('./components/EntryComment.vue'));
 Vue.component('entry-header', require('./components/EntryHeader.vue'));
+Vue.component('journal-countdown', require('./components/JournalCountdown.vue'));
 
 const app = new Vue({
     el: '#app'
