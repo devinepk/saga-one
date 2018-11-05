@@ -36,7 +36,10 @@
     </nav>
     @endif
 
-    <table class="my-3"><tr><th>Countdown:</th><td>23 hours, 23 minutes</td></tr></table>
+    <p>You have this journal until <strong>{{ $journal->formatted_next_change }}</strong>.</p>
+    <table class="my-3">
+        <tr><th>Countdown:</th><td>23 hours, 23 minutes</td></tr>
+    </table>
 
     <div class="my-4 alert alert-warning alert-dismissible fade show">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">

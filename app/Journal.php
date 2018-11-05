@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 class Journal extends Model
 {
@@ -134,5 +135,78 @@ class Journal extends Model
             ->get()
             ->sortByDesc('created_at')
             ->first();
+    }
+
+    /**
+     * Format the next_change attribute for display
+     *
+     * @return string
+     */
+    public function getFormattedNextChangeAttribute() {
+        $date = new Carbon($this->next_change, config('app.timezone'));
+
+        if ($date->diffInDays() < 1) {
+
+            $today = '\\t\\o\\d\\a\\y';
+            $weekday = $month = $day = $year = '';
+
+        } else {
+
+            $today = '';
+            $weekday = 'l';
+
+            // month
+            if ($date->diffInDays() > 5) {
+                $month = ', F';
+            } else {
+                $month = '';
+            }
+
+            // day and year
+            if (now()->year == $date->year) {
+                $day = ' jS';
+                $year = '';
+            } else {
+                $day = ' j';
+                $year = ', Y';
+            }
+        }
+
+        $format_string = "{$today}{$weekday}{$month}{$day}{$year} \\a\\t g:i:s a";
+
+        return $date->format($format_string);
+    }
+
+    /**
+     * Format a date for display
+     *
+     * @param Carbon $date
+     * @return string
+     */
+    protected function formatDate(Carbon $date)
+    {
+
+        if ($date->diffInDays() < 1) {
+
+            $today = '\\t\\o\\d\\a\\y';
+            $weekday = $month_day = $year = '';
+
+        } else {
+
+            $today = '\\o\\n ';
+            $weekday = 'l';
+            $month_day = '';
+
+            if ($date->diffInDays() > 5) {
+                $weekday = 'D';
+                $month_day = ', M j';
+            }
+
+            $year = (now()->year == $date->year) ? '' : ', Y';
+        }
+
+        $format_string = "{$today}{$weekday}{$month_day}{$year} \\a\\t g:ia";
+
+        return $date->format($format_string);
     }
 }
