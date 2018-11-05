@@ -19,9 +19,7 @@
         "laravel-mix": "^2.0",
         "lodash": "^4.17.5",
         "popper.js": "^1.12",
-        "vue": "^2.5.17"
-    },
-    "dependencies": {
+        "vue": "^2.5.17",
         "@fortawesome/fontawesome-svg-core": "^1.2.7",
         "@fortawesome/free-brands-svg-icons": "^5.4.2",
         "@fortawesome/free-solid-svg-icons": "^5.4.2",
