@@ -90,7 +90,7 @@ class Journal extends Model
      */
     public function entries()
     {
-        return $this->hasMany('App\Entry');
+        return $this->hasMany('App\Entry')->orderBy('updated_at', 'desc');
     }
 
     /**
