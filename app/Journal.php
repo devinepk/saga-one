@@ -65,7 +65,7 @@ class Journal extends Model
 
         if ($this->users()->count() > 1) {
 
-            $next_user = $this->users()->find($this->next_user);
+            $next_user = $this->next_user;
 
             do {
                 $queue[] = $next_user;
@@ -80,10 +80,11 @@ class Journal extends Model
      * Access the computed attribute "next_user", which represents
      * the next user in line for this journal
      *
-     * @return int id of the next user
+     * @return \App\User
      */
     public function getNextUserAttribute() {
-        return $this->users()->find($this->current_user->id)->subscription->next_user_id;
+        $next_user_id = $this->users()->find($this->current_user->id)->subscription->next_user_id;
+        return $this->users()->find($next_user_id);
     }
 
     /**
@@ -173,39 +174,6 @@ class Journal extends Model
         }
 
         $format_string = "{$today}{$weekday}{$month}{$day}{$year} \\a\\t g:i:s a";
-
-        return $date->format($format_string);
-    }
-
-    /**
-     * Format a date for display
-     *
-     * @param Carbon $date
-     * @return string
-     */
-    protected function formatDate(Carbon $date)
-    {
-
-        if ($date->diffInDays() < 1) {
-
-            $today = '\\t\\o\\d\\a\\y';
-            $weekday = $month_day = $year = '';
-
-        } else {
-
-            $today = '\\o\\n ';
-            $weekday = 'l';
-            $month_day = '';
-
-            if ($date->diffInDays() > 5) {
-                $weekday = 'D';
-                $month_day = ', M j';
-            }
-
-            $year = (now()->year == $date->year) ? '' : ', Y';
-        }
-
-        $format_string = "{$today}{$weekday}{$month_day}{$year} \\a\\t g:ia";
 
         return $date->format($format_string);
     }
