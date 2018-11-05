@@ -53631,7 +53631,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             required: false,
             default: ''
         },
-        readUrl: {
+        titleUrl: {
             type: String,
             required: true
         },
@@ -53712,7 +53712,7 @@ var render = function() {
         : _vm._e(),
       _vm._v(" "),
       _c("h2", { staticClass: "m-0" }, [
-        _c("a", { attrs: { href: _vm.readUrl } }, [_vm._v(_vm._s(_vm.title))]),
+        _c("a", { attrs: { href: _vm.titleUrl } }, [_vm._v(_vm._s(_vm.title))]),
         _vm.unread
           ? _c("span", { staticClass: "badge badge-info ml-3 rounded" }, [
               _vm._v("unread")

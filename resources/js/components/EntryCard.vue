@@ -8,7 +8,7 @@
                 <slot name="deleteformfields"></slot>
             </form>
         </div>
-        <h2 class="m-0"><a :href="readUrl">{{ title }}</a><span v-if="unread" class="badge badge-info ml-3 rounded">unread</span></h2>
+        <h2 class="m-0"><a :href="titleUrl">{{ title }}</a><span v-if="unread" class="badge badge-info ml-3 rounded">unread</span></h2>
     </div>
     <div class="card-body">
         <p class="m-0 excerpt"><slot></slot></p>
@@ -37,7 +37,7 @@ export default {
             required: false,
             default: ''
         },
-        readUrl: {
+        titleUrl: {
             type: String,
             required: true
         },
