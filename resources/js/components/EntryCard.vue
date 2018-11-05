@@ -11,8 +11,8 @@
         <p class="m-0 excerpt"><slot></slot></p>
     </div>
     <div class="card-footer text-muted">
-        <span v-if="author">Written by {{ author }} on {{ updatedAt }}.</span>
-        <span v-else>Created on {{ createdAt }}. Last updated on {{ updatedAt }}.</span>
+        <span v-if="author">Written by {{ author }} {{ updatedAt }}.</span>
+        <span v-else>Created {{ createdAt }}. Last updated {{ updatedAt }}.</span>
     </div>
 </div>
 </template>

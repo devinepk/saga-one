@@ -53707,16 +53707,16 @@ var render = function() {
             _vm._v(
               "Written by " +
                 _vm._s(_vm.author) +
-                " on " +
+                " " +
                 _vm._s(_vm.updatedAt) +
                 "."
             )
           ])
         : _c("span", [
             _vm._v(
-              "Created on " +
+              "Created " +
                 _vm._s(_vm.createdAt) +
-                ". Last updated on " +
+                ". Last updated " +
                 _vm._s(_vm.updatedAt) +
                 "."
             )
