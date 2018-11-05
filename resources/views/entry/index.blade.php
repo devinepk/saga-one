@@ -10,7 +10,10 @@
     @endcomponent
 
     @if (count($entries))
+
     <h1>{{ $journal->title }}</h1>
+    {{ $entries->links() }}
+
         @foreach ($entries as $entry)
             <entry-card
                 title="{{ $entry->title }}"

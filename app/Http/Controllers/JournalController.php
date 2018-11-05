@@ -69,7 +69,7 @@ class JournalController extends Controller
     {
         // Show the journal to the current user only.
         if (Auth::id() == $journal->current_user->id) {
-            $drafts = $journal->entries()->where('status', 'draft')->paginate(2);
+            $drafts = $journal->entries()->where('status', 'draft')->paginate(5);
             $drafts->withPath(route('journal.show', $journal));
 
             return view('journal.show', compact('journal', 'drafts'));
@@ -200,8 +200,8 @@ class JournalController extends Controller
     public function contents(Journal $journal)
     {
         // TODO: Validate request
-
-        $entries = $journal->entries()->where('status', 'final')->get()->sortByDesc('created_at');
+        $entries = $journal->entries()->where('status', 'final')->paginate(2);
+        $entries->withPath(route('journal.contents', $journal));
 
         return view('entry.index', compact('journal', 'entries'));
     }
