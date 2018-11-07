@@ -106,7 +106,7 @@ class JournalController extends Controller
     public function edit(Request $request, Journal $journal)
     {
         // Only the journal creator can edit journal details
-        if (Auth::user()->can('edit', $journal)) {
+        if (Auth::user()->can('update', $journal)) {
             return view('journal.edit', compact('journal'));
         }
 
@@ -128,7 +128,7 @@ class JournalController extends Controller
      */
     public function update(Request $request, Journal $journal)
     {
-        if (Auth::user()->can('edit', $journal)) {
+        if (Auth::user()->can('update', $journal)) {
             $request->validate([
                 'title' => 'required|max:255'
             ]);
