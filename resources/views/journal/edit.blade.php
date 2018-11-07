@@ -26,7 +26,7 @@
                     </div>
                     <div class="row pt-3">
                         <div class="col-4">
-                            <button type="submit" class="btn btn-block btn-link" formaction="{{ route('journal.show', $journal) }}">Cancel</a>
+                            <a class="btn btn-block" href="{{ route('journal.show', $journal) }}">Cancel</a>
                         </div>
                         <div class="col">
                             <button type="submit" class="btn btn-block btn-primary">Update</button>
