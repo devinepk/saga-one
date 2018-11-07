@@ -19,7 +19,8 @@ class EntryPolicy
      */
     public function view(User $user, Entry $entry)
     {
-        //
+        // Only the current user of the journal can view an entry
+        return $user->id === $entry->journal->current_user->id;
     }
 
     /**
@@ -30,7 +31,8 @@ class EntryPolicy
      */
     public function create(User $user)
     {
-        //
+        // Only the current user of the journal can create new entries
+        return $user->id === $entry->journal->current_user->id;
     }
 
     /**
@@ -42,7 +44,9 @@ class EntryPolicy
      */
     public function update(User $user, Entry $entry)
     {
-        //
+        // Only the current user of the journal can edit entries,
+        // and only draft entries may be edited.
+        return ($user->id === $entry->journal->current_user->id && $entry->status == 'draft');
     }
 
     /**
@@ -54,7 +58,9 @@ class EntryPolicy
      */
     public function delete(User $user, Entry $entry)
     {
-        //
+        // Only the current user of the journal can delete entries,
+        // and only draft entries may be deleted.
+        return ($user->id === $entry->journal->current_user->id && $entry->status == 'draft');
     }
 
     /**
@@ -66,7 +72,8 @@ class EntryPolicy
      */
     public function restore(User $user, Entry $entry)
     {
-        //
+        // Only the current user of the journal can restore entries.
+        return $user->id === $entry->journal->current_user->id;
     }
 
     /**
@@ -78,6 +85,7 @@ class EntryPolicy
      */
     public function forceDelete(User $user, Entry $entry)
     {
-        //
+        // Only the current user of the journal can force delete entries.
+        return $user->id === $entry->journal->current_user->id;
     }
 }
