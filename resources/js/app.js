@@ -40,13 +40,23 @@ momentDurationFormatSetup(Moment);
 
 // Vue
 window.Vue = require('vue');
+
+/**
+ * The following block of code may be used to automatically register your
+ * Vue components. It will recursively scan this directory for the Vue
+ * components and automatically register them with their "basename".
+ *
+ * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
+ */
+
+const files = require.context('./', true, /\.vue$/i)
+
+files.keys().map(key => {
+    return Vue.component(_.last(key.split('/')).split('.')[0], files(key))
+})
+
+// Other components
 Vue.component('font-awesome-icon', FontAwesomeIcon);
-Vue.component('entry-card', require('./components/EntryCard.vue'));
-Vue.component('entry-body', require('./components/EntryBody.vue'));
-Vue.component('entry-comment', require('./components/EntryComment.vue'));
-Vue.component('entry-header', require('./components/EntryHeader.vue'));
-Vue.component('journal-countdown', require('./components/JournalCountdown.vue'));
-Vue.component('alert', require('./components/Alert.vue'));
 
 const app = new Vue({
     el: '#app'
