@@ -19,7 +19,8 @@ class JournalPolicy
      */
     public function view(User $user, Journal $journal)
     {
-        //
+        // Only the current user can view the journal.
+        return $user->id === $journal->current_user->id;
     }
 
     /**
@@ -30,7 +31,8 @@ class JournalPolicy
      */
     public function create(User $user)
     {
-        //
+        // Any authorized user can create a journal
+        return true;
     }
 
     /**
@@ -42,7 +44,34 @@ class JournalPolicy
      */
     public function update(User $user, Journal $journal)
     {
-        //
+        // Only the journal creator can update it.
+        return $user->id === $journal->creator->id;
+    }
+
+    /**
+     * Determine whether the user can invite others to join the journal.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Journal  $journal
+     * @return mixed
+     */
+    public function invite(User $user, Journal $journal)
+    {
+        // Only the journal creator can invite others to join.
+        return $user->id === $journal->creator->id;
+    }
+
+    /**
+     * Determine whether the user can add new entries to the journal.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Journal  $journal
+     * @return mixed
+     */
+    public function addEntry(User $user, Journal $journal)
+    {
+        // Only the current user can write in the journal.
+        return $user->id === $journal->current_user->id;
     }
 
     /**
@@ -54,7 +83,8 @@ class JournalPolicy
      */
     public function delete(User $user, Journal $journal)
     {
-        //
+        // Only the journal creator can delete it.
+        return $user->id === $journal->creator->id;
     }
 
     /**
@@ -66,7 +96,8 @@ class JournalPolicy
      */
     public function restore(User $user, Journal $journal)
     {
-        //
+        // Only the journal creator can restore it.
+        return $user->id === $journal->creator->id;
     }
 
     /**
@@ -78,6 +109,7 @@ class JournalPolicy
      */
     public function forceDelete(User $user, Journal $journal)
     {
-        //
+        // Only the journal creator can force delete it.
+        return $user->id === $journal->creator->id;
     }
 }
