@@ -157,10 +157,11 @@ class JournalController extends Controller
         if (Auth::user()->can('delete', $journal)) {
 
             $journal->delete();
+            $restore_url = route('journal.restore', $journal);
             $request->session()->flash('status',
                 "<strong>{$journal->title}</strong> has been deleted.
-                <a href=\"#\" onclick=\"event.preventDefault(); document.getElementById('undo-form').submit();\">Undo</a>
-                <form id=\"undo-form\" style=\"display:none;\" method=\"post\" action='/journal/undodelete'>
+                <a href=\"$restore_url\" onclick=\"event.preventDefault(); document.getElementById('undo-form').submit();\">Undo</a>
+                <form id=\"undo-form\" style=\"display:none;\" method=\"post\" action=\"$restore_url\">
                     <input type='hidden' name='_token' value='" . csrf_token() . "'>
                     <input type='hidden' name='journal_id' value='{$journal->id}'>
                 </form>"
@@ -192,9 +193,10 @@ class JournalController extends Controller
      * Reverse a soft delete
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Journal  $journal
      * @return \Illuminate\Http\Response
      */
-    public function undoDelete(Request $request)
+    public function restore(Request $request, Journal $journal)
     {
         if (Auth::user()->can('restore', $journal)) {
 
@@ -253,7 +255,7 @@ class JournalController extends Controller
      * @param  \App\Journal  $journal
      * @return \Illuminate\Http\Response
      */
-    public function addEntry(Journal $journal) {
+    public function add(Journal $journal) {
         if (Auth::user()->can('addEntry', $journal)) {
             return view('entry.create', compact('journal'));
         }

@@ -24,18 +24,6 @@ class EntryPolicy
     }
 
     /**
-     * Determine whether the user can create entries.
-     *
-     * @param  \App\User  $user
-     * @return mixed
-     */
-    public function create(User $user)
-    {
-        // Only the current user of the journal can create new entries
-        return $user->id === $entry->journal->current_user->id;
-    }
-
-    /**
      * Determine whether the user can update the entry.
      *
      * @param  \App\User  $user

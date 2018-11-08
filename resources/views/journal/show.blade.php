@@ -48,7 +48,7 @@
     @endif
 
     @component('component.addButton')
-        @slot('url', route('journal.addEntry', $journal))
+        @slot('url', route('journal.add', $journal))
         Add a new entry
     @endcomponent
 
@@ -61,9 +61,9 @@
     @foreach ($drafts as $draft)
         <entry-card
             title="{{ $draft->title }}"
-            edit-url="{{ route('entry.edit', ['entry' => $draft, 'journal' => $journal]) }}"
-            title-url="{{ route('entry.edit', ['entry' => $draft, 'journal' => $journal]) }}"
-            delete-url="{{ route('entry.destroy', ['entry' => $draft, 'journal' => $journal]) }}"
+            edit-url="{{ route('entry.edit', $draft) }}"
+            title-url="{{ route('entry.edit', $draft) }}"
+            delete-url="{{ route('entry.destroy', $draft) }}"
             created-at="{{ $draft->formatted_created_at }}"
             updated-at="{{ $draft->formatted_updated_at }}"
         >

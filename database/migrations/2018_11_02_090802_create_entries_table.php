@@ -26,7 +26,6 @@ class CreateEntriesTable extends Migration
 
             $table->enum('status', ['draft', 'final']);
 
-            $table->softDeletes();
             $table->timestamps();
         });
     }

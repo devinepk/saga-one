@@ -6,7 +6,7 @@
 <entry-header>
     [Untitled]
 </entry-header>
-<form method="post" action="{{ route('entry.store', $journal) }}">
+<form method="post" action="{{ route('entry.store') }}">
     @csrf
     <input type="hidden" name="journal_id" value="{{ $journal->id }}">
     <input type="text" id="title" name="title" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" value="{{ old('title') }}" placeholder="Title" autofocus>

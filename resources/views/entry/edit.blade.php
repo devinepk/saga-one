@@ -7,7 +7,7 @@
     {{ $entry->title }}
 </entry-header>
 
-<form method="post" action="{{ route('entry.update', $journal) }}">
+<form method="post" action="{{ route('entry.update', $entry) }}">
     @csrf
     @method('PUT')
     <input type="hidden" name="journal_id" value="{{ $journal->id }}">

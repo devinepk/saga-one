@@ -34,9 +34,11 @@ class EntryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Journal $journal)
+    public function store(Request $request)
     {
-        if (Auth::user()->can('create', Entry::class)) {
+        $journal = Journal::find($request->journal_id);
+
+        if (Auth::user()->can('addEntry', $journal)) {
             $request->validate([
                 'title' => 'nullable|max:512'
             ]);
@@ -46,33 +48,33 @@ class EntryController extends Controller
             $entry->body = $request->body;
             $entry->status = 'draft';
             $entry->author()->associate(Auth::user());
-
-            $journal = Journal::find($request->journal_id);
             $journal->entries()->save($entry);
 
             $request->session()->flash('status', "<strong>{$entry->title}</strong> has been saved.");
+            return redirect()->route('journal.show', compact('journal'));
         }
-        return redirect()->route('journal.show', compact('journal'));
+
+        // Redirect to journal index
+        return redirect()->route('journal.index');
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Entry  $entry
-     * @param \App\Journal $journal
      * @return \Illuminate\Http\Response
      */
-    public function show(Entry $entry, Journal $journal)
+    public function show(Entry $entry)
     {
         if (Auth::user()->can('view', $entry)) {
-            $nextEntry = $journal->getEntryAfter($entry);
-            $previousEntry = $journal->getEntryBefore($entry);
+            $nextEntry = $entry->journal->getEntryAfter($entry);
+            $previousEntry = $entry->journal->getEntryBefore($entry);
             return view('entry.show', compact('entry', 'journal', 'nextEntry', 'previousEntry'));
         }
 
         // Show a flash message if the user belongs to the journal.
         if (Auth::user()->isInJournal($journal)) {
-            $request->session()->flash('status', "{$journal->current_user->name} has <strong>{$journal->title}</strong> right now. You'll be able to read it when it's your turn.");
+            $request->session()->flash('status', "{$entry->journal->current_user->name} has <strong>{$entry->journal->title}</strong> right now. You'll be able to read it when it's your turn.");
         }
 
         // Redirect to journal index
@@ -83,12 +85,12 @@ class EntryController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Entry  $entry
-     * @param \App\Journal $journal
      * @return \Illuminate\Http\Response
      */
-    public function edit(Entry $entry, Journal $journal)
+    public function edit(Entry $entry)
     {
         if (Auth::user()->can('update', $entry)) {
+            $journal = $entry->journal;
             return view('entry.edit', compact('entry', 'journal'));
         }
 
@@ -101,20 +103,20 @@ class EntryController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Entry  $entry
-     * @param \App\Journal $journal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Entry $entry, Journal $journal)
+    public function update(Request $request, Entry $entry)
     {
         if (Auth::user()->can('update', $entry)) {
             $request->validate([
                 'title' => 'nullable|max:512'
             ]);
+
             $entry->body = $request->body;
             $entry->title = $request->title;
             $entry->save();
-
             $request->session()->flash('status', "<strong>{$entry->title}</strong> has been saved.");
+            $journal = $entry->journal;
             return redirect()->route('journal.show', compact('journal'));
         }
 
@@ -123,45 +125,19 @@ class EntryController extends Controller
     }
 
     /**
-     * Perform a soft delete
+     * Remove the entry from storage
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Entry  $entry
-     * @param \App\Journal $journal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Entry $entry, Journal $journal)
+    public function destroy(Request $request, Entry $entry)
     {
         if (Auth::user()->can('delete', $entry)) {
             $entry->delete();
-            $request->session()->flash('status',
-                "<strong>{$entry->title}</strong> has been deleted.
-                <a href=\"#\" onclick=\"event.preventDefault(); document.getElementById('undo-form').submit();\">Undo</a>
-                <form id=\"undo-form\" class=\"d-none\" method=\"post\" action='/entry/undodelete'>
-                    <input type='hidden' name='_token' value='" . csrf_token() . "'>
-                    <input type='hidden' name='entry_id' value='{$entry->id}'>
-                </form>"
-            );
+            $request->session()->flash('status', "<strong>{$entry->title}</strong> has been deleted.");
         }
-
-        return redirect()->route('journal.show', compact('journal'));
-    }
-
-    /**
-     * Reverse a soft delete
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function undoDelete(Request $request)
-    {
-        if (Auth::user()->can('restore', $entry)) {
-            $entry = Entry::withTrashed()->find($request->input('entry_id'));
-            $entry->restore();
-            $request->session()->flash('status', "<strong>{$entry->title}</strong> has been restored.");
-            $journal = $entry->journal;
-        }
-
+        $journal = $entry->journal;
         return redirect()->route('journal.show', compact('journal'));
     }
 }

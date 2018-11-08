@@ -1,10 +1,10 @@
 <template>
 <div class="card mb-5">
     <div class="card-header">
-        <div v-if="editUrl || deleteUrl" class="float-right pt-1 text-muted">
-            <a v-if="editUrl" class="m-2" :href="editUrl"><font-awesome-icon icon="edit" /></a>
-            <a v-if="deleteUrl" class="m-2" href="#" @click="submitDeleteForm"><font-awesome-icon icon="trash-alt" /></a>
-            <form class="d-none" ref="deleteForm" method="post" :action="deleteUrl">
+        <div v-if="editUrl || deleteUrl" class="float-right text-muted">
+            <a v-if="editUrl" class="btn" :href="editUrl"><font-awesome-icon icon="edit" /></a>
+            <form v-if="deleteUrl" class="d-inline" method="post" :action="deleteUrl">
+                <button type="submit" class="btn btn-link"><font-awesome-icon icon="trash-alt" /></button>
                 <slot name="deleteformfields"></slot>
             </form>
         </div>
