@@ -3,6 +3,7 @@
 @section('page-title', 'New Entry')
 
 @section('additional_link_tags')
+{{-- CSS NEEDED FOR QUILL EDITOR --}}
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 @endsection
 
@@ -21,9 +22,4 @@
 <entry-save-form form-id="entry-save-form" store-url="{{ route('entry.store') }}" :journal-id="{{ $journal->id }}">
     @csrf
 </entry-save-form>
-@endsection
-
-@section('bottom_of_body')
-<!-- Initialize Quill editor -->
-<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 @endsection
