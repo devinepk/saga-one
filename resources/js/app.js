@@ -42,6 +42,9 @@ momentDurationFormatSetup(Moment);
 // Vue
 window.Vue = require('vue');
 
+// Vue event bus
+window.Event = new Vue();
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
