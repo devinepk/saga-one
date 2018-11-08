@@ -6,7 +6,7 @@
 
 {{-- CURRENT JOURNALS --}}
 @if (Auth::user()->current_journals->count())
-    <h2 class="mt-5">Journals you have</h2>
+    <h2 class="mt-5">Journals you can write in</h2>
     <div class="row">
         @foreach(Auth::user()->current_journals as $journal)
             <div class="col-sm col-md-6 col-lg-4">
