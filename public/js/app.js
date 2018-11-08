@@ -71874,7 +71874,8 @@ var map = {
 	"./components/EntryCard.vue": 177,
 	"./components/EntryComment.vue": 180,
 	"./components/EntryHeader.vue": 183,
-	"./components/JournalCountdown.vue": 186
+	"./components/JournalCountdown.vue": 186,
+	"./components/Modal.vue": 194
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -72208,17 +72209,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -72280,102 +72270,88 @@ var render = function() {
   return _c("div", { staticClass: "card mb-5" }, [
     _c("div", { staticClass: "card-header" }, [
       _vm.editUrl || _vm.deleteUrl
-        ? _c("div", { staticClass: "float-right text-muted" }, [
-            _vm.editUrl
-              ? _c(
-                  "a",
-                  { staticClass: "btn", attrs: { href: _vm.editUrl } },
-                  [_c("font-awesome-icon", { attrs: { icon: "edit" } })],
-                  1
-                )
-              : _vm._e(),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-link",
-                attrs: {
-                  type: "button",
-                  "data-toggle": "modal",
-                  "data-target": "#delete-confirm"
-                }
-              },
-              [_c("font-awesome-icon", { attrs: { icon: "trash-alt" } })],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "modal fade",
-                attrs: {
-                  id: "delete-confirm",
-                  tabindex: "-1",
-                  role: "dialog",
-                  "aria-labelledby": "delete-confirm-title",
-                  "aria-hidden": "true"
-                }
-              },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass: "modal-dialog modal-dialog-centered",
-                    attrs: { role: "document" }
-                  },
-                  [
-                    _c("div", { staticClass: "modal-content" }, [
-                      _vm._m(0),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "modal-body" }, [
-                        _c("p", [
-                          _vm._v("Are you sure you want to delete this entry?")
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "text-center" }, [
-                          _c("strong", [_vm._v(_vm._s(_vm.title))])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "modal-footer" }, [
-                        _c(
-                          "button",
+        ? _c(
+            "div",
+            { staticClass: "float-right text-muted" },
+            [
+              _vm.editUrl
+                ? _c(
+                    "a",
+                    { staticClass: "btn", attrs: { href: _vm.editUrl } },
+                    [_c("font-awesome-icon", { attrs: { icon: "edit" } })],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-link",
+                  attrs: {
+                    type: "button",
+                    "data-toggle": "modal",
+                    "data-target": "#delete-confirm"
+                  }
+                },
+                [_c("font-awesome-icon", { attrs: { icon: "trash-alt" } })],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "modal",
+                { attrs: { "modal-id": "delete-confirm" } },
+                [
+                  _c("template", { slot: "title" }, [
+                    _vm._v("Delete this entry?")
+                  ]),
+                  _vm._v(" "),
+                  _c("p", [
+                    _vm._v("Are you sure you want to delete this entry?")
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "text-center" }, [
+                    _c("strong", [_vm._v(_vm._s(_vm.title))])
+                  ]),
+                  _vm._v(" "),
+                  _c("template", { slot: "footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-link",
+                        attrs: { type: "button", "data-dismiss": "modal" }
+                      },
+                      [_vm._v("Cancel")]
+                    ),
+                    _vm._v(" "),
+                    _vm.deleteUrl
+                      ? _c(
+                          "form",
                           {
-                            staticClass: "btn btn-link",
-                            attrs: { type: "button", "data-dismiss": "modal" }
+                            staticClass: "d-inline",
+                            attrs: { method: "post", action: _vm.deleteUrl }
                           },
-                          [_vm._v("Cancel")]
-                        ),
-                        _vm._v(" "),
-                        _vm.deleteUrl
-                          ? _c(
-                              "form",
+                          [
+                            _vm._t("deleteformfields"),
+                            _vm._v(" "),
+                            _c(
+                              "button",
                               {
-                                staticClass: "d-inline",
-                                attrs: { method: "post", action: _vm.deleteUrl }
+                                staticClass: "btn btn-danger",
+                                attrs: { type: "submit" }
                               },
-                              [
-                                _vm._t("deleteformfields"),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-danger",
-                                    attrs: { type: "submit" }
-                                  },
-                                  [_vm._v("Yes, delete")]
-                                )
-                              ],
-                              2
+                              [_vm._v("Yes, delete")]
                             )
-                          : _vm._e()
-                      ])
-                    ])
-                  ]
-                )
-              ]
-            )
-          ])
+                          ],
+                          2
+                        )
+                      : _vm._e()
+                  ])
+                ],
+                2
+              )
+            ],
+            1
+          )
         : _vm._e(),
       _vm._v(" "),
       _c("h2", { staticClass: "m-0" }, [
@@ -72415,33 +72391,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c(
-        "h5",
-        { staticClass: "modal-title", attrs: { id: "delete-confirm-title" } },
-        [_vm._v("Delete this entry?")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -72921,6 +72871,176 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 190 */,
+/* 191 */,
+/* 192 */,
+/* 193 */,
+/* 194 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(4)
+/* script */
+var __vue_script__ = __webpack_require__(195)
+/* template */
+var __vue_template__ = __webpack_require__(196)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/Modal.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-53ab54d2", Component.options)
+  } else {
+    hotAPI.reload("data-v-53ab54d2", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 195 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        modalId: {
+            type: String,
+            required: true
+        }
+    },
+    computed: {
+        titleId: function titleId() {
+            return this.modalId + "-title";
+        }
+    }
+});
+
+/***/ }),
+/* 196 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "modal fade",
+      attrs: {
+        id: _vm.modalId,
+        tabindex: "-1",
+        role: "dialog",
+        "aria-labelledby": _vm.titleId,
+        "aria-hidden": "true"
+      }
+    },
+    [
+      _c(
+        "div",
+        {
+          staticClass: "modal-dialog modal-dialog-centered",
+          attrs: { role: "document" }
+        },
+        [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("div", { staticClass: "modal-header" }, [
+              _c(
+                "h5",
+                { staticClass: "modal-title", attrs: { id: _vm.titleId } },
+                [_vm._t("title")],
+                2
+              ),
+              _vm._v(" "),
+              _vm._m(0)
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [_vm._t("default")], 2),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-footer" }, [_vm._t("footer")], 2)
+          ])
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-53ab54d2", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
