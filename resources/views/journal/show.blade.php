@@ -3,7 +3,7 @@
 @section('page-title', $journal->title)
 
 @section('journal-content')
-<div class="container pb-5 p-md-5">
+<div class="container">
 
     <h1>{{ $journal->title }}</h1>
     @if ($journal->description)

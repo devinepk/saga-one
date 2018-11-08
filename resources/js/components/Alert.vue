@@ -1,12 +1,13 @@
 <template>
 
-<div class="my-4 alert alert-dismissible fade show" :class="className">
-    <button v-if="dismissable" type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-    <slot></slot>
+<div class="container">
+    <div class="alert alert-dismissible fade show" :class="className">
+        <button v-if="dismissable" type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <slot></slot>
+    </div>
 </div>
-
 </template>
 
 <script>
