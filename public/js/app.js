@@ -73372,7 +73372,10 @@ var render = function() {
             _vm.showUrl
               ? _c(
                   "a",
-                  { staticClass: "nav-link py-1", attrs: { href: "#" } },
+                  {
+                    staticClass: "nav-link py-1",
+                    attrs: { href: _vm.showUrl }
+                  },
                   [
                     _c("font-awesome-icon", { attrs: { icon: "pencil-alt" } }),
                     _vm._v(" "),

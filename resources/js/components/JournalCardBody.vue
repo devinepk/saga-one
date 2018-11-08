@@ -20,7 +20,7 @@
             <nav class="nav flex-column">
 
 
-                <a v-if="showUrl" class="nav-link py-1" href="#">
+                <a v-if="showUrl" class="nav-link py-1" :href="showUrl">
                     <font-awesome-icon icon="pencil-alt"/>
                     <span class="ml-2">Write</span>
                 </a>

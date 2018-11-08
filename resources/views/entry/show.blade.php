@@ -8,11 +8,11 @@
     created-at="{{ $entry->formatted_created_at }}"
     author="{{ $entry->author->name }}"
     edit-url="{{ route('entry.edit', $entry) }}"
-    @if($previousEntry)
-        previous-url="{{ route('entry.show', $previousEntry) }}"
+    @if($journal->getEntryBefore($entry))
+        previous-url="{{ route('entry.show', $journal->getEntryBefore($entry)) }}"
     @endif
-    @if ($nextEntry)
-        next-url="{{ route('entry.show', $nextEntry) }}"
+    @if ($journal->getEntryAfter($entry))
+        next-url="{{ route('entry.show', $journal->getEntryAfter($entry)) }}"
     @endif
     contents-url="{{ route('journal.contents', $journal) }}"
 >

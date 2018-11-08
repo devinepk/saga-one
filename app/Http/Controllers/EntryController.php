@@ -67,9 +67,8 @@ class EntryController extends Controller
     public function show(Entry $entry)
     {
         if (Auth::user()->can('view', $entry)) {
-            $nextEntry = $entry->journal->getEntryAfter($entry);
-            $previousEntry = $entry->journal->getEntryBefore($entry);
-            return view('entry.show', compact('entry', 'journal', 'nextEntry', 'previousEntry'));
+            $journal = $entry->journal;
+            return view('entry.show', compact('entry', 'journal'));
         }
 
         // Show a flash message if the user belongs to the journal.

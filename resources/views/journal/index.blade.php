@@ -19,7 +19,7 @@
                         image-url="{{ asset('/img/cover1.jpg') }}"
                         invite-url="{{ Auth::user()->can('invite', $journal) ? route('journal.invite', $journal) : '' }}"
                         edit-url="{{ Auth::user()->can('update', $journal) ? route('journal.edit', $journal) : '' }}"
-                        archive-url="{{ Auth::user()->can('invite', $journal) ? route('journal.invite', $journal) : '' }}"
+                        archive-url="{{ Auth::user()->can('archive', $journal) ? route('journal.archive', $journal) : '' }}"
                     >
                         <template>{{ $journal->title }}</template>
                     </journal-card-body>
