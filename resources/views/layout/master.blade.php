@@ -8,8 +8,8 @@
     <link rel="dns-prefetch" href="https://fonts.googleapis.com/">
     <link rel="dns-prefetch" href="https://fonts.gstatic.com/">
     @yield('additional_link_tags')
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ secure_asset('css/app.css') }}">
+    <script src="{{ secure_asset('js/app.js') }}" defer></script>
     <title>@yield('title')</title>
 </head>
 <body class="@yield('body_classes')">
