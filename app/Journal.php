@@ -8,7 +8,6 @@ use Carbon\Carbon;
 
 class Journal extends Model
 {
-    use SoftDeletes;
 
     /**
      * The attributes that should be append to the model's array form

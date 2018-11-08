@@ -27,7 +27,8 @@ class CreateJournalsTable extends Migration
             $table->unsignedInteger('current_user_id');
             $table->foreign('current_user_id')->references('id')->on('users');
 
-            $table->softDeletes();
+            $table->boolean('active')->nullable()->default('true');
+
             $table->timestamps();
         });
     }
