@@ -19,7 +19,7 @@
 
     <div class="m-2">
         <h1 id="entry-title" class="entry-title mb-0"><slot></slot></h1>
-        <small v-if="createdAt" class="entry-meta text-muted">Written on {{ createdAt }} by {{ author }}</small>
+        <small v-if="entryDate" class="entry-meta text-muted">Written on {{ entryDate }} by {{ author }}</small>
     </div>
 
 </div>
@@ -38,7 +38,7 @@ module.exports = {
             required: false,
             default: ''
         },
-        createdAt: {
+        entryDate: {
             type: String,
             required: false,
             default: ''

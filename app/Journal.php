@@ -112,28 +112,42 @@ class Journal extends Model
     /**
      * Get the next entry in the journal, or null if there is none
      *
-     * @param \App\Entry
+     * @param \App\Entry $entry
+     * @param bool $no_drafts
      * @return \App\Entry || null
      */
-    public function getEntryAfter(Entry $entry) {
+    public function getEntryAfter(Entry $entry, $no_drafts = true) {
+        $params = [
+            ['updated_at', '>', $entry->updated_at]
+        ];
+        if ($no_drafts) {
+            $params[] = ['status', 'final'];
+        }
         return $this->entries()
-            ->where('created_at', '>', $entry->created_at)
+            ->where($params)
             ->get()
-            ->sortBy('created_at')
+            ->sortBy('updated_at')
             ->first();
     }
 
     /**
      * Get the previous entry in the journal, or null if there is none
      *
-     * @param \App\Entry
+     * @param \App\Entry $entry
+     * @param bool $no_drafts
      * @return \App\Entry || null
      */
-    public function getEntryBefore(Entry $entry) {
+    public function getEntryBefore(Entry $entry, $no_drafts = true) {
+        $params = [
+            ['updated_at', '<', $entry->updated_at]
+        ];
+        if ($no_drafts) {
+            $params[] = ['status', 'final'];
+        }
         return $this->entries()
-            ->where('created_at', '<', $entry->created_at)
+            ->where($params)
             ->get()
-            ->sortByDesc('created_at')
+            ->sortByDesc('updated_at')
             ->first();
     }
 

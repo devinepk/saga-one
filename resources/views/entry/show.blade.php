@@ -5,7 +5,7 @@
 @section('journal-content')
 <entry-header
     :display-entry-nav="true"
-    created-at="{{ $entry->formatted_created_at }}"
+    entry-date="{{ $entry->formatted_updated_at }}"
     author="{{ $entry->author->name }}"
     edit-url="{{ route('entry.edit', $entry) }}"
     @if($journal->getEntryBefore($entry))

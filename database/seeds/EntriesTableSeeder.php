@@ -37,7 +37,7 @@ class EntriesTableSeeder extends Seeder
             'journal_id' => $journal1->id,
             'status' => 'final',
             'created_at' => now()->subHours(rand(5, 100)),
-            'updated_at' => $now
+            'updated_at' => now()->subMinutes(rand(0, 300))
         ]);
 
         DB::table('entries')->insert([
@@ -47,7 +47,7 @@ class EntriesTableSeeder extends Seeder
             'journal_id' => $journal1->id,
             'status' => 'final',
             'created_at' => now()->subHours(rand(5, 100)),
-            'updated_at' => $now
+            'updated_at' => now()->subMinutes(rand(0, 300))
         ]);
 
         DB::table('entries')->insert([
@@ -57,7 +57,7 @@ class EntriesTableSeeder extends Seeder
             'journal_id' => $journal1->id,
             'status' => 'final',
             'created_at' => now()->subHours(rand(5, 100)),
-            'updated_at' => $now
+            'updated_at' => now()->subMinutes(rand(0, 300))
         ]);
 
         DB::table('entries')->insert([
@@ -67,7 +67,7 @@ class EntriesTableSeeder extends Seeder
             'journal_id' => $journal1->id,
             'status' => 'final',
             'created_at' => now()->subHours(rand(5, 100)),
-            'updated_at' => $now
+            'updated_at' => now()->subMinutes(rand(0, 300))
         ]);
 
         DB::table('entries')->insert([
@@ -77,7 +77,7 @@ class EntriesTableSeeder extends Seeder
             'journal_id' => $journal1->id,
             'status' => 'final',
             'created_at' => now()->subHours(rand(5, 100)),
-            'updated_at' => $now
+            'updated_at' => now()->subMinutes(rand(0, 300))
         ]);
 
         DB::table('entries')->insert([
@@ -87,7 +87,7 @@ class EntriesTableSeeder extends Seeder
             'journal_id' => $journal1->id,
             'status' => 'draft',
             'created_at' => now()->subHours(1),
-            'updated_at' => $now
+            'updated_at' => now()->subMinutes(rand(0, 300))
         ]);
     }
 }

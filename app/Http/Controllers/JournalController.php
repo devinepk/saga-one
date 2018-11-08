@@ -231,7 +231,7 @@ class JournalController extends Controller
     public function contents(Journal $journal)
     {
         if (Auth::user()->can('view', $journal)) {
-            $entries = $journal->entries()->where('status', 'final')->paginate(2);
+            $entries = $journal->entries()->where('status', 'final')->paginate(10);
             $entries->withPath(route('journal.contents', $journal));
 
             return view('entry.index', compact('journal', 'entries'));

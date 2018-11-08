@@ -73000,7 +73000,7 @@ module.exports = {
             required: false,
             default: ''
         },
-        createdAt: {
+        entryDate: {
             type: String,
             required: false,
             default: ''
@@ -73135,11 +73135,11 @@ var render = function() {
           2
         ),
         _vm._v(" "),
-        _vm.createdAt
+        _vm.entryDate
           ? _c("small", { staticClass: "entry-meta text-muted" }, [
               _vm._v(
                 "Written on " +
-                  _vm._s(_vm.createdAt) +
+                  _vm._s(_vm.entryDate) +
                   " by " +
                   _vm._s(_vm.author)
               )
