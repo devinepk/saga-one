@@ -73990,6 +73990,274 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -74011,7 +74279,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         this.editor = new __WEBPACK_IMPORTED_MODULE_0_quill___default.a(this.$refs.editor, {
             modules: {
-                toolbar: [[{ header: [1, 2, 3, 4, false] }], ['bold', 'italic', 'underline', 'strike'], [{ 'color': [] }, { 'background': [] }], ['blockquote'], [{ 'list': 'ordered' }, { 'list': 'bullet' }], [{ 'script': 'sub' }, { 'script': 'super' }], [{ 'indent': '-1' }, { 'indent': '+1' }], [{ 'align': [] }], ['clean']]
+                toolbar: this.$refs.toolbar
+
+                // toolbar: [
+                //     [{ header: [1, 2, 3, 4, false] }],
+                //     ['bold', 'italic', 'underline', 'strike'],
+                //     [{ 'color': [] }, { 'background': [] }],
+                //     ['blockquote'],
+                //     [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                //     [{ 'script': 'sub'}, { 'script': 'super' }],
+                //     [{ 'indent': '-1'}, { 'indent': '+1' }],
+                //     [{ 'align': [] }],
+                //     ['clean']
+                // ]
+
             },
             theme: 'snow',
             formats: ['bold', 'underline', 'header', 'italic', 'strike', 'color', 'background', 'blockquote', 'list', 'script', 'indent', 'align']
@@ -74040,13 +74321,1590 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", {
-    ref: "editor",
-    attrs: { id: "editor" },
-    domProps: { innerHTML: _vm._s(_vm.value) }
-  })
+  return _c("div", [
+    _c(
+      "div",
+      {
+        ref: "toolbar",
+        staticClass: "ql-toolbar ql-snow",
+        attrs: { id: "toolbar" }
+      },
+      [
+        _c("span", { staticClass: "ql-formats" }, [
+          _c("span", { staticClass: "ql-header ql-picker" }, [
+            _c(
+              "span",
+              {
+                staticClass: "ql-picker-label",
+                attrs: {
+                  tabindex: "0",
+                  role: "button",
+                  "aria-expanded": "false",
+                  "aria-controls": "ql-picker-options-0"
+                }
+              },
+              [
+                _c("svg", { attrs: { viewBox: "0 0 18 18" } }, [
+                  _c("polygon", {
+                    staticClass: "ql-stroke",
+                    attrs: { points: "7 11 9 13 11 11 7 11" }
+                  }),
+                  _vm._v(" "),
+                  _c("polygon", {
+                    staticClass: "ql-stroke",
+                    attrs: { points: "7 7 9 5 11 7 7 7" }
+                  })
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _vm._m(0)
+          ]),
+          _vm._v(" "),
+          _vm._m(1)
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "ql-formats" }, [
+          _c("button", { staticClass: "ql-bold", attrs: { type: "button" } }, [
+            _c("svg", { attrs: { viewBox: "0 0 18 18" } }, [
+              _c("path", {
+                staticClass: "ql-stroke",
+                attrs: {
+                  d:
+                    "M5,4H9.5A2.5,2.5,0,0,1,12,6.5v0A2.5,2.5,0,0,1,9.5,9H5A0,0,0,0,1,5,9V4A0,0,0,0,1,5,4Z"
+                }
+              }),
+              _vm._v(" "),
+              _c("path", {
+                staticClass: "ql-stroke",
+                attrs: {
+                  d:
+                    "M5,9h5.5A2.5,2.5,0,0,1,13,11.5v0A2.5,2.5,0,0,1,10.5,14H5a0,0,0,0,1,0,0V9A0,0,0,0,1,5,9Z"
+                }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "ql-italic", attrs: { type: "button" } },
+            [
+              _c("svg", { attrs: { viewBox: "0 0 18 18" } }, [
+                _c("line", {
+                  staticClass: "ql-stroke",
+                  attrs: { x1: "7", x2: "13", y1: "4", y2: "4" }
+                }),
+                _vm._v(" "),
+                _c("line", {
+                  staticClass: "ql-stroke",
+                  attrs: { x1: "5", x2: "11", y1: "14", y2: "14" }
+                }),
+                _vm._v(" "),
+                _c("line", {
+                  staticClass: "ql-stroke",
+                  attrs: { x1: "8", x2: "10", y1: "14", y2: "4" }
+                })
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "ql-underline", attrs: { type: "button" } },
+            [
+              _c("svg", { attrs: { viewBox: "0 0 18 18" } }, [
+                _c("path", {
+                  staticClass: "ql-stroke",
+                  attrs: {
+                    d: "M5,3V9a4.012,4.012,0,0,0,4,4H9a4.012,4.012,0,0,0,4-4V3"
+                  }
+                }),
+                _vm._v(" "),
+                _c("rect", {
+                  staticClass: "ql-fill",
+                  attrs: {
+                    height: "1",
+                    rx: "0.5",
+                    ry: "0.5",
+                    width: "12",
+                    x: "3",
+                    y: "15"
+                  }
+                })
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "ql-strike", attrs: { type: "button" } },
+            [
+              _c("svg", { attrs: { viewBox: "0 0 18 18" } }, [
+                _c("line", {
+                  staticClass: "ql-stroke ql-thin",
+                  attrs: { x1: "15.5", x2: "2.5", y1: "8.5", y2: "9.5" }
+                }),
+                _vm._v(" "),
+                _c("path", {
+                  staticClass: "ql-fill",
+                  attrs: {
+                    d:
+                      "M9.007,8C6.542,7.791,6,7.519,6,6.5,6,5.792,7.283,5,9,5c1.571,0,2.765.679,2.969,1.309a1,1,0,0,0,1.9-.617C13.356,4.106,11.354,3,9,3,6.2,3,4,4.538,4,6.5a3.2,3.2,0,0,0,.5,1.843Z"
+                  }
+                }),
+                _vm._v(" "),
+                _c("path", {
+                  staticClass: "ql-fill",
+                  attrs: {
+                    d:
+                      "M8.984,10C11.457,10.208,12,10.479,12,11.5c0,0.708-1.283,1.5-3,1.5-1.571,0-2.765-.679-2.969-1.309a1,1,0,1,0-1.9.617C4.644,13.894,6.646,15,9,15c2.8,0,5-1.538,5-3.5a3.2,3.2,0,0,0-.5-1.843Z"
+                  }
+                })
+              ])
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "ql-formats" }, [
+          _c("span", { staticClass: "ql-color ql-picker ql-color-picker" }, [
+            _c(
+              "span",
+              {
+                staticClass: "ql-picker-label",
+                attrs: {
+                  tabindex: "0",
+                  role: "button",
+                  "aria-expanded": "false",
+                  "aria-controls": "ql-picker-options-1"
+                }
+              },
+              [
+                _c("svg", { attrs: { viewBox: "0 0 18 18" } }, [
+                  _c("line", {
+                    staticClass: "ql-color-label ql-stroke ql-transparent",
+                    attrs: { x1: "3", x2: "15", y1: "15", y2: "15" }
+                  }),
+                  _vm._v(" "),
+                  _c("polyline", {
+                    staticClass: "ql-stroke",
+                    attrs: { points: "5.5 11 9 3 12.5 11" }
+                  }),
+                  _vm._v(" "),
+                  _c("line", {
+                    staticClass: "ql-stroke",
+                    attrs: { x1: "11.63", x2: "6.38", y1: "9", y2: "9" }
+                  })
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _vm._m(2)
+          ]),
+          _vm._v(" "),
+          _vm._m(3),
+          _vm._v(" "),
+          _c(
+            "span",
+            { staticClass: "ql-background ql-picker ql-color-picker" },
+            [
+              _c(
+                "span",
+                {
+                  staticClass: "ql-picker-label",
+                  attrs: {
+                    tabindex: "0",
+                    role: "button",
+                    "aria-expanded": "false",
+                    "aria-controls": "ql-picker-options-2"
+                  }
+                },
+                [
+                  _c("svg", { attrs: { viewBox: "0 0 18 18" } }, [
+                    _c("g", { staticClass: "ql-fill ql-color-label" }, [
+                      _c("polygon", {
+                        attrs: { points: "6 6.868 6 6 5 6 5 7 5.942 7 6 6.868" }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "4", y: "4" }
+                      }),
+                      _vm._v(" "),
+                      _c("polygon", {
+                        attrs: { points: "6.817 5 6 5 6 6 6.38 6 6.817 5" }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "2", y: "6" }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "3", y: "5" }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "4", y: "7" }
+                      }),
+                      _vm._v(" "),
+                      _c("polygon", {
+                        attrs: {
+                          points: "4 11.439 4 11 3 11 3 12 3.755 12 4 11.439"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "2", y: "12" }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "2", y: "9" }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "2", y: "15" }
+                      }),
+                      _vm._v(" "),
+                      _c("polygon", {
+                        attrs: { points: "4.63 10 4 10 4 11 4.192 11 4.63 10" }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "3", y: "8" }
+                      }),
+                      _vm._v(" "),
+                      _c("path", {
+                        attrs: {
+                          d:
+                            "M10.832,4.2L11,4.582V4H10.708A1.948,1.948,0,0,1,10.832,4.2Z"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("path", {
+                        attrs: {
+                          d:
+                            "M7,4.582L7.168,4.2A1.929,1.929,0,0,1,7.292,4H7V4.582Z"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("path", {
+                        attrs: {
+                          d:
+                            "M8,13H7.683l-0.351.8a1.933,1.933,0,0,1-.124.2H8V13Z"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "12", y: "2" }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "11", y: "3" }
+                      }),
+                      _vm._v(" "),
+                      _c("path", {
+                        attrs: { d: "M9,3H8V3.282A1.985,1.985,0,0,1,9,3Z" }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "2", y: "3" }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "6", y: "2" }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "3", y: "2" }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "5", y: "3" }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "9", y: "2" }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "15", y: "14" }
+                      }),
+                      _vm._v(" "),
+                      _c("polygon", {
+                        attrs: {
+                          points:
+                            "13.447 10.174 13.469 10.225 13.472 10.232 13.808 11 14 11 14 10 13.37 10 13.447 10.174"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "13", y: "7" }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "15", y: "5" }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "14", y: "6" }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "15", y: "8" }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "14", y: "9" }
+                      }),
+                      _vm._v(" "),
+                      _c("path", {
+                        attrs: {
+                          d: "M3.775,14H3v1H4V14.314A1.97,1.97,0,0,1,3.775,14Z"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "14", y: "3" }
+                      }),
+                      _vm._v(" "),
+                      _c("polygon", {
+                        attrs: { points: "12 6.868 12 6 11.62 6 12 6.868" }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "15", y: "2" }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "12", y: "5" }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "13", y: "4" }
+                      }),
+                      _vm._v(" "),
+                      _c("polygon", {
+                        attrs: {
+                          points: "12.933 9 13 9 13 8 12.495 8 12.933 9"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "9", y: "14" }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "8", y: "15" }
+                      }),
+                      _vm._v(" "),
+                      _c("path", {
+                        attrs: {
+                          d: "M6,14.926V15H7V14.316A1.993,1.993,0,0,1,6,14.926Z"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "5", y: "15" }
+                      }),
+                      _vm._v(" "),
+                      _c("path", {
+                        attrs: {
+                          d:
+                            "M10.668,13.8L10.317,13H10v1h0.792A1.947,1.947,0,0,1,10.668,13.8Z"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "11", y: "15" }
+                      }),
+                      _vm._v(" "),
+                      _c("path", {
+                        attrs: {
+                          d: "M14.332,12.2a1.99,1.99,0,0,1,.166.8H15V12H14.245Z"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "14", y: "15" }
+                      }),
+                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { height: "1", width: "1", x: "15", y: "11" }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("polyline", {
+                      staticClass: "ql-stroke",
+                      attrs: { points: "5.5 13 9 5 12.5 13" }
+                    }),
+                    _vm._v(" "),
+                    _c("line", {
+                      staticClass: "ql-stroke",
+                      attrs: { x1: "11.63", x2: "6.38", y1: "11", y2: "11" }
+                    })
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _vm._m(4)
+            ]
+          ),
+          _vm._v(" "),
+          _vm._m(5)
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "ql-formats" }, [
+          _c(
+            "button",
+            { staticClass: "ql-blockquote", attrs: { type: "button" } },
+            [
+              _c("svg", { attrs: { viewBox: "0 0 18 18" } }, [
+                _c("rect", {
+                  staticClass: "ql-fill ql-stroke",
+                  attrs: { height: "3", width: "3", x: "4", y: "5" }
+                }),
+                _vm._v(" "),
+                _c("rect", {
+                  staticClass: "ql-fill ql-stroke",
+                  attrs: { height: "3", width: "3", x: "11", y: "5" }
+                }),
+                _vm._v(" "),
+                _c("path", {
+                  staticClass: "ql-even ql-fill ql-stroke",
+                  attrs: { d: "M7,8c0,4.031-3,5-3,5" }
+                }),
+                _vm._v(" "),
+                _c("path", {
+                  staticClass: "ql-even ql-fill ql-stroke",
+                  attrs: { d: "M14,8c0,4.031-3,5-3,5" }
+                })
+              ])
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "ql-formats" }, [
+          _c(
+            "button",
+            {
+              staticClass: "ql-list",
+              attrs: { type: "button", value: "ordered" }
+            },
+            [
+              _c("svg", { attrs: { viewBox: "0 0 18 18" } }, [
+                _c("line", {
+                  staticClass: "ql-stroke",
+                  attrs: { x1: "7", x2: "15", y1: "4", y2: "4" }
+                }),
+                _vm._v(" "),
+                _c("line", {
+                  staticClass: "ql-stroke",
+                  attrs: { x1: "7", x2: "15", y1: "9", y2: "9" }
+                }),
+                _vm._v(" "),
+                _c("line", {
+                  staticClass: "ql-stroke",
+                  attrs: { x1: "7", x2: "15", y1: "14", y2: "14" }
+                }),
+                _vm._v(" "),
+                _c("line", {
+                  staticClass: "ql-stroke ql-thin",
+                  attrs: { x1: "2.5", x2: "4.5", y1: "5.5", y2: "5.5" }
+                }),
+                _vm._v(" "),
+                _c("path", {
+                  staticClass: "ql-fill",
+                  attrs: {
+                    d:
+                      "M3.5,6A0.5,0.5,0,0,1,3,5.5V3.085l-0.276.138A0.5,0.5,0,0,1,2.053,3c-0.124-.247-0.023-0.324.224-0.447l1-.5A0.5,0.5,0,0,1,4,2.5v3A0.5,0.5,0,0,1,3.5,6Z"
+                  }
+                }),
+                _vm._v(" "),
+                _c("path", {
+                  staticClass: "ql-stroke ql-thin",
+                  attrs: {
+                    d:
+                      "M4.5,10.5h-2c0-.234,1.85-1.076,1.85-2.234A0.959,0.959,0,0,0,2.5,8.156"
+                  }
+                }),
+                _vm._v(" "),
+                _c("path", {
+                  staticClass: "ql-stroke ql-thin",
+                  attrs: {
+                    d:
+                      "M2.5,14.846a0.959,0.959,0,0,0,1.85-.109A0.7,0.7,0,0,0,3.75,14a0.688,0.688,0,0,0,.6-0.736,0.959,0.959,0,0,0-1.85-.109"
+                  }
+                })
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "ql-list",
+              attrs: { type: "button", value: "bullet" }
+            },
+            [
+              _c("svg", { attrs: { viewBox: "0 0 18 18" } }, [
+                _c("line", {
+                  staticClass: "ql-stroke",
+                  attrs: { x1: "6", x2: "15", y1: "4", y2: "4" }
+                }),
+                _vm._v(" "),
+                _c("line", {
+                  staticClass: "ql-stroke",
+                  attrs: { x1: "6", x2: "15", y1: "9", y2: "9" }
+                }),
+                _vm._v(" "),
+                _c("line", {
+                  staticClass: "ql-stroke",
+                  attrs: { x1: "6", x2: "15", y1: "14", y2: "14" }
+                }),
+                _vm._v(" "),
+                _c("line", {
+                  staticClass: "ql-stroke",
+                  attrs: { x1: "3", x2: "3", y1: "4", y2: "4" }
+                }),
+                _vm._v(" "),
+                _c("line", {
+                  staticClass: "ql-stroke",
+                  attrs: { x1: "3", x2: "3", y1: "9", y2: "9" }
+                }),
+                _vm._v(" "),
+                _c("line", {
+                  staticClass: "ql-stroke",
+                  attrs: { x1: "3", x2: "3", y1: "14", y2: "14" }
+                })
+              ])
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "ql-formats" }, [
+          _c(
+            "button",
+            {
+              staticClass: "ql-script",
+              attrs: { type: "button", value: "sub" }
+            },
+            [
+              _c("svg", { attrs: { viewBox: "0 0 18 18" } }, [
+                _c("path", {
+                  staticClass: "ql-fill",
+                  attrs: {
+                    d:
+                      "M15.5,15H13.861a3.858,3.858,0,0,0,1.914-2.975,1.8,1.8,0,0,0-1.6-1.751A1.921,1.921,0,0,0,12.021,11.7a0.50013,0.50013,0,1,0,.957.291h0a0.914,0.914,0,0,1,1.053-.725,0.81,0.81,0,0,1,.744.762c0,1.076-1.16971,1.86982-1.93971,2.43082A1.45639,1.45639,0,0,0,12,15.5a0.5,0.5,0,0,0,.5.5h3A0.5,0.5,0,0,0,15.5,15Z"
+                  }
+                }),
+                _vm._v(" "),
+                _c("path", {
+                  staticClass: "ql-fill",
+                  attrs: {
+                    d:
+                      "M9.65,5.241a1,1,0,0,0-1.409.108L6,7.964,3.759,5.349A1,1,0,0,0,2.192,6.59178Q2.21541,6.6213,2.241,6.649L4.684,9.5,2.241,12.35A1,1,0,0,0,3.71,13.70722q0.02557-.02768.049-0.05722L6,11.036,8.241,13.65a1,1,0,1,0,1.567-1.24277Q9.78459,12.3777,9.759,12.35L7.316,9.5,9.759,6.651A1,1,0,0,0,9.65,5.241Z"
+                  }
+                })
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "ql-script",
+              attrs: { type: "button", value: "super" }
+            },
+            [
+              _c("svg", { attrs: { viewBox: "0 0 18 18" } }, [
+                _c("path", {
+                  staticClass: "ql-fill",
+                  attrs: {
+                    d:
+                      "M15.5,7H13.861a4.015,4.015,0,0,0,1.914-2.975,1.8,1.8,0,0,0-1.6-1.751A1.922,1.922,0,0,0,12.021,3.7a0.5,0.5,0,1,0,.957.291,0.917,0.917,0,0,1,1.053-.725,0.81,0.81,0,0,1,.744.762c0,1.077-1.164,1.925-1.934,2.486A1.423,1.423,0,0,0,12,7.5a0.5,0.5,0,0,0,.5.5h3A0.5,0.5,0,0,0,15.5,7Z"
+                  }
+                }),
+                _vm._v(" "),
+                _c("path", {
+                  staticClass: "ql-fill",
+                  attrs: {
+                    d:
+                      "M9.651,5.241a1,1,0,0,0-1.41.108L6,7.964,3.759,5.349a1,1,0,1,0-1.519,1.3L4.683,9.5,2.241,12.35a1,1,0,1,0,1.519,1.3L6,11.036,8.241,13.65a1,1,0,0,0,1.519-1.3L7.317,9.5,9.759,6.651A1,1,0,0,0,9.651,5.241Z"
+                  }
+                })
+              ])
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "ql-formats" }, [
+          _c(
+            "button",
+            {
+              staticClass: "ql-indent",
+              attrs: { type: "button", value: "-1" }
+            },
+            [
+              _c("svg", { attrs: { viewBox: "0 0 18 18" } }, [
+                _c("line", {
+                  staticClass: "ql-stroke",
+                  attrs: { x1: "3", x2: "15", y1: "14", y2: "14" }
+                }),
+                _vm._v(" "),
+                _c("line", {
+                  staticClass: "ql-stroke",
+                  attrs: { x1: "3", x2: "15", y1: "4", y2: "4" }
+                }),
+                _vm._v(" "),
+                _c("line", {
+                  staticClass: "ql-stroke",
+                  attrs: { x1: "9", x2: "15", y1: "9", y2: "9" }
+                }),
+                _vm._v(" "),
+                _c("polyline", {
+                  staticClass: "ql-stroke",
+                  attrs: { points: "5 7 5 11 3 9 5 7" }
+                })
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "ql-indent",
+              attrs: { type: "button", value: "+1" }
+            },
+            [
+              _c("svg", { attrs: { viewBox: "0 0 18 18" } }, [
+                _c("line", {
+                  staticClass: "ql-stroke",
+                  attrs: { x1: "3", x2: "15", y1: "14", y2: "14" }
+                }),
+                _vm._v(" "),
+                _c("line", {
+                  staticClass: "ql-stroke",
+                  attrs: { x1: "3", x2: "15", y1: "4", y2: "4" }
+                }),
+                _vm._v(" "),
+                _c("line", {
+                  staticClass: "ql-stroke",
+                  attrs: { x1: "9", x2: "15", y1: "9", y2: "9" }
+                }),
+                _vm._v(" "),
+                _c("polyline", {
+                  staticClass: "ql-fill ql-stroke",
+                  attrs: { points: "3 7 3 11 5 9 3 7" }
+                })
+              ])
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "ql-formats" }, [
+          _c("span", { staticClass: "ql-align ql-picker ql-icon-picker" }, [
+            _c(
+              "span",
+              {
+                staticClass: "ql-picker-label",
+                attrs: {
+                  tabindex: "0",
+                  role: "button",
+                  "aria-expanded": "false",
+                  "aria-controls": "ql-picker-options-3"
+                }
+              },
+              [
+                _c("svg", { attrs: { viewBox: "0 0 18 18" } }, [
+                  _c("line", {
+                    staticClass: "ql-stroke",
+                    attrs: { x1: "3", x2: "15", y1: "9", y2: "9" }
+                  }),
+                  _vm._v(" "),
+                  _c("line", {
+                    staticClass: "ql-stroke",
+                    attrs: { x1: "3", x2: "13", y1: "14", y2: "14" }
+                  }),
+                  _vm._v(" "),
+                  _c("line", {
+                    staticClass: "ql-stroke",
+                    attrs: { x1: "3", x2: "9", y1: "4", y2: "4" }
+                  })
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "span",
+              {
+                staticClass: "ql-picker-options",
+                attrs: {
+                  "aria-hidden": "true",
+                  tabindex: "-1",
+                  id: "ql-picker-options-3"
+                }
+              },
+              [
+                _c(
+                  "span",
+                  {
+                    staticClass: "ql-picker-item",
+                    attrs: { tabindex: "0", role: "button" }
+                  },
+                  [
+                    _c("svg", { attrs: { viewBox: "0 0 18 18" } }, [
+                      _c("line", {
+                        staticClass: "ql-stroke",
+                        attrs: { x1: "3", x2: "15", y1: "9", y2: "9" }
+                      }),
+                      _vm._v(" "),
+                      _c("line", {
+                        staticClass: "ql-stroke",
+                        attrs: { x1: "3", x2: "13", y1: "14", y2: "14" }
+                      }),
+                      _vm._v(" "),
+                      _c("line", {
+                        staticClass: "ql-stroke",
+                        attrs: { x1: "3", x2: "9", y1: "4", y2: "4" }
+                      })
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticClass: "ql-picker-item",
+                    attrs: {
+                      tabindex: "0",
+                      role: "button",
+                      "data-value": "center"
+                    }
+                  },
+                  [
+                    _c("svg", { attrs: { viewBox: "0 0 18 18" } }, [
+                      _c("line", {
+                        staticClass: "ql-stroke",
+                        attrs: { x1: "15", x2: "3", y1: "9", y2: "9" }
+                      }),
+                      _vm._v(" "),
+                      _c("line", {
+                        staticClass: "ql-stroke",
+                        attrs: { x1: "14", x2: "4", y1: "14", y2: "14" }
+                      }),
+                      _vm._v(" "),
+                      _c("line", {
+                        staticClass: "ql-stroke",
+                        attrs: { x1: "12", x2: "6", y1: "4", y2: "4" }
+                      })
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticClass: "ql-picker-item",
+                    attrs: {
+                      tabindex: "0",
+                      role: "button",
+                      "data-value": "right"
+                    }
+                  },
+                  [
+                    _c("svg", { attrs: { viewBox: "0 0 18 18" } }, [
+                      _c("line", {
+                        staticClass: "ql-stroke",
+                        attrs: { x1: "15", x2: "3", y1: "9", y2: "9" }
+                      }),
+                      _vm._v(" "),
+                      _c("line", {
+                        staticClass: "ql-stroke",
+                        attrs: { x1: "15", x2: "5", y1: "14", y2: "14" }
+                      }),
+                      _vm._v(" "),
+                      _c("line", {
+                        staticClass: "ql-stroke",
+                        attrs: { x1: "15", x2: "9", y1: "4", y2: "4" }
+                      })
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticClass: "ql-picker-item",
+                    attrs: {
+                      tabindex: "0",
+                      role: "button",
+                      "data-value": "justify"
+                    }
+                  },
+                  [
+                    _c("svg", { attrs: { viewBox: "0 0 18 18" } }, [
+                      _c("line", {
+                        staticClass: "ql-stroke",
+                        attrs: { x1: "15", x2: "3", y1: "9", y2: "9" }
+                      }),
+                      _vm._v(" "),
+                      _c("line", {
+                        staticClass: "ql-stroke",
+                        attrs: { x1: "15", x2: "3", y1: "14", y2: "14" }
+                      }),
+                      _vm._v(" "),
+                      _c("line", {
+                        staticClass: "ql-stroke",
+                        attrs: { x1: "15", x2: "3", y1: "4", y2: "4" }
+                      })
+                    ])
+                  ]
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _vm._m(6)
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "ql-formats" }, [
+          _c("button", { staticClass: "ql-clean", attrs: { type: "button" } }, [
+            _c("svg", { attrs: { viewBox: "0 0 18 18" } }, [
+              _c("line", {
+                staticClass: "ql-stroke",
+                attrs: { x1: "5", x2: "13", y1: "3", y2: "3" }
+              }),
+              _vm._v(" "),
+              _c("line", {
+                staticClass: "ql-stroke",
+                attrs: { x1: "6", x2: "9.35", y1: "12", y2: "3" }
+              }),
+              _vm._v(" "),
+              _c("line", {
+                staticClass: "ql-stroke",
+                attrs: { x1: "11", x2: "15", y1: "11", y2: "15" }
+              }),
+              _vm._v(" "),
+              _c("line", {
+                staticClass: "ql-stroke",
+                attrs: { x1: "15", x2: "11", y1: "11", y2: "15" }
+              }),
+              _vm._v(" "),
+              _c("rect", {
+                staticClass: "ql-fill",
+                attrs: {
+                  height: "1",
+                  rx: "0.5",
+                  ry: "0.5",
+                  width: "7",
+                  x: "2",
+                  y: "14"
+                }
+              })
+            ])
+          ])
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", {
+      ref: "editor",
+      attrs: { id: "editor" },
+      domProps: { innerHTML: _vm._s(_vm.value) }
+    })
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "span",
+      {
+        staticClass: "ql-picker-options",
+        attrs: {
+          "aria-hidden": "true",
+          tabindex: "-1",
+          id: "ql-picker-options-0"
+        }
+      },
+      [
+        _c("span", {
+          staticClass: "ql-picker-item",
+          attrs: { tabindex: "0", role: "button", "data-value": "1" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          attrs: { tabindex: "0", role: "button", "data-value": "2" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          attrs: { tabindex: "0", role: "button", "data-value": "3" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          attrs: { tabindex: "0", role: "button", "data-value": "4" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          attrs: { tabindex: "0", role: "button" }
+        })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "select",
+      { staticClass: "ql-header", staticStyle: { display: "none" } },
+      [
+        _c("option", { attrs: { value: "1" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "2" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "3" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "4" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { selected: "selected" } })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "span",
+      {
+        staticClass: "ql-picker-options",
+        attrs: {
+          "aria-hidden": "true",
+          tabindex: "-1",
+          id: "ql-picker-options-1"
+        }
+      },
+      [
+        _c("span", {
+          staticClass: "ql-picker-item ql-primary",
+          attrs: { tabindex: "0", role: "button" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item ql-primary",
+          staticStyle: { "background-color": "rgb(230, 0, 0)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#e60000" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item ql-primary",
+          staticStyle: { "background-color": "rgb(255, 153, 0)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#ff9900" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item ql-primary",
+          staticStyle: { "background-color": "rgb(255, 255, 0)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#ffff00" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item ql-primary",
+          staticStyle: { "background-color": "rgb(0, 138, 0)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#008a00" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item ql-primary",
+          staticStyle: { "background-color": "rgb(0, 102, 204)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#0066cc" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item ql-primary",
+          staticStyle: { "background-color": "rgb(153, 51, 255)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#9933ff" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(255, 255, 255)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#ffffff" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(250, 204, 204)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#facccc" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(255, 235, 204)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#ffebcc" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(255, 255, 204)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#ffffcc" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(204, 232, 204)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#cce8cc" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(204, 224, 245)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#cce0f5" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(235, 214, 255)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#ebd6ff" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(187, 187, 187)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#bbbbbb" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(240, 102, 102)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#f06666" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(255, 194, 102)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#ffc266" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(255, 255, 102)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#ffff66" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(102, 185, 102)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#66b966" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(102, 163, 224)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#66a3e0" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(194, 133, 255)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#c285ff" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(136, 136, 136)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#888888" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(161, 0, 0)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#a10000" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(178, 107, 0)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#b26b00" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(178, 178, 0)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#b2b200" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(0, 97, 0)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#006100" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(0, 71, 178)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#0047b2" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(107, 36, 178)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#6b24b2" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(68, 68, 68)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#444444" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(92, 0, 0)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#5c0000" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(102, 61, 0)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#663d00" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(102, 102, 0)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#666600" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(0, 55, 0)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#003700" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(0, 41, 102)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#002966" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(61, 20, 102)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#3d1466" }
+        })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "select",
+      { staticClass: "ql-color", staticStyle: { display: "none" } },
+      [
+        _c("option", { attrs: { selected: "selected" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#e60000" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#ff9900" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#ffff00" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#008a00" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#0066cc" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#9933ff" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#ffffff" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#facccc" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#ffebcc" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#ffffcc" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#cce8cc" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#cce0f5" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#ebd6ff" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#bbbbbb" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#f06666" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#ffc266" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#ffff66" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#66b966" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#66a3e0" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#c285ff" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#888888" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#a10000" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#b26b00" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#b2b200" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#006100" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#0047b2" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#6b24b2" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#444444" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#5c0000" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#663d00" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#666600" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#003700" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#002966" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#3d1466" } })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "span",
+      {
+        staticClass: "ql-picker-options",
+        attrs: {
+          "aria-hidden": "true",
+          tabindex: "-1",
+          id: "ql-picker-options-2"
+        }
+      },
+      [
+        _c("span", {
+          staticClass: "ql-picker-item ql-primary",
+          staticStyle: { "background-color": "rgb(0, 0, 0)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#000000" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item ql-primary",
+          staticStyle: { "background-color": "rgb(230, 0, 0)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#e60000" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item ql-primary",
+          staticStyle: { "background-color": "rgb(255, 153, 0)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#ff9900" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item ql-primary",
+          staticStyle: { "background-color": "rgb(255, 255, 0)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#ffff00" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item ql-primary",
+          staticStyle: { "background-color": "rgb(0, 138, 0)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#008a00" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item ql-primary",
+          staticStyle: { "background-color": "rgb(0, 102, 204)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#0066cc" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item ql-primary",
+          staticStyle: { "background-color": "rgb(153, 51, 255)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#9933ff" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          attrs: { tabindex: "0", role: "button" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(250, 204, 204)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#facccc" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(255, 235, 204)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#ffebcc" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(255, 255, 204)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#ffffcc" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(204, 232, 204)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#cce8cc" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(204, 224, 245)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#cce0f5" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(235, 214, 255)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#ebd6ff" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(187, 187, 187)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#bbbbbb" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(240, 102, 102)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#f06666" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(255, 194, 102)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#ffc266" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(255, 255, 102)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#ffff66" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(102, 185, 102)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#66b966" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(102, 163, 224)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#66a3e0" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(194, 133, 255)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#c285ff" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(136, 136, 136)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#888888" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(161, 0, 0)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#a10000" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(178, 107, 0)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#b26b00" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(178, 178, 0)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#b2b200" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(0, 97, 0)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#006100" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(0, 71, 178)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#0047b2" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(107, 36, 178)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#6b24b2" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(68, 68, 68)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#444444" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(92, 0, 0)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#5c0000" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(102, 61, 0)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#663d00" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(102, 102, 0)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#666600" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(0, 55, 0)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#003700" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(0, 41, 102)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#002966" }
+        }),
+        _vm._v(" "),
+        _c("span", {
+          staticClass: "ql-picker-item",
+          staticStyle: { "background-color": "rgb(61, 20, 102)" },
+          attrs: { tabindex: "0", role: "button", "data-value": "#3d1466" }
+        })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "select",
+      { staticClass: "ql-background", staticStyle: { display: "none" } },
+      [
+        _c("option", { attrs: { value: "#000000" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#e60000" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#ff9900" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#ffff00" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#008a00" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#0066cc" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#9933ff" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { selected: "selected" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#facccc" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#ffebcc" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#ffffcc" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#cce8cc" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#cce0f5" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#ebd6ff" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#bbbbbb" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#f06666" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#ffc266" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#ffff66" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#66b966" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#66a3e0" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#c285ff" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#888888" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#a10000" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#b26b00" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#b2b200" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#006100" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#0047b2" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#6b24b2" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#444444" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#5c0000" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#663d00" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#666600" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#003700" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#002966" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "#3d1466" } })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "select",
+      { staticClass: "ql-align", staticStyle: { display: "none" } },
+      [
+        _c("option", { attrs: { selected: "selected" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "center" } }),
+        _c("option", { attrs: { value: "right" } }),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "justify" } })
+      ]
+    )
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
