@@ -23,7 +23,8 @@
         </div>
         <h2 class="m-0"><a :href="titleUrl">{{ title }}</a><span v-if="unread" class="badge badge-info ml-3 rounded">unread</span></h2>
     </div>
-    <div class="card-body">
+    <div class="card-body position-relative">
+        <div class="excerpt-overlay"></div>
         <p class="m-0 excerpt"><slot></slot></p>
     </div>
     <div class="card-footer text-muted">
@@ -83,3 +84,14 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.excerpt-overlay {
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 50%,rgba(255,255,255,1) 100%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+</style>
