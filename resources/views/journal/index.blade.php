@@ -3,100 +3,56 @@
 @section('page-title', 'My Journals')
 
 @section('page-content')
+
+{{-- CURRENT JOURNALS --}}
 @if (Auth::user()->current_journals->count())
-    <h2 class="mt-5">Write in a journal</h2>
+    <h2 class="mt-5">Journals you have</h2>
     <div class="row">
         @foreach(Auth::user()->current_journals as $journal)
-        <div class="col-sm col-lg-4">
-            <div class="card journal-card border-0 mb-5">
-                <div class="card-body">
+            <div class="col-sm col-md-6 col-lg-4">
+                <div class="card journal-card border-0 mb-5">
 
-                    <h3 class="card-title"><a href="{{ route('journal.show', $journal) }}">{{ $journal->title }}</a></h3>
+                    <journal-card-body
+                        description="{{ $journal->description }}"
+                        show-url="{{ route('journal.show', $journal) }}"
+                        contents-url="{{ route('journal.contents', $journal) }}"
+                        image-url="{{ asset('/img/cover1.jpg') }}"
+                        invite-url="{{ Auth::user()->can('invite', $journal) ? route('journal.invite', $journal) : '' }}"
+                        edit-url="{{ Auth::user()->can('update', $journal) ? route('journal.edit', $journal) : '' }}"
+                        archive-url="{{ Auth::user()->can('invite', $journal) ? route('journal.invite', $journal) : '' }}"
+                    >
+                        <template>{{ $journal->title }}</template>
+                    </journal-card-body>
 
-                    @if ($journal->description)
-                        <p class="font-italic">{{ $journal->description }}</p>
+                    @if ($journal->users->count() > 1)
+
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><h5 class="m-0">Journal queue:</h5></li>
+                            @include('component.queue')
+                        </ul>
+
+                        <div class="card-footer">
+                        @if (Auth::id() == $journal->current_user->id)
+                            <small>You've got this journal right now. What will you write?</small>
+                        @else
+                            <small class="text-muted">{{ $journal->current_user->name }} has this journal right now.</small>
+                        @endif
+                        </div>
+
+                    @elseif (Auth::id() == $journal->creator->id)
+
+                        <div class="card-footer">
+                            <small>The real magic begins when you share this journal with others. <a href="/journal/invite">Invite a friend</a> now!</small>
+                        </div>
+
                     @endif
-
-                    <div class="row">
-
-                        <div class="col-lg mb-3 text-center">
-
-                            <a href="{{ route('journal.show', $journal) }}">
-                                <img src="{{ asset('/img/cover1.jpg') }}" width="150" height="217">
-                            </a>
-
-                        </div>
-
-                        <div class="col-lg">
-                            <nav class="nav flex-column">
-
-                                <a class="nav-link py-1" href="#">
-                                    <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
-                                    <span class="ml-2">Write</span>
-                                </a>
-
-                                <a class="nav-link py-1" href="#">
-                                    <font-awesome-icon icon="book-reader"></font-awesome-icon>
-                                    <span class="ml-2">Read</span>
-                                </a>
-
-                                <a class="nav-link py-1" href="{{ route('journal.contents', $journal) }}">
-                                    <font-awesome-icon :icon="['fab', 'readme']"></font-awesome-icon>
-                                    <span class="ml-2">Contents</span>
-                                </a>
-
-                                @if (Auth::id() == $journal->creator->id)
-                                <a class="nav-link py-1" href="{{ route('journal.invite', $journal) }}">
-                                    <font-awesome-icon icon="user-plus"></font-awesome-icon>
-                                    <span class="ml-2">Invite</span>
-                                </a>
-
-                                <a class="nav-link py-1" href="{{ route('journal.edit', $journal) }}">
-                                    <font-awesome-icon icon="edit"></font-awesome-icon>
-                                    <span class="ml-2">Edit</span>
-                                </a>
-
-                                <a class="nav-link py-1" href="{{ route('journal.confirmDelete', $journal) }}">
-                                    <font-awesome-icon icon="trash-alt"></font-awesome-icon>
-                                    <span class="ml-2">Delete</span>
-                                </a>
-
-
-                                @endif
-
-                            </nav>
-                        </div>
-                    </div>
                 </div>
-
-                @if ($journal->users->count() > 1)
-
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><h5 class="m-0">Journal queue:</h5></li>
-                        @include('component.queue')
-                    </ul>
-
-                    <div class="card-footer">
-                    @if (Auth::id() == $journal->current_user->id)
-                        <small>You've got this journal right now. What will you write?</small>
-                    @else
-                        <small class="text-muted">{{ $journal->current_user->name }} has this journal right now.</small>
-                    @endif
-                    </div>
-
-                @elseif (Auth::id() == $journal->creator->id)
-
-                    <div class="card-footer">
-                        <small>The real magic begins when you share this journal with others. <a href="/journal/invite">Invite a friend</a> now!</small>
-                    </div>
-
-                @endif
             </div>
-        </div>
         @endforeach
     </div>
 @endif
 
+{{-- OTHER JOURNALS --}}
 @if (Auth::user()->other_journals->count())
     <h2 class="mt-5">Other Journals</h2>
     <div class="row">
@@ -104,33 +60,15 @@
     @foreach (Auth::user()->other_journals as $journal)
         <div class="col-sm col-lg-4">
             <div class="card journal-card border-0 mb-5">
-                <div class="card-body">
-
-                    <h3 class="card-title">{{ $journal->title }}</h3>
-
-                    @if ($journal->description)
-                        <p class="font-italic">{{ $journal->description }}</p>
-                    @endif
-
-                    <div class="row">
-
-                        <div class="col-lg mb-3 text-center">
-                            <img src="{{ asset('/img/cover1.jpg') }}" width="150" height="217">
-                        </div>
-
-                        @if (Auth::id() == $journal->creator->id)
-                        <div class="col-lg">
-                            <nav class="nav flex-column">
-                                <a class="nav-link py-1" href="{{ route('journal.invite', $journal) }}">
-                                    <font-awesome-icon icon="user-plus"></font-awesome-icon>
-                                    <span class="ml-2">Invite</span>
-                                </a>
-                            </nav>
-                        </div>
-                        @endif
-
-                    </div>
-                </div>
+                <journal-card-body
+                        description="{{ $journal->description }}"
+                        image-url="{{ asset('/img/cover1.jpg') }}"
+                        invite-url="{{ Auth::user()->can('invite', $journal) ? route('journal.invite', $journal) : '' }}"
+                        edit-url="{{ Auth::user()->can('update', $journal) ? route('journal.edit', $journal) : '' }}"
+                        archive-url="{{ Auth::user()->can('invite', $journal) ? route('journal.invite', $journal) : '' }}"
+                    >
+                        <template>{{ $journal->title }}</template>
+                    </journal-card-body>
 
                 @if ($journal->users->count() > 1)
 
@@ -148,7 +86,7 @@
                 @elseif (Auth::id() == $journal->creator->id)
 
                     <div class="card-footer">
-                        <span>No one else is participating in this journal. The real magic begins when you share this journal with others. <a href="/journal/invite">Invite a friend</a> now!</span>
+                        <span>The real magic begins when you share this journal with others. <a href="/journal/invite">Invite a friend</a> now!</span>
                     </div>
 
                 @endif
@@ -158,6 +96,45 @@
     </div>
 @endif
 
+
+{{-- ARCHIVED JOURNALS --}}
+@if (Auth::user()->journals()->where('active', 'false')->count())
+    <h2>Archived journals</h2>
+    <p>Archived journals are "sealed" and can't be written in or edited in any way. They are also removed from rotation, which means everyone in the journal will be able to read it anytime.</p>
+    <div class="row">
+        @foreach(Auth::user()->journals()->where('active', 'false')->get() as $journal)
+            <div class="col-sm col-md-6 col-lg-4">
+                <div class="card journal-card border-0 mb-5">
+
+                    <journal-card-body
+                        description="{{ $journal->description }}"
+                        contents-url="{{ route('journal.contents', $journal) }}"
+                        image-url="{{ asset('/img/cover1.jpg') }}"
+                    >
+                        <template>{{ $journal->title }}</template>
+                    </journal-card-body>
+
+                    @if ($journal->users->count() > 1)
+
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><h5 class="m-0">Journal queue:</h5></li>
+                            @include('component.queue')
+                        </ul>
+
+                    @elseif (Auth::id() == $journal->creator->id)
+
+                        <div class="card-footer">
+                            <small>There are no other users in this journal.</small>
+                        </div>
+
+                    @endif
+                </div>
+            </div>
+        @endforeach
+    </div>
+@endif
+
+{{-- NO JOURNALS --}}
 @if (!Auth::user()->journals->count())
     <div class="alert alert-info">You don't have any journals. <a href="{{ route('journal.create') }}'">Create one</a> and invite your friends!</div>
 @endif

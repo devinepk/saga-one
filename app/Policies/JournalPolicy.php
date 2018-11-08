@@ -75,6 +75,19 @@ class JournalPolicy
     }
 
     /**
+     * Determine whether the user can archive the journal.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Journal  $journal
+     * @return mixed
+     */
+    public function archive(User $user, Journal $journal)
+    {
+        // Only the journal creator can archive it.
+        return $user->id === $journal->creator->id;
+    }
+
+    /**
      * Determine whether the user can delete the journal.
      *
      * @param  \App\User  $user

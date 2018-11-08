@@ -146,7 +146,28 @@ class JournalController extends Controller
     }
 
     /**
-     * Perform a soft delete
+     * Archive the journal
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Journal  $journal
+     * @return \Illuminate\Http\Response
+     */
+    public function archive(Request $request, Journal $journal)
+    {
+        if (Auth::user()->can('archive', $journal)) {
+
+            $journal->active = false;
+            $journal->save();
+
+            $request->session()->flash('status', "<strong>{$journal->title}</strong> has been archived.");
+        }
+
+        // Redirect to journal index
+        return redirect()->route('journal.index');
+    }
+
+    /**
+     * Remove the journal from storage
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Journal  $journal
@@ -157,15 +178,7 @@ class JournalController extends Controller
         if (Auth::user()->can('delete', $journal)) {
 
             $journal->delete();
-            $restore_url = route('journal.restore', $journal);
-            $request->session()->flash('status',
-                "<strong>{$journal->title}</strong> has been deleted.
-                <a href=\"$restore_url\" onclick=\"event.preventDefault(); document.getElementById('undo-form').submit();\">Undo</a>
-                <form id=\"undo-form\" style=\"display:none;\" method=\"post\" action=\"$restore_url\">
-                    <input type='hidden' name='_token' value='" . csrf_token() . "'>
-                    <input type='hidden' name='journal_id' value='{$journal->id}'>
-                </form>"
-            );
+            $request->session()->flash('status', "<strong>{$journal->title}</strong> has been deleted.");
         }
 
         // Redirect to journal index
@@ -173,24 +186,7 @@ class JournalController extends Controller
     }
 
     /**
-     * Show a confirmation for performing a soft delete
-     *
-     * @param  \App\Journal  $journal
-     * @return \Illuminate\Http\Response
-     */
-    public function confirmDelete(Journal $journal)
-    {
-        if (Auth::user()->can('delete', $journal)) {
-
-            return view('journal.delete', compact('journal'));
-        }
-
-        // Redirect to journal index
-        return redirect()->route('journal.index');
-    }
-
-    /**
-     * Reverse a soft delete
+     * Un-archive a journal
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Journal  $journal
@@ -200,9 +196,10 @@ class JournalController extends Controller
     {
         if (Auth::user()->can('restore', $journal)) {
 
-            $journal = \App\Journal::withTrashed()->find($request->input('journal_id'));
-            $journal->restore();
-            $request->session()->flash('status', "<strong>{$journal->title}</strong> has been restored.");
+            $journal->active = true;
+            $journal->save();
+
+            $request->session()->flash('status', "<strong>{$journal->title}</strong> has been restored from the archive.");
         }
 
         // Redirect to journal index
