@@ -72819,6 +72819,33 @@ module.exports = Component.exports
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 module.exports = {
     props: ['targetDateString'],
@@ -72826,20 +72853,64 @@ module.exports = {
     data: function data() {
         return {
             targetDate: null,
-            remaining: ''
+            diff: null
         };
     },
 
     mounted: function mounted() {
         this.targetDate = Moment(this.targetDateString);
-        setInterval(this.updateRemaining, 250);
+        requestAnimationFrame(this.updateRemaining);
+        // setInterval(this.updateRemaining, 250);
         // this.updateRemaining();
+    },
+
+    computed: {
+        weeks: function weeks() {
+            var val = Moment.duration(this.diff).weeks();
+            return {
+                value: val,
+                string: val === 1 ? 'week' : 'weeks'
+            };
+        },
+
+        days: function days() {
+            var val = Moment.duration(this.diff).days();
+            return {
+                value: val,
+                string: val === 1 ? 'day' : 'days'
+            };
+        },
+
+        hours: function hours() {
+            var val = Moment.duration(this.diff).hours();
+            return {
+                value: val,
+                string: val === 1 ? 'hour' : 'hours'
+            };
+        },
+
+        minutes: function minutes() {
+            var val = Moment.duration(this.diff).minutes();
+            return {
+                value: val,
+                string: val === 1 ? 'minute' : 'minutes'
+            };
+        },
+
+        seconds: function seconds() {
+            var val = Moment.duration(this.diff).seconds();
+            return {
+                value: val,
+                string: val === 1 ? 'second' : 'seconds'
+            };
+        }
     },
 
     methods: {
         updateRemaining: function updateRemaining() {
-            var diff = this.targetDate.diff(Moment());
-            this.remaining = Moment.duration(diff).format('w [week], d [day], h [hour], m [minute], [and] s [second]');
+            this.diff = this.targetDate.diff(Moment());
+            // this.remaining = Moment.duration(diff).format('w [week], d [day], h [hour], m [minute], [and] s [second]');
+            requestAnimationFrame(this.updateRemaining);
         }
     }
 };
@@ -72852,11 +72923,61 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("table", { staticClass: "my-3" }, [
-    _c("tr", [
-      _c("th", [_vm._v("Countdown:")]),
-      _c("td", [_vm._v(_vm._s(_vm.remaining))])
-    ])
+  return _c("div", [
+    _c("h2", [_vm._v("Time Remaining")]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass:
+          "row no-gutters justify-content-center text-light text-center font-weight-bold my-4"
+      },
+      [
+        _c("div", { staticClass: "col" }, [
+          _c("div", { staticClass: "bg-primary py-2 rounded-left" }, [
+            _c("p", { staticClass: "m-0 h2" }, [
+              _vm._v(_vm._s(_vm.days.value))
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "m-0" }, [_vm._v(_vm._s(_vm.days.string))])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col" }, [
+          _c("div", { staticClass: "bg-primary py-2" }, [
+            _c("p", { staticClass: "m-0 h2" }, [
+              _vm._v(_vm._s(_vm.hours.value))
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "m-0" }, [_vm._v(_vm._s(_vm.hours.string))])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col" }, [
+          _c("div", { staticClass: "bg-primary py-2" }, [
+            _c("p", { staticClass: "m-0 h2" }, [
+              _vm._v(_vm._s(_vm.minutes.value))
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "m-0" }, [
+              _vm._v(_vm._s(_vm.minutes.string))
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col" }, [
+          _c("div", { staticClass: "bg-primary rounded-right py-2" }, [
+            _c("p", { staticClass: "m-0 h2" }, [
+              _vm._v(_vm._s(_vm.seconds.value))
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "m-0" }, [
+              _vm._v(_vm._s(_vm.seconds.string))
+            ])
+          ])
+        ])
+      ]
+    )
   ])
 }
 var staticRenderFns = []
