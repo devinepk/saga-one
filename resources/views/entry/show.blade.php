@@ -7,7 +7,7 @@
     :display-entry-nav="true"
     entry-date="{{ $entry->formatted_updated_at }}"
     author="{{ $entry->author->name }}"
-    edit-url="{{ route('entry.edit', $entry) }}"
+    edit-url="{{ Auth::user()->can('update', $entry) ? route('entry.edit', $entry) : '' }}"
     @if($journal->getEntryBefore($entry))
         previous-url="{{ route('entry.show', $journal->getEntryBefore($entry)) }}"
     @endif
