@@ -4607,11 +4607,11 @@
 /* unused harmony export faAngry */
 /* unused harmony export faAnkh */
 /* unused harmony export faAppleAlt */
-/* unused harmony export faArchive */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return faArchive; });
 /* unused harmony export faArchway */
 /* unused harmony export faArrowAltCircleDown */
 /* unused harmony export faArrowAltCircleLeft */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return faArrowAltCircleRight; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return faArrowAltCircleRight; });
 /* unused harmony export faArrowAltCircleUp */
 /* unused harmony export faArrowCircleDown */
 /* unused harmony export faArrowCircleLeft */
@@ -4632,7 +4632,7 @@
 /* unused harmony export faAudioDescription */
 /* unused harmony export faAward */
 /* unused harmony export faBackspace */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return faBackward; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return faBackward; });
 /* unused harmony export faBalanceScale */
 /* unused harmony export faBan */
 /* unused harmony export faBandAid */
@@ -4648,7 +4648,7 @@
 /* unused harmony export faBatteryThreeQuarters */
 /* unused harmony export faBed */
 /* unused harmony export faBeer */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return faBell; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return faBell; });
 /* unused harmony export faBellSlash */
 /* unused harmony export faBezierCurve */
 /* unused harmony export faBible */
@@ -4663,10 +4663,10 @@
 /* unused harmony export faBomb */
 /* unused harmony export faBone */
 /* unused harmony export faBong */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return faBook; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return faBook; });
 /* unused harmony export faBookDead */
 /* unused harmony export faBookOpen */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return faBookReader; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return faBookReader; });
 /* unused harmony export faBookmark */
 /* unused harmony export faBowlingBall */
 /* unused harmony export faBox */
@@ -4831,7 +4831,7 @@
 /* unused harmony export faDrumstickBite */
 /* unused harmony export faDumbbell */
 /* unused harmony export faDungeon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return faEdit; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return faEdit; });
 /* unused harmony export faEject */
 /* unused harmony export faEllipsisH */
 /* unused harmony export faEllipsisV */
@@ -4904,7 +4904,7 @@
 /* unused harmony export faFont */
 /* unused harmony export faFontAwesomeLogoFull */
 /* unused harmony export faFootballBall */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return faForward; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return faForward; });
 /* unused harmony export faFrog */
 /* unused harmony export faFrown */
 /* unused harmony export faFrownOpen */
@@ -5134,7 +5134,7 @@
 /* unused harmony export faPenFancy */
 /* unused harmony export faPenNib */
 /* unused harmony export faPenSquare */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return faPencilAlt; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return faPencilAlt; });
 /* unused harmony export faPencilRuler */
 /* unused harmony export faPeopleCarry */
 /* unused harmony export faPercent */
@@ -5152,7 +5152,7 @@
 /* unused harmony export faPlay */
 /* unused harmony export faPlayCircle */
 /* unused harmony export faPlug */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return faPlus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return faPlus; });
 /* unused harmony export faPlusCircle */
 /* unused harmony export faPlusSquare */
 /* unused harmony export faPodcast */
@@ -5234,7 +5234,7 @@
 /* unused harmony export faSign */
 /* unused harmony export faSignInAlt */
 /* unused harmony export faSignLanguage */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return faSignOutAlt; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return faSignOutAlt; });
 /* unused harmony export faSignal */
 /* unused harmony export faSignature */
 /* unused harmony export faSitemap */
@@ -5351,7 +5351,7 @@
 /* unused harmony export faTransgender */
 /* unused harmony export faTransgenderAlt */
 /* unused harmony export faTrash */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return faTrashAlt; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return faTrashAlt; });
 /* unused harmony export faTree */
 /* unused harmony export faTrophy */
 /* unused harmony export faTruck */
@@ -5373,12 +5373,12 @@
 /* unused harmony export faUnlock */
 /* unused harmony export faUnlockAlt */
 /* unused harmony export faUpload */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return faUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return faUser; });
 /* unused harmony export faUserAlt */
 /* unused harmony export faUserAltSlash */
 /* unused harmony export faUserAstronaut */
 /* unused harmony export faUserCheck */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return faUserCircle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return faUserCircle; });
 /* unused harmony export faUserClock */
 /* unused harmony export faUserCog */
 /* unused harmony export faUserEdit */
@@ -5389,7 +5389,7 @@
 /* unused harmony export faUserMd */
 /* unused harmony export faUserMinus */
 /* unused harmony export faUserNinja */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return faUserPlus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return faUserPlus; });
 /* unused harmony export faUserSecret */
 /* unused harmony export faUserShield */
 /* unused harmony export faUserSlash */
@@ -34939,7 +34939,8 @@ __webpack_require__(141);
 
 
 
-__WEBPACK_IMPORTED_MODULE_1__fortawesome_fontawesome_svg_core__["c" /* library */].add(__WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["c" /* faBell */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["l" /* faUser */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["d" /* faBook */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["i" /* faPlus */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["j" /* faSignOutAlt */], __WEBPACK_IMPORTED_MODULE_3__fortawesome_free_brands_svg_icons__["a" /* faReadme */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["f" /* faEdit */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["b" /* faBackward */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["g" /* faForward */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["a" /* faArrowAltCircleRight */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["h" /* faPencilAlt */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["e" /* faBookReader */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["n" /* faUserPlus */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["m" /* faUserCircle */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["k" /* faTrashAlt */]);
+
+__WEBPACK_IMPORTED_MODULE_1__fortawesome_fontawesome_svg_core__["c" /* library */].add(__WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["d" /* faBell */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["m" /* faUser */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["e" /* faBook */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["j" /* faPlus */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["k" /* faSignOutAlt */], __WEBPACK_IMPORTED_MODULE_3__fortawesome_free_brands_svg_icons__["a" /* faReadme */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["g" /* faEdit */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["c" /* faBackward */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["h" /* faForward */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["b" /* faArrowAltCircleRight */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["i" /* faPencilAlt */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["f" /* faBookReader */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["o" /* faUserPlus */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["n" /* faUserCircle */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["l" /* faTrashAlt */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["a" /* faArchive */]);
 
 // Moment
 window.Moment = __webpack_require__(0);
@@ -71874,6 +71875,7 @@ var map = {
 	"./components/EntryCard.vue": 177,
 	"./components/EntryComment.vue": 180,
 	"./components/EntryHeader.vue": 183,
+	"./components/JournalCardBody.vue": 204,
 	"./components/JournalCountdown.vue": 186,
 	"./components/Modal.vue": 194
 };
@@ -73163,6 +73165,384 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-53ab54d2", module.exports)
+  }
+}
+
+/***/ }),
+/* 197 */,
+/* 198 */,
+/* 199 */,
+/* 200 */,
+/* 201 */,
+/* 202 */,
+/* 203 */,
+/* 204 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(4)
+/* script */
+var __vue_script__ = __webpack_require__(205)
+/* template */
+var __vue_template__ = __webpack_require__(206)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/JournalCardBody.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-814545e4", Component.options)
+  } else {
+    hotAPI.reload("data-v-814545e4", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 205 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        description: {
+            type: String,
+            required: false,
+            default: ''
+        },
+        showUrl: {
+            type: String,
+            required: false,
+            default: ''
+        },
+        contentsUrl: {
+            type: String,
+            required: false,
+            default: ''
+        },
+        imageUrl: {
+            type: String,
+            required: false,
+            default: ''
+        },
+        inviteUrl: {
+            type: String,
+            required: false,
+            default: ''
+        },
+        editUrl: {
+            type: String,
+            required: false,
+            default: ''
+        },
+        archiveUrl: {
+            type: String,
+            required: false,
+            default: ''
+        }
+    }
+});
+
+/***/ }),
+/* 206 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "card-body" }, [
+    _c(
+      "h3",
+      { staticClass: "card-title" },
+      [
+        _vm.showUrl
+          ? _c("a", { attrs: { href: _vm.showUrl } }, [_vm._t("default")], 2)
+          : _vm._t("default")
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _vm.description
+      ? _c("p", { staticClass: "font-italic" }, [
+          _vm._v(_vm._s(_vm.description))
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-lg mb-3 text-center" }, [
+        _vm.showUrl
+          ? _c("a", { attrs: { href: _vm.showUrl } }, [
+              _c("img", {
+                attrs: { src: _vm.imageUrl, width: "150", height: "217" }
+              })
+            ])
+          : _c("img", {
+              attrs: { src: _vm.imageUrl, width: "150", height: "217" }
+            })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-lg" }, [
+        _c(
+          "nav",
+          { staticClass: "nav flex-column" },
+          [
+            _vm.showUrl
+              ? _c(
+                  "a",
+                  { staticClass: "nav-link py-1", attrs: { href: "#" } },
+                  [
+                    _c("font-awesome-icon", { attrs: { icon: "pencil-alt" } }),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "ml-2" }, [_vm._v("Write")])
+                  ],
+                  1
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.contentsUrl
+              ? _c(
+                  "a",
+                  {
+                    staticClass: "nav-link py-1",
+                    attrs: { href: _vm.contentsUrl }
+                  },
+                  [
+                    _c("font-awesome-icon", { attrs: { icon: "book-reader" } }),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "ml-2" }, [_vm._v("Read")])
+                  ],
+                  1
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.inviteUrl
+              ? _c(
+                  "a",
+                  {
+                    staticClass: "nav-link py-1",
+                    attrs: { href: _vm.inviteUrl }
+                  },
+                  [
+                    _c("font-awesome-icon", { attrs: { icon: "user-plus" } }),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "ml-2" }, [_vm._v("Invite")])
+                  ],
+                  1
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.editUrl
+              ? _c(
+                  "a",
+                  {
+                    staticClass: "nav-link py-1",
+                    attrs: { href: _vm.editUrl }
+                  },
+                  [
+                    _c("font-awesome-icon", { attrs: { icon: "edit" } }),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "ml-2" }, [_vm._v("Edit")])
+                  ],
+                  1
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.archiveUrl
+              ? [
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "btn btn-link nav-link border-0 text-left py-1",
+                      attrs: {
+                        type: "button",
+                        "data-toggle": "modal",
+                        "data-target": "#archive-confirm"
+                      }
+                    },
+                    [
+                      _c("font-awesome-icon", { attrs: { icon: "archive" } }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "ml-2" }, [_vm._v("Archive")])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "modal",
+                    { attrs: { "modal-id": "archive-confirm" } },
+                    [
+                      _c("template", { slot: "title" }, [
+                        _vm._v("Archive this journal?")
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          'Archived journals are "sealed" and can no longer be written in or edited in any way.'
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "They are also removed from rotation, which means everyone in the journal will be able to read it anytime."
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v("Are you sure you want to archive this journal?")
+                      ]),
+                      _vm._v(" "),
+                      _c("template", { slot: "footer" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-link",
+                            attrs: { type: "button", "data-dismiss": "modal" }
+                          },
+                          [_vm._v("Cancel")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "form",
+                          {
+                            staticClass: "d-inline",
+                            attrs: { method: "post", action: _vm.archiveUrl }
+                          },
+                          [
+                            _vm._t("csrf"),
+                            _vm._v(" "),
+                            _vm._t("methodput"),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-danger",
+                                attrs: { type: "submit" }
+                              },
+                              [_vm._v("Yes, archive")]
+                            )
+                          ],
+                          2
+                        )
+                      ])
+                    ],
+                    2
+                  )
+                ]
+              : _vm._e()
+          ],
+          2
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-814545e4", module.exports)
   }
 }
 
