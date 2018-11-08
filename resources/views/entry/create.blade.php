@@ -19,7 +19,7 @@
 
 <quill-editor></quill-editor>
 
-<entry-save-form form-id="entry-save-form" store-url="{{ route('entry.store') }}" :journal-id="{{ $journal->id }}">
-    @csrf
+<entry-save-form form-id="entry-save-form" action-url="{{ route('entry.store') }}" :journal-id="{{ $journal->id }}">
+    <template slot="csrf">@csrf</template>
 </entry-save-form>
 @endsection

@@ -1,8 +1,9 @@
 <template>
 
     <div class="row no-gutters fixed-bottom justify-content-end">
-        <form method="post" class="d-none" :id="formId" :action="storeUrl">
-            <slot></slot>
+        <form method="post" class="d-none" :id="formId" :action="actionUrl">
+            <slot name="csrf"></slot>
+            <slot name="method"></slot>
             <input type="hidden" name="journal_id" :value="journalId">
             <input type="hidden" name="body" :value="entryBody">
         </form>
@@ -19,7 +20,7 @@ export default {
             type: String,
             required: true
         },
-        storeUrl: {
+        actionUrl: {
             type: String,
             required: true
         },

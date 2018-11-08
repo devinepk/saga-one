@@ -74125,6 +74125,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -74132,7 +74133,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             type: String,
             required: true
         },
-        storeUrl: {
+        actionUrl: {
             type: String,
             required: true
         },
@@ -74172,10 +74173,12 @@ var render = function() {
         "form",
         {
           staticClass: "d-none",
-          attrs: { method: "post", id: _vm.formId, action: _vm.storeUrl }
+          attrs: { method: "post", id: _vm.formId, action: _vm.actionUrl }
         },
         [
-          _vm._t("default"),
+          _vm._t("csrf"),
+          _vm._v(" "),
+          _vm._t("method"),
           _vm._v(" "),
           _c("input", {
             attrs: { type: "hidden", name: "journal_id" },
