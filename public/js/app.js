@@ -72195,6 +72195,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -72266,33 +72290,91 @@ var render = function() {
                 )
               : _vm._e(),
             _vm._v(" "),
-            _vm.deleteUrl
-              ? _c(
-                  "form",
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-link",
+                attrs: {
+                  type: "button",
+                  "data-toggle": "modal",
+                  "data-target": "#delete-confirm"
+                }
+              },
+              [_c("font-awesome-icon", { attrs: { icon: "trash-alt" } })],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "modal fade",
+                attrs: {
+                  id: "delete-confirm",
+                  tabindex: "-1",
+                  role: "dialog",
+                  "aria-labelledby": "delete-confirm-title",
+                  "aria-hidden": "true"
+                }
+              },
+              [
+                _c(
+                  "div",
                   {
-                    staticClass: "d-inline",
-                    attrs: { method: "post", action: _vm.deleteUrl }
+                    staticClass: "modal-dialog modal-dialog-centered",
+                    attrs: { role: "document" }
                   },
                   [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-link",
-                        attrs: { type: "submit" }
-                      },
-                      [
-                        _c("font-awesome-icon", {
-                          attrs: { icon: "trash-alt" }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _vm._t("deleteformfields")
-                  ],
-                  2
+                    _c("div", { staticClass: "modal-content" }, [
+                      _vm._m(0),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "modal-body" }, [
+                        _c("p", [
+                          _vm._v("Are you sure you want to delete this entry?")
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "text-center" }, [
+                          _c("strong", [_vm._v(_vm._s(_vm.title))])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "modal-footer" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-link",
+                            attrs: { type: "button", "data-dismiss": "modal" }
+                          },
+                          [_vm._v("Cancel")]
+                        ),
+                        _vm._v(" "),
+                        _vm.deleteUrl
+                          ? _c(
+                              "form",
+                              {
+                                staticClass: "d-inline",
+                                attrs: { method: "post", action: _vm.deleteUrl }
+                              },
+                              [
+                                _vm._t("deleteformfields"),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-danger",
+                                    attrs: { type: "submit" }
+                                  },
+                                  [_vm._v("Yes, delete")]
+                                )
+                              ],
+                              2
+                            )
+                          : _vm._e()
+                      ])
+                    ])
+                  ]
                 )
-              : _vm._e()
+              ]
+            )
           ])
         : _vm._e(),
       _vm._v(" "),
@@ -72333,7 +72415,33 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "delete-confirm-title" } },
+        [_vm._v("Delete this entry?")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

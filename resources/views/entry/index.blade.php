@@ -11,7 +11,7 @@
 
     @if (count($entries))
 
-    <h1>{{ $journal->title }}</h1>
+    <h1>{{ $journal->title }}: All Entries</h1>
     {{ $entries->links() }}
 
         @foreach ($entries as $entry)

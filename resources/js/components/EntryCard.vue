@@ -3,10 +3,34 @@
     <div class="card-header">
         <div v-if="editUrl || deleteUrl" class="float-right text-muted">
             <a v-if="editUrl" class="btn" :href="editUrl"><font-awesome-icon icon="edit" /></a>
-            <form v-if="deleteUrl" class="d-inline" method="post" :action="deleteUrl">
-                <button type="submit" class="btn btn-link"><font-awesome-icon icon="trash-alt" /></button>
-                <slot name="deleteformfields"></slot>
-            </form>
+            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#delete-confirm">
+                <font-awesome-icon icon="trash-alt"></font-awesome-icon>
+            </button>
+
+
+            <div class="modal fade" id="delete-confirm" tabindex="-1" role="dialog" aria-labelledby="delete-confirm-title" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="delete-confirm-title">Delete this entry?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to delete this entry?</p>
+                        <p class="text-center"><strong>{{ title }}</strong></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+                        <form v-if="deleteUrl" class="d-inline" method="post" :action="deleteUrl">
+                            <slot name="deleteformfields"></slot>
+                            <button type="submit" class="btn btn-danger">Yes, delete</button>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <h2 class="m-0"><a :href="titleUrl">{{ title }}</a><span v-if="unread" class="badge badge-info ml-3 rounded">unread</span></h2>
     </div>

@@ -60,6 +60,8 @@
                                     <font-awesome-icon icon="trash-alt"></font-awesome-icon>
                                     <span class="ml-2">Delete</span>
                                 </a>
+
+
                                 @endif
 
                             </nav>

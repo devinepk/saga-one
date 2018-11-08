@@ -182,7 +182,7 @@ class JournalController extends Controller
     {
         if (Auth::user()->can('delete', $journal)) {
 
-            return view('journal.confirmDelete', compact('journal'));
+            return view('journal.delete', compact('journal'));
         }
 
         // Redirect to journal index
