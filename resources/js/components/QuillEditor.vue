@@ -24,11 +24,22 @@ export default {
             modules: {
                 toolbar: [
                     [{ header: [1, 2, 3, 4, false] }],
-                    ['bold', 'italic', 'underline']
+                    ['bold', 'italic', 'underline', 'strike'],
+                    [{ 'color': [] }, { 'background': [] }],
+                    ['blockquote'],
+                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                    [{ 'script': 'sub'}, { 'script': 'super' }],
+                    [{ 'indent': '-1'}, { 'indent': '+1' }],
+                    [{ 'align': [] }],
+                    ['clean']
                 ]
             },
             theme: 'snow',
-            formats: ['bold', 'underline', 'header', 'italic']
+            formats: [
+                'bold', 'underline', 'header', 'italic',
+                'strike', 'color', 'background', 'blockquote', 'list',
+                'script', 'indent', 'align'
+            ]
         });
 
         this.editor.root.innerHTML = this.value;
@@ -43,3 +54,9 @@ export default {
     }
 }
 </script>
+
+<style>
+svg {
+    vertical-align: baseline;
+}
+</style>
