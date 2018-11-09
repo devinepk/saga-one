@@ -98,6 +98,18 @@
     font-family: $font-family-base;
     line-height: $line-height-base;
 }
+#editor {
+    margin-top: 45px;
+}
+.ql-editor {
+    min-height: 50vh;
+}
+.ql-toolbar {
+    background-color: $white;
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+}
 .entry-body {
     font-size: 1rem;
     line-height: 1.6;

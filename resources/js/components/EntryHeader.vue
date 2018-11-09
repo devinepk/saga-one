@@ -74,8 +74,15 @@ module.exports = {
     mounted: function() {
         let self = this;
         window.addEventListener('scroll', _.throttle((e) => {
-            self.belowTopbar = (window.pageYOffset > 0);
+            // self.belowTopbar = (window.pageYOffset > 0);
         }), 200);
     }
 }
 </script>
+
+<style>
+#entry-header {
+    margin-top: -64px;
+    padding-top: 64px;
+}
+</style>
