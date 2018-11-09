@@ -73,6 +73,14 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Get the invites that this user has sent
+     */
+    public function invites()
+    {
+        return $this->hasMany('App\Invite', 'sender_id');
+    }
+
+    /**
      * Check whether the user belongs to a given journal
      *
      * @param  \App\Journal  $journal
