@@ -4765,7 +4765,7 @@
 /* unused harmony export faCodeBranch */
 /* unused harmony export faCoffee */
 /* unused harmony export faCog */
-/* unused harmony export faCogs */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return faCogs; });
 /* unused harmony export faCoins */
 /* unused harmony export faColumns */
 /* unused harmony export faComment */
@@ -4831,7 +4831,7 @@
 /* unused harmony export faDrumstickBite */
 /* unused harmony export faDumbbell */
 /* unused harmony export faDungeon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return faEdit; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return faEdit; });
 /* unused harmony export faEject */
 /* unused harmony export faEllipsisH */
 /* unused harmony export faEllipsisV */
@@ -4904,7 +4904,7 @@
 /* unused harmony export faFont */
 /* unused harmony export faFontAwesomeLogoFull */
 /* unused harmony export faFootballBall */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return faForward; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return faForward; });
 /* unused harmony export faFrog */
 /* unused harmony export faFrown */
 /* unused harmony export faFrownOpen */
@@ -5134,7 +5134,7 @@
 /* unused harmony export faPenFancy */
 /* unused harmony export faPenNib */
 /* unused harmony export faPenSquare */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return faPencilAlt; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return faPencilAlt; });
 /* unused harmony export faPencilRuler */
 /* unused harmony export faPeopleCarry */
 /* unused harmony export faPercent */
@@ -5152,7 +5152,7 @@
 /* unused harmony export faPlay */
 /* unused harmony export faPlayCircle */
 /* unused harmony export faPlug */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return faPlus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return faPlus; });
 /* unused harmony export faPlusCircle */
 /* unused harmony export faPlusSquare */
 /* unused harmony export faPodcast */
@@ -5234,7 +5234,7 @@
 /* unused harmony export faSign */
 /* unused harmony export faSignInAlt */
 /* unused harmony export faSignLanguage */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return faSignOutAlt; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return faSignOutAlt; });
 /* unused harmony export faSignal */
 /* unused harmony export faSignature */
 /* unused harmony export faSitemap */
@@ -5351,7 +5351,7 @@
 /* unused harmony export faTransgender */
 /* unused harmony export faTransgenderAlt */
 /* unused harmony export faTrash */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return faTrashAlt; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return faTrashAlt; });
 /* unused harmony export faTree */
 /* unused harmony export faTrophy */
 /* unused harmony export faTruck */
@@ -5373,12 +5373,12 @@
 /* unused harmony export faUnlock */
 /* unused harmony export faUnlockAlt */
 /* unused harmony export faUpload */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return faUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return faUser; });
 /* unused harmony export faUserAlt */
 /* unused harmony export faUserAltSlash */
 /* unused harmony export faUserAstronaut */
 /* unused harmony export faUserCheck */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return faUserCircle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return faUserCircle; });
 /* unused harmony export faUserClock */
 /* unused harmony export faUserCog */
 /* unused harmony export faUserEdit */
@@ -5389,7 +5389,7 @@
 /* unused harmony export faUserMd */
 /* unused harmony export faUserMinus */
 /* unused harmony export faUserNinja */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return faUserPlus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return faUserPlus; });
 /* unused harmony export faUserSecret */
 /* unused harmony export faUserShield */
 /* unused harmony export faUserSlash */
@@ -35250,7 +35250,8 @@ __webpack_require__(143);
 
 
 
-__WEBPACK_IMPORTED_MODULE_1__fortawesome_fontawesome_svg_core__["c" /* library */].add(__WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["d" /* faBell */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["m" /* faUser */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["e" /* faBook */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["j" /* faPlus */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["k" /* faSignOutAlt */], __WEBPACK_IMPORTED_MODULE_3__fortawesome_free_brands_svg_icons__["a" /* faReadme */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["g" /* faEdit */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["c" /* faBackward */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["h" /* faForward */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["b" /* faArrowAltCircleRight */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["i" /* faPencilAlt */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["f" /* faBookReader */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["o" /* faUserPlus */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["n" /* faUserCircle */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["l" /* faTrashAlt */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["a" /* faArchive */]);
+
+__WEBPACK_IMPORTED_MODULE_1__fortawesome_fontawesome_svg_core__["c" /* library */].add(__WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["d" /* faBell */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["n" /* faUser */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["e" /* faBook */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["k" /* faPlus */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["l" /* faSignOutAlt */], __WEBPACK_IMPORTED_MODULE_3__fortawesome_free_brands_svg_icons__["a" /* faReadme */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["h" /* faEdit */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["c" /* faBackward */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["i" /* faForward */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["b" /* faArrowAltCircleRight */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["j" /* faPencilAlt */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["f" /* faBookReader */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["p" /* faUserPlus */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["o" /* faUserCircle */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["m" /* faTrashAlt */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["a" /* faArchive */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["g" /* faCogs */]);
 
 // Moment
 window.Moment = __webpack_require__(0);
@@ -73048,13 +73049,6 @@ module.exports = {
         return {
             belowTopbar: false
         };
-    },
-
-    mounted: function mounted() {
-        var self = this;
-        window.addEventListener('scroll', _.throttle(function (e) {
-            // self.belowTopbar = (window.pageYOffset > 0);
-        }), 200);
     }
 };
 
@@ -73343,6 +73337,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
+        journalId: {
+            type: Number,
+            required: true
+        },
         description: {
             type: String,
             required: false,
@@ -73377,6 +73375,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             type: String,
             required: false,
             default: ''
+        }
+    },
+
+    computed: {
+        archiveModalId: function archiveModalId() {
+            return 'archive-modal-' + this.journalId;
+        },
+
+        archiveModalReference: function archiveModalReference() {
+            return '#' + this.archiveModalId;
         }
     }
 });
@@ -73481,9 +73489,9 @@ var render = function() {
                     attrs: { href: _vm.editUrl }
                   },
                   [
-                    _c("font-awesome-icon", { attrs: { icon: "edit" } }),
+                    _c("font-awesome-icon", { attrs: { icon: "cogs" } }),
                     _vm._v(" "),
-                    _c("span", { staticClass: "ml-2" }, [_vm._v("Edit")])
+                    _c("span", { staticClass: "ml-2" }, [_vm._v("Settings")])
                   ],
                   1
                 )
@@ -73499,7 +73507,7 @@ var render = function() {
                       attrs: {
                         type: "button",
                         "data-toggle": "modal",
-                        "data-target": "#archive-confirm"
+                        "data-target": _vm.archiveModalReference
                       }
                     },
                     [
@@ -73512,7 +73520,7 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "modal",
-                    { attrs: { "modal-id": "archive-confirm" } },
+                    { attrs: { "modal-id": _vm.archiveModalId } },
                     [
                       _c("template", { slot: "title" }, [
                         _vm._v("Archive this journal?")
@@ -87781,7 +87789,6 @@ var render = function() {
         "div",
         {
           staticClass: "col-md-9 bg-white border-bottom",
-          class: { belowTopbar: _vm.belowTopbar },
           attrs: { id: "entry-header" }
         },
         [
