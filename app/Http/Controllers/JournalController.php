@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Journal;
+use App\Invite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -216,6 +217,37 @@ class JournalController extends Controller
     {
         if (Auth::user()->can('invite', $journal)) {
             return view('journal.invite', compact('journal'));
+        }
+
+        // Redirect to journal index
+        return redirect()->route('journal.index');
+    }
+
+    /**
+     * Process an invitation to join a journal
+     *
+     * @param  \App\Journal  $journal
+     * @return \Illuminate\Http\Response
+     */
+    public function processInvite(Journal $journal)
+    {
+        if (Auth::user()->can('invite', $journal)) {
+
+            $request->validate([
+                'name'  => 'required|max:255',
+                'email' => 'required|email'
+            ]);
+
+            $invite = new Invite;
+            $invite->name = $request->name;
+            $invite->email = $request->email;
+
+            $invite->sender()->associate(Auth::user());
+            Auth::user()->invites()->save($invite);
+            event(new UserInvited($invite));
+
+            $request->session()->flash('status', "An invitation to join this journal has been sent to the email address you provided.");
+            // return view('journal.invite', compact('journal'));
         }
 
         // Redirect to journal index
