@@ -62,6 +62,15 @@ files.keys().map(key => {
 // Other components
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
+// Register a global custom directive called `v-focus`
+Vue.directive('focus', {
+    // When the bound element is inserted into the DOM...
+    inserted: function (el) {
+        // Focus the element
+        el.focus()
+    }
+});
+
 const app = new Vue({
     el: '#app'
 });

@@ -16,8 +16,7 @@ export default {
     data() {
         return {
             editor: null,
-            headerExpanded: false,
-            selectedHeader: false
+            toolbar: null
         };
     },
 
@@ -53,20 +52,17 @@ export default {
 
         // Listen for Quill's built-in text-change event
         this.editor.on('text-change', () => this.update());
+
+        // Grab toolbar and move to desired position inside the entry header
+        this.toolbar = $('.ql-toolbar')[0];
+        $('#entry-header').append(this.toolbar);
+        this.toolbar.classList.add('pl-3', 'border-top', 'border-bottom');
     },
 
     methods: {
         update: function() {
-            // Propogate event to the global event bus
+            // Propagate event to the global event bus
             Event.$emit('quill-input', this.editor.getText() ? this.editor.root.innerHTML : '');
-        },
-
-        toggleHeader: function() {
-            this.headerExpanded = !this.headerExpanded;
-        },
-
-        selectHeader: function(header) {
-            this.selectedHeader = header;
         }
     }
 }

@@ -1,5 +1,5 @@
 <template>
-<div id="entry-body" class="entry-body p-2" v-html="body">
+<div id="entry-body" class="entry-body p-3" v-html="body">
 </div>
 </template>
 
