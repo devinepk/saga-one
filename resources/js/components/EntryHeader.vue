@@ -1,6 +1,6 @@
 <template>
 <div class="row no-gutters fixed-top justify-content-end">
-    <div id="entry-header" class="col-md-9 bg-white border-bottom" :class="{ belowTopbar: belowTopbar }">
+    <div id="entry-header" class="col-md-9 bg-white border-bottom">
 
         <nav v-if="displayEntryNav" class="nav justify-content-between mb-4 row no-gutters">
             <div class="col-2 col-md-4">
@@ -71,13 +71,6 @@ module.exports = {
         return {
             belowTopbar: false
         }
-    },
-
-    mounted: function() {
-        let self = this;
-        window.addEventListener('scroll', _.throttle((e) => {
-            // self.belowTopbar = (window.pageYOffset > 0);
-        }), 200);
     }
 }
 </script>
