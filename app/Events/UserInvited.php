@@ -25,7 +25,7 @@ class UserInvited
      */
     public function __construct(Invite $invite)
     {
-        $this->email = $invite;
+        $this->invite = $invite;
     }
 
     /**

@@ -26,6 +26,11 @@ class SendInvitation
      */
     public function handle(UserInvited $event)
     {
+
+        // Send email invitation???
         // access user with $event->user
+        // $event->user->sendEmailVerificationNotification();
+
+
     }
 }

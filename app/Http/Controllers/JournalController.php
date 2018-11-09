@@ -245,6 +245,7 @@ class JournalController extends Controller
             $invite->email = $request->email;
 
             $invite->sender()->associate(Auth::user());
+            $invite->journal()->associate($journal->id);
             Auth::user()->invites()->save($invite);
             event(new UserInvited($invite));
 
