@@ -13,4 +13,12 @@ class Invite extends Model
     {
         return $this->belongsTo('App\User', 'sender_id');
     }
+
+    /**
+     * Get the journal that this invitation is for
+     */
+    public function journal()
+    {
+        return $this->belongsTo('App\Journal');
+    }
 }

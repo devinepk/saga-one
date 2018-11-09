@@ -190,4 +190,12 @@ class Journal extends Model
 
         return $date->format($format_string);
     }
+
+    /**
+     * Get the invites that have been sent for this journal.
+     */
+    public function invites()
+    {
+        return $this->hasMany('App\Invite')->orderBy('created_at', 'desc');
+    }
 }
