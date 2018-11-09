@@ -3,7 +3,7 @@
 @section('page-title', 'Invite a friend')
 
 @section('journal-content')
-<div class="container p-md-5">
+<div class="container">
     <h1>Invite a friend to join <strong>{{ $journal->title }}</strong></h1>
     @if ($journal->description)
         <p class="font-italic">{{ $journal->description }}</p>

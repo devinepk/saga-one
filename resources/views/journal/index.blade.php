@@ -13,6 +13,7 @@
                 <div class="card journal-card border-0 mb-5">
 
                     <journal-card-body
+                        :journal-id="{{ $journal->id }}"
                         description="{{ $journal->description }}"
                         show-url="{{ route('journal.show', $journal) }}"
                         contents-url="{{ route('journal.contents', $journal) }}"

@@ -36,18 +36,18 @@
                 </a>
 
                 <a v-if="editUrl" class="nav-link py-1" :href="editUrl">
-                    <font-awesome-icon icon="edit"></font-awesome-icon>
-                    <span class="ml-2">Edit</span>
+                    <font-awesome-icon icon="cogs"></font-awesome-icon>
+                    <span class="ml-2">Settings</span>
                 </a>
 
                 <template v-if="archiveUrl">
 
-                    <button type="button" class="btn btn-link nav-link border-0 text-left py-1" data-toggle="modal" data-target="#archive-confirm">
+                    <button type="button" class="btn btn-link nav-link border-0 text-left py-1" data-toggle="modal" :data-target="archiveModalReference">
                         <font-awesome-icon icon="archive"></font-awesome-icon>
                         <span class="ml-2">Archive</span>
                     </button>
 
-                    <modal modal-id="archive-confirm">
+                    <modal :modal-id="archiveModalId">
                         <template slot="title">Archive this journal?</template>
                         <p>Archived journals are "sealed" and can no longer be written in or edited in any way.</p>
                         <p>They are also removed from rotation, which means everyone in the journal will be able to read it anytime.</p>
@@ -73,6 +73,10 @@
 <script>
 export default {
     props: {
+        journalId: {
+            type: Number,
+            required: true
+        },
         description: {
             type: String,
             required: false,
@@ -107,6 +111,16 @@ export default {
             type: String,
             required: false,
             default: ''
+        }
+    },
+
+    computed: {
+        archiveModalId: function() {
+            return 'archive-modal-' + this.journalId;
+        },
+
+        archiveModalReference: function() {
+            return '#' + this.archiveModalId;
         }
     }
 }

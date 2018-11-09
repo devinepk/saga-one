@@ -10,25 +10,6 @@
     <p class="font-italic">{{ $journal->description }}</p>
     @endif
 
-    @if (Auth::id() == $journal->creator->id)
-    <nav class="nav d-md-none">
-        <a class="nav-link py-1" href="{{ route('journal.invite', $journal) }}">
-            <font-awesome-icon icon="user-plus"></font-awesome-icon>
-            <span class="ml-2">Invite</span>
-        </a>
-
-        <a class="nav-link py-1" href="{{ route('journal.edit', $journal) }}">
-            <font-awesome-icon icon="edit"></font-awesome-icon>
-            <span class="ml-2">Edit</span>
-        </a>
-
-        <a class="nav-link py-1" href="{{ route('journal.confirmDelete', $journal) }}">
-            <font-awesome-icon icon="trash-alt"></font-awesome-icon>
-            <span class="ml-2">Delete</span>
-        </a>
-    </nav>
-    @endif
-
     <p>You have this journal until <strong>{{ $journal->formatted_next_change }}</strong>.</p>
     <journal-countdown target-date-string="{{ $journal->next_change }}"></journal-countdown>
 

@@ -36,7 +36,7 @@
                     <p>Are you sure you want to archive this journal?</p>
                     <template slot="footer">
                         <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
-                        <form class="d-inline" method="post" :action="archiveUrl">
+                        <form class="d-inline" method="post" action="{{ route('journal.archive', $journal) }}">
                             @csrf
                             @method('PUT')
                             <button type="submit" class="btn btn-danger">Yes, archive</button>
