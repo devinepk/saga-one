@@ -74271,7 +74271,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
-            editor: null
+            editor: null,
+            headerExpanded: false,
+            selectedHeader: 0
         };
     },
     mounted: function mounted() {
@@ -74279,27 +74281,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         this.editor = new __WEBPACK_IMPORTED_MODULE_0_quill___default.a(this.$refs.editor, {
             modules: {
-                toolbar: this.$refs.toolbar
+                // toolbar: this.$refs.toolbar
 
-                // toolbar: [
-                //     [{ header: [1, 2, 3, 4, false] }],
-                //     ['bold', 'italic', 'underline', 'strike'],
-                //     [{ 'color': [] }, { 'background': [] }],
-                //     ['blockquote'],
-                //     [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                //     [{ 'script': 'sub'}, { 'script': 'super' }],
-                //     [{ 'indent': '-1'}, { 'indent': '+1' }],
-                //     [{ 'align': [] }],
-                //     ['clean']
-                // ]
+                toolbar: [[{ header: [1, 2, 3, 4, false] }], ['bold', 'italic', 'underline', 'strike'], [{ 'color': [] }, { 'background': [] }], ['blockquote'], [{ 'list': 'ordered' }, { 'list': 'bullet' }], [{ 'script': 'sub' }, { 'script': 'super' }], [{ 'indent': '-1' }, { 'indent': '+1' }], [{ 'align': [] }], ['clean']]
 
             },
             theme: 'snow',
             formats: ['bold', 'underline', 'header', 'italic', 'strike', 'color', 'background', 'blockquote', 'list', 'script', 'indent', 'align']
         });
 
+        // Activate tooltips
+        $('[data-toggle="tooltip"]').tooltip();
+
+        // Display input passed in as a prop
         this.editor.root.innerHTML = this.value;
 
+        // Listen for Quill's built-in text-change event
         this.editor.on('text-change', function () {
             return _this.update();
         });
@@ -74308,7 +74305,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         update: function update() {
+            // Propogate event to the global event bus
             Event.$emit('quill-input', this.editor.getText() ? this.editor.root.innerHTML : '');
+        },
+
+        toggleHeader: function toggleHeader() {
+            this.headerExpanded = !this.headerExpanded;
+        },
+
+        selectHeader: function selectHeader(header) {
+            this.selectedHeader = header;
+            // ql-picker-lable::before ==
         }
     }
 });
@@ -74331,37 +74338,107 @@ var render = function() {
       },
       [
         _c("span", { staticClass: "ql-formats" }, [
-          _c("span", { staticClass: "ql-header ql-picker" }, [
-            _c(
-              "span",
-              {
-                staticClass: "ql-picker-label",
-                attrs: {
-                  tabindex: "0",
-                  role: "button",
-                  "aria-expanded": "false",
-                  "aria-controls": "ql-picker-options-0"
-                }
-              },
-              [
-                _c("svg", { attrs: { viewBox: "0 0 18 18" } }, [
-                  _c("polygon", {
-                    staticClass: "ql-stroke",
-                    attrs: { points: "7 11 9 13 11 11 7 11" }
+          _c(
+            "span",
+            {
+              staticClass: "ql-header ql-picker",
+              class: { "ql-expanded": _vm.headerExpanded },
+              on: { click: _vm.toggleHeader }
+            },
+            [
+              _c(
+                "span",
+                {
+                  staticClass: "ql-picker-label",
+                  class: { "ql-active": _vm.selectedHeader },
+                  attrs: {
+                    tabindex: "0",
+                    role: "button",
+                    "aria-expanded": _vm.headerExpanded,
+                    "aria-controls": "ql-picker-options-0",
+                    "data-value": _vm.selectedHeader
+                  }
+                },
+                [
+                  _c("svg", { attrs: { viewBox: "0 0 18 18" } }, [
+                    _c("polygon", {
+                      staticClass: "ql-stroke",
+                      attrs: { points: "7 11 9 13 11 11 7 11" }
+                    }),
+                    _vm._v(" "),
+                    _c("polygon", {
+                      staticClass: "ql-stroke",
+                      attrs: { points: "7 7 9 5 11 7 7 7" }
+                    })
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticClass: "ql-picker-options",
+                  attrs: {
+                    "aria-hidden": !_vm.headerExpanded,
+                    tabindex: "-1",
+                    id: "ql-picker-options-0"
+                  }
+                },
+                [
+                  _c("span", {
+                    staticClass: "ql-picker-item",
+                    class: { "ql-selected": _vm.selectedHeader == 1 },
+                    attrs: { tabindex: "0", role: "button", "data-value": "1" },
+                    on: {
+                      click: function($event) {
+                        _vm.selectHeader(1)
+                      }
+                    }
                   }),
                   _vm._v(" "),
-                  _c("polygon", {
-                    staticClass: "ql-stroke",
-                    attrs: { points: "7 7 9 5 11 7 7 7" }
+                  _c("span", {
+                    staticClass: "ql-picker-item",
+                    class: { "ql-selected": _vm.selectedHeader == 2 },
+                    attrs: { tabindex: "0", role: "button", "data-value": "2" },
+                    on: {
+                      click: function($event) {
+                        _vm.selectHeader(2)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", {
+                    staticClass: "ql-picker-item",
+                    class: { "ql-selected": _vm.selectedHeader == 3 },
+                    attrs: { tabindex: "0", role: "button", "data-value": "3" },
+                    on: {
+                      click: function($event) {
+                        _vm.selectHeader(3)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", {
+                    staticClass: "ql-picker-item",
+                    class: { "ql-selected": _vm.selectedHeader == 4 },
+                    attrs: { tabindex: "0", role: "button", "data-value": "4" },
+                    on: {
+                      click: function($event) {
+                        _vm.selectHeader(4)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", {
+                    staticClass: "ql-picker-item",
+                    attrs: { tabindex: "0", role: "button" }
                   })
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _vm._m(0)
-          ]),
+                ]
+              )
+            ]
+          ),
           _vm._v(" "),
-          _vm._m(1)
+          _vm._m(0)
         ]),
         _vm._v(" "),
         _c("span", { staticClass: "ql-formats" }, [
@@ -74498,10 +74575,10 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _vm._m(2)
+            _vm._m(1)
           ]),
           _vm._v(" "),
-          _vm._m(3),
+          _vm._m(2),
           _vm._v(" "),
           _c(
             "span",
@@ -74744,11 +74821,11 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _vm._m(4)
+              _vm._m(3)
             ]
           ),
           _vm._v(" "),
-          _vm._m(5)
+          _vm._m(4)
         ]),
         _vm._v(" "),
         _c("span", { staticClass: "ql-formats" }, [
@@ -75162,7 +75239,7 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _vm._m(6)
+          _vm._m(5)
         ]),
         _vm._v(" "),
         _c("span", { staticClass: "ql-formats" }, [
@@ -75213,48 +75290,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "span",
-      {
-        staticClass: "ql-picker-options",
-        attrs: {
-          "aria-hidden": "true",
-          tabindex: "-1",
-          id: "ql-picker-options-0"
-        }
-      },
-      [
-        _c("span", {
-          staticClass: "ql-picker-item",
-          attrs: { tabindex: "0", role: "button", "data-value": "1" }
-        }),
-        _vm._v(" "),
-        _c("span", {
-          staticClass: "ql-picker-item",
-          attrs: { tabindex: "0", role: "button", "data-value": "2" }
-        }),
-        _vm._v(" "),
-        _c("span", {
-          staticClass: "ql-picker-item",
-          attrs: { tabindex: "0", role: "button", "data-value": "3" }
-        }),
-        _vm._v(" "),
-        _c("span", {
-          staticClass: "ql-picker-item",
-          attrs: { tabindex: "0", role: "button", "data-value": "4" }
-        }),
-        _vm._v(" "),
-        _c("span", {
-          staticClass: "ql-picker-item",
-          attrs: { tabindex: "0", role: "button" }
-        })
-      ]
-    )
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

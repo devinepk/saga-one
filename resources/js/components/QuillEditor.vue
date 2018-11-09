@@ -2,15 +2,15 @@
 <div>
     <div ref="toolbar" id="toolbar" class="ql-toolbar ql-snow">
         <span class="ql-formats">
-            <span class="ql-header ql-picker">
-                <span class="ql-picker-label" tabindex="0" role="button" aria-expanded="false" aria-controls="ql-picker-options-0">
+            <span class="ql-header ql-picker" :class="{ 'ql-expanded': headerExpanded }" @click="toggleHeader">
+                <span class="ql-picker-label" :class="{ 'ql-active': selectedHeader }" tabindex="0" role="button" :aria-expanded="headerExpanded" aria-controls="ql-picker-options-0" :data-value="selectedHeader">
                     <svg viewBox="0 0 18 18"> <polygon class="ql-stroke" points="7 11 9 13 11 11 7 11"></polygon> <polygon class="ql-stroke" points="7 7 9 5 11 7 7 7"></polygon> </svg>
                 </span>
-                <span class="ql-picker-options" aria-hidden="true" tabindex="-1" id="ql-picker-options-0">
-                    <span tabindex="0" role="button" class="ql-picker-item" data-value="1"></span>
-                    <span tabindex="0" role="button" class="ql-picker-item" data-value="2"></span>
-                    <span tabindex="0" role="button" class="ql-picker-item" data-value="3"></span>
-                    <span tabindex="0" role="button" class="ql-picker-item" data-value="4"></span>
+                <span class="ql-picker-options" :aria-hidden="!headerExpanded" tabindex="-1" id="ql-picker-options-0">
+                    <span tabindex="0" role="button" class="ql-picker-item" :class="{ 'ql-selected': selectedHeader == 1}" @click="selectHeader(1)" data-value="1"></span>
+                    <span tabindex="0" role="button" class="ql-picker-item" :class="{ 'ql-selected': selectedHeader == 2}" @click="selectHeader(2)" data-value="2"></span>
+                    <span tabindex="0" role="button" class="ql-picker-item" :class="{ 'ql-selected': selectedHeader == 3}" @click="selectHeader(3)" data-value="3"></span>
+                    <span tabindex="0" role="button" class="ql-picker-item" :class="{ 'ql-selected': selectedHeader == 4}" @click="selectHeader(4)" data-value="4"></span>
                     <span tabindex="0" role="button" class="ql-picker-item"></span>
                 </span>
             </span>
@@ -283,26 +283,28 @@ export default {
 
     data() {
         return {
-            editor: null
+            editor: null,
+            headerExpanded: false,
+            selectedHeader: 0
         };
     },
 
     mounted() {
         this.editor = new Quill(this.$refs.editor, {
             modules: {
-                toolbar: this.$refs.toolbar
+                // toolbar: this.$refs.toolbar
 
-                // toolbar: [
-                //     [{ header: [1, 2, 3, 4, false] }],
-                //     ['bold', 'italic', 'underline', 'strike'],
-                //     [{ 'color': [] }, { 'background': [] }],
-                //     ['blockquote'],
-                //     [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                //     [{ 'script': 'sub'}, { 'script': 'super' }],
-                //     [{ 'indent': '-1'}, { 'indent': '+1' }],
-                //     [{ 'align': [] }],
-                //     ['clean']
-                // ]
+                toolbar: [
+                    [{ header: [1, 2, 3, 4, false] }],
+                    ['bold', 'italic', 'underline', 'strike'],
+                    [{ 'color': [] }, { 'background': [] }],
+                    ['blockquote'],
+                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                    [{ 'script': 'sub'}, { 'script': 'super' }],
+                    [{ 'indent': '-1'}, { 'indent': '+1' }],
+                    [{ 'align': [] }],
+                    ['clean']
+                ]
 
             },
             theme: 'snow',
@@ -313,14 +315,29 @@ export default {
             ]
         });
 
+        // Activate tooltips
+        $('[data-toggle="tooltip"]').tooltip();
+
+        // Display input passed in as a prop
         this.editor.root.innerHTML = this.value;
 
+        // Listen for Quill's built-in text-change event
         this.editor.on('text-change', () => this.update());
     },
 
     methods: {
-        update() {
+        update: function() {
+            // Propogate event to the global event bus
             Event.$emit('quill-input', this.editor.getText() ? this.editor.root.innerHTML : '');
+        },
+
+        toggleHeader: function() {
+            this.headerExpanded = !this.headerExpanded;
+        },
+
+        selectHeader: function(header) {
+            this.selectedHeader = header;
+            // ql-picker-lable::before ==
         }
     }
 }
