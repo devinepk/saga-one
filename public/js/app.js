@@ -87480,6 +87480,10 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(225)
+}
 var normalizeComponent = __webpack_require__(3)
 /* script */
 var __vue_script__ = __webpack_require__(220)
@@ -87488,7 +87492,7 @@ var __vue_template__ = __webpack_require__(221)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -87528,6 +87532,12 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -87685,7 +87695,24 @@ var render = function() {
                   },
                   [_vm._v(_vm._s(_vm.journal.title))]
                 )
-              : [_vm._v(_vm._s(_vm.journal.title))]
+              : [_vm._v(_vm._s(_vm.journal.title))],
+            _vm._v(" "),
+            !_vm.journal.active
+              ? _c(
+                  "small",
+                  {
+                    staticClass:
+                      "badge badge-archived badge-dark rounded ml-2 p-2",
+                    attrs: {
+                      "data-toggle": "tooltip",
+                      "data-placement": "bottom",
+                      title:
+                        "You can read, but not write in, archived journals."
+                    }
+                  },
+                  [_vm._v("\n                Archived\n            ")]
+                )
+              : _vm._e()
           ],
           2
         ),
@@ -87785,7 +87812,11 @@ var render = function() {
                   {
                     key: index,
                     staticClass: "list-group-item list-group-item-action",
-                    class: { active: index == 0 }
+                    class: {
+                      active:
+                        user.id == _vm.authUser.id &&
+                        _vm.authUser.id == _vm.journal.current_user.id
+                    }
                   },
                   [
                     _c("font-awesome-icon", { attrs: { icon: "user" } }),
@@ -87917,6 +87948,46 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-7b2bf401", module.exports)
   }
 }
+
+/***/ }),
+/* 225 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(226);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(7)("02577c6b", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-d01d4b68\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./JournalCard.vue", function() {
+     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-d01d4b68\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./JournalCard.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 226 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(6)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.badge-archived {\n    font-size: 0.5rem;\n    vertical-align: middle;\n}\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);

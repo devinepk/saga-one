@@ -1,9 +1,15 @@
 <template>
 <div class="card journal-card mb-5">
     <div class="card-header">
+
+
         <h3 class="card-title mb-0">
             <a v-if="readUrl" :href="readUrl" data-toggle="tooltip" data-placement="top" :title="readTip">{{ journal.title }}</a>
             <template v-else>{{ journal.title }}</template>
+
+            <small v-if="!journal.active" class="badge badge-archived badge-dark rounded ml-2 p-2" data-toggle="tooltip" data-placement="bottom" title="You can read, but not write in, archived journals.">
+                Archived
+            </small>
         </h3>
 
         <p v-if="journal.description" class="font-italic mb-0">{{ journal.description }}</p>
@@ -30,7 +36,7 @@
             <li v-for="(user, index) in queue"
                 :key="index"
                 class="list-group-item list-group-item-action"
-                :class="{active: index==0}"
+                :class="{active: user.id == authUser.id && authUser.id == journal.current_user.id}"
             >
 
                 <font-awesome-icon icon="user"></font-awesome-icon>
@@ -124,3 +130,10 @@ export default {
     }
 }
 </script>
+
+<style>
+.badge-archived {
+    font-size: 0.5rem;
+    vertical-align: middle;
+}
+</style>
