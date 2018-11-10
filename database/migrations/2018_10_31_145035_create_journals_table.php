@@ -16,7 +16,7 @@ class CreateJournalsTable extends Migration
         Schema::create('journals', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->text('description')->nullable();
+            $table->string('description')->nullable();
 
             $table->unsignedInteger('period');
             $table->timestamp('next_change');
@@ -24,7 +24,7 @@ class CreateJournalsTable extends Migration
             $table->unsignedInteger('creator_id');
             $table->foreign('creator_id')->references('id')->on('users');
 
-            $table->unsignedInteger('current_user_id');
+            $table->unsignedInteger('current_user_id')->nullable();
             $table->foreign('current_user_id')->references('id')->on('users');
 
             $table->boolean('active')->nullable()->default('true');
