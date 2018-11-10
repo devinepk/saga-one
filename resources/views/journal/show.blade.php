@@ -10,6 +10,7 @@
     <p class="font-italic">{{ $journal->description }}</p>
     @endif
 
+    <strong>ONLY SHOW COUNTDOWN IF THERE IS A QUEUE</strong>
     <p>You have this journal until <strong>{{ $journal->formatted_next_change }}</strong>.</p>
     <journal-countdown target-date-string="{{ $journal->next_change }}"></journal-countdown>
 
@@ -36,7 +37,7 @@
     @if(count($drafts))
         {{ $drafts->links() }}
     @else
-        <div class="alert alert-info">You haven't started any new entries. Time to get writing!</div>
+        <div class="alert alert-secondary">You haven't started any new entries. Time to get writing!</div>
     @endif
 
     @foreach ($drafts as $draft)

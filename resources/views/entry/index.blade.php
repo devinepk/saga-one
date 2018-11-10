@@ -29,7 +29,7 @@
         @endforeach
 
     @else
-        <div class="alert alert-info">The are no entries in this journal. Time to get writing!</div>
+        <div class="alert alert-secondary">This journal is empty. Time to get writing!</div>
 
         @component('component.addButton')
             @slot('url', route('journal.add', $journal))
