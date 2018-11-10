@@ -2,7 +2,7 @@
 <div class="card journal-card mb-5">
     <div class="card-header">
         <h3 class="card-title mb-0">
-            <a v-if="writeUrl" :href="writeUrl">{{ journal.title }}</a>
+            <a v-if="readUrl" :href="readUrl">{{ journal.title }}</a>
             <template v-else>{{ journal.title }}</template>
         </h3>
 

@@ -13,11 +13,11 @@
 
 Route::view('/', 'welcome');
 
-Route::get('journal/{journal}/invite', 'JournalController@invite')->name('journal.invite');
-Route::post('journal/{journal}/invite', 'JournalController@processInvite')->name('journal.processInvite');
 Route::get('journal/{journal}/contents', 'JournalController@contents')->name('journal.contents');
 Route::get('journal/{journal}/add', 'JournalController@add')->name('journal.add');
 Route::put('journal/{journal}/archive', 'JournalController@archive')->name('journal.archive');
+Route::get('journal/{journal}/settings', 'JournalController@settings')->name('journal.settings');
+Route::post('journal/{journal}/invite', 'JournalController@invite')->name('journal.invite');
 Route::resource('journal', 'JournalController');
 
 Route::resource('entry', 'EntryController');

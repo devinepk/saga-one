@@ -40,7 +40,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Get the journals that this user currently has in possession
      */
-    public function journals_current()
+    public function current_journals()
     {
         return $this->hasMany('App\Journal', 'current_user_id');
     }
@@ -85,23 +85,6 @@ class User extends Authenticatable implements MustVerifyEmail
             }
         }
         return false;
-    }
-
-    /**
-     * Get the journals currently in the user's possession
-     *
-     * @return Illuminate\Database\Eloquent\Collection
-     */
-    public function getCurrentJournalsAttribute() {
-        $current_journals = [];
-
-        foreach ($this->journals as $journal) {
-            if ($journal->current_user->id == $this->id) {
-                $current_journals[] = $journal;
-            }
-        }
-
-        return collect($current_journals);
     }
 
     /**

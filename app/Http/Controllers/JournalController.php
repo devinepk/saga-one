@@ -111,17 +111,16 @@ class JournalController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the journal settings
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Journal  $journal
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, Journal $journal)
+    public function settings(Request $request, Journal $journal)
     {
-        // Only the journal creator can edit journal details
-        if (Auth::user()->can('update', $journal)) {
-            return view('journal.edit', compact('journal'));
+        if (Auth::user()->can('viewSettings', $journal)) {
+            return view('journal.settings', compact('journal'));
         }
 
         // Show a flash message if the user belongs to the journal.
@@ -144,7 +143,8 @@ class JournalController extends Controller
     {
         if (Auth::user()->can('update', $journal)) {
             $request->validate([
-                'title' => 'required|max:255'
+                'title' => 'required|max:255',
+                'description' => 'nullable|max:255'
             ]);
 
             $journal->title = $request->title;
@@ -152,7 +152,7 @@ class JournalController extends Controller
             $journal->save();
 
             $request->session()->flash('status', "<strong>{$journal->title}</strong> has been updated.");
-            return redirect()->route('journal.show', compact('journal'));
+            return redirect()->route('journal.settings', compact('journal'));
         }
 
         // Redirect to journal index
@@ -169,11 +169,22 @@ class JournalController extends Controller
     public function archive(Request $request, Journal $journal)
     {
         if (Auth::user()->can('archive', $journal)) {
+            // If active, then archive
+            if ($journal->active) {
+                $journal->active = false;
+                $journal->current_user()->dissociate();
+                $journal->save();
 
-            $journal->active = false;
-            $journal->save();
+                $request->session()->flash('status', "<strong>{$journal->title}</strong> has been archived.");
+            } else {
+                // If inactive, then unarchive
+                $journal->active = true;
+                $journal->current_user()->associate(Auth::user());
+                $journal->save();
 
-            $request->session()->flash('status', "<strong>{$journal->title}</strong> has been archived.");
+                $request->session()->flash('status', "<strong>{$journal->title}</strong> has been unarchived and is now in your possession.");
+            }
+            return redirect()->route('journal.settings', $journal);
         }
 
         // Redirect to journal index
@@ -221,29 +232,13 @@ class JournalController extends Controller
     }
 
     /**
-     * Display journal invitation form
-     *
-     * @param  \App\Journal  $journal
-     * @return \Illuminate\Http\Response
-     */
-    public function invite(Journal $journal)
-    {
-        if (Auth::user()->can('invite', $journal)) {
-            return view('journal.invite', compact('journal'));
-        }
-
-        // Redirect to journal index
-        return redirect()->route('journal.index');
-    }
-
-    /**
      * Process an invitation to join a journal
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Journal  $journal
      * @return \Illuminate\Http\Response
      */
-    public function processInvite(Request $request, Journal $journal)
+    public function invite(Request $request, Journal $journal)
     {
         if (Auth::user()->can('invite', $journal)) {
 
@@ -262,7 +257,7 @@ class JournalController extends Controller
             event(new UserInvited($invite));
 
             $request->session()->flash('status', "An invitation to join <strong>{$journal->title}</strong> will be sent to <strong>{$invite->name}</strong> using the email address you provided.");
-            return view('journal.invite', compact('journal'));
+            return view('journal.settings', compact('journal'));
         }
 
         // Redirect to journal index

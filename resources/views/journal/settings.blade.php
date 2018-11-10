@@ -4,10 +4,17 @@
 
 @section('journal-content')
 <div class="container">
-    <h1 class="mb-5">{{ $journal->title }}</h1>
+    <h1>{{ $journal->title }}</h1>
+
+    @if (!$journal->active)
+        <alert level="primary" :dismissible="false">
+            <h4>This journal has been archived.</h4>
+            <p>Archived journals are "sealed" and can no longer be written in. They are also removed from rotation, which means everyone in the journal can read it anytime.</p>
+        </alert>
+    @endif
 
     @if (Auth::user()->can('update', $journal))
-        <div class="card mb-5">
+        <div class="card my-5">
             <h2 class="card-header">General settings</h2>
             <div class="card-body">
                 <form id="update-form" method="post" action="{{ route('journal.update', $journal) }}">
@@ -87,31 +94,38 @@
 
     @if (Auth::user()->can('archive', $journal))
         <div class="card mb-5">
-            <h2 class="card-header">Archive this journal</h2>
+            <h2 class="card-header">{{ $journal->active ? 'Archive' : 'Unarchive' }} this journal</h2>
             <div class="card-body">
+                @if ($journal->active)
+                    <p>Archived journals are "sealed" and can no longer be written in.</p>
+                    <p>They are also removed from rotation, which means everyone in the journal will be able to read it anytime.</p>
 
-                <p>Archived journals are "sealed" and can no longer be written in.</p>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#archive-confirm">
+                        <font-awesome-icon icon="archive"></font-awesome-icon>
+                        <span class="ml-2">Archive this journal</span>
+                    </button>
 
-                <p>They are also removed from rotation, which means everyone in the journal will be able to read it anytime.</p>
-
-                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#archive-confirm">
-                    <font-awesome-icon icon="archive"></font-awesome-icon>
-                    <span class="ml-2">Archive this journal</span>
-                </button>
-
-                <modal modal-id="archive-confirm">
-                    <template slot="title">Are you sure you want to archive this journal?</template>
-                    <p>This will remove the journal from the current user's possession <strong>without</strong> posting any of their draft entries.</p>
-                    <p>You may want to give a heads up to the other participants in this journal first!</p>
-                    <template slot="footer">
-                        <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
-                        <form class="d-inline" method="post" action="{{ route('journal.archive', $journal) }}">
-                            @csrf
-                            @method('PUT')
-                            <button type="submit" class="btn btn-danger">Yes, archive</button>
-                        </form>
-                    </template>
-                </modal>
+                    <modal modal-id="archive-confirm">
+                        <template slot="title">Are you sure you want to archive this journal?</template>
+                        <p>This will remove the journal from the current user's possession <strong>without</strong> posting any of their draft entries.</p>
+                        <p>You may want to give a heads up to the other participants in this journal first!</p>
+                        <template slot="footer">
+                            <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+                            <form class="d-inline" method="post" action="{{ route('journal.archive', $journal) }}">
+                                @csrf
+                                @method('PUT')
+                                <button type="submit" class="btn btn-danger">Yes, archive</button>
+                            </form>
+                        </template>
+                    </modal>
+                @else
+                    <p>Unarchive this journal to put it back into rotation. You will be the first person to have it, and the rotation will proceed according to the queue.</p>
+                    <form class="d-inline" method="post" action="{{ route('journal.archive', $journal) }}">
+                        @csrf
+                        @method('PUT')
+                        <button type="submit" class="btn btn-dark">Unarchive this journal</button>
+                    </form>
+                @endif
             </div>
         </div>
     @endif

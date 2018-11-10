@@ -19,8 +19,13 @@ class JournalPolicy
      */
     public function view(User $user, Journal $journal)
     {
-        // Only the current user can view the journal.
-        return $user->id === $journal->current_user->id;
+        if ($journal->active) {
+            // Only the current user can view active journals,
+            return $user->id === $journal->current_user->id;
+        }
+
+        // But all journal participants can read archived journals.
+        return $user->isInJournal($journal);
     }
 
     /**
@@ -115,32 +120,6 @@ class JournalPolicy
     public function delete(User $user, Journal $journal)
     {
         // Only the journal creator can delete it.
-        return $user->id === $journal->creator->id;
-    }
-
-    /**
-     * Determine whether the user can restore the journal.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Journal  $journal
-     * @return mixed
-     */
-    public function restore(User $user, Journal $journal)
-    {
-        // Only the journal creator can restore it.
-        return $user->id === $journal->creator->id;
-    }
-
-    /**
-     * Determine whether the user can permanently delete the journal.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Journal  $journal
-     * @return mixed
-     */
-    public function forceDelete(User $user, Journal $journal)
-    {
-        // Only the journal creator can force delete it.
         return $user->id === $journal->creator->id;
     }
 }

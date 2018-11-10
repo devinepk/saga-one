@@ -10369,3 +10369,11 @@ a.text-dark:focus {
   line-height: 1.6;
 }
 
+/**
+ * FORMS
+ */
+
+label {
+  font-weight: bold;
+}
+

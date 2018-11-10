@@ -29,7 +29,7 @@ class Journal extends Model
      */
     public function current_user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User')->withDefault();
     }
 
     /**
