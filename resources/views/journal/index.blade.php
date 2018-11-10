@@ -13,24 +13,19 @@
                 <div class="card journal-card border-0 mb-5">
 
                     <journal-card-body
-                        :journal-id="{{ $journal->id }}"
                         description="{{ $journal->description }}"
                         show-url="{{ route('journal.show', $journal) }}"
                         contents-url="{{ route('journal.contents', $journal) }}"
                         image-url="{{ asset('/img/cover1.jpg') }}"
-                        invite-url="{{ Auth::user()->can('invite', $journal) ? route('journal.invite', $journal) : '' }}"
                         edit-url="{{ Auth::user()->can('update', $journal) ? route('journal.edit', $journal) : '' }}"
-                        archive-url="{{ Auth::user()->can('archive', $journal) ? route('journal.archive', $journal) : '' }}"
+                        queue-json="{{ $journal->queue->toJson() }}"
+                        journal-json="{{ $journal->toJson() }}"
                     >
                         <template>{{ $journal->title }}</template>
                     </journal-card-body>
 
                     @if ($journal->users->count() > 1)
 
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><h5 class="m-0">Journal queue:</h5></li>
-                            @include('component.queue')
-                        </ul>
 
                         <div class="card-footer">
                         @if (Auth::id() == $journal->current_user->id)

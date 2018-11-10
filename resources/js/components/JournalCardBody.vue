@@ -1,82 +1,63 @@
 <template>
-<div class="card-body">
-    <h3 class="card-title">
-        <a v-if="showUrl" :href="showUrl"><slot></slot></a>
-        <slot v-else></slot>
-    </h3>
+<div>
+    <div class="card-body">
+        <h3 class="card-title">
+            <a v-if="showUrl" :href="showUrl"><slot></slot></a>
+            <slot v-else></slot>
+        </h3>
 
-    <p v-if="description" class="font-italic">{{ description }}</p>
+        <p v-if="description" class="font-italic">{{ description }}</p>
 
-    <div class="row">
 
-        <div class="col-lg mb-3 text-center">
+        <div class="mb-3 text-center">
 
             <a v-if="showUrl" :href="showUrl"><img :src="imageUrl" width="150" height="217"></a>
             <img v-else :src="imageUrl" width="150" height="217">
 
         </div>
 
-        <div class="col-lg">
-            <nav class="nav flex-column">
-
-
-                <a v-if="showUrl" class="nav-link py-1" :href="showUrl">
-                    <font-awesome-icon icon="pencil-alt"/>
-                    <span class="ml-2">Write</span>
-                </a>
-
-                <a v-if="contentsUrl" class="nav-link py-1" :href="contentsUrl">
-                    <font-awesome-icon icon="book-reader"/>
-                    <span class="ml-2">Read</span>
-                </a>
-
-                <a v-if="inviteUrl" class="nav-link py-1" :href="inviteUrl">
-                    <font-awesome-icon icon="user-plus"/>
-                    <span class="ml-2">Invite</span>
-                </a>
-
-                <a v-if="editUrl" class="nav-link py-1" :href="editUrl">
-                    <font-awesome-icon icon="cogs"></font-awesome-icon>
-                    <span class="ml-2">Settings</span>
-                </a>
-
-                <template v-if="archiveUrl">
-
-                    <button type="button" class="btn btn-link nav-link border-0 text-left py-1" data-toggle="modal" :data-target="archiveModalReference">
-                        <font-awesome-icon icon="archive"></font-awesome-icon>
-                        <span class="ml-2">Archive</span>
-                    </button>
-
-                    <modal :modal-id="archiveModalId">
-                        <template slot="title">Archive this journal?</template>
-                        <p>Archived journals are "sealed" and can no longer be written in or edited in any way.</p>
-                        <p>They are also removed from rotation, which means everyone in the journal will be able to read it anytime.</p>
-                        <p>Are you sure you want to archive this journal?</p>
-                        <template slot="footer">
-                            <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
-                            <form class="d-inline" method="post" :action="archiveUrl">
-                                <slot name="csrf"></slot>
-                                <slot name="methodput"></slot>
-                                <button type="submit" class="btn btn-danger">Yes, archive</button>
-                            </form>
-                        </template>
-                    </modal>
-
-                </template>
-
-            </nav>
-        </div>
     </div>
+
+    <div class="row no-gutters" role="group" aria-label="Journal actions">
+        <a :href="showUrl" class="col btn btn-secondary">
+            <font-awesome-icon icon="pencil-alt"/>
+            <span class="ml-2">Write</span>
+        </a>
+        <a :href="contentsUrl" class="col btn btn-secondary">
+            <font-awesome-icon icon="book-reader"/>
+            <span class="ml-2">Read</span>
+        </a>
+        <a :href="editUrl" class="col btn btn-secondary">
+            <font-awesome-icon icon="cogs"></font-awesome-icon>
+            <span class="ml-2">Settings</span>
+        </a>
+    </div>
+
+    <template v-if="queue">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h5 class="m-0">Queue:</h5></li>
+
+            <li v-for="(user, index) in queue" :key="index" class="list-group-item list-group-item-action">
+
+                <font-awesome-icon icon="user"></font-awesome-icon>
+                <span class="ml-2">{{ user.name }}</span>
+
+            </li>
+        </ul>
+
+        <div class="card-footer">
+            <small>You've got this journal right now. What will you write?</small>
+            <small class="text-muted">{{ journal.current_user.name }} has this journal right now.</small>
+        </div>
+
+    </template>
+
 </div>
 </template>
 
 <script>
 export default {
     props: {
-        journalId: {
-            type: Number,
-            required: true
-        },
         description: {
             type: String,
             required: false,
@@ -97,30 +78,27 @@ export default {
             required: false,
             default: ''
         },
-        inviteUrl: {
-            type: String,
-            required: false,
-            default: ''
-        },
         editUrl: {
             type: String,
             required: false,
             default: ''
         },
-        archiveUrl: {
+        queueJson: {
             type: String,
-            required: false,
-            default: ''
+            default: '{}'
+        },
+        journalJson: {
+            type: String,
+            default: '{}'
         }
     },
 
     computed: {
-        archiveModalId: function() {
-            return 'archive-modal-' + this.journalId;
+        queue: function() {
+            return JSON.parse(this.queueJson);
         },
-
-        archiveModalReference: function() {
-            return '#' + this.archiveModalId;
+        journal: function() {
+            return JSON.parse(this.journalJson);
         }
     }
 }

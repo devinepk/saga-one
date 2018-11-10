@@ -14,13 +14,6 @@
             </a>
         @endif
 
-        @if (Auth::user()->can('update', $journal))
-            <a class="nav-link py-1" href="{{ route('journal.edit', $journal) }}">
-                <font-awesome-icon icon="edit"></font-awesome-icon>
-                <span class="ml-2">Edit</span>
-            </a>
-        @endif
-
         @if (Auth::user()->can('archive', $journal))
             <button type="button" class="btn btn-link nav-link border-0 text-left py-1" data-toggle="modal" data-target="#archive-confirm">
                 <font-awesome-icon icon="archive"></font-awesome-icon>
