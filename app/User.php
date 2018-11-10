@@ -105,7 +105,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Get the journals NOT currently in the user's possession
+     * Get the active journals NOT currently in the user's possession
      *
      * @return Illuminate\Database\Eloquent\Collection
      */
@@ -113,7 +113,7 @@ class User extends Authenticatable implements MustVerifyEmail
         $other_journals = [];
 
         foreach ($this->journals as $journal) {
-            if ($journal->current_user->id != $this->id) {
+            if ($journal->active && $journal->current_user->id != $this->id) {
                 $other_journals[] = $journal;
             }
         }
