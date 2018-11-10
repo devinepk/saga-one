@@ -1,12 +1,12 @@
 <template>
-<div>
+<div class="card journal-card border-0 mb-5">
     <div class="card-body">
         <h3 class="card-title">
-            <a v-if="showUrl" :href="showUrl"><slot></slot></a>
-            <slot v-else></slot>
+            <a v-if="showUrl" :href="showUrl">{{ journal.title }}</a>
+            <template v-else>{{ journal.title }}</template>
         </h3>
 
-        <p v-if="description" class="font-italic">{{ description }}</p>
+        <p v-if="journal.description" class="font-italic">{{ journal.description }}</p>
 
 
         <div class="mb-3 text-center">
@@ -46,11 +46,15 @@
         </ul>
 
         <div class="card-footer">
-            <small>You've got this journal right now. What will you write?</small>
-            <small class="text-muted">{{ journal.current_user.name }} has this journal right now.</small>
+            <small v-if="authUser.id == journal.current_user.id">You've got this journal right now. What will you write?</small>
+            <small v-else class="text-muted">{{ journal.current_user.name }} has this journal right now.</small>
         </div>
 
     </template>
+
+    <div v-else class="card-footer">
+        <small>The real magic begins when you share this journal with others. <a :href="editUrl">Invite a friend</a> now!</small>
+    </div>
 
 </div>
 </template>
@@ -58,10 +62,9 @@
 <script>
 export default {
     props: {
-        description: {
+        authUserJson: {
             type: String,
-            required: false,
-            default: ''
+            required: true
         },
         showUrl: {
             type: String,
@@ -94,6 +97,9 @@ export default {
     },
 
     computed: {
+        authUser: function() {
+            return JSON.parse(this.authUserJson);
+        },
         queue: function() {
             return JSON.parse(this.queueJson);
         },

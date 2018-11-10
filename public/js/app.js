@@ -72199,7 +72199,7 @@ var map = {
 	"./components/EntryComment.vue": 185,
 	"./components/EntryHeader.vue": 188,
 	"./components/EntrySaveForm.vue": 193,
-	"./components/JournalCardBody.vue": 196,
+	"./components/JournalCard.vue": 219,
 	"./components/JournalCountdown.vue": 199,
 	"./components/Modal.vue": 202,
 	"./components/QuillEditor.vue": 205
@@ -73378,330 +73378,9 @@ if (false) {
 }
 
 /***/ }),
-/* 196 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(3)
-/* script */
-var __vue_script__ = __webpack_require__(197)
-/* template */
-var __vue_template__ = __webpack_require__(198)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/js/components/JournalCardBody.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-814545e4", Component.options)
-  } else {
-    hotAPI.reload("data-v-814545e4", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 197 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    props: {
-        description: {
-            type: String,
-            required: false,
-            default: ''
-        },
-        showUrl: {
-            type: String,
-            required: false,
-            default: ''
-        },
-        contentsUrl: {
-            type: String,
-            required: false,
-            default: ''
-        },
-        imageUrl: {
-            type: String,
-            required: false,
-            default: ''
-        },
-        editUrl: {
-            type: String,
-            required: false,
-            default: ''
-        },
-        queueJson: {
-            type: String,
-            default: '{}'
-        },
-        journalJson: {
-            type: String,
-            default: '{}'
-        }
-    },
-
-    computed: {
-        queue: function queue() {
-            return JSON.parse(this.queueJson);
-        },
-        journal: function journal() {
-            return JSON.parse(this.journalJson);
-        }
-    }
-});
-
-/***/ }),
-/* 198 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("div", { staticClass: "card-body" }, [
-        _c(
-          "h3",
-          { staticClass: "card-title" },
-          [
-            _vm.showUrl
-              ? _c(
-                  "a",
-                  { attrs: { href: _vm.showUrl } },
-                  [_vm._t("default")],
-                  2
-                )
-              : _vm._t("default")
-          ],
-          2
-        ),
-        _vm._v(" "),
-        _vm.description
-          ? _c("p", { staticClass: "font-italic" }, [
-              _vm._v(_vm._s(_vm.description))
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _c("div", { staticClass: "mb-3 text-center" }, [
-          _vm.showUrl
-            ? _c("a", { attrs: { href: _vm.showUrl } }, [
-                _c("img", {
-                  attrs: { src: _vm.imageUrl, width: "150", height: "217" }
-                })
-              ])
-            : _c("img", {
-                attrs: { src: _vm.imageUrl, width: "150", height: "217" }
-              })
-        ])
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "row no-gutters",
-          attrs: { role: "group", "aria-label": "Journal actions" }
-        },
-        [
-          _c(
-            "a",
-            {
-              staticClass: "col btn btn-secondary",
-              attrs: { href: _vm.showUrl }
-            },
-            [
-              _c("font-awesome-icon", { attrs: { icon: "pencil-alt" } }),
-              _vm._v(" "),
-              _c("span", { staticClass: "ml-2" }, [_vm._v("Write")])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "col btn btn-secondary",
-              attrs: { href: _vm.contentsUrl }
-            },
-            [
-              _c("font-awesome-icon", { attrs: { icon: "book-reader" } }),
-              _vm._v(" "),
-              _c("span", { staticClass: "ml-2" }, [_vm._v("Read")])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "col btn btn-secondary",
-              attrs: { href: _vm.editUrl }
-            },
-            [
-              _c("font-awesome-icon", { attrs: { icon: "cogs" } }),
-              _vm._v(" "),
-              _c("span", { staticClass: "ml-2" }, [_vm._v("Settings")])
-            ],
-            1
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _vm.queue
-        ? [
-            _c(
-              "ul",
-              { staticClass: "list-group list-group-flush" },
-              [
-                _vm._m(0),
-                _vm._v(" "),
-                _vm._l(_vm.queue, function(user, index) {
-                  return _c(
-                    "li",
-                    {
-                      key: index,
-                      staticClass: "list-group-item list-group-item-action"
-                    },
-                    [
-                      _c("font-awesome-icon", { attrs: { icon: "user" } }),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "ml-2" }, [
-                        _vm._v(_vm._s(user.name))
-                      ])
-                    ],
-                    1
-                  )
-                })
-              ],
-              2
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-footer" }, [
-              _c("small", [
-                _vm._v(
-                  "You've got this journal right now. What will you write?"
-                )
-              ]),
-              _vm._v(" "),
-              _c("small", { staticClass: "text-muted" }, [
-                _vm._v(
-                  _vm._s(_vm.journal.current_user.name) +
-                    " has this journal right now."
-                )
-              ])
-            ])
-          ]
-        : _vm._e()
-    ],
-    2
-  )
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "list-group-item" }, [
-      _c("h5", { staticClass: "m-0" }, [_vm._v("Queue:")])
-    ])
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-814545e4", module.exports)
-  }
-}
-
-/***/ }),
+/* 196 */,
+/* 197 */,
+/* 198 */,
 /* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -87833,6 +87512,347 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 216 */,
+/* 217 */,
+/* 218 */,
+/* 219 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(220)
+/* template */
+var __vue_template__ = __webpack_require__(221)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/JournalCard.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-d01d4b68", Component.options)
+  } else {
+    hotAPI.reload("data-v-d01d4b68", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 220 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        authUserJson: {
+            type: String,
+            required: true
+        },
+        showUrl: {
+            type: String,
+            required: false,
+            default: ''
+        },
+        contentsUrl: {
+            type: String,
+            required: false,
+            default: ''
+        },
+        imageUrl: {
+            type: String,
+            required: false,
+            default: ''
+        },
+        editUrl: {
+            type: String,
+            required: false,
+            default: ''
+        },
+        queueJson: {
+            type: String,
+            default: '{}'
+        },
+        journalJson: {
+            type: String,
+            default: '{}'
+        }
+    },
+
+    computed: {
+        authUser: function authUser() {
+            return JSON.parse(this.authUserJson);
+        },
+        queue: function queue() {
+            return JSON.parse(this.queueJson);
+        },
+        journal: function journal() {
+            return JSON.parse(this.journalJson);
+        }
+    }
+});
+
+/***/ }),
+/* 221 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "card journal-card border-0 mb-5" },
+    [
+      _c("div", { staticClass: "card-body" }, [
+        _c(
+          "h3",
+          { staticClass: "card-title" },
+          [
+            _vm.showUrl
+              ? _c("a", { attrs: { href: _vm.showUrl } }, [
+                  _vm._v(_vm._s(_vm.journal.title))
+                ])
+              : [_vm._v(_vm._s(_vm.journal.title))]
+          ],
+          2
+        ),
+        _vm._v(" "),
+        _vm.journal.description
+          ? _c("p", { staticClass: "font-italic" }, [
+              _vm._v(_vm._s(_vm.journal.description))
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c("div", { staticClass: "mb-3 text-center" }, [
+          _vm.showUrl
+            ? _c("a", { attrs: { href: _vm.showUrl } }, [
+                _c("img", {
+                  attrs: { src: _vm.imageUrl, width: "150", height: "217" }
+                })
+              ])
+            : _c("img", {
+                attrs: { src: _vm.imageUrl, width: "150", height: "217" }
+              })
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "row no-gutters",
+          attrs: { role: "group", "aria-label": "Journal actions" }
+        },
+        [
+          _c(
+            "a",
+            {
+              staticClass: "col btn btn-secondary",
+              attrs: { href: _vm.showUrl }
+            },
+            [
+              _c("font-awesome-icon", { attrs: { icon: "pencil-alt" } }),
+              _vm._v(" "),
+              _c("span", { staticClass: "ml-2" }, [_vm._v("Write")])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "col btn btn-secondary",
+              attrs: { href: _vm.contentsUrl }
+            },
+            [
+              _c("font-awesome-icon", { attrs: { icon: "book-reader" } }),
+              _vm._v(" "),
+              _c("span", { staticClass: "ml-2" }, [_vm._v("Read")])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "col btn btn-secondary",
+              attrs: { href: _vm.editUrl }
+            },
+            [
+              _c("font-awesome-icon", { attrs: { icon: "cogs" } }),
+              _vm._v(" "),
+              _c("span", { staticClass: "ml-2" }, [_vm._v("Settings")])
+            ],
+            1
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _vm.queue
+        ? [
+            _c(
+              "ul",
+              { staticClass: "list-group list-group-flush" },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _vm._l(_vm.queue, function(user, index) {
+                  return _c(
+                    "li",
+                    {
+                      key: index,
+                      staticClass: "list-group-item list-group-item-action"
+                    },
+                    [
+                      _c("font-awesome-icon", { attrs: { icon: "user" } }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "ml-2" }, [
+                        _vm._v(_vm._s(user.name))
+                      ])
+                    ],
+                    1
+                  )
+                })
+              ],
+              2
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-footer" }, [
+              _vm.authUser.id == _vm.journal.current_user.id
+                ? _c("small", [
+                    _vm._v(
+                      "You've got this journal right now. What will you write?"
+                    )
+                  ])
+                : _c("small", { staticClass: "text-muted" }, [
+                    _vm._v(
+                      _vm._s(_vm.journal.current_user.name) +
+                        " has this journal right now."
+                    )
+                  ])
+            ])
+          ]
+        : _c("div", { staticClass: "card-footer" }, [
+            _c("small", [
+              _vm._v(
+                "The real magic begins when you share this journal with others. "
+              ),
+              _c("a", { attrs: { href: _vm.editUrl } }, [
+                _vm._v("Invite a friend")
+              ]),
+              _vm._v(" now!")
+            ])
+          ])
+    ],
+    2
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "list-group-item" }, [
+      _c("h5", { staticClass: "m-0" }, [_vm._v("Queue:")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-d01d4b68", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
