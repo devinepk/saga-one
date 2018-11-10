@@ -56,12 +56,14 @@ class Journal extends Model
 
         if ($this->users()->count() > 1) {
 
-            $next_user = $this->users()->find($this->current_user->id);
+            // The queue of an archived journal should start with the creator.
+            $first_user_id = $this->current_user->id ? $this->current_user->id : $this->creator->id;
+            $next_user = $this->users()->find($first_user_id);
 
             do {
                 $queue[] = $next_user;
                 $next_user = $this->users()->find($next_user->subscription->next_user_id);
-            } while ($next_user->id != $this->current_user->id);
+            } while ($next_user->id != $first_user_id);
         }
 
         return collect($queue);
