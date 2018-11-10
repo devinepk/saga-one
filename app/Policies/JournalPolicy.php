@@ -36,6 +36,24 @@ class JournalPolicy
     }
 
     /**
+     * Determine whether the user can view the journal settings page.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Journal  $journal
+     * @return mixed
+     */
+    public function viewSettings(User $user, Journal $journal)
+    {
+        // The settings page offers options for updating, archiving,
+        // and inviting other users.
+
+        return ($user->can('update', $journal) ||
+                $user->can('invite', $journal) ||
+                $user->can('archive', $journal)
+        );
+    }
+
+    /**
      * Determine whether the user can update the journal.
      *
      * @param  \App\User  $user
