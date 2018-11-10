@@ -26,7 +26,19 @@ class JournalController extends Controller
      */
     public function index()
     {
-        return view('journal.index');
+        // Package journals with the user's current journals at the
+        // beginning and archived journals at the end.
+        $journals = [];
+        foreach (Auth::user()->current_journals as $journal) {
+            $journals[] = $journal;
+        }
+        foreach (Auth::user()->other_journals as $journal) {
+            $journals[] = $journal;
+        }
+        foreach (Auth::user()->journals()->where('active', 'false')->get() as $journal) {
+            $journals[] = $journal;
+        }
+        return view('journal.index', compact('journals'));
     }
 
     /**
@@ -260,10 +272,11 @@ class JournalController extends Controller
     /**
      * Display all the entries in a journal
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Journal  $journal
      * @return \Illuminate\Http\Response
      */
-    public function contents(Journal $journal)
+    public function contents(Request $request, Journal $journal)
     {
         if (Auth::user()->can('view', $journal)) {
             $entries = $journal->entries()->where('status', 'final')->paginate(10);
@@ -274,7 +287,7 @@ class JournalController extends Controller
 
         // Show a flash message if the user belongs to the journal.
         if (Auth::user()->isInJournal($journal)) {
-            $request->session()->flash('status', "{$journal->current_user->name} has <strong>{$journal->title}</strong> right now. You'll be able to view it when it's your turn.");
+            $request->session()->flash('status', "{$journal->current_user->name} has <strong>{$journal->title}</strong> right now. You'll be able to read it when it's your turn.");
         }
 
         // Redirect to journal index
@@ -284,10 +297,11 @@ class JournalController extends Controller
     /**
      * Display all the entries in a journal
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Journal  $journal
      * @return \Illuminate\Http\Response
      */
-    public function add(Journal $journal) {
+    public function add(Request $request, Journal $journal) {
         if (Auth::user()->can('addEntry', $journal)) {
             return view('entry.create', compact('journal'));
         }

@@ -4,18 +4,18 @@
 
 @section('page-content')
 
-{{-- CURRENT JOURNALS --}}
-@if (Auth::user()->journals()->count())
+@if (count($journals))
     <div class="row">
-        @foreach(Auth::user()->journals as $journal)
+
+        @foreach($journals as $journal)
             <div class="col-sm col-md-6 col-lg-4">
 
                 <journal-card
                     auth-user-json="{{ Auth::user() }}"
-                    show-url="{{ route('journal.show', $journal) }}"
-                    contents-url="{{ route('journal.contents', $journal) }}"
+                    write-url="{{ Auth::user()->can('addEntry', $journal) ? route('journal.show', $journal) : '' }}"
+                    read-url="{{ Auth::user()->can('view', $journal) ? route('journal.contents', $journal) : '' }}"
                     image-url="{{ asset('/img/cover1.jpg') }}"
-                    edit-url="{{ Auth::user()->can('update', $journal) ? route('journal.edit', $journal) : '' }}"
+                    settings-url="{{ Auth::user()->can('update', $journal) ? route('journal.edit', $journal) : '' }}"
                     queue-json="{{ $journal->queue }}"
                     journal-json="{{ $journal }}"
                 >
