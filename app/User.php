@@ -30,14 +30,6 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-     * The attributes that should be append to the model's array form
-     * and can be accessed with the accessor methods below.
-     *
-     * @var array
-     */
-    protected $appends = ['current_journals', 'other_journals'];
-
-    /**
      * Get the journals that this user has created
      */
     public function journals_created()

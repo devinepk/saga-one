@@ -8,13 +8,6 @@ use Carbon\Carbon;
 
 class Entry extends Model
 {
-    /**
-     * The attributes that should be append to the model's array form
-     * and can be accessed with the accessor methods below.
-     *
-     * @var array
-     */
-    protected $appends = ['excerpt', 'formatted_created_at', 'formatted_updated_at'];
 
     /**
      * Get the journal that owns this entry.

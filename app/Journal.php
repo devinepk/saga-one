@@ -10,14 +10,6 @@ class Journal extends Model
 {
 
     /**
-     * The attributes that should be append to the model's array form
-     * and can be accessed with the accessor methods below.
-     *
-     * @var array
-     */
-    protected $appends = ['queue', 'next_user'];
-
-    /**
      * The attributes that should be mutated to dates.
      *
      * @var array
