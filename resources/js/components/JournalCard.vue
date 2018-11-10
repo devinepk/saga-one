@@ -2,7 +2,7 @@
 <div class="card journal-card mb-5">
     <div class="card-header">
         <h3 class="card-title mb-0">
-            <a v-if="readUrl" :href="readUrl">{{ journal.title }}</a>
+            <a v-if="readUrl" :href="readUrl" data-toggle="tooltip" data-placement="top" :title="readTip">{{ journal.title }}</a>
             <template v-else>{{ journal.title }}</template>
         </h3>
 
@@ -13,22 +13,16 @@
         <a v-if="writeUrl" :href="writeUrl"></a>
     </div>
 
-    <div v-if="writeUrl || readUrl || settingsUrl" class="row no-gutters bg-secondary" role="group" aria-label="Journal actions">
-        <div class="col-4">
-            <a v-if="writeUrl" :href="writeUrl" class="btn btn-block btn-secondary" data-toggle="tooltip" data-placement="top" title="Write">
-                <font-awesome-icon icon="pencil-alt" />
-            </a>
-        </div>
-        <div class="col-4">
-            <a v-if="readUrl" :href="readUrl" class="btn btn-block btn-secondary" data-toggle="tooltip" data-placement="top" title="Read">
-                <font-awesome-icon icon="book-reader"/>
-            </a>
-        </div>
-        <div class="col-4">
-            <a v-if="settingsUrl" :href="settingsUrl" class="btn btn-block btn-secondary" data-toggle="tooltip" data-placement="top" title="Journal settings">
-                <font-awesome-icon icon="cogs"></font-awesome-icon>
-            </a>
-        </div>
+    <div v-if="writeUrl || readUrl || settingsUrl" class="row no-gutters" role="group" aria-label="Journal actions">
+        <a v-if="writeUrl" :href="writeUrl" class="col btn btn-secondary" data-toggle="tooltip" data-placement="top" :title="writeTip">
+            <font-awesome-icon icon="pencil-alt" />
+        </a>
+        <a v-if="readUrl" :href="readUrl" class="col btn btn-secondary" data-toggle="tooltip" data-placement="top" :title="readTip">
+            <font-awesome-icon icon="book-reader"/>
+        </a>
+        <a v-if="settingsUrl" :href="settingsUrl" class="col btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Journal settings">
+            <font-awesome-icon icon="cogs" />
+        </a>
     </div>
 
     <template v-if="queue.length">
@@ -111,6 +105,12 @@ export default {
         },
         journal: function() {
             return JSON.parse(this.journalJson);
+        },
+        readTip: function() {
+            return 'Read ' + this.journal.title;
+        },
+        writeTip: function() {
+            return 'Write in ' + this.journal.title;
         }
     },
 

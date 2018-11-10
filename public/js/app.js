@@ -87585,12 +87585,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -87642,6 +87636,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         journal: function journal() {
             return JSON.parse(this.journalJson);
+        },
+        readTip: function readTip() {
+            return 'Read ' + this.journal.title;
+        },
+        writeTip: function writeTip() {
+            return 'Write in ' + this.journal.title;
         }
     },
 
@@ -87673,9 +87673,18 @@ var render = function() {
           { staticClass: "card-title mb-0" },
           [
             _vm.readUrl
-              ? _c("a", { attrs: { href: _vm.readUrl } }, [
-                  _vm._v(_vm._s(_vm.journal.title))
-                ])
+              ? _c(
+                  "a",
+                  {
+                    attrs: {
+                      href: _vm.readUrl,
+                      "data-toggle": "tooltip",
+                      "data-placement": "top",
+                      title: _vm.readTip
+                    }
+                  },
+                  [_vm._v(_vm._s(_vm.journal.title))]
+                )
               : [_vm._v(_vm._s(_vm.journal.title))]
           ],
           2
@@ -87701,74 +87710,66 @@ var render = function() {
         ? _c(
             "div",
             {
-              staticClass: "row no-gutters bg-secondary",
+              staticClass: "row no-gutters",
               attrs: { role: "group", "aria-label": "Journal actions" }
             },
             [
-              _c("div", { staticClass: "col-4" }, [
-                _vm.writeUrl
-                  ? _c(
-                      "a",
-                      {
-                        staticClass: "btn btn-block btn-secondary",
-                        attrs: {
-                          href: _vm.writeUrl,
-                          "data-toggle": "tooltip",
-                          "data-placement": "top",
-                          title: "Write"
-                        }
-                      },
-                      [
-                        _c("font-awesome-icon", {
-                          attrs: { icon: "pencil-alt" }
-                        })
-                      ],
-                      1
-                    )
-                  : _vm._e()
-              ]),
+              _vm.writeUrl
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "col btn btn-secondary",
+                      attrs: {
+                        href: _vm.writeUrl,
+                        "data-toggle": "tooltip",
+                        "data-placement": "top",
+                        title: _vm.writeTip
+                      }
+                    },
+                    [
+                      _c("font-awesome-icon", { attrs: { icon: "pencil-alt" } })
+                    ],
+                    1
+                  )
+                : _vm._e(),
               _vm._v(" "),
-              _c("div", { staticClass: "col-4" }, [
-                _vm.readUrl
-                  ? _c(
-                      "a",
-                      {
-                        staticClass: "btn btn-block btn-secondary",
-                        attrs: {
-                          href: _vm.readUrl,
-                          "data-toggle": "tooltip",
-                          "data-placement": "top",
-                          title: "Read"
-                        }
-                      },
-                      [
-                        _c("font-awesome-icon", {
-                          attrs: { icon: "book-reader" }
-                        })
-                      ],
-                      1
-                    )
-                  : _vm._e()
-              ]),
+              _vm.readUrl
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "col btn btn-secondary",
+                      attrs: {
+                        href: _vm.readUrl,
+                        "data-toggle": "tooltip",
+                        "data-placement": "top",
+                        title: _vm.readTip
+                      }
+                    },
+                    [
+                      _c("font-awesome-icon", {
+                        attrs: { icon: "book-reader" }
+                      })
+                    ],
+                    1
+                  )
+                : _vm._e(),
               _vm._v(" "),
-              _c("div", { staticClass: "col-4" }, [
-                _vm.settingsUrl
-                  ? _c(
-                      "a",
-                      {
-                        staticClass: "btn btn-block btn-secondary",
-                        attrs: {
-                          href: _vm.settingsUrl,
-                          "data-toggle": "tooltip",
-                          "data-placement": "top",
-                          title: "Journal settings"
-                        }
-                      },
-                      [_c("font-awesome-icon", { attrs: { icon: "cogs" } })],
-                      1
-                    )
-                  : _vm._e()
-              ])
+              _vm.settingsUrl
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "col btn btn-secondary",
+                      attrs: {
+                        href: _vm.settingsUrl,
+                        "data-toggle": "tooltip",
+                        "data-placement": "top",
+                        title: "Journal settings"
+                      }
+                    },
+                    [_c("font-awesome-icon", { attrs: { icon: "cogs" } })],
+                    1
+                  )
+                : _vm._e()
             ]
           )
         : _vm._e(),

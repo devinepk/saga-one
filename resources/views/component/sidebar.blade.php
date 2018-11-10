@@ -1,19 +1,15 @@
 <nav class="col-md-3 d-none d-md-block bg-light sidebar">
 
-        <a href="{{ route('journal.show', $journal) }}">
-            <img src="{{ asset('/img/cover1.jpg') }}" width="150" height="217" class="mx-auto d-block">
-        </a>
+    <journal-card
+        auth-user-json="{{ Auth::user() }}"
+        write-url="{{ Auth::user()->can('addEntry', $journal) ? route('journal.show', $journal) : '' }}"
+        read-url="{{ Auth::user()->can('view', $journal) ? route('journal.contents', $journal) : '' }}"
+        image-url="{{ asset('/img/cover1.jpg') }}"
+        settings-url="{{ Auth::user()->can('viewSettings', $journal) ? route('journal.settings', $journal) : '' }}"
+        queue-json="{{ $journal->queue }}"
+        journal-json="{{ $journal }}"
+        class="border-top-0 border-left-0"
+    >
+    </journal-card>
 
-        <h5 class="text-center mt-1">
-            <a href="{{ route('journal.show', $journal) }}">{{ $journal->title }}</a>
-        </h5>
-
-        @if ($journal->queue->count())
-        <div>
-            <h6 class="mx-3 mt-5">Journal queue:</h6>
-            <ul class="list-group list-group-flush border-right border-bottom">
-                @include('component.queue')
-            </ul>
-        </div>
-        @endif
 </nav>
