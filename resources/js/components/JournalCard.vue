@@ -1,59 +1,61 @@
 <template>
-<div class="card journal-card border-0 mb-5">
-    <div class="card-body">
-        <h3 class="card-title">
-            <a v-if="showUrl" :href="showUrl">{{ journal.title }}</a>
+<div class="card journal-card mb-5">
+    <div class="card-header">
+        <h3 class="card-title mb-0">
+            <a v-if="writeUrl" :href="writeUrl">{{ journal.title }}</a>
             <template v-else>{{ journal.title }}</template>
         </h3>
 
-        <p v-if="journal.description" class="font-italic">{{ journal.description }}</p>
+        <p v-if="journal.description" class="font-italic mb-0">{{ journal.description }}</p>
+    </div>
 
+    <div class="journal-card-cover" :style="{'background-image': 'url(' + imageUrl + ')'}">
+        <a v-if="writeUrl" :href="writeUrl"></a>
+    </div>
 
-        <div class="mb-3 text-center">
-
-            <a v-if="showUrl" :href="showUrl"><img :src="imageUrl" width="150" height="217"></a>
-            <img v-else :src="imageUrl" width="150" height="217">
-
+    <div v-if="writeUrl || readUrl || settingsUrl" class="row no-gutters bg-secondary" role="group" aria-label="Journal actions">
+        <div class="col-4">
+            <a v-if="writeUrl" :href="writeUrl" class="btn btn-block btn-secondary" data-toggle="tooltip" data-placement="top" title="Write">
+                <font-awesome-icon icon="pencil-alt" />
+            </a>
         </div>
-
+        <div class="col-4">
+            <a v-if="readUrl" :href="readUrl" class="btn btn-block btn-secondary" data-toggle="tooltip" data-placement="top" title="Read">
+                <font-awesome-icon icon="book-reader"/>
+            </a>
+        </div>
+        <div class="col-4">
+            <a v-if="settingsUrl" :href="settingsUrl" class="btn btn-block btn-secondary" data-toggle="tooltip" data-placement="top" title="Journal settings">
+                <font-awesome-icon icon="cogs"></font-awesome-icon>
+            </a>
+        </div>
     </div>
 
-    <div class="row no-gutters" role="group" aria-label="Journal actions">
-        <a :href="showUrl" class="col btn btn-secondary">
-            <font-awesome-icon icon="pencil-alt"/>
-            <span class="ml-2">Write</span>
-        </a>
-        <a :href="contentsUrl" class="col btn btn-secondary">
-            <font-awesome-icon icon="book-reader"/>
-            <span class="ml-2">Read</span>
-        </a>
-        <a :href="editUrl" class="col btn btn-secondary">
-            <font-awesome-icon icon="cogs"></font-awesome-icon>
-            <span class="ml-2">Settings</span>
-        </a>
-    </div>
-
-    <template v-if="queue">
+    <template v-if="queue.length">
         <ul class="list-group list-group-flush">
-            <li class="list-group-item"><h5 class="m-0">Queue:</h5></li>
-
-            <li v-for="(user, index) in queue" :key="index" class="list-group-item list-group-item-action">
+            <li v-for="(user, index) in queue"
+                :key="index"
+                class="list-group-item list-group-item-action"
+                :class="{active: index==0}"
+            >
 
                 <font-awesome-icon icon="user"></font-awesome-icon>
+
                 <span class="ml-2">{{ user.name }}</span>
+
+                <font-awesome-icon
+                    v-if="user.id == journal.current_user.id"
+                    icon="book-reader"
+                    class="float-right mt-1"
+                    data-toggle="tooltip" data-placement="top" :title="queueTip(user.id, user.name)"
+                />
 
             </li>
         </ul>
-
-        <div class="card-footer">
-            <small v-if="authUser.id == journal.current_user.id">You've got this journal right now. What will you write?</small>
-            <small v-else class="text-muted">{{ journal.current_user.name }} has this journal right now.</small>
-        </div>
-
     </template>
 
-    <div v-else class="card-footer">
-        <small>The real magic begins when you share this journal with others. <a :href="editUrl">Invite a friend</a> now!</small>
+    <div v-else class="alert alert-secondary mb-0">
+            The real fun begins when you share this journal with others. <strong><a :href="settingsUrl">Invite a friend</a> now!</strong>
     </div>
 
 </div>
@@ -66,12 +68,12 @@ export default {
             type: String,
             required: true
         },
-        showUrl: {
+        writeUrl: {
             type: String,
             required: false,
             default: ''
         },
-        contentsUrl: {
+        readUrl: {
             type: String,
             required: false,
             default: ''
@@ -81,7 +83,7 @@ export default {
             required: false,
             default: ''
         },
-        editUrl: {
+        settingsUrl: {
             type: String,
             required: false,
             default: ''
@@ -96,6 +98,10 @@ export default {
         }
     },
 
+    mounted() {
+        $('[data-toggle="tooltip"]').tooltip();
+    },
+
     computed: {
         authUser: function() {
             return JSON.parse(this.authUserJson);
@@ -105,6 +111,15 @@ export default {
         },
         journal: function() {
             return JSON.parse(this.journalJson);
+        }
+    },
+
+    methods: {
+        queueTip: function(id, name) {
+            if (id == this.authUser.id) {
+                return "You have this journal right now."
+            }
+            return name + " has this journal right now."
         }
     }
 }

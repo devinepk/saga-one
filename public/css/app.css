@@ -10324,9 +10324,9 @@ a.text-dark:focus {
 
 .journal-card .journal-card-cover {
   height: 200px;
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: top center;
 }
 
 .journal-card .journal-card-cover a {
