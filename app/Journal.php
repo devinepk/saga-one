@@ -56,7 +56,7 @@ class Journal extends Model
 
         if ($this->users()->count() > 1) {
 
-            $next_user = $this->next_user;
+            $next_user = $this->users()->find($this->current_user->id);
 
             do {
                 $queue[] = $next_user;
