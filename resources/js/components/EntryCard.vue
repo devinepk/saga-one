@@ -24,8 +24,7 @@
         <h2 class="m-0"><a :href="titleUrl">{{ entry.title }}</a><span v-if="unread" class="badge badge-info ml-3 rounded">unread</span></h2>
     </div>
     <div class="card-body position-relative">
-        <div class="excerpt-overlay"></div>
-        <p class="m-0 excerpt"><slot></slot></p>
+        <div class="ql-editor" v-html="excerpt"></div>
     </div>
     <div class="card-footer text-muted">
         <span v-if="author.name">Written by {{ author.name }} {{ updatedAt }}.</span>
@@ -85,6 +84,13 @@ export default {
                 lastDay: '[yesterday at] h:ssa',
                 lastWeek: '[last] dddd [at] h:ssa',
                 sameElse: 'DD/MM/YYYY [at] h:ssa'
+            },
+            excerptOptions: {
+                TruncateLength: 50,
+                TruncateBy : "words",
+                Strict : false,
+                StripHTML : false,
+                Suffix : '...'
             }
         };
     },
@@ -92,6 +98,9 @@ export default {
     computed: {
         entry: function() {
             return JSON.parse(this.entryJson);
+        },
+        excerpt: function() {
+            return Truncatise(this.entry.body, this.excerptOptions);
         },
         author: function() {
             return JSON.parse(this.authorJson);
@@ -120,5 +129,9 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
+}
+.ql-editor {
+    min-height: unset;
+    padding: 0;
 }
 </style>

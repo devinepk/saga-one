@@ -38,6 +38,9 @@ library.add(
 // Moment
 window.Moment = require('moment');
 
+// Truncatise
+window.Truncatise = require('truncatise');
+
 // Vue
 window.Vue = require('vue');
 

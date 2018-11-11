@@ -146,46 +146,6 @@ class Journal extends Model
     }
 
     /**
-     * Format the next_change attribute for display
-     *
-     * @return string
-     */
-    public function getFormattedNextChangeAttribute() {
-        $date = new Carbon($this->next_change, config('app.timezone'));
-
-        if ($date->diffInDays() < 1) {
-
-            $today = '\\t\\o\\d\\a\\y';
-            $weekday = $month = $day = $year = '';
-
-        } else {
-
-            $today = '';
-            $weekday = 'l';
-
-            // month
-            if ($date->diffInDays() > 5) {
-                $month = ', F';
-            } else {
-                $month = '';
-            }
-
-            // day and year
-            if (now()->year == $date->year) {
-                $day = ' jS';
-                $year = '';
-            } else {
-                $day = ' j';
-                $year = ', Y';
-            }
-        }
-
-        $format_string = "{$today}{$weekday}{$month}{$day}{$year} \\a\\t g:i:s a";
-
-        return $date->format($format_string);
-    }
-
-    /**
      * Get the invites that have been sent for this journal.
      */
     public function invites()

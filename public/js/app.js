@@ -35256,6 +35256,9 @@ __WEBPACK_IMPORTED_MODULE_1__fortawesome_fontawesome_svg_core__["c" /* library *
 // Moment
 window.Moment = __webpack_require__(0);
 
+// Truncatise
+window.Truncatise = __webpack_require__(227);
+
 // Vue
 window.Vue = __webpack_require__(169);
 
@@ -70813,7 +70816,7 @@ exports = module.exports = __webpack_require__(6)(false);
 
 
 // module
-exports.push([module.i, "\n.excerpt-overlay[data-v-24681072] {\n    background: -webkit-gradient(linear, left top, left bottom, color-stop(50%, rgba(255,255,255,0)),to(rgba(255,255,255,1)));\n    background: linear-gradient(to bottom, rgba(255,255,255,0) 50%,rgba(255,255,255,1) 100%);\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n}\n", ""]);
+exports.push([module.i, "\n.excerpt-overlay[data-v-24681072] {\n    background: -webkit-gradient(linear, left top, left bottom, color-stop(50%, rgba(255,255,255,0)),to(rgba(255,255,255,1)));\n    background: linear-gradient(to bottom, rgba(255,255,255,0) 50%,rgba(255,255,255,1) 100%);\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n}\n.ql-editor[data-v-24681072] {\n    min-height: unset;\n    padding: 0;\n}\n", ""]);
 
 // exports
 
@@ -70857,7 +70860,6 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
 //
 //
 //
@@ -70944,6 +70946,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 lastDay: '[yesterday at] h:ssa',
                 lastWeek: '[last] dddd [at] h:ssa',
                 sameElse: 'DD/MM/YYYY [at] h:ssa'
+            },
+            excerptOptions: {
+                TruncateLength: 50,
+                TruncateBy: "words",
+                Strict: false,
+                StripHTML: false,
+                Suffix: '...'
             }
         };
     },
@@ -70952,6 +70961,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {
         entry: function entry() {
             return JSON.parse(this.entryJson);
+        },
+        excerpt: function excerpt() {
+            return Truncatise(this.entry.body, this.excerptOptions);
         },
         author: function author() {
             return JSON.parse(this.authorJson);
@@ -71079,9 +71091,10 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "card-body position-relative" }, [
-      _c("div", { staticClass: "excerpt-overlay" }),
-      _vm._v(" "),
-      _c("p", { staticClass: "m-0 excerpt" }, [_vm._t("default")], 2)
+      _c("div", {
+        staticClass: "ql-editor",
+        domProps: { innerHTML: _vm._s(_vm.excerpt) }
+      })
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "card-footer text-muted" }, [
@@ -86387,6 +86400,196 @@ exports = module.exports = __webpack_require__(6)(false);
 exports.push([module.i, "\n.badge-archived {\n    font-size: 0.5rem;\n    vertical-align: middle;\n}\n.badge-current {\n    position: absolute;\n    top: -10px;\n    right: 10px;\n}\n.journal-card-cover {\n    height: 200px;\n    background-size: cover;\n    background-repeat: no-repeat;\n    background-position: top center;\n    position: relative;\n}\n.journal-card-cover > a {\n    width: 100%;\n    height:100%;\n    display:block;\n}\n.journal-card-cover .cover-overlay {\n    position: absolute;\n    top: 0;\n    width: 100%;\n    height: 100%;\n    background: -webkit-gradient(linear, left top, left bottom, color-stop(80%, transparent), to(black));\n    background: linear-gradient(transparent 80%, black);\n    color: white;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n    font-variant: small-caps;\n    letter-spacing: -0.5px;\n}\n", ""]);
 
 // exports
+
+
+/***/ }),
+/* 227 */
+/***/ (function(module, exports) {
+
+(function(exportTo) {
+    "use strict";
+
+    var selfClosingTags = ["area", "base", "br", "col", "embed", "hr", "img", "input", "keygen", "link", "menuitem", "meta", "param", "source", "track", "wbr"];
+
+    /**
+     * Truncates a given HTML string to the specified length.
+     * @param {string} text This is the HTMl string to be truncated
+     * @param {object} options An options object defining how to truncate
+     *      Default values:
+     *      {
+     *          TruncateBy : 'words',   // Options are 'words', 'characters' or 'paragraphs'
+     *          TruncateLength : 50,    // The count to be used with TruncatedBy
+     *          StripHTML : false,      // Whether or not the truncated text should contain HTML tags
+     *          Strict : true,          // When set to false the truncated text finish at the end of the word
+     *          Suffix : '...'          // Text to be appended to the end of the truncated text
+     *      }
+     * @return {string} This returns the provided string truncated to the
+     *      length provided by the options. HTML tags may be stripped based
+     *      on the given options.
+     */
+    var truncatise = function(text,options) {
+        var options         = options || {},
+            text            = (text || "").trim(),
+            truncatedText   = "",
+            currentState    = 0,
+            isEndOfWord     = false,
+            isTagOpen       = false,
+            currentTag      = "",
+            tagStack        = [],
+            nextChar        = "";
+        //Counters
+        var charCounter         = 0,
+            wordCounter         = 0,
+            paragraphCounter    = 0;
+        //currentState values
+        var NOT_TAG         = 0,
+            TAG_START       = 1,
+            TAG_ATTRIBUTES  = 2;
+
+        //Set default values
+        options.TruncateBy      = (options.TruncateBy === undefined
+                                    || typeof options.TruncateBy !==  "string"
+                                    || !options.TruncateBy.match(/(word(s)?|character(s)?|paragraph(s)?)/))
+                                ? 'words'
+                                : options.TruncateBy.toLowerCase();
+        options.TruncateLength  = (options.TruncateLength === undefined
+                                    || typeof options.TruncateLength !== "number")
+                                ? 50
+                                : options.TruncateLength;
+        options.StripHTML       = (options.StripHTML === undefined
+                                    || typeof options.StripHTML !== "boolean")
+                                ? false
+                                : options.StripHTML;
+        options.Strict          = (options.Strict === undefined
+                                    || typeof options.Strict !== "boolean")
+                                ? true
+                                : options.Strict;
+        options.Suffix          = (options.Suffix === undefined
+                                    || typeof options.Suffix !== "string")
+                                ? '...'
+                                : options.Suffix;
+
+        if(text === "" || (text.length <= options.TruncateLength && options.StripHTML === false)){
+            return text;
+        }
+
+        //If not splitting on paragraphs we can quickly remove tags using regex
+        if(options.StripHTML && !options.TruncateBy.match(/(paragraph(s)?)/)){
+            text = String(text).replace(/<!--(.*?)-->/gm, '').replace(/<\/?[^>]+>/gi, '');
+        }
+        //Remove newline seperating paragraphs
+        text = String(text).replace(/<\/p>(\r?\n)+<p>/gm, '</p><p>');
+        //Replace double newlines with paragraphs
+        if(options.StripHTML && String(text).match(/\r?\n\r?\n/)){
+            text = String(text).replace(/((.+)(\r?\n\r?\n|$))/gi, "<p>$2</p>");
+        }
+
+        for (var pointer = 0; pointer < text.length; pointer++ ) {
+
+            var currentChar = text[pointer];
+
+            switch(currentChar){
+                case "<":
+                    if(currentState === NOT_TAG){
+                        currentState = TAG_START;
+                        currentTag = "";
+                    }
+                    if(!options.StripHTML){
+                        truncatedText += currentChar;
+                    }
+                    break;
+                case ">":
+                    if(currentState === TAG_START || currentState === TAG_ATTRIBUTES){
+                        currentState = NOT_TAG;
+                        currentTag = currentTag.toLowerCase();
+                        if(currentTag === "/p"){
+                            paragraphCounter++;
+                            if(options.StripHTML){
+                                truncatedText += " ";
+                            }
+                        }
+
+                        // Ignore self-closing tags.
+                        if ((selfClosingTags.indexOf(currentTag) === -1) && (selfClosingTags.indexOf(currentTag + '/') === -1)) {
+                            if(currentTag.indexOf("/") >= 0){
+                                tagStack.pop();
+                            } else {
+                                tagStack.push(currentTag);
+                            }
+                        }
+                    }
+                    if(!options.StripHTML){
+                        truncatedText += currentChar;
+                    }
+                    break;
+                case " ":
+                    if(currentState === TAG_START){
+                        currentState = TAG_ATTRIBUTES;
+                    }
+                    if(currentState === NOT_TAG){
+                        wordCounter++;
+                        charCounter++;
+                    }
+                    if(currentState === NOT_TAG || !options.StripHTML){
+                        truncatedText += currentChar;
+                    }
+                    break;
+                default:
+                    if(currentState === NOT_TAG){
+                        charCounter++;
+                    }
+                    if(currentState === TAG_START){
+                        currentTag += currentChar;
+                    }
+                    if(currentState === NOT_TAG || !options.StripHTML){
+                        truncatedText += currentChar;
+                    }
+                    break;
+            }
+
+            nextChar = text[pointer + 1] || "";
+            isEndOfWord = options.Strict ? true : (!currentChar.match(/[a-zA-ZÇ-Ü']/i) || !nextChar.match(/[a-zA-ZÇ-Ü']/i));
+
+            if(options.TruncateBy.match(/word(s)?/i) && options.TruncateLength <= wordCounter){
+                truncatedText = truncatedText.replace(/\s+$/, '');
+                break;
+            }
+            if(options.TruncateBy.match(/character(s)?/i) && options.TruncateLength <= charCounter && isEndOfWord){
+                break;
+            }
+            if(options.TruncateBy.match(/paragraph(s)?/i) && options.TruncateLength === paragraphCounter){
+                break;
+            }
+        }
+
+        if(!options.StripHTML && tagStack.length > 0){
+            while(tagStack.length > 0){
+                var tag = tagStack.pop();
+                if(tag!=="!--"){
+                    truncatedText += "</"+tag+">";
+                }
+            }
+        }
+
+        if(pointer < text.length - 1) {
+          if(truncatedText.match(/<\/p>$/gi)){
+              truncatedText = truncatedText.replace(/(<\/p>)$/gi, options.Suffix + "$1");
+          }else{
+              truncatedText = truncatedText + options.Suffix;
+          }
+        }
+
+        return truncatedText.trim();
+    };
+
+    // Export to node
+    if (typeof module !== 'undefined' && module.exports){
+        return module.exports = truncatise;
+    }
+
+    // Nope, export to the browser instead.
+    exportTo.truncatise = truncatise;
+}(this));
 
 
 /***/ })

@@ -24,23 +24,4 @@ class Entry extends Model
     {
         return $this->belongsTo('App\User', 'author_id');
     }
-
-    /**
-     * Compute an excerpt for this entry
-     *
-     * @return string
-     */
-    public function getExcerptAttribute()
-    {
-        // For now, strip tags and return the first 300 characters
-        $chars = 300;
-        $text = strip_tags($this->body);
-        if (strlen($text) > $chars) {
-            $text = substr($text, 0, $chars);
-            // Cut off at a word boundary
-            $text = substr($text, 0, strrpos($text, " "));
-            $text .= '...';
-        }
-        return $text;
-    }
 }
