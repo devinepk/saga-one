@@ -10337,7 +10337,7 @@ a.text-dark:focus {
 }
 
 #editor {
-  margin-top: 83px;
+  margin-top: 95px;
 }
 
 .ql-editor {
@@ -10349,11 +10349,8 @@ a.text-dark:focus {
   position: fixed;
   z-index: 1;
   width: 100%;
-}
-
-.entry-body {
-  font-size: 1rem;
-  line-height: 1.6;
+  white-space: nowrap;
+  overflow: auto;
 }
 
 /**

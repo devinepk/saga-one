@@ -1,5 +1,10 @@
 @extends('layout.journal')
 
+@section('additional_link_tags')
+{{-- CSS NEEDED FOR TO DISPLAY QUILL-EDITED TEXT --}}
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+@endsection
+
 @section('page-title', "Entries in {$journal->title}")
 
 @section('journal-content')

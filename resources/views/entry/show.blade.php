@@ -1,12 +1,17 @@
 @extends('layout.journal')
 
+@section('additional_link_tags')
+{{-- CSS NEEDED FOR TO DISPLAY QUILL-EDITED TEXT --}}
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+@endsection
+
 @section('page-title', $entry->title)
 
 @section('journal-content')
 <entry-header
     :display-entry-nav="true"
-    entry-date="{{ $entry->formatted_updated_at }}"
-    author="{{ $entry->author->name }}"
+    entry-json="{{ $entry }}"
+    author-json="{{ $entry->author }}"
     edit-url="{{ Auth::user()->can('update', $entry) ? route('entry.edit', $entry) : '' }}"
     @if($journal->getEntryBefore($entry))
         previous-url="{{ route('entry.show', $journal->getEntryBefore($entry)) }}"
@@ -15,9 +20,7 @@
         next-url="{{ route('entry.show', $journal->getEntryAfter($entry)) }}"
     @endif
     contents-url="{{ route('journal.contents', $journal) }}"
->
-    {{ $entry->title }}
-</entry-header>
+>{{ $entry->title }}</entry-header>
 
 <div class="row no-gutters">
     <div class="col-lg-8">

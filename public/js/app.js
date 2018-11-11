@@ -70640,6 +70640,10 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(228)
+}
 var normalizeComponent = __webpack_require__(3)
 /* script */
 var __vue_script__ = __webpack_require__(177)
@@ -70648,7 +70652,7 @@ var __vue_template__ = __webpack_require__(178)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -70715,7 +70719,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", {
-    staticClass: "entry-body p-3",
+    staticClass: "entry-body ql-editor p-3",
     attrs: { id: "entry-body" },
     domProps: { innerHTML: _vm._s(_vm.body) }
   })
@@ -70926,16 +70930,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             type: String,
             required: true
         },
-        createdAtString: {
-            type: String,
-            required: false,
-            default: ''
-        },
-        updatedAtString: {
-            type: String,
-            required: false,
-            default: ''
-        },
         unread: {
             type: Boolean,
             required: false,
@@ -70978,10 +70972,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return JSON.parse(this.authorJson);
         },
         createdAt: function createdAt() {
-            return Moment(this.createdAtString).calendar(null, this.dateFormatObj);
+            return Moment(this.entry.created_at).calendar(null, this.dateFormatObj);
         },
         updatedAt: function updatedAt() {
-            return Moment(this.updatedAtString).calendar(null, this.dateFormatObj);
+            return Moment(this.entry.updated_at).calendar(null, this.dateFormatObj);
         },
         deleteModal: function deleteModal() {
             return 'delete-confirm-' + this.entry.id;
@@ -71357,7 +71351,7 @@ exports = module.exports = __webpack_require__(6)(false);
 
 
 // module
-exports.push([module.i, "\n.fixed-top[data-v-38bc4d04] {\n    top: 38px;\n}\n", ""]);
+exports.push([module.i, "\n.fixed-top[data-v-38bc4d04] {\n    top: 38px;\n    z-index: 10;\n}\n.entry-title[data-v-38bc4d04] {\n    overflow: auto;\n    white-space: nowrap;\n}\n", ""]);
 
 // exports
 
@@ -71395,50 +71389,72 @@ exports.push([module.i, "\n.fixed-top[data-v-38bc4d04] {\n    top: 38px;\n}\n", 
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 module.exports = {
     props: {
         displayEntryNav: {
             type: Boolean,
-            required: false,
             default: false
+        },
+        entryJson: {
+            type: String,
+            default: '{}'
+        },
+        authorJson: {
+            type: String,
+            required: true
         },
         editUrl: {
             type: String,
-            required: false,
-            default: ''
-        },
-        entryDate: {
-            type: String,
-            required: false,
-            default: ''
-        },
-        author: {
-            type: String,
-            required: false,
             default: ''
         },
         previousUrl: {
             type: String,
-            required: false,
             default: ''
         },
         contentsUrl: {
             type: String,
-            required: false,
             default: ''
         },
         nextUrl: {
             type: String,
-            required: false,
             default: ''
         }
     },
 
     data: function data() {
         return {
-            belowTopbar: false
+            dateFormatObj: {
+                sameDay: '[today at] h:ssa',
+                nextDay: '[tomorrow at] h:ssa',
+                nextWeek: 'dddd [at] h:ssa',
+                lastDay: '[yesterday at] h:ssa',
+                lastWeek: '[last] dddd [at] h:ssa',
+                sameElse: 'DD/MM/YYYY [at] h:ssa'
+            }
         };
+    },
+
+
+    computed: {
+        entry: function entry() {
+            return JSON.parse(this.entryJson);
+        },
+        author: function author() {
+            return JSON.parse(this.authorJson);
+        },
+        createdAt: function createdAt() {
+            return Moment(this.entry.created_at).calendar(null, this.dateFormatObj);
+        },
+        updatedAt: function updatedAt() {
+            return Moment(this.entry.updated_at).calendar(null, this.dateFormatObj);
+        }
     }
 };
 
@@ -71464,9 +71480,7 @@ var render = function() {
           _vm.displayEntryNav
             ? _c(
                 "nav",
-                {
-                  staticClass: "nav justify-content-between mb-4 row no-gutters"
-                },
+                { staticClass: "nav justify-content-between row no-gutters" },
                 [
                   _c("div", { staticClass: "col-2 col-md-4" }, [
                     _vm.previousUrl
@@ -71480,6 +71494,7 @@ var render = function() {
                             _c("font-awesome-icon", {
                               attrs: { icon: "backward" }
                             }),
+                            _vm._v(" "),
                             _c(
                               "span",
                               { staticClass: "d-none d-md-inline ml-2" },
@@ -71498,7 +71513,7 @@ var render = function() {
                         staticClass: "nav-item nav-link",
                         attrs: { href: _vm.contentsUrl }
                       },
-                      [_vm._v("Table of Contents")]
+                      [_vm._v("Journal Contents")]
                     )
                   ]),
                   _vm._v(" "),
@@ -71516,6 +71531,7 @@ var render = function() {
                               { staticClass: "d-none d-md-inline mr-2" },
                               [_vm._v("Next Entry")]
                             ),
+                            _vm._v(" "),
                             _c("font-awesome-icon", {
                               attrs: { icon: "forward" }
                             })
@@ -71539,7 +71555,7 @@ var render = function() {
               ])
             : _vm._e(),
           _vm._v(" "),
-          _c("div", { staticClass: "ml-4 my-2" }, [
+          _c("div", { staticClass: "mx-4 mt-4 py-2" }, [
             _c(
               "h2",
               { staticClass: "entry-title mb-0", attrs: { id: "entry-title" } },
@@ -71547,13 +71563,13 @@ var render = function() {
               2
             ),
             _vm._v(" "),
-            _vm.entryDate
+            _vm.displayEntryNav
               ? _c("small", { staticClass: "entry-meta text-muted" }, [
                   _vm._v(
-                    "Written on " +
-                      _vm._s(_vm.entryDate) +
+                    "Written " +
+                      _vm._s(_vm.updatedAt) +
                       " by " +
-                      _vm._s(_vm.author)
+                      _vm._s(_vm.author.name)
                   )
                 ])
               : _vm._e()
@@ -86623,6 +86639,46 @@ exports.push([module.i, "\n.badge-archived {\n    font-size: 0.5rem;\n    vertic
     // Nope, export to the browser instead.
     exportTo.truncatise = truncatise;
 }(this));
+
+
+/***/ }),
+/* 228 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(229);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(7)("9b277884", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-53c61d59\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./EntryBody.vue", function() {
+     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-53c61d59\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./EntryBody.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 229 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(6)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.entry-body {\n    font-size: 1rem;\n    line-height: 1.6;\n    margin-top: 108px;\n}\n", ""]);
+
+// exports
 
 
 /***/ })

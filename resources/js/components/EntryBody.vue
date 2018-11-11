@@ -1,5 +1,5 @@
 <template>
-<div id="entry-body" class="entry-body p-3" v-html="body">
+<div id="entry-body" class="entry-body ql-editor p-3" v-html="body">
 </div>
 </template>
 
@@ -19,3 +19,11 @@ module.exports = {
     }
 }
 </script>
+
+<style>
+.entry-body {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-top: 108px;
+}
+</style>

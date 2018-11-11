@@ -8,7 +8,7 @@
 @endsection
 
 @section('journal-content')
-<entry-header>
+<entry-header author-json="{{ Auth::user() }}">
     <input v-focus type="text" form="entry-save-form" id="title" name="title" class="border-0 w-100 {{ $errors->has('title') ? ' is-invalid' : '' }}" style="outline:none;" value="{{ old('title') }}" placeholder="Title" autofocus>
     @if ($errors->has('title'))
         <span class="invalid-feedback" role="alert">

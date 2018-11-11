@@ -8,7 +8,7 @@
 @endsection
 
 @section('journal-content')
-<entry-header>
+<entry-header entry-json="{{ $entry }}" author-json="{{ $entry->author }}">
     <input type="text" form="entry-save-form" id="title" name="title" class="border-0 w-100 {{ $errors->has('title') ? ' is-invalid' : '' }}" style="outline:none;" value="{{ $errors->has('title') ? old('title') : $entry->title }}" placeholder="Title" autofocus>
     @if ($errors->has('title'))
         <span class="invalid-feedback" role="alert">
