@@ -19,10 +19,10 @@
 
             @foreach ($entries as $entry)
                 <entry-card
-                    title="{{ $entry->title }}"
+                    entry-json="{{ $entry }}"
+                    author-json="{{ $entry->author }}"
                     title-url="{{ route('entry.show', $entry) }}"
-                    author="{{ $entry->author->name }}"
-                    updated-at="{{ $entry->formatted_updated_at }}"
+                    updated-at-string="{{ $entry->updated_at }}"
                 >
                     {!! $entry->excerpt !!}
                 </entry-card>

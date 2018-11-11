@@ -1,8 +1,6 @@
 <template>
 <div>
-    <h2>Time Remaining</h2>
-
-    <div class="row no-gutters justify-content-center text-light text-center font-weight-bold my-4">
+    <div class="row no-gutters justify-content-center text-light text-center font-weight-bold mb-4">
         <div class="col">
             <div class="bg-primary py-2 rounded-left">
                 <p class="m-0 h2">{{ days.value }}</p>

@@ -136,7 +136,6 @@ export default {
             return (this.useBadgeCurrent && this.journal.current_user.id == this.authUser.id);
         },
         prettyNextChange: function() {
-            let nextChange = Moment(this.journal.next_change);
             return Moment(this.journal.next_change).format("MMM Do [at] h:mm a");
         }
     },

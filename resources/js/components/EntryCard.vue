@@ -3,14 +3,14 @@
     <div class="card-header">
         <div v-if="editUrl || deleteUrl" class="float-right text-muted">
             <a v-if="editUrl" class="btn" :href="editUrl"><font-awesome-icon icon="edit" /></a>
-            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#delete-confirm">
+            <button type="button" class="btn btn-link" data-toggle="modal" :data-target="deleteModalRef">
                 <font-awesome-icon icon="trash-alt"></font-awesome-icon>
             </button>
 
-            <modal modal-id="delete-confirm">
+            <modal :modal-id="deleteModal">
                 <template slot="title">Delete this entry?</template>
                 <p>Are you sure you want to delete this entry?</p>
-                <p class="text-center"><strong>{{ title }}</strong></p>
+                <p class="text-center"><strong>{{ entry.title }}</strong></p>
                 <template slot="footer">
                     <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
                     <form v-if="deleteUrl" class="d-inline" method="post" :action="deleteUrl">
@@ -21,14 +21,14 @@
             </modal>
 
         </div>
-        <h2 class="m-0"><a :href="titleUrl">{{ title }}</a><span v-if="unread" class="badge badge-info ml-3 rounded">unread</span></h2>
+        <h2 class="m-0"><a :href="titleUrl">{{ entry.title }}</a><span v-if="unread" class="badge badge-info ml-3 rounded">unread</span></h2>
     </div>
     <div class="card-body position-relative">
         <div class="excerpt-overlay"></div>
         <p class="m-0 excerpt"><slot></slot></p>
     </div>
     <div class="card-footer text-muted">
-        <span v-if="author">Written by {{ author }} {{ updatedAt }}.</span>
+        <span v-if="author.name">Written by {{ author.name }} {{ updatedAt }}.</span>
         <span v-else>Created {{ createdAt }}. Last updated {{ updatedAt }}.</span>
     </div>
 </div>
@@ -37,9 +37,13 @@
 <script>
 export default {
     props: {
-        title: {
+        entryJson: {
             type: String,
             required: true
+        },
+        authorJson: {
+            type: String,
+            default: '{}'
         },
         editUrl: {
             type: String,
@@ -53,19 +57,14 @@ export default {
         },
         titleUrl: {
             type: String,
-            required: true
+            required: true,
         },
-        author: {
+        createdAtString: {
             type: String,
             required: false,
             default: ''
         },
-        createdAt: {
-            type: String,
-            required: false,
-            default: ''
-        },
-        updatedAt: {
+        updatedAtString: {
             type: String,
             required: false,
             default: ''
@@ -77,9 +76,37 @@ export default {
         }
     },
 
-    methods: {
-        submitDeleteForm: function() {
-            this.$refs.deleteForm.submit();
+    data() {
+        return {
+            dateFormatObj: {
+                sameDay: '[today at] h:ssa',
+                nextDay: '[tomorrow at] h:ssa',
+                nextWeek: 'dddd [at] h:ssa',
+                lastDay: '[yesterday at] h:ssa',
+                lastWeek: '[last] dddd [at] h:ssa',
+                sameElse: 'DD/MM/YYYY [at] h:ssa'
+            }
+        };
+    },
+
+    computed: {
+        entry: function() {
+            return JSON.parse(this.entryJson);
+        },
+        author: function() {
+            return JSON.parse(this.authorJson);
+        },
+        createdAt: function() {
+            return Moment(this.createdAtString).calendar(null, this.dateFormatObj);
+        },
+        updatedAt: function() {
+            return Moment(this.updatedAtString).calendar(null, this.dateFormatObj);
+        },
+        deleteModal: function() {
+            return 'delete-confirm-' + this.entry.id;
+        },
+        deleteModalRef: function() {
+            return '#' + this.deleteModal;
         }
     }
 }

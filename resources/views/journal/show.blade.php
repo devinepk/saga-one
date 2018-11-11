@@ -38,12 +38,12 @@
 
     @foreach ($drafts as $draft)
         <entry-card
-            title="{{ $draft->title }}"
+            entry-json="{{ $draft }}"
             edit-url="{{ route('entry.edit', $draft) }}"
             title-url="{{ route('entry.edit', $draft) }}"
             delete-url="{{ route('entry.destroy', $draft) }}"
-            created-at="{{ $draft->formatted_created_at }}"
-            updated-at="{{ $draft->formatted_updated_at }}"
+            created-at-string="{{ $draft->created_at }}"
+            updated-at-string="{{ $draft->updated_at }}"
         >
             {!! $draft->excerpt !!}
             <template slot="deleteformfields">@csrf @method('DELETE')</template>

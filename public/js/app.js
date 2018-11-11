@@ -72579,9 +72579,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
-        title: {
+        entryJson: {
             type: String,
             required: true
+        },
+        authorJson: {
+            type: String,
+            default: '{}'
         },
         editUrl: {
             type: String,
@@ -72597,17 +72601,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             type: String,
             required: true
         },
-        author: {
+        createdAtString: {
             type: String,
             required: false,
             default: ''
         },
-        createdAt: {
-            type: String,
-            required: false,
-            default: ''
-        },
-        updatedAt: {
+        updatedAtString: {
             type: String,
             required: false,
             default: ''
@@ -72619,9 +72618,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
 
-    methods: {
-        submitDeleteForm: function submitDeleteForm() {
-            this.$refs.deleteForm.submit();
+    data: function data() {
+        return {
+            dateFormatObj: {
+                sameDay: '[today at] h:ssa',
+                nextDay: '[tomorrow at] h:ssa',
+                nextWeek: 'dddd [at] h:ssa',
+                lastDay: '[yesterday at] h:ssa',
+                lastWeek: '[last] dddd [at] h:ssa',
+                sameElse: 'DD/MM/YYYY [at] h:ssa'
+            }
+        };
+    },
+
+
+    computed: {
+        entry: function entry() {
+            return JSON.parse(this.entryJson);
+        },
+        author: function author() {
+            return JSON.parse(this.authorJson);
+        },
+        createdAt: function createdAt() {
+            return Moment(this.createdAtString).calendar(null, this.dateFormatObj);
+        },
+        updatedAt: function updatedAt() {
+            return Moment(this.updatedAtString).calendar(null, this.dateFormatObj);
+        },
+        deleteModal: function deleteModal() {
+            return 'delete-confirm-' + this.entry.id;
+        },
+        deleteModalRef: function deleteModalRef() {
+            return '#' + this.deleteModal;
         }
     }
 });
@@ -72657,7 +72685,7 @@ var render = function() {
                   attrs: {
                     type: "button",
                     "data-toggle": "modal",
-                    "data-target": "#delete-confirm"
+                    "data-target": _vm.deleteModalRef
                   }
                 },
                 [_c("font-awesome-icon", { attrs: { icon: "trash-alt" } })],
@@ -72666,7 +72694,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "modal",
-                { attrs: { "modal-id": "delete-confirm" } },
+                { attrs: { "modal-id": _vm.deleteModal } },
                 [
                   _c("template", { slot: "title" }, [
                     _vm._v("Delete this entry?")
@@ -72677,7 +72705,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("p", { staticClass: "text-center" }, [
-                    _c("strong", [_vm._v(_vm._s(_vm.title))])
+                    _c("strong", [_vm._v(_vm._s(_vm.entry.title))])
                   ]),
                   _vm._v(" "),
                   _c("template", { slot: "footer" }, [
@@ -72722,7 +72750,9 @@ var render = function() {
         : _vm._e(),
       _vm._v(" "),
       _c("h2", { staticClass: "m-0" }, [
-        _c("a", { attrs: { href: _vm.titleUrl } }, [_vm._v(_vm._s(_vm.title))]),
+        _c("a", { attrs: { href: _vm.titleUrl } }, [
+          _vm._v(_vm._s(_vm.entry.title))
+        ]),
         _vm.unread
           ? _c("span", { staticClass: "badge badge-info ml-3 rounded" }, [
               _vm._v("unread")
@@ -72738,11 +72768,11 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "card-footer text-muted" }, [
-      _vm.author
+      _vm.author.name
         ? _c("span", [
             _vm._v(
               "Written by " +
-                _vm._s(_vm.author) +
+                _vm._s(_vm.author.name) +
                 " " +
                 _vm._s(_vm.updatedAt) +
                 "."
@@ -73421,8 +73451,6 @@ module.exports = Component.exports
 //
 //
 //
-//
-//
 
 module.exports = {
     props: ['targetDateString'],
@@ -73498,13 +73526,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h2", [_vm._v("Time Remaining")]),
-    _vm._v(" "),
     _c(
       "div",
       {
         staticClass:
-          "row no-gutters justify-content-center text-light text-center font-weight-bold my-4"
+          "row no-gutters justify-content-center text-light text-center font-weight-bold mb-4"
       },
       [
         _c("div", { staticClass: "col" }, [
@@ -87668,7 +87694,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this.useBadgeCurrent && this.journal.current_user.id == this.authUser.id;
         },
         prettyNextChange: function prettyNextChange() {
-            var nextChange = Moment(this.journal.next_change);
             return Moment(this.journal.next_change).format("MMM Do [at] h:mm a");
         }
     },
