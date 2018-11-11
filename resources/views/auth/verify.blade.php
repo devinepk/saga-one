@@ -2,8 +2,6 @@
 
 @section('page-title', 'Verify your email')
 
-@section('body_classes', 'bg-primary')
-
 @section('page-content')
 <div class="container">
     <div class="row justify-content-center">
