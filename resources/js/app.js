@@ -37,8 +37,6 @@ library.add(
 
 // Moment
 window.Moment = require('moment');
-var momentDurationFormatSetup = require("moment-duration-format");
-momentDurationFormatSetup(Moment);
 
 // Vue
 window.Vue = require('vue');
