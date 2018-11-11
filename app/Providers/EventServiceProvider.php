@@ -20,6 +20,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\UserInvited' => [
             'App\Listeners\SendInvitation',
+        ],
+        'Illuminate\Auth\Events\Verified' => [
+            'App\Listeners\LogVerifiedUser',
         ]
     ];
 
