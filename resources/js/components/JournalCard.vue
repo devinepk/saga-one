@@ -1,13 +1,18 @@
 <template>
 <div class="card journal-card mb-5">
     <div class="card-header">
-
+        <span v-if="showBadgeCurrent"
+            class="badge badge-current badge-secondary text-white rounded-circle p-3 shadow"
+            data-toggle="tooltip" data-placement="top" title="You have this journal right now."
+        >
+            <font-awesome-icon size="4x" icon="book-reader" />
+        </span>
 
         <h3 class="card-title mb-0">
             <a v-if="readUrl" :href="readUrl" data-toggle="tooltip" data-placement="top" :title="readTip">{{ journal.title }}</a>
             <template v-else>{{ journal.title }}</template>
 
-            <small v-if="!journal.active" class="badge badge-archived badge-dark rounded ml-2 p-2" data-toggle="tooltip" data-placement="bottom" title="You can read, but not write in, archived journals.">
+            <small v-if="!journal.active" class="badge badge-archived badge-dark rounded ml-2 p-2" data-toggle="tooltip" data-placement="top" title="You can read, but not write in, archived journals.">
                 Archived
             </small>
         </h3>
@@ -17,6 +22,7 @@
 
     <div class="journal-card-cover" :style="{'background-image': 'url(' + imageUrl + ')'}">
         <a v-if="writeUrl" :href="writeUrl"></a>
+        <a v-else-if="readUrl" :href="readUrl"></a>
     </div>
 
     <div v-if="writeUrl || readUrl || settingsUrl" class="row no-gutters" role="group" aria-label="Journal actions">
@@ -95,6 +101,10 @@ export default {
         journalJson: {
             type: String,
             default: '{}'
+        },
+        useBadgeCurrent: {
+            type: Boolean,
+            default: true
         }
     },
 
@@ -117,6 +127,9 @@ export default {
         },
         writeTip: function() {
             return 'Write in ' + this.journal.title;
+        },
+        showBadgeCurrent: function() {
+            return (this.useBadgeCurrent && this.journal.current_user.id == this.authUser.id);
         }
     },
 
@@ -135,5 +148,10 @@ export default {
 .badge-archived {
     font-size: 0.5rem;
     vertical-align: middle;
+}
+.badge-current {
+    position: absolute;
+    top: -10px;
+    right: 10px;
 }
 </style>

@@ -87595,6 +87595,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -87629,6 +87635,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         journalJson: {
             type: String,
             default: '{}'
+        },
+        useBadgeCurrent: {
+            type: Boolean,
+            default: true
         }
     },
 
@@ -87652,6 +87662,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         writeTip: function writeTip() {
             return 'Write in ' + this.journal.title;
+        },
+        showBadgeCurrent: function showBadgeCurrent() {
+            return this.useBadgeCurrent && this.journal.current_user.id == this.authUser.id;
         }
     },
 
@@ -87678,6 +87691,27 @@ var render = function() {
     { staticClass: "card journal-card mb-5" },
     [
       _c("div", { staticClass: "card-header" }, [
+        _vm.showBadgeCurrent
+          ? _c(
+              "span",
+              {
+                staticClass:
+                  "badge badge-current badge-secondary text-white rounded-circle p-3 shadow",
+                attrs: {
+                  "data-toggle": "tooltip",
+                  "data-placement": "top",
+                  title: "You have this journal right now."
+                }
+              },
+              [
+                _c("font-awesome-icon", {
+                  attrs: { size: "4x", icon: "book-reader" }
+                })
+              ],
+              1
+            )
+          : _vm._e(),
+        _vm._v(" "),
         _c(
           "h3",
           { staticClass: "card-title mb-0" },
@@ -87705,7 +87739,7 @@ var render = function() {
                       "badge badge-archived badge-dark rounded ml-2 p-2",
                     attrs: {
                       "data-toggle": "tooltip",
-                      "data-placement": "bottom",
+                      "data-placement": "top",
                       title:
                         "You can read, but not write in, archived journals."
                     }
@@ -87730,7 +87764,13 @@ var render = function() {
           staticClass: "journal-card-cover",
           style: { "background-image": "url(" + _vm.imageUrl + ")" }
         },
-        [_vm.writeUrl ? _c("a", { attrs: { href: _vm.writeUrl } }) : _vm._e()]
+        [
+          _vm.writeUrl
+            ? _c("a", { attrs: { href: _vm.writeUrl } })
+            : _vm.readUrl
+              ? _c("a", { attrs: { href: _vm.readUrl } })
+              : _vm._e()
+        ]
       ),
       _vm._v(" "),
       _vm.writeUrl || _vm.readUrl || _vm.settingsUrl
@@ -87984,7 +88024,7 @@ exports = module.exports = __webpack_require__(6)(false);
 
 
 // module
-exports.push([module.i, "\n.badge-archived {\n    font-size: 0.5rem;\n    vertical-align: middle;\n}\n", ""]);
+exports.push([module.i, "\n.badge-archived {\n    font-size: 0.5rem;\n    vertical-align: middle;\n}\n.badge-current {\n    position: absolute;\n    top: -10px;\n    right: 10px;\n}\n", ""]);
 
 // exports
 

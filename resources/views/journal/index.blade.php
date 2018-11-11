@@ -3,7 +3,7 @@
 @section('page-title', 'My Journals')
 
 @section('page-content')
-
+<h1 class="mb-4">Your journals</h1>
 @if (count($journals))
     <div class="row">
 
