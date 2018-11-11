@@ -64,16 +64,6 @@ export default {
             type: String,
             required: true,
         },
-        createdAtString: {
-            type: String,
-            required: false,
-            default: ''
-        },
-        updatedAtString: {
-            type: String,
-            required: false,
-            default: ''
-        },
         unread: {
             type: Boolean,
             required: false,
@@ -116,10 +106,10 @@ export default {
             return JSON.parse(this.authorJson);
         },
         createdAt: function() {
-            return Moment(this.createdAtString).calendar(null, this.dateFormatObj);
+            return Moment(this.entry.created_at).calendar(null, this.dateFormatObj);
         },
         updatedAt: function() {
-            return Moment(this.updatedAtString).calendar(null, this.dateFormatObj);
+            return Moment(this.entry.updated_at).calendar(null, this.dateFormatObj);
         },
         deleteModal: function() {
             return 'delete-confirm-' + this.entry.id;

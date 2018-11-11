@@ -47,8 +47,6 @@
             edit-url="{{ route('entry.edit', $draft) }}"
             title-url="{{ route('entry.edit', $draft) }}"
             delete-url="{{ route('entry.destroy', $draft) }}"
-            created-at-string="{{ $draft->created_at }}"
-            updated-at-string="{{ $draft->updated_at }}"
         >
             <template slot="deleteformfields">@csrf @method('DELETE')</template>
         </entry-card>
