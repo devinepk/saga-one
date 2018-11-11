@@ -3,9 +3,22 @@
 @section('page-title', 'Account')
 
 @section('page-content')
-<h1 class="my-5">Your account</h1>
+<h1 class="mt-5">Your account</h1>
 
-<div class="row">
+@if (session('resent'))
+    <alert>
+        {{ __('A fresh verification link has been sent to your email address.') }}
+    </alert>
+@endif
+
+@unless (Auth::user()->hasVerifiedEmail())
+    <alert level="danger" :dismissible="false">
+        <p>You have not yet verified your email address. Please check your email for a verification link.</p>
+        <p>{{ __('If you did not receive the email') }}, <a href="{{ route('verification.resend') }}" class="alert-link">{{ __('click here to request another') }}</a>.</p>
+    </alert>
+@endif
+
+<div class="row mt-5">
     <div class="col-md-4">
         <div class="card mb-5">
             <img class="card-img-top">
@@ -13,24 +26,28 @@
         </div>
     </div>
     <div class="col-md">
-        <form class="container" method="post" action="">
+        <form class="container" method="post" action="{{ route('user.update', Auth::user()) }}">
             @csrf
+            @method('PUT')
 
             <div class="form-group">
                 <label for="name">Name</label>
-                <input id="name" name="name" type="text" class="form-control" value="{{ Auth::user()->name }}">
+                <input id="name" name="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ $errors->has('name') ? old('name') : Auth::user()->name }}">
+                @if ($errors->has('name'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('name') }}</strong>
+                    </span>
+                @endif
             </div>
 
             <div class="form-group">
                 <label for="email">Email</label>
-                <input id="email" name="email" type="email" class="form-control" value="{{ Auth::user()->email }}">
-            </div>
-
-            <div class="form-group">
-                <label for="timezone">Time Zone</label>
-                <select id="timezone" name="timezone" class="form-control">
-                    <option selected>America/New York</option>
-                </select>
+                <input id="email" name="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ $errors->has('email') ? old('email') : Auth::user()->email }}">
+                @if ($errors->has('email'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('email') }}</strong>
+                    </span>
+                @endif
             </div>
 
             <button type="submit" class="btn btn-primary">Update profile</button>

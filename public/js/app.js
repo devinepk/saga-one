@@ -87957,7 +87957,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "alert", class: _vm.classArray },
+    { staticClass: "alert", class: _vm.classArray, attrs: { role: "alert" } },
     [
       _vm.dismissible
         ? _c(
