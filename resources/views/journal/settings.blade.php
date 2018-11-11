@@ -54,7 +54,7 @@
             <h2 class="card-header">Participants</h2>
             <table class="table table-hover border-bottom mb-0">
                 <thead>
-                    <tr><th class="border-top-0">Name</th><th class="border-top-0">Status</th></tr>
+                    <tr><th class="border-top-0 border-dark">Name</th><th class="border-top-0 border-dark">Status</th></tr>
                 </thead>
                 <tbody>
                     @foreach ($journal->users as $user)
@@ -69,7 +69,7 @@
                 </tbody>
             </table>
             <div class="card-body">
-                <h3>Invite someone to join this journal</h3>
+                <h4>Invite someone to join this journal</h4>
                 @can('invite', $journal)
                     <form method="post" action="{{ route('journal.invite', $journal) }}" class="form-inline">
                         @csrf
@@ -107,8 +107,8 @@
             <h2 class="card-header">{{ $journal->active ? 'Archive' : 'Unarchive' }} this journal</h2>
             <div class="card-body">
                 @if ($journal->active)
-                    <p>Archived journals are "sealed" and can no longer be written in.</p>
-                    <p>They are also removed from rotation, which means everyone in the journal will be able to read it anytime.</p>
+                    <p>Archived journals are "sealed" and can no longer be written in. Entries can't be added or edited, nor can new comments be posted. They are also removed from rotation, which means everyone in the journal will be able to read it anytime.</p>
+                    <p><strong>Consider informing the other participants of this journal before archiving it.</strong></p>
 
                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#archive-confirm">
                         <font-awesome-icon icon="archive"></font-awesome-icon>
