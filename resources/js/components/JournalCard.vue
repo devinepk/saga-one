@@ -24,10 +24,8 @@
         <a v-if="writeUrl" :href="writeUrl"></a>
         <a v-else-if="readUrl" :href="readUrl"></a>
 
-        <div class="container cover-overlay d-flex">
-            <div class="row align-items-end">
-                <span class="col">Switches {{ prettyNextChange }}</span>
-            </div>
+        <div class="cover-overlay align-items-end p-1 text-center">
+            <span v-if="queue.length > 1">until <strong>{{ prettyNextChange }}</strong></span>
         </div>
     </div>
 
@@ -181,7 +179,11 @@ export default {
     top: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.5);
+    background: linear-gradient(transparent 80%, black);
     color: white;
+    display: flex;
+    flex-wrap: wrap;
+    font-variant: small-caps;
+    letter-spacing: -0.5px;
 }
 </style>

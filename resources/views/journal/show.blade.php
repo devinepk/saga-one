@@ -15,16 +15,8 @@
         journal-json="{{ $journal }}"
     ></journal-card>
 
-    <strong>ONLY SHOW COUNTDOWN IF THERE IS A QUEUE</strong>
-    <p>You have this journal until <strong>{{ $journal->formatted_next_change }}</strong>.</p>
-    <journal-countdown target-date-string="{{ $journal->next_change }}"></journal-countdown>
-
     @if ($journal->queue->count())
-    <div class="d-md-none mb-4">
-        <h6 class="mx-3">Journal queue:</h6>
-        <ul class="list-group list-group-flush border-right border-bottom">
-        </ul>
-    </div>
+        <journal-countdown target-date-string="{{ $journal->next_change }}"></journal-countdown>
     @endif
 
     <h2>Your draft entries</h2>

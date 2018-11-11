@@ -87602,8 +87602,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -87778,13 +87776,18 @@ var render = function() {
               ? _c("a", { attrs: { href: _vm.readUrl } })
               : _vm._e(),
           _vm._v(" "),
-          _c("div", { staticClass: "container cover-overlay d-flex" }, [
-            _c("div", { staticClass: "row align-items-end" }, [
-              _c("span", { staticClass: "col" }, [
-                _vm._v("Switches " + _vm._s(_vm.prettyNextChange))
-              ])
-            ])
-          ])
+          _c(
+            "div",
+            { staticClass: "cover-overlay align-items-end p-1 text-center" },
+            [
+              _vm.queue.length > 1
+                ? _c("span", [
+                    _vm._v("until "),
+                    _c("strong", [_vm._v(_vm._s(_vm.prettyNextChange))])
+                  ])
+                : _vm._e()
+            ]
+          )
         ]
       ),
       _vm._v(" "),
@@ -88039,7 +88042,7 @@ exports = module.exports = __webpack_require__(6)(false);
 
 
 // module
-exports.push([module.i, "\n.badge-archived {\n    font-size: 0.5rem;\n    vertical-align: middle;\n}\n.badge-current {\n    position: absolute;\n    top: -10px;\n    right: 10px;\n}\n.journal-card-cover {\n    height: 200px;\n    background-size: cover;\n    background-repeat: no-repeat;\n    background-position: top center;\n    position: relative;\n}\n.journal-card-cover > a {\n    width: 100%;\n    height:100%;\n    display:block;\n}\n.journal-card-cover .cover-overlay {\n    position: absolute;\n    top: 0;\n    width: 100%;\n    height: 100%;\n    background: rgba(0,0,0,0.5);\n    color: white;\n}\n", ""]);
+exports.push([module.i, "\n.badge-archived {\n    font-size: 0.5rem;\n    vertical-align: middle;\n}\n.badge-current {\n    position: absolute;\n    top: -10px;\n    right: 10px;\n}\n.journal-card-cover {\n    height: 200px;\n    background-size: cover;\n    background-repeat: no-repeat;\n    background-position: top center;\n    position: relative;\n}\n.journal-card-cover > a {\n    width: 100%;\n    height:100%;\n    display:block;\n}\n.journal-card-cover .cover-overlay {\n    position: absolute;\n    top: 0;\n    width: 100%;\n    height: 100%;\n    background: -webkit-gradient(linear, left top, left bottom, color-stop(80%, transparent), to(black));\n    background: linear-gradient(transparent 80%, black);\n    color: white;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n    font-variant: small-caps;\n    letter-spacing: -0.5px;\n}\n", ""]);
 
 // exports
 
