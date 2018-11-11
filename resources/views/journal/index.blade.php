@@ -18,8 +18,7 @@
                     settings-url="{{ Auth::user()->can('viewSettings', $journal) ? route('journal.settings', $journal) : '' }}"
                     queue-json="{{ $journal->queue }}"
                     journal-json="{{ $journal }}"
-                >
-                </journal-card>
+                ></journal-card>
 
             </div>
         @endforeach

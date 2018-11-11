@@ -45,8 +45,6 @@ module.exports = {
     mounted: function() {
         this.targetDate = Moment(this.targetDateString);
         requestAnimationFrame(this.updateRemaining);
-        // setInterval(this.updateRemaining, 250);
-        // this.updateRemaining();
     },
 
     computed: {
@@ -94,7 +92,6 @@ module.exports = {
     methods: {
         updateRemaining: function() {
             this.diff = this.targetDate.diff(Moment());
-            // this.remaining = Moment.duration(diff).format('w [week], d [day], h [hour], m [minute], [and] s [second]');
             requestAnimationFrame(this.updateRemaining);
         }
     }

@@ -5,10 +5,15 @@
 @section('journal-content')
 <div class="container">
 
-    <h1>{{ $journal->title }}</h1>
-    @if ($journal->description)
-    <p class="font-italic">{{ $journal->description }}</p>
-    @endif
+    <journal-card
+        class="d-md-none mt-3"
+        auth-user-json="{{ Auth::user() }}"
+        read-url="{{ Auth::user()->can('view', $journal) ? route('journal.contents', $journal) : '' }}"
+        image-url="{{ asset('/img/cover1.jpg') }}"
+        settings-url="{{ Auth::user()->can('viewSettings', $journal) ? route('journal.settings', $journal) : '' }}"
+        queue-json="{{ $journal->queue }}"
+        journal-json="{{ $journal }}"
+    ></journal-card>
 
     <strong>ONLY SHOW COUNTDOWN IF THERE IS A QUEUE</strong>
     <p>You have this journal until <strong>{{ $journal->formatted_next_change }}</strong>.</p>
@@ -18,7 +23,6 @@
     <div class="d-md-none mb-4">
         <h6 class="mx-3">Journal queue:</h6>
         <ul class="list-group list-group-flush border-right border-bottom">
-            @include('component.queue')
         </ul>
     </div>
     @endif

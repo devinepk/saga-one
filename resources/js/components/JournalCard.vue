@@ -23,6 +23,12 @@
     <div class="journal-card-cover" :style="{'background-image': 'url(' + imageUrl + ')'}">
         <a v-if="writeUrl" :href="writeUrl"></a>
         <a v-else-if="readUrl" :href="readUrl"></a>
+
+        <div class="container cover-overlay d-flex">
+            <div class="row align-items-end">
+                <span class="col">Switches {{ prettyNextChange }}</span>
+            </div>
+        </div>
     </div>
 
     <div v-if="writeUrl || readUrl || settingsUrl" class="row no-gutters" role="group" aria-label="Journal actions">
@@ -44,17 +50,17 @@
                 class="list-group-item list-group-item-action"
                 :class="{active: user.id == authUser.id && authUser.id == journal.current_user.id}"
             >
-
-                <font-awesome-icon icon="user"></font-awesome-icon>
-
-                <span class="ml-2">{{ user.name }}</span>
-
                 <font-awesome-icon
                     v-if="user.id == journal.current_user.id"
                     icon="book-reader"
                     class="float-right mt-1"
                     data-toggle="tooltip" data-placement="top" :title="queueTip(user.id, user.name)"
                 />
+
+                <font-awesome-icon icon="user"></font-awesome-icon>
+
+                <span class="ml-2">{{ user.name }}</span>
+
 
             </li>
         </ul>
@@ -130,6 +136,10 @@ export default {
         },
         showBadgeCurrent: function() {
             return (this.useBadgeCurrent && this.journal.current_user.id == this.authUser.id);
+        },
+        prettyNextChange: function() {
+            let nextChange = Moment(this.journal.next_change);
+            return Moment(this.journal.next_change).format("MMM Do [at] h:mm a");
         }
     },
 
@@ -153,5 +163,25 @@ export default {
     position: absolute;
     top: -10px;
     right: 10px;
+}
+.journal-card-cover {
+    height: 200px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
+    position: relative;
+}
+.journal-card-cover > a {
+    width: 100%;
+    height:100%;
+    display:block;
+}
+.journal-card-cover .cover-overlay {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    color: white;
 }
 </style>
