@@ -70895,6 +70895,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -70956,6 +70962,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         };
     },
+    mounted: function mounted() {
+        $('[data-toggle="tooltip"]').tooltip();
+    },
 
 
     computed: {
@@ -70998,27 +71007,51 @@ var render = function() {
             "div",
             { staticClass: "float-right text-muted" },
             [
-              _vm.editUrl
-                ? _c(
-                    "a",
-                    { staticClass: "btn", attrs: { href: _vm.editUrl } },
-                    [_c("font-awesome-icon", { attrs: { icon: "edit" } })],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
               _c(
-                "button",
+                "span",
                 {
-                  staticClass: "btn btn-link",
                   attrs: {
-                    type: "button",
-                    "data-toggle": "modal",
-                    "data-target": _vm.deleteModalRef
+                    "data-toggle": "tooltip",
+                    "data-placement": "top",
+                    title: "Edit this entry"
                   }
                 },
-                [_c("font-awesome-icon", { attrs: { icon: "trash-alt" } })],
-                1
+                [
+                  _vm.editUrl
+                    ? _c(
+                        "a",
+                        { staticClass: "btn", attrs: { href: _vm.editUrl } },
+                        [_c("font-awesome-icon", { attrs: { icon: "edit" } })],
+                        1
+                      )
+                    : _vm._e()
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  attrs: {
+                    "data-toggle": "tooltip",
+                    "data-placement": "top",
+                    title: "Delete this entry"
+                  }
+                },
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-link",
+                      attrs: {
+                        type: "button",
+                        "data-toggle": "modal",
+                        "data-target": _vm.deleteModalRef
+                      }
+                    },
+                    [_c("font-awesome-icon", { attrs: { icon: "trash-alt" } })],
+                    1
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(

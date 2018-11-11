@@ -2,10 +2,16 @@
 <div class="card mb-5">
     <div class="card-header">
         <div v-if="editUrl || deleteUrl" class="float-right text-muted">
-            <a v-if="editUrl" class="btn" :href="editUrl"><font-awesome-icon icon="edit" /></a>
-            <button type="button" class="btn btn-link" data-toggle="modal" :data-target="deleteModalRef">
-                <font-awesome-icon icon="trash-alt"></font-awesome-icon>
-            </button>
+            <span data-toggle="tooltip" data-placement="top" title="Edit this entry">
+                <a v-if="editUrl" class="btn" :href="editUrl">
+                    <font-awesome-icon icon="edit" />
+                </a>
+            </span>
+            <span data-toggle="tooltip" data-placement="top" title="Delete this entry">
+                <button type="button" class="btn btn-link" data-toggle="modal" :data-target="deleteModalRef">
+                    <font-awesome-icon icon="trash-alt" ></font-awesome-icon>
+                </button>
+            </span>
 
             <modal :modal-id="deleteModal">
                 <template slot="title">Delete this entry?</template>
@@ -93,6 +99,10 @@ export default {
                 Suffix : '...'
             }
         };
+    },
+
+    mounted() {
+        $('[data-toggle="tooltip"]').tooltip();
     },
 
     computed: {
