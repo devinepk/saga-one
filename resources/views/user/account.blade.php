@@ -6,9 +6,7 @@
 <h1 class="mt-5">Your account</h1>
 
 @if (session('resent'))
-    <alert>
-        {{ __('A fresh verification link has been sent to your email address.') }}
-    </alert>
+    <alert>{{ __('A fresh verification link has been sent to your email address.') }}</alert>
 @endif
 
 @unless (Auth::user()->hasVerifiedEmail())

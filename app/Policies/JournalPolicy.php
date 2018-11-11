@@ -80,8 +80,8 @@ class JournalPolicy
      */
     public function invite(User $user, Journal $journal)
     {
-        // Only the journal creator can invite others to join.
-        return $user->id === $journal->creator->id;
+        // Only the journal creator with a verified email address can invite others to join.
+        return ($user->hasVerifiedEmail() && $user->id === $journal->creator->id);
     }
 
     /**

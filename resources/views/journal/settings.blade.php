@@ -4,7 +4,11 @@
 
 @section('journal-content')
 <div class="container">
-    <h1>{{ $journal->title }}</h1>
+    @if (session('resent'))
+        <alert>{{ __('A fresh verification link has been sent to your email address.') }}</alert>
+    @endif
+
+    <h1>{{ $journal->title }} Settings</h1>
 
     @if (!$journal->active)
         <alert level="primary" :dismissible="false">
@@ -13,7 +17,7 @@
         </alert>
     @endif
 
-    @if (Auth::user()->can('update', $journal))
+    @can('update', $journal)
         <div class="card my-5">
             <h2 class="card-header">General settings</h2>
             <div class="card-body">
@@ -43,13 +47,11 @@
             </div>
             <button type="submit" form="update-form" class="btn btn-block btn-primary">Save</button>
         </div>
-    @endif
+    @endcan
 
 
-    @if (Auth::user()->can('invite', $journal))
         <div class="card mb-5">
             <h2 class="card-header">Participants</h2>
-
             <table class="table table-hover border-bottom mb-0">
                 <thead>
                     <tr><th class="border-top-0">Name</th><th class="border-top-0">Status</th></tr>
@@ -68,31 +70,39 @@
             </table>
             <div class="card-body">
                 <h3>Invite someone to join this journal</h3>
+                @can('invite', $journal)
+                    <form method="post" action="{{ route('journal.invite', $journal) }}" class="form-inline">
+                        @csrf
+                        <label for="name" class="sr-only">Name</label>
+                        <input type="name" class="form-control mb-1 mr-2" size="25" id="name" name="name" placeholder="Name" required>
+                        @if ($errors->has('name'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('name') }}</strong>
+                            </span>
+                        @endif
+                        <label for="email" class="sr-only">Email address</label>
+                        <input type="email" class="form-control mb-1 mr-2" size="25" id="email" name="email" placeholder="Email" required>
+                        @if ($errors->has('email'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('email') }}</strong>
+                            </span>
+                        @endif
+                        <button type="submit" class="btn btn-primary mb-1">Invite</button>
+                    </form>
+                @else
+                    <alert level="danger" :dismissible="false" class="mb-0">
 
-                <form method="post" action="{{ route('journal.invite', $journal) }}" class="form-inline">
-                    @csrf
-                    <label for="name" class="sr-only">Name</label>
-                    <input type="name" class="form-control mb-1 mr-2" size="25" id="name" name="name" placeholder="Name" required>
-                    @if ($errors->has('name'))
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('name') }}</strong>
-                        </span>
-                    @endif
-                    <label for="email" class="sr-only">Email address</label>
-                    <input type="email" class="form-control mb-1 mr-2" size="25" id="email" name="email" placeholder="Email" required>
-                    @if ($errors->has('email'))
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('email') }}</strong>
-                        </span>
-                    @endif
-                    <button type="submit" class="btn btn-primary mb-1">Invite</button>
-                </form>
+                        <p>Only verified users can invite others to join a journal. You have not yet verified your email address.</p>
+                        <p>Please check your email for a verification link. {{ __('If you did not receive the email') }}, <a href="{{ route('verification.resend') }}" class="alert-link">{{ __('click here to request another') }}</a>.</p>
+
+                    </alert>
+                @endcan
             </div>
         </div>
-    @endif
 
 
-    @if (Auth::user()->can('archive', $journal))
+
+    @can('archive', $journal)
         <div class="card mb-5">
             <h2 class="card-header">{{ $journal->active ? 'Archive' : 'Unarchive' }} this journal</h2>
             <div class="card-body">
@@ -128,7 +138,7 @@
                 @endif
             </div>
         </div>
-    @endif
+    @endcan
 
 </div>
 @endsection
