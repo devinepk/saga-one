@@ -85,7 +85,7 @@ class JournalController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Show the page for where entries can be added to the journal.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Journal  $journal
@@ -93,17 +93,22 @@ class JournalController extends Controller
      */
     public function show(Request $request, Journal $journal)
     {
-        // Show the journal to the current user only.
-        if (Auth::user()->can('view', $journal)) {
+        // Show the journal if the user has permission
+        if (Auth::user()->can('addEntry', $journal)) {
             $drafts = $journal->entries()->where('status', 'draft')->paginate(5);
             $drafts->withPath(route('journal.show', $journal));
 
             return view('journal.show', compact('journal', 'drafts'));
         }
 
-        // Show a flash message if the user belongs to the journal.
         if (Auth::user()->isInJournal($journal)) {
-            $request->session()->flash('status', "{$journal->current_user->name} has <strong>{$journal->title}</strong> right now. You'll be able to view it when it's your turn.");
+            if ($journal->active) {
+                // Show a flash message if the user belongs to the journal.
+                $request->session()->flash('status', "{$journal->current_user->name} has <strong>{$journal->title}</strong> right now. You'll be able to view it when it's your turn.");
+            } else {
+                // Redirect to the contents page
+                return redirect()->route('journal.contents', $journal);
+            }
         }
 
         // Redirect to journal index

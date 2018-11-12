@@ -81,7 +81,10 @@ class JournalPolicy
     public function invite(User $user, Journal $journal)
     {
         // Only the journal creator with a verified email address can invite others to join.
-        return ($user->hasVerifiedEmail() && $user->id === $journal->creator->id);
+        // Only active journals can accept new participants
+        return ($journal->active &&
+                $user->hasVerifiedEmail() &&
+                $user->id === $journal->creator->id);
     }
 
     /**
@@ -93,12 +96,14 @@ class JournalPolicy
      */
     public function addEntry(User $user, Journal $journal)
     {
-        // Only the current user can write in the journal.
-        return $user->id === $journal->current_user->id;
+        // Only the current user can write in the journal,
+        // and only if the journal is active.
+        return ($journal->active &&
+                $user->id === $journal->current_user->id);
     }
 
     /**
-     * Determine whether the user can archive the journal.
+     * Determine whether the user can archive (or unarchive) the journal.
      *
      * @param  \App\User  $user
      * @param  \App\Journal  $journal
@@ -106,7 +111,7 @@ class JournalPolicy
      */
     public function archive(User $user, Journal $journal)
     {
-        // Only the journal creator can archive it.
+        // Only the journal creator can archive (or unarchive) it.
         return $user->id === $journal->creator->id;
     }
 
