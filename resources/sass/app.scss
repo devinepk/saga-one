@@ -68,10 +68,6 @@
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
 
-/**
- * JOURNAL CARDS
- */
-
 
 /**
  * ENTRY EDITOR
@@ -96,7 +92,9 @@
     white-space: nowrap;
     overflow: auto;
 }
-
+.entry-container {
+    margin-top: 108px;
+}
 
 /**
  * FORMS

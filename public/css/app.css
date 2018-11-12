@@ -10319,10 +10319,6 @@ a.text-dark:focus {
 }
 
 /**
- * JOURNAL CARDS
- */
-
-/**
  * ENTRY EDITOR
  */
 
@@ -10351,6 +10347,10 @@ a.text-dark:focus {
   width: 100%;
   white-space: nowrap;
   overflow: auto;
+}
+
+.entry-container {
+  margin-top: 108px;
 }
 
 /**
