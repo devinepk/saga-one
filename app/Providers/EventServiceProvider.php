@@ -23,7 +23,13 @@ class EventServiceProvider extends ServiceProvider
         ],
         'Illuminate\Auth\Events\Verified' => [
             'App\Listeners\LogVerifiedUser',
-        ]
+        ],
+        'Illuminate\Mail\Events\MessageSending' => [
+            'App\Listeners\LogSendingMessage',
+        ],
+        'Illuminate\Mail\Events\MessageSent' => [
+            'App\Listeners\LogSentMessage',
+        ],
     ];
 
     /**
