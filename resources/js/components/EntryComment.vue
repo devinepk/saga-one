@@ -1,11 +1,12 @@
 <template>
-<div class="clearfix">
-    <div class="float-left" style="width:13px;"><font-awesome-icon icon="user" /></div>
-    <div style="margin-left: 20px;">
-        <p><span class="comment-author font-weight-bold">{{ author }}</span>
-            <slot></slot>
-        </p>
-    </div>
+<div class="comment text-black-50 p-2">
+    <p class="m-0">
+        <font-awesome-icon icon="user" />
+        <span class="font-weight-bold">{{ author }}</span>
+    </p>
+    <p class="m-0 comment-message">
+        <slot></slot>
+    </p>
 </div>
 </template>
 
@@ -14,3 +15,9 @@ module.exports = {
     props: ['author']
 }
 </script>
+
+<style>
+.comment-message {
+    font-size: 0.75rem;
+}
+</style>

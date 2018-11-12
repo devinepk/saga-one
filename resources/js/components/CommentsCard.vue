@@ -3,7 +3,7 @@
 
     <div class="card-body border-0 p-0">
 
-        <entry-comment v-for="comment in comments" :key="comment.id" :author="comment.author">
+        <entry-comment v-for="comment in comments" :key="comment.id" author="author">
             {{ comment.message }}
         </entry-comment>
 

@@ -26,13 +26,14 @@
 
     <div class="col-lg-8">
 
-        <entry-body body="{!! $entry->body !!}"></entry-body>
+        <entry-body body="{{ $entry->body }}"></entry-body>
 
     </div>
 
     <div class="col-lg-4 p-2">
 
         <comments-card
+            comments-json="{{ $entry->comments }}"
             post-url="/"
         >@csrf</comments-card>
 

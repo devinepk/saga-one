@@ -71152,6 +71152,10 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(233)
+}
 var normalizeComponent = __webpack_require__(3)
 /* script */
 var __vue_script__ = __webpack_require__(186)
@@ -71160,7 +71164,7 @@ var __vue_template__ = __webpack_require__(187)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -71209,6 +71213,7 @@ module.exports = Component.exports
 //
 //
 //
+//
 
 module.exports = {
     props: ['author']
@@ -71222,27 +71227,21 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "clearfix" }, [
+  return _c("div", { staticClass: "comment text-black-50 p-2" }, [
     _c(
-      "div",
-      { staticClass: "float-left", staticStyle: { width: "13px" } },
-      [_c("font-awesome-icon", { attrs: { icon: "user" } })],
+      "p",
+      { staticClass: "m-0" },
+      [
+        _c("font-awesome-icon", { attrs: { icon: "user" } }),
+        _vm._v(" "),
+        _c("span", { staticClass: "font-weight-bold" }, [
+          _vm._v(_vm._s(_vm.author))
+        ])
+      ],
       1
     ),
     _vm._v(" "),
-    _c("div", { staticStyle: { "margin-left": "20px" } }, [
-      _c(
-        "p",
-        [
-          _c("span", { staticClass: "comment-author font-weight-bold" }, [
-            _vm._v(_vm._s(_vm.author))
-          ]),
-          _vm._v(" "),
-          _vm._t("default")
-        ],
-        2
-      )
-    ])
+    _c("p", { staticClass: "m-0 comment-message" }, [_vm._t("default")], 2)
   ])
 }
 var staticRenderFns = []
@@ -86788,7 +86787,7 @@ var render = function() {
         _vm._l(_vm.comments, function(comment) {
           return _c(
             "entry-comment",
-            { key: comment.id, attrs: { author: comment.author } },
+            { key: comment.id, attrs: { author: "author" } },
             [_vm._v("\n            " + _vm._s(comment.message) + "\n        ")]
           )
         }),
@@ -86848,6 +86847,46 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-af6615e2", module.exports)
   }
 }
+
+/***/ }),
+/* 233 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(234);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(7)("f7aaac1a", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-183a5ef8\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./EntryComment.vue", function() {
+     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-183a5ef8\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./EntryComment.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 234 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(6)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.comment-message {\n    font-size: 0.75rem;\n}\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);
