@@ -73,6 +73,14 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Get the comments this user has posted.
+     */
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
+
+    /**
      * Check whether the user belongs to a given journal
      *
      * @param  \App\Journal  $journal

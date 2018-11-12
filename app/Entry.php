@@ -24,4 +24,12 @@ class Entry extends Model
     {
         return $this->belongsTo('App\User', 'author_id');
     }
+
+    /**
+     * Get the comments about this entry.
+     */
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
 }
