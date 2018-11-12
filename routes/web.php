@@ -23,6 +23,6 @@ Route::resource('journal', 'JournalController');
 Route::resource('entry', 'EntryController');
 
 Route::get('account', 'UsersController@account')->name('user.account');
-Route::put('account/{user}', 'UsersController@update')->name('user.update');
+Route::put('account', 'UsersController@update')->name('user.update');
 
 Auth::routes(['verify' => true]);

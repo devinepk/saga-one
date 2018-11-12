@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="col-md">
-        <form class="container" method="post" action="{{ route('user.update', Auth::user()) }}">
+        <form class="container" method="post" action="{{ route('user.update') }}">
             @csrf
             @method('PUT')
 
