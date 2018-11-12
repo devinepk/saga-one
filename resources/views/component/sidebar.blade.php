@@ -8,7 +8,6 @@
         settings-url="{{ Auth::user()->can('viewSettings', $journal) ? route('journal.settings', $journal) : '' }}"
         queue-json="{{ $journal->queue }}"
         journal-json="{{ $journal }}"
-        :use-badge-current="false"
         class="border-top-0 border-left-0"
     >
     </journal-card>

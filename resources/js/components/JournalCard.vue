@@ -1,12 +1,7 @@
 <template>
 <div class="card journal-card mb-5">
     <div class="card-header">
-        <span v-if="showBadgeCurrent"
-            class="badge badge-current badge-secondary text-white rounded-circle p-3 shadow"
-            data-toggle="tooltip" data-placement="top" title="You have this journal right now."
-        >
-            <font-awesome-icon size="4x" icon="book-reader" />
-        </span>
+
 
         <h3 class="card-title mb-0">
             <a v-if="readUrl" :href="readUrl" data-toggle="tooltip" data-placement="top" :title="readTip">{{ journal.title }}</a>
@@ -27,6 +22,12 @@
         <div class="cover-overlay align-items-end p-1 text-center">
             <span v-if="queue.length > 1">until <strong>{{ prettyNextChange }}</strong></span>
         </div>
+        <span v-if="showBadgeCurrent"
+            class="badge badge-current badge-secondary text-white rounded-circle p-3 shadow"
+            data-toggle="tooltip" data-placement="top" title="You have this journal right now."
+        >
+            <font-awesome-icon size="4x" icon="book-reader" />
+        </span>
     </div>
 
     <div v-if="writeUrl || readUrl || settingsUrl" class="row no-gutters" role="group" aria-label="Journal actions">
@@ -133,7 +134,7 @@ export default {
             return 'Write in ' + this.journal.title;
         },
         showBadgeCurrent: function() {
-            return (this.useBadgeCurrent && this.journal.current_user.id == this.authUser.id);
+            return (this.useBadgeCurrent && this.journal.current_user && this.journal.current_user.id == this.authUser.id);
         },
         prettyNextChange: function() {
             return Moment(this.journal.next_change).format("MMM Do [at] h:mm a");
@@ -158,7 +159,7 @@ export default {
 }
 .badge-current {
     position: absolute;
-    top: -10px;
+    top: 10px;
     right: 10px;
 }
 .journal-card-cover {

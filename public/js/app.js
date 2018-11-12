@@ -85996,6 +85996,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -86059,7 +86060,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return 'Write in ' + this.journal.title;
         },
         showBadgeCurrent: function showBadgeCurrent() {
-            return this.useBadgeCurrent && this.journal.current_user.id == this.authUser.id;
+            return this.useBadgeCurrent && this.journal.current_user && this.journal.current_user.id == this.authUser.id;
         },
         prettyNextChange: function prettyNextChange() {
             return Moment(this.journal.next_change).format("MMM Do [at] h:mm a");
@@ -86089,27 +86090,6 @@ var render = function() {
     { staticClass: "card journal-card mb-5" },
     [
       _c("div", { staticClass: "card-header" }, [
-        _vm.showBadgeCurrent
-          ? _c(
-              "span",
-              {
-                staticClass:
-                  "badge badge-current badge-secondary text-white rounded-circle p-3 shadow",
-                attrs: {
-                  "data-toggle": "tooltip",
-                  "data-placement": "top",
-                  title: "You have this journal right now."
-                }
-              },
-              [
-                _c("font-awesome-icon", {
-                  attrs: { size: "4x", icon: "book-reader" }
-                })
-              ],
-              1
-            )
-          : _vm._e(),
-        _vm._v(" "),
         _c(
           "h3",
           { staticClass: "card-title mb-0" },
@@ -86180,7 +86160,28 @@ var render = function() {
                   ])
                 : _vm._e()
             ]
-          )
+          ),
+          _vm._v(" "),
+          _vm.showBadgeCurrent
+            ? _c(
+                "span",
+                {
+                  staticClass:
+                    "badge badge-current badge-secondary text-white rounded-circle p-3 shadow",
+                  attrs: {
+                    "data-toggle": "tooltip",
+                    "data-placement": "top",
+                    title: "You have this journal right now."
+                  }
+                },
+                [
+                  _c("font-awesome-icon", {
+                    attrs: { size: "4x", icon: "book-reader" }
+                  })
+                ],
+                1
+              )
+            : _vm._e()
         ]
       ),
       _vm._v(" "),
@@ -86435,7 +86436,7 @@ exports = module.exports = __webpack_require__(6)(false);
 
 
 // module
-exports.push([module.i, "\n.badge-archived {\n    font-size: 0.5rem;\n    vertical-align: middle;\n}\n.badge-current {\n    position: absolute;\n    top: -10px;\n    right: 10px;\n}\n.journal-card-cover {\n    height: 200px;\n    background-size: cover;\n    background-repeat: no-repeat;\n    background-position: top center;\n    position: relative;\n}\n.journal-card-cover > a {\n    width: 100%;\n    height:100%;\n    display:block;\n}\n.journal-card-cover .cover-overlay {\n    position: absolute;\n    top: 0;\n    width: 100%;\n    height: 100%;\n    background: -webkit-gradient(linear, left top, left bottom, color-stop(80%, transparent), to(black));\n    background: linear-gradient(transparent 80%, black);\n    color: white;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n    font-variant: small-caps;\n    letter-spacing: -0.5px;\n}\n", ""]);
+exports.push([module.i, "\n.badge-archived {\n    font-size: 0.5rem;\n    vertical-align: middle;\n}\n.badge-current {\n    position: absolute;\n    top: 10px;\n    right: 10px;\n}\n.journal-card-cover {\n    height: 200px;\n    background-size: cover;\n    background-repeat: no-repeat;\n    background-position: top center;\n    position: relative;\n}\n.journal-card-cover > a {\n    width: 100%;\n    height:100%;\n    display:block;\n}\n.journal-card-cover .cover-overlay {\n    position: absolute;\n    top: 0;\n    width: 100%;\n    height: 100%;\n    background: -webkit-gradient(linear, left top, left bottom, color-stop(80%, transparent), to(black));\n    background: linear-gradient(transparent 80%, black);\n    color: white;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n    font-variant: small-caps;\n    letter-spacing: -0.5px;\n}\n", ""]);
 
 // exports
 

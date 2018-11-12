@@ -10,6 +10,30 @@
 @section('journal-content')
 <div class="container">
 
+    @if (!$journal->active)
+
+        <alert level="primary" :dismissible="false">
+            <h4>This journal has been archived.</h4>
+            <p>Archived journals are "sealed" and can no longer be written in. They are also removed from rotation, which means everyone in the journal can read it anytime.</p>
+            @if (Auth::user()->can('archive', $journal))
+                <p>You may reopen this journal from the <a href="{{ route('journal.settings', $journal) }}">journal settings page</a>.</p>
+            @else
+                <p>Talk to {{ $journal->creator->name }}, the creator of this journal, if you wish to reopen this journal again.</p>
+            @endif
+        </alert>
+
+    @endif
+
+    <journal-card
+        class="d-md-none mt-3"
+        auth-user-json="{{ Auth::user() }}"
+        read-url="{{ Auth::user()->can('view', $journal) ? route('journal.contents', $journal) : '' }}"
+        image-url="{{ asset('/img/cover1.jpg') }}"
+        settings-url="{{ Auth::user()->can('viewSettings', $journal) ? route('journal.settings', $journal) : '' }}"
+        queue-json="{{ $journal->queue }}"
+        journal-json="{{ $journal }}"
+    ></journal-card>
+
     @if ($journal->active)
 
         @if (count($entries))
@@ -44,18 +68,6 @@
             @endcomponent
 
         @endif
-
-    @else
-
-        <alert level="primary" :dismissible="false">
-            <h4>This journal has been archived.</h4>
-            <p>Archived journals are "sealed" and can no longer be written in. They are also removed from rotation, which means everyone in the journal can read it anytime.</p>
-            @if (Auth::user()->can('archive', $journal))
-                <p>You may reopen this journal from the <a href="{{ route('journal.settings', $journal) }}">journal settings page</a>.</p>
-            @else
-                <p>Talk to {{ $journal->creator->name }}, the creator of this journal, if you wish to reopen this journal again.</p>
-            @endif
-        </alert>
 
     @endif
 </div>
