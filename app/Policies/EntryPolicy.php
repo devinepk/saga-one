@@ -19,8 +19,13 @@ class EntryPolicy
      */
     public function view(User $user, Entry $entry)
     {
-        // Only the current user of the journal can view an entry
-        return $user->id === $entry->journal->current_user->id;
+        if ($entry->journal->active) {
+            // In an active journal, only the current user of the journal can view an entry
+            return $user->id === $entry->journal->current_user->id;
+        } else {
+            // In an archived journal, all journal users can read it
+            return ($user->isInJournal($entry->journal));
+        }
     }
 
     /**
