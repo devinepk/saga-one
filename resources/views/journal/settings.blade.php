@@ -45,62 +45,88 @@
                     </div>
                 </form>
             </div>
-            <button type="submit" form="update-form" class="btn btn-block btn-primary">Save</button>
+            <button type="submit" form="update-form" class="btn btn-block btn-primary">Save General Settings</button>
         </div>
     @endcan
 
 
-        <div class="card mb-5">
-            <h2 class="card-header">Participants</h2>
-            <table class="table table-hover border-bottom mb-0">
-                <thead>
-                    <tr><th class="border-top-0 border-dark">Name</th><th class="border-top-0 border-dark">Status</th></tr>
-                </thead>
-                <tbody>
-                    @foreach ($journal->users as $user)
-                        <tr>
-                            <td>
-                                {{ $user->name }}
-                                @if (Auth::id() == $user->id) (you) @endif
-                            </td>
-                            <td>Joined {{ $user->subscription->created_at }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            <div class="card-body">
-                <h4>Invite someone to join this journal</h4>
-                @can('invite', $journal)
-                    <form method="post" action="{{ route('journal.invite', $journal) }}" class="form-inline">
-                        @csrf
-                        <label for="name" class="sr-only">Name</label>
-                        <input type="name" class="form-control mb-1 mr-2" size="25" id="name" name="name" placeholder="Name" required>
-                        @if ($errors->has('name'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('name') }}</strong>
-                            </span>
-                        @endif
-                        <label for="email" class="sr-only">Email address</label>
-                        <input type="email" class="form-control mb-1 mr-2" size="25" id="email" name="email" placeholder="Email" required>
-                        @if ($errors->has('email'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('email') }}</strong>
-                            </span>
-                        @endif
-                        <button type="submit" class="btn btn-primary mb-1">Invite</button>
-                    </form>
-                @else
-                    <alert level="danger" :dismissible="false" class="mb-0">
+    <div class="card mb-5">
+        <h2 class="card-header">Participants</h2>
+        <table class="table table-hover border-bottom mb-0">
+            <thead>
+                <tr><th class="border-top-0 border-dark">Name</th><th class="border-top-0 border-dark">Status</th></tr>
+            </thead>
+            <tbody>
+                @foreach ($journal->users as $user)
+                    <tr>
+                        <td>
+                            {{ $user->name }}
+                            @if (Auth::id() == $user->id) (you) @endif
+                        </td>
+                        <td>Joined {{ $user->subscription->created_at }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <div class="card-body">
+            <h4>Invite someone to join this journal</h4>
+            @can('invite', $journal)
+                <form method="post" action="{{ route('journal.invite', $journal) }}" class="form-inline">
+                    @csrf
+                    <label for="name" class="sr-only">Name</label>
+                    <input type="name" class="form-control mb-1 mr-2" size="25" id="name" name="name" placeholder="Name" required>
+                    @if ($errors->has('name'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('name') }}</strong>
+                        </span>
+                    @endif
+                    <label for="email" class="sr-only">Email address</label>
+                    <input type="email" class="form-control mb-1 mr-2" size="25" id="email" name="email" placeholder="Email" required>
+                    @if ($errors->has('email'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('email') }}</strong>
+                        </span>
+                    @endif
+                    <button type="submit" class="btn btn-primary mb-1">Invite</button>
+                </form>
+            @else
+                <alert level="danger" :dismissible="false" class="mb-0">
 
-                        <p>Only verified users can invite others to join a journal. You have not yet verified your email address.</p>
-                        <p>Please check your email for a verification link. {{ __('If you did not receive the email') }}, <a href="{{ route('verification.resend') }}" class="alert-link">{{ __('click here to request another') }}</a>.</p>
+                    <p>Only verified users can invite others to join a journal. You have not yet verified your email address.</p>
+                    <p>Please check your email for a verification link. {{ __('If you did not receive the email') }}, <a href="{{ route('verification.resend') }}" class="alert-link">{{ __('click here to request another') }}</a>.</p>
 
-                    </alert>
-                @endcan
-            </div>
+                </alert>
+            @endcan
         </div>
+    </div>
 
-
+    @can('update', $journal)
+        <div class="card mb-5">
+            <h2 class="card-header">Rotation Settings</h2>
+            <div class="card-body">
+                <form id="rotation-form" method="post" action="{{ route('journal.update', $journal) }}">
+                    @method('PUT')
+                    @csrf
+                    <div class="form-group">
+                        <label for="period">How often should this journal rotate?</label>
+                        <select id="period" name="period" class="form-control" required>
+                            <option {{ $journal->period ? '' : 'selected"' }}>Select one</option>
+                            <option value="604800" {{ $journal->period == '604800' ? 'selected' : '' }}>Every week</option>
+                            <option value="{{ 604800 * 2 }}" {{ $journal->period == 604800 * 2 ? 'selected' : '' }}>Every two weeks</option>
+                            <option value="{{ 604800 * 3 }}" {{ $journal->period == 604800 * 3 ? 'selected' : '' }}>Every three weeks</option>
+                            <option value="{{ 604800 * 4 }}" {{ $journal->period == 604800 * 4 ? 'selected' : '' }}>Every four weeks</option>
+                        </select>
+                        @if ($errors->has('period'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('period') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </form>
+            </div>
+            <button type="submit" form="rotation-form" class="btn btn-block btn-primary">Save General Settings</button>
+        </div>
+    @endcan
 
     @can('archive', $journal)
         <div class="card mb-5">

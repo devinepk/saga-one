@@ -151,12 +151,23 @@ class JournalController extends Controller
     {
         if (Auth::user()->can('update', $journal)) {
             $request->validate([
-                'title' => 'required|max:255',
+                'title' => 'sometimes|required|max:255',
                 'description' => 'nullable|max:255'
             ]);
 
-            $journal->title = $request->title;
-            $journal->description = $request->description;
+            if ($request->has('title')) {
+                $journal->title = $request->title;
+            }
+
+            if ($request->has('description')) {
+                $journal->description = $request->description;
+            }
+
+            if ($request->has('period')) {
+                $journal->period = $request->period;
+                $journal->next_change = now()->addSeconds($request->period);
+            }
+
             $journal->save();
 
             $request->session()->flash('status', "<strong>{$journal->title}</strong> has been updated.");
