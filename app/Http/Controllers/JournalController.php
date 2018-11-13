@@ -66,13 +66,16 @@ class JournalController extends Controller
     {
         if (Auth::user()->can('create', Journal::class)) {
             $request->validate([
-                'title' => 'required|max:255'
+                'title' => 'required|max:255',
+                'description' => 'nullable|max:255'
             ]);
 
             $journal = new Journal;
             $journal->title = $request->title;
             $journal->description = $request->description;
-            $journal->creator_id = $journal->current_user_id = Auth::id();
+            $journal->current_user()->associate(Auth::id());
+            $journal->creator()->associate(Auth::id());
+
             $journal->save();
             $journal->users()->save(Auth::user());
 

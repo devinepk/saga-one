@@ -18,8 +18,8 @@ class CreateJournalsTable extends Migration
             $table->string('title');
             $table->string('description')->nullable();
 
-            $table->unsignedInteger('period');
-            $table->timestamp('next_change');
+            $table->unsignedInteger('period')->nullable();
+            $table->timestamp('next_change')->nullable();
 
             $table->unsignedInteger('creator_id');
             $table->foreign('creator_id')->references('id')->on('users');
