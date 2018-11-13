@@ -301,7 +301,7 @@ class JournalController extends Controller
 
         // Show a flash message if the user belongs to the journal.
         if (Auth::user()->isInJournal($journal)) {
-            $request->session()->flash('status', "{$journal->current_user->name} has <strong>{$journal->title}</strong> right now. You'll be able to read it when it's your turn.");
+            $request->session()->flash('warning', "{$journal->current_user->name} has <strong>{$journal->title}</strong> right now. You'll be able to read it when it's your turn.");
         }
 
         // Redirect to journal index

@@ -61,10 +61,11 @@ class EntryController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Entry  $entry
      * @return \Illuminate\Http\Response
      */
-    public function show(Entry $entry)
+    public function show(Request $request, Entry $entry)
     {
         if (Auth::user()->can('view', $entry)) {
             $journal = $entry->journal;
@@ -72,8 +73,8 @@ class EntryController extends Controller
         }
 
         // Show a flash message if the user belongs to the journal.
-        if (Auth::user()->isInJournal($journal)) {
-            $request->session()->flash('status', "{$entry->journal->current_user->name} has <strong>{$entry->journal->title}</strong> right now. You'll be able to read it when it's your turn.");
+        if (Auth::user()->isInJournal($entry->journal)) {
+            $request->session()->flash('warning', "{$entry->journal->current_user->name} has <strong>{$entry->journal->title}</strong> right now. You'll be able to read it when it's your turn.");
         }
 
         // Redirect to journal index
