@@ -1,6 +1,6 @@
 @if ($errors->any())
     <div class="container">
-        <alert level="warning">Please fix the errors below.</alert>
+        <alert level="danger">Please fix the errors below.</alert>
     </div>
 @endif
 
