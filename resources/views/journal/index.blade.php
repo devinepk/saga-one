@@ -26,7 +26,9 @@
 
 @else
 
-    <div class="alert alert-info">You don't have any journals. <a href="{{ route('journal.create') }}'">Create one</a> and invite your friends!</div>
+    <alert level="primary">
+        You don't have any journals. <a class="alert-link" href="{{ route('journal.create') }}">Create one</a> and invite your friends!
+    </alert>
 
 @endif
 
