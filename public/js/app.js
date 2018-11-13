@@ -72730,17 +72730,29 @@ var render = function() {
               })
             )
           ]
-        : _c("div", { staticClass: "alert alert-secondary mb-0" }, [
-            _vm._v(
-              "\n            The real fun begins when you share this journal with others. "
-            ),
-            _c("strong", [
-              _c("a", { attrs: { href: _vm.settingsUrl } }, [
-                _vm._v("Invite a friend")
-              ]),
-              _vm._v(" now!")
-            ])
-          ])
+        : _c(
+            "alert",
+            {
+              staticClass: "mb-0",
+              attrs: { level: "secondary", dismissible: false }
+            },
+            [
+              _vm._v(
+                "\n        The real fun begins when you share this journal with others. "
+              ),
+              _c("strong", [
+                _c(
+                  "a",
+                  {
+                    staticClass: "alert-link",
+                    attrs: { href: _vm.settingsUrl }
+                  },
+                  [_vm._v("Invite a friend")]
+                ),
+                _vm._v(" now!")
+              ])
+            ]
+          )
     ],
     2
   )

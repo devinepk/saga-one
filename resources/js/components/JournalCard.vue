@@ -65,9 +65,9 @@
         </ul>
     </template>
 
-    <div v-else class="alert alert-secondary mb-0">
-            The real fun begins when you share this journal with others. <strong><a :href="settingsUrl">Invite a friend</a> now!</strong>
-    </div>
+    <alert v-else class="mb-0" level="secondary" :dismissible="false">
+        The real fun begins when you share this journal with others. <strong><a :href="settingsUrl" class="alert-link">Invite a friend</a> now!</strong>
+    </alert>
 
 </div>
 </template>
