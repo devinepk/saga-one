@@ -152,4 +152,15 @@ class Journal extends Model
     {
         return $this->hasMany('App\Invite')->orderBy('created_at', 'desc');
     }
+
+    /**
+     * Rotate this journal to the next user
+     */
+    public function rotate()
+    {
+        // Update the current user to the next user
+        $this->current_user()->associate($this->next_user->id);
+        // Update the date of the next rotation
+        $this->next_change = (new Carbon($this->next_change))->addSeconds($this->period);
+    }
 }
