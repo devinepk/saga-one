@@ -1,6 +1,6 @@
 @extends('layout.page')
 
-@section('page-title', 'Password Reset')
+@section('page-title', 'Forgotten Password')
 
 @section('page-content')
 <div class="container">

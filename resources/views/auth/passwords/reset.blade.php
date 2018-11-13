@@ -1,6 +1,8 @@
-@extends('layouts.app')
+@extends('layout.page')
 
-@section('content')
+@section('page-title', 'Reset Password')
+
+@section('page-content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
