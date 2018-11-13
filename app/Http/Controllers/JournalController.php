@@ -273,6 +273,8 @@ class JournalController extends Controller
             $invite->sender()->associate(Auth::user());
             $invite->journal()->associate($journal->id);
             Auth::user()->invites()->save($invite);
+            $invite->sendInviteNotification();
+
             event(new UserInvited($invite));
 
             $request->session()->flash('status', "An invitation to join <strong>{$journal->title}</strong> will be sent to <strong>{$invite->name}</strong> using the email address you provided.");

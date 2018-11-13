@@ -2,10 +2,14 @@
 
 namespace App;
 
+use App\Notifications\InviteNotification;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Invite extends Model
 {
+    use Notifiable;
+
     /**
      * Get the user that sent this invite
      */
@@ -20,5 +24,15 @@ class Invite extends Model
     public function journal()
     {
         return $this->belongsTo('App\Journal');
+    }
+
+    /**
+     * Send the invite notification.
+     *
+     * @return void
+     */
+    public function sendInviteNotification()
+    {
+        $this->notify(new InviteNotification);
     }
 }
