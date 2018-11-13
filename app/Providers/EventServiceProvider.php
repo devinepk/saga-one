@@ -30,6 +30,9 @@ class EventServiceProvider extends ServiceProvider
         'Illuminate\Mail\Events\MessageSent' => [
             'App\Listeners\LogSentMessage',
         ],
+        'App\Events\JournalRotated' => [
+            'App\Listeners\SendRotationNotification'
+        ]
     ];
 
     /**
