@@ -75,7 +75,8 @@ class Journal extends Model
      *
      * @return \App\User
      */
-    public function getNextUserAttribute() {
+    public function getNextUserAttribute()
+    {
         $next_user_id = $this->users()->find($this->current_user->id)->subscription->next_user_id;
         return $this->users()->find($next_user_id);
     }
@@ -94,13 +95,9 @@ class Journal extends Model
      * @param  \App\User  $user
      * @return boolean
      */
-    public function hasUser(User $user) {
-        foreach ($this->users as $journal_user) {
-            if ($user->id == $journal_user->id) {
-                return true;
-            }
-        }
-        return false;
+    public function hasUser(User $user)
+    {
+        return in_array($user->id, array_column($this->users->all(), 'id'));
     }
 
     /**
@@ -110,7 +107,8 @@ class Journal extends Model
      * @param bool $no_drafts
      * @return \App\Entry || null
      */
-    public function getEntryAfter(Entry $entry, $no_drafts = true) {
+    public function getEntryAfter(Entry $entry, $no_drafts = true)
+    {
         $params = [
             ['updated_at', '>', $entry->updated_at]
         ];
@@ -131,7 +129,8 @@ class Journal extends Model
      * @param bool $no_drafts
      * @return \App\Entry || null
      */
-    public function getEntryBefore(Entry $entry, $no_drafts = true) {
+    public function getEntryBefore(Entry $entry, $no_drafts = true)
+    {
         $params = [
             ['updated_at', '<', $entry->updated_at]
         ];

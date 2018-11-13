@@ -99,13 +99,9 @@ class User extends Authenticatable implements MustVerifyEmail
      * @param  \App\Journal  $journal
      * @return boolean
      */
-    public function isInJournal(Journal $journal) {
-        foreach ($this->journals as $user_journal) {
-            if ($journal->id == $user_journal->id) {
-                return true;
-            }
-        }
-        return false;
+    public function isInJournal(Journal $journal)
+    {
+        return in_array($journal->id, array_column($this->journals->all(), 'id'));
     }
 
     /**
@@ -113,7 +109,8 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @return Illuminate\Database\Eloquent\Collection
      */
-    public function getOtherJournalsAttribute() {
+    public function getOtherJournalsAttribute()
+    {
         $other_journals = [];
 
         foreach ($this->journals as $journal) {
