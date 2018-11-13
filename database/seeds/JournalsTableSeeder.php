@@ -29,7 +29,7 @@ class JournalsTableSeeder extends Seeder
             'title' => 'Journal 1',
             'description' => 'A journal for friends',
             'period' => WEEK_IN_SECS,
-            'next_change' => now()->addSeconds(WEEK_IN_SECS),
+            'next_change' => now()->addSeconds(60),
             'creator_id' => $bobbyBob->id,
             'current_user_id' => $bobbertBob->id,
             'created_at' => $now,

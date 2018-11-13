@@ -162,5 +162,6 @@ class Journal extends Model
         $this->current_user()->associate($this->next_user->id);
         // Update the date of the next rotation
         $this->next_change = (new Carbon($this->next_change))->addSeconds($this->period);
+        $this->save();
     }
 }

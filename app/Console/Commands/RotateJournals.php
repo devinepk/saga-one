@@ -47,6 +47,6 @@ class RotateJournals extends Command
             // TODO: Send emails
         }
 
-
+        $this->info(count($expired_journals) .' journal(s) rotated.');
     }
 }
