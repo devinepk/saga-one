@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Events\InviteDeclined;
 use App\Notifications\InviteNotification;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -34,5 +35,19 @@ class Invite extends Model
     public function sendInviteNotification()
     {
         $this->notify(new InviteNotification);
+    }
+
+    /**
+     * Mark the invite as declined.
+     *
+     * @return void
+     */
+    public function decline()
+    {
+        $this->declined_at = now();
+        $this->save();
+
+        // Trigger an event.
+        event(new InviteDeclined);
     }
 }
