@@ -4,9 +4,6 @@
 
 @section('journal-content')
 <div class="container">
-    @if (session('resent'))
-        <alert>{{ __('A fresh verification link has been sent to your email address.') }}</alert>
-    @endif
 
     <h1>{{ $journal->title }} Settings</h1>
 
@@ -16,6 +13,17 @@
             <p>Archived journals are "sealed" and can no longer be written in. They are also removed from rotation, which means everyone in the journal can read it anytime.</p>
         </alert>
     @endif
+
+    <journal-card
+        class="d-md-none mt-3"
+        auth-user-json="{{ Auth::user() }}"
+        read-url="{{ Auth::user()->can('view', $journal) ? route('journal.contents', $journal) : '' }}"
+        write-url="{{ Auth::user()->can('addEntry', $journal) ? route('journal.show', $journal) : '' }}"
+        settings-url="{{ Auth::user()->can('viewSettings', $journal) ? route('journal.settings', $journal) : '' }}"
+        image-url="{{ asset('/img/cover1.jpg') }}"
+        queue-json="{{ $journal->queue }}"
+        journal-json="{{ $journal }}"
+    ></journal-card>
 
     @can('update', $journal)
         <div class="card my-5">
