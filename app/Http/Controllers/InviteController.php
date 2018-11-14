@@ -6,6 +6,7 @@ use App\Invite;
 use App\User;
 use Illuminate\Http\Request;
 use App\Events\InviteAccepted;
+use Illuminate\Support\Facades\Auth;
 
 class InviteController extends Controller
 {
@@ -26,9 +27,22 @@ class InviteController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('auth');
+        $this->middleware('auth')->only('show', 'decline');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
+    }
+
+    /**
+     * Show the invitation.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Invite  $invite
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Request $request, Invite $invite)
+    {
+        $journal = $invite->journal;
+        return view('invite.show', compact('invite', 'journal'));
     }
 
     /**
@@ -44,21 +58,18 @@ class InviteController extends Controller
 
         // Is there a user with this email address in the system already?
         if ($user = User::where('email', $invite->email)->first()) {
-            // Add the user to the journal
-            $user->journals()->attach($invite->journal->id);
+            if (Auth::id() != $user->id) {
+                // If this user isn't currently logged in, then log out the current user.
+                Auth::logout();
+            }
 
-            // Trigger an event
-            event(new InviteAccepted($invite));
+            return redirect()->route('invite.show', $invite);
 
-            // Mark the invitation as accepted
-            $invite->accepted_at = now();
-            $invite->save();
 
-            // Redirect to journal.index
-            return redirect()
-                ->route('journal.index')
-                ->with('status', "You have joined <strong>{$invite->journal->title}</strong>.");
         }
+
+        // Register the user AND add them to the journal.
+
 
 
 
@@ -81,5 +92,43 @@ class InviteController extends Controller
         $request->user()->sendEmailVerificationNotification();
 
         return back()->with('resent', true);
+    }
+
+    public function attachUserToJournal(Request $request, User $user) {
+        // Add the user to the journal
+        $user->journals()->attach($invite->journal->id);
+
+        // Trigger an event
+        event(new InviteAccepted($invite));
+
+        // Mark the invitation as accepted
+        $invite->accepted_at = now();
+        $invite->save();
+
+        // Redirect to journal.index
+        // TODO: FLASH MESSAGE DOESN'T WORK
+        return redirect()
+            ->route('journal.index')
+            ->with('status', "You have joined <strong>{$invite->journal->title}</strong>.");
+    }
+
+    /**
+     * Decline an invitation.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Invite  $invite
+     * @return \Illuminate\Http\Response
+     */
+    public function decline(Request $request, Invite $invite)
+    {
+        if (Auth::user()->can('view', $invite)) {
+            // Mark the invite as declined.
+            $invite->decline();
+
+            // Redirect to journal index with a message.
+            return redirect()
+                ->route('journal.index')
+                ->with('status', "You have declined the invitation to join <strong>{$invite->journal->title}</strong>.");
+        }
     }
 }
