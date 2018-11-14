@@ -35,7 +35,11 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\InviteAccepted' => [
             'App\Listeners\SendAcceptedNotification'
+        ],
+        'App\Events\InviteDeclined' => [
+            'App\Listeners\SendDeclinedNotification'
         ]
+
     ];
 
     /**
