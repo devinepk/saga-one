@@ -65,7 +65,7 @@
         invite-url="{{ route('journal.invite', $journal) }}"
         name-error="{{ $errors->has('name') ? $errors->first('name') : '' }}"
         email-error="{{ $errors->has('email') ? $errors->first('email') : '' }}"
-    ></participant-settings-card>
+    >@csrf</participant-settings-card>
 
 
     @can('update', $journal)

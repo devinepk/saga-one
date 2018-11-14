@@ -37,7 +37,7 @@
         <a v-if="readUrl" :href="readUrl" class="col btn btn-secondary" data-toggle="tooltip" data-placement="top" :title="readTip">
             <font-awesome-icon icon="book-reader"/>
         </a>
-        <a v-if="settingsUrl" :href="settingsUrl" class="col btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Journal settings">
+        <a v-if="settingsUrl" :href="settingsUrl" class="col btn btn-secondary border-0" data-toggle="tooltip" data-placement="top" title="Journal settings">
             <font-awesome-icon icon="cogs" />
         </a>
     </div>

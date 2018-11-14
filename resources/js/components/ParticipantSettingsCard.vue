@@ -29,7 +29,7 @@
             <h4>Invite someone to join this journal</h4>
 
             <form v-if="authUserCanInvite && inviteUrl" method="post" :action="inviteUrl" class="form-inline">
-                <slot name="csrf"></slot>
+                <slot></slot>
 
                 <label for="name" class="sr-only">Name</label>
                 <input type="name" class="form-control mb-1 mr-2" size="25" id="name" name="name" placeholder="Name" required>
