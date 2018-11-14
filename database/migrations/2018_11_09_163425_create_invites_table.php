@@ -24,7 +24,6 @@ class CreateInvitesTable extends Migration
             $table->unsignedInteger('journal_id');
             $table->foreign('journal_id')->references('id')->on('journals')->onDelete('cascade');
 
-            $table->timestamp('sent_at')->nullable();
             $table->timestamp('accepted_at')->nullable();
             $table->timestamps();
         });

@@ -43,14 +43,14 @@ class InviteNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line($notifiable->sender->name . ' has invited you to join a journal on SagaOne!')
-                    ->line('Journal title: ' . $notifiable->journal->title)
+                    ->greeting("Guess what, {$notifiable->name}!")
+                    ->line("{$notifiable->sender->name} has invited you to join {$notifiable->journal->title} on SagaOne!")
                     ->line('To accept this invitation and join this journal, click the button below.')
                     ->action(
-                        'Join "' . $notifiable->journal->title . '"',
+                        'Join ' . $notifiable->journal->title,
                         $this->inviteUrl($notifiable)
-                    )
-                    ->line('Happy writing!');
+                        )
+                    ->salutation('Happy writing!');
     }
 
     /**
@@ -74,8 +74,8 @@ class InviteNotification extends Notification
      */
     protected function inviteUrl($notifiable)
     {
-        return URL::temporarySignedRoute(
-            'invite.verify', Carbon::now()->addHours(12), ['id' => $notifiable->getKey()]
+        return URL::signedRoute(
+            'invite.verify', ['id' => $notifiable->getKey()]
         );
     }
 }

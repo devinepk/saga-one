@@ -32,6 +32,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\JournalRotated' => [
             'App\Listeners\SendRotationNotification'
+        ],
+        'App\Events\InviteAccepted' => [
+            'App\Listeners\SendAcceptedNotification'
         ]
     ];
 
