@@ -25,6 +25,7 @@ class CreateInvitesTable extends Migration
             $table->foreign('journal_id')->references('id')->on('journals')->onDelete('cascade');
 
             $table->timestamp('accepted_at')->nullable();
+            $table->timestamp('declined_at')->nullable();
             $table->timestamps();
         });
     }
