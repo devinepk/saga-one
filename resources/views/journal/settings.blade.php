@@ -57,67 +57,16 @@
         </div>
     @endcan
 
+    <participant-settings-card
+        auth-user-json="{{ Auth::user() }}"
+        :auth-user-can-invite="{{ Auth::user()->can('invite', $journal) ? 'true' : 'false' }}"
+        users-json="{{ $journal->users }}"
+        invites-json="{{ $journal->invites }}"
+        invite-url="{{ route('journal.invite', $journal) }}"
+        name-error="{{ $errors->has('name') ? $errors->first('name') : '' }}"
+        email-error="{{ $errors->has('email') ? $errors->first('email') : '' }}"
+    ></participant-settings-card>
 
-    <div class="card mb-5">
-        <h2 class="card-header">Participants</h2>
-        <table class="table table-hover border-bottom mb-0">
-            <thead>
-                <tr><th class="border-top-0 border-dark">Name</th><th class="border-top-0 border-dark">Status</th></tr>
-            </thead>
-            <tbody>
-                {{-- CURRENT USERS --}}
-                @foreach ($journal->users as $user)
-                    <tr>
-                        <td>
-                            {{ $user->name }}
-                            @if (Auth::id() == $user->id) (you) @endif
-                        </td>
-                        <td>Joined {{ $user->subscription->created_at }}</td>
-                    </tr>
-                @endforeach
-
-                {{-- INVITED USERS --}}
-                @foreach ($journal->invites as $invite)
-                    <tr>
-                        <td>
-                            {{ $invite->name }} (invited)
-                        </td>
-                        <td>Invited {{ $invite->created_at }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-        <div class="card-body">
-            <h4>Invite someone to join this journal</h4>
-            @can('invite', $journal)
-                <form method="post" action="{{ route('journal.invite', $journal) }}" class="form-inline">
-                    @csrf
-                    <label for="name" class="sr-only">Name</label>
-                    <input type="name" class="form-control mb-1 mr-2" size="25" id="name" name="name" placeholder="Name" required>
-                    @if ($errors->has('name'))
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('name') }}</strong>
-                        </span>
-                    @endif
-                    <label for="email" class="sr-only">Email address</label>
-                    <input type="email" class="form-control mb-1 mr-2" size="25" id="email" name="email" placeholder="Email" required>
-                    @if ($errors->has('email'))
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('email') }}</strong>
-                        </span>
-                    @endif
-                    <button type="submit" class="btn btn-primary mb-1">Invite</button>
-                </form>
-            @else
-                <alert level="danger" :dismissible="false" class="mb-0">
-
-                    <p>Only verified users can invite others to join a journal. You have not yet verified your email address.</p>
-                    <p>Please check your email for a verification link. {{ __('If you did not receive the email') }}, <a href="{{ route('verification.resend') }}" class="alert-link">{{ __('click here to request another') }}</a>.</p>
-
-                </alert>
-            @endcan
-        </div>
-    </div>
 
     @can('update', $journal)
         <div class="card mb-5">

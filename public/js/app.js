@@ -70712,6 +70712,7 @@ var map = {
 	"./components/JournalCard.vue": 205,
 	"./components/JournalCountdown.vue": 210,
 	"./components/Modal.vue": 213,
+	"./components/ParticipantSettingsCard.vue": 230,
 	"./components/QuillEditor.vue": 216
 };
 function webpackContext(req) {
@@ -86892,6 +86893,367 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 227 */,
+/* 228 */,
+/* 229 */,
+/* 230 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(231)
+/* template */
+var __vue_template__ = __webpack_require__(232)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/ParticipantSettingsCard.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-b19bc5ea", Component.options)
+  } else {
+    hotAPI.reload("data-v-b19bc5ea", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 231 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        authUserJson: {
+            type: String,
+            default: '{}'
+        },
+        usersJson: {
+            type: String,
+            default: '{}'
+        },
+        invitesJson: {
+            type: String,
+            default: '{}'
+        },
+        authUserCanInvite: {
+            type: Boolean,
+            default: false
+        },
+        inviteUrl: {
+            type: String,
+            default: ''
+        },
+        nameError: {
+            type: String,
+            default: ''
+        },
+        emailError: {
+            type: String,
+            default: ''
+        },
+        verificationResendUrl: {
+            type: String,
+            default: ''
+        }
+    },
+
+    computed: {
+        authUser: function authUser() {
+            return JSON.parse(this.authUserJson);
+        },
+        users: function users() {
+            return JSON.parse(this.usersJson);
+        },
+        invites: function invites() {
+            return JSON.parse(this.invitesJson);
+        }
+    }
+});
+
+/***/ }),
+/* 232 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "card mb-5" }, [
+    _c("h2", { staticClass: "card-header" }, [_vm._v("Participants")]),
+    _vm._v(" "),
+    _c("table", { staticClass: "table table-hover border-bottom mb-0" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        [
+          _vm._l(_vm.users, function(user, index) {
+            return _c("tr", { key: "user" + index }, [
+              _c(
+                "td",
+                [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(user.name) +
+                      "\n                    "
+                  ),
+                  user.id == _vm.authUser.id ? [_vm._v("(you)")] : _vm._e()
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c("td", [
+                _vm._v("Joined " + _vm._s(user.subscription.created_at))
+              ])
+            ])
+          }),
+          _vm._v(" "),
+          _vm._l(_vm.invites, function(invite, index) {
+            return _c("tr", { key: "invite" + index }, [
+              _c("td", [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(invite.name) +
+                    " (invited)\n\n                "
+                )
+              ]),
+              _vm._v(" "),
+              _c("td", [_vm._v("Invited " + _vm._s(invite.created_at))])
+            ])
+          })
+        ],
+        2
+      )
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "card-body" },
+      [
+        _c("h4", [_vm._v("Invite someone to join this journal")]),
+        _vm._v(" "),
+        _vm.authUserCanInvite && _vm.inviteUrl
+          ? _c(
+              "form",
+              {
+                staticClass: "form-inline",
+                attrs: { method: "post", action: _vm.inviteUrl }
+              },
+              [
+                _vm._t("csrf"),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { staticClass: "sr-only", attrs: { for: "name" } },
+                  [_vm._v("Name")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "form-control mb-1 mr-2",
+                  attrs: {
+                    type: "name",
+                    size: "25",
+                    id: "name",
+                    name: "name",
+                    placeholder: "Name",
+                    required: ""
+                  }
+                }),
+                _vm._v(" "),
+                _vm.nameError
+                  ? _c(
+                      "span",
+                      {
+                        staticClass: "invalid-feedback",
+                        attrs: { role: "alert" }
+                      },
+                      [_c("strong", [_vm._v(_vm._s(_vm.nameError))])]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { staticClass: "sr-only", attrs: { for: "email" } },
+                  [_vm._v("Email address")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "form-control mb-1 mr-2",
+                  attrs: {
+                    type: "email",
+                    size: "25",
+                    id: "email",
+                    name: "email",
+                    placeholder: "Email",
+                    required: ""
+                  }
+                }),
+                _vm._v(" "),
+                _vm.emailError
+                  ? _c(
+                      "span",
+                      {
+                        staticClass: "invalid-feedback",
+                        attrs: { role: "alert" }
+                      },
+                      [_c("strong", [_vm._v(_vm._s(_vm.emailError))])]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary mb-1",
+                    attrs: { type: "submit" }
+                  },
+                  [_vm._v("Invite")]
+                )
+              ],
+              2
+            )
+          : _c(
+              "alert",
+              {
+                staticClass: "mb-0",
+                attrs: { level: "danger", dismissible: false }
+              },
+              [
+                _c("p", [
+                  _vm._v(
+                    "Only verified users can invite others to join a journal. You have not yet verified your email address."
+                  )
+                ]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    "Please check your email for a verification link. If you did not receive the email, "
+                  ),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "alert-link",
+                      attrs: { href: _vm.verificationResendUrl }
+                    },
+                    [_vm._v("'click here to request another")]
+                  ),
+                  _vm._v(".")
+                ])
+              ]
+            )
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { staticClass: "border-top-0 border-dark" }, [_vm._v("Name")]),
+        _c("th", { staticClass: "border-top-0 border-dark" }, [
+          _vm._v("Status")
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-b19bc5ea", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
