@@ -45,10 +45,10 @@ class InviteNotification extends Notification
         return (new MailMessage)
                     ->greeting("Guess what, {$notifiable->name}!")
                     ->line("{$notifiable->sender->name} has invited you to join {$notifiable->journal->title} on SagaOne!")
-                    ->line('To accept this invitation and join this journal, click the button below.')
+                    ->line('To view this invitation and join this journal, click the button below.')
                     ->action(
-                        'Join ' . $notifiable->journal->title,
-                        $this->inviteUrl($notifiable)
+                            'Join ' . $notifiable->journal->title,
+                            $this->inviteUrl($notifiable)
                         )
                     ->salutation('Happy writing!');
     }
