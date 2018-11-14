@@ -65,6 +65,7 @@
                 <tr><th class="border-top-0 border-dark">Name</th><th class="border-top-0 border-dark">Status</th></tr>
             </thead>
             <tbody>
+                {{-- CURRENT USERS --}}
                 @foreach ($journal->users as $user)
                     <tr>
                         <td>
@@ -72,6 +73,16 @@
                             @if (Auth::id() == $user->id) (you) @endif
                         </td>
                         <td>Joined {{ $user->subscription->created_at }}</td>
+                    </tr>
+                @endforeach
+
+                {{-- INVITED USERS --}}
+                @foreach ($journal->invites as $invite)
+                    <tr>
+                        <td>
+                            {{ $invite->name }} (invited)
+                        </td>
+                        <td>Invited {{ $invite->created_at }}</td>
                     </tr>
                 @endforeach
             </tbody>
