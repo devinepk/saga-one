@@ -278,7 +278,7 @@ class JournalController extends Controller
             event(new UserInvited($invite));
 
             $request->session()->flash('status', "An invitation to join <strong>{$journal->title}</strong> will be sent to <strong>{$invite->name}</strong> using the email address you provided.");
-            return view('journal.settings', compact('journal'));
+            return redirect()->route('journal.settings', compact('journal'));
         }
 
         // Redirect to journal index
