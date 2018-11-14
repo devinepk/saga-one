@@ -1,17 +1,17 @@
-@if ($errors->any())
-    <div class="container">
+<div class="container">
+    @if ($errors->any())
         <alert level="danger">Please fix the errors below.</alert>
-    </div>
-@endif
+    @endif
 
-@if (session('status'))
-    <div class="container">
+    @if (session('status'))
         <alert level="primary">{!! session('status') !!}</alert>
-    </div>
-@endif
+    @endif
 
-@if (session('warning'))
-    <div class="container">
+    @if (session('warning'))
         <alert level="warning">{!! session('warning') !!}</alert>
-    </div>
-@endif
+    @endif
+
+    @if (session('verified'))
+        <alert level="primary">Thank you for verifying your email address!</alert>
+    @endif
+</div>
