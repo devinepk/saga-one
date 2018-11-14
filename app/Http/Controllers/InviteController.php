@@ -15,8 +15,7 @@ class InviteController extends Controller
     | Invite Controller
     |--------------------------------------------------------------------------
     |
-    | This controller is responsible for handling the verification of journal
-    | invites.
+    | This controller is responsible for handling journal invites.
     |
     */
 
@@ -41,8 +40,13 @@ class InviteController extends Controller
      */
     public function show(Request $request, Invite $invite)
     {
-        $journal = $invite->journal;
-        return view('invite.show', compact('invite', 'journal'));
+
+        if (Auth::user()->can('view', $invite)) {
+            $journal = $invite->journal;
+            return view('invite.show', compact('invite', 'journal'));
+        }
+
+        return redirect()->route('journal.index');
     }
 
     /**
@@ -122,13 +126,17 @@ class InviteController extends Controller
     public function decline(Request $request, Invite $invite)
     {
         if (Auth::user()->can('view', $invite)) {
+            // dd('User is allowed to decline an invite');
             // Mark the invite as declined.
             $invite->decline();
 
             // Redirect to journal index with a message.
             return redirect()
                 ->route('journal.index')
-                ->with('status', "You have declined the invitation to join <strong>{$invite->journal->title}</strong>.");
+                ->with('status', "You have declined {$invite->sender->name}'s invitation to join <strong>{$invite->journal->title}</strong>.");
         }
+
+        // dd('User is not allowed to decline an invite', $request, $invite);
+        return 'You are not allowed to access this invite.';
     }
 }

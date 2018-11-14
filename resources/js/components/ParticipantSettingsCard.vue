@@ -14,12 +14,12 @@
                     <td>Joined {{ on(user.subscription.created_at) }}</td>
                 </tr>
 
-                <tr v-for="(invite, index) in invites" :key="'invite' + index">
+                <tr v-for="(invite, index) in invites" v-if="!invite.accepted_at" :class="inviteClassObj(invite)" :key="'invite' + index">
                     <td>
-                        {{ invite.name }} (invited)
-
+                        {{ invite.name }}
                     </td>
-                    <td>Invited {{ on(invite.created_at) }}</td>
+                    <td v-if="invite.declined_at">Declined {{ on(invite.declined_at) }}</td>
+                    <td v-else>Invited {{ on(invite.created_at) }}</td>
                 </tr>
 
             </tbody>
@@ -119,6 +119,16 @@ export default {
     methods: {
         on(date) {
             return Moment(date).calendar(null, this.dateFormatObj);
+        },
+        inviteClassObj(invite) {
+            let classObj = {};
+            if (invite.declined_at) {
+                classObj = {
+                    'text-black-50': true,
+                    'font-italic': true
+                }
+            }
+            return classObj;
         }
     }
 }

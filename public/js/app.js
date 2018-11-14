@@ -73330,6 +73330,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         on: function on(date) {
             return Moment(date).calendar(null, this.dateFormatObj);
+        },
+        inviteClassObj: function inviteClassObj(invite) {
+            var classObj = {};
+            if (invite.declined_at) {
+                classObj = {
+                    'text-black-50': true,
+                    'font-italic': true
+                };
+            }
+            return classObj;
         }
     }
 });
@@ -73373,17 +73383,31 @@ var render = function() {
           }),
           _vm._v(" "),
           _vm._l(_vm.invites, function(invite, index) {
-            return _c("tr", { key: "invite" + index }, [
-              _c("td", [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(invite.name) +
-                    " (invited)\n\n                "
+            return !invite.accepted_at
+              ? _c(
+                  "tr",
+                  { key: "invite" + index, class: _vm.inviteClassObj(invite) },
+                  [
+                    _c("td", [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(invite.name) +
+                          "\n                "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    invite.declined_at
+                      ? _c("td", [
+                          _vm._v(
+                            "Declined " + _vm._s(_vm.on(invite.declined_at))
+                          )
+                        ])
+                      : _c("td", [
+                          _vm._v("Invited " + _vm._s(_vm.on(invite.created_at)))
+                        ])
+                  ]
                 )
-              ]),
-              _vm._v(" "),
-              _c("td", [_vm._v("Invited " + _vm._s(_vm.on(invite.created_at)))])
-            ])
+              : _vm._e()
           })
         ],
         2

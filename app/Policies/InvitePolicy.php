@@ -11,16 +11,6 @@ class InvitePolicy
     use HandlesAuthorization;
 
     /**
-     * Create a new policy instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
      * Determine whether the user can view (and accept/decline) the invite.
      *
      * @param  \App\User  $user
@@ -29,6 +19,8 @@ class InvitePolicy
      */
     public function view(User $user, Invite $invite)
     {
-        return $user->email === $invite->email;
+        // Only the user who received the invite can view it.
+        // The user must already have created an account.
+        return $user->id === $invite->user_id;
     }
 }
