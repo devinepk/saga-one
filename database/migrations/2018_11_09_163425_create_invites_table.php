@@ -18,6 +18,9 @@ class CreateInvitesTable extends Migration
             $table->string('name');
             $table->string('email');
 
+            $table->unsignedInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
+
             $table->unsignedInteger('sender_id');
             $table->foreign('sender_id')->references('id')->on('users')->onDelete('cascade');
 

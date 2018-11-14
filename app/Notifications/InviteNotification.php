@@ -42,8 +42,12 @@ class InviteNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        // If the user already has an account, then use the name they set in their account.
+        // Otherwise use the name provided by the invite sender.
+        $name = ( $notifiable->user ? $notifiable->user->name : $notifiable->name );
+
         return (new MailMessage)
-                    ->greeting("Guess what, {$notifiable->name}!")
+                    ->greeting("Guess what, {$name}!")
                     ->line("{$notifiable->sender->name} has invited you to join {$notifiable->journal->title} on SagaOne!")
                     ->line('To view this invitation and join this journal, click the button below.')
                     ->action(

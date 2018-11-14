@@ -28,6 +28,14 @@ class Invite extends Model
     }
 
     /**
+     * Get the user account associated with this invite
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'user_id');
+    }
+
+    /**
      * Send the invite notification.
      *
      * @return void

@@ -94,6 +94,14 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Get the invite associated with this user, if applicable.
+     */
+    public function invite()
+    {
+        return $this->hasOne('App\Invite');
+    }
+
+    /**
      * Check whether the user belongs to a given journal
      *
      * @param  \App\Journal  $journal

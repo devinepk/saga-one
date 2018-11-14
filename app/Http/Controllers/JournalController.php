@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Journal;
 use App\Invite;
 use App\Events\UserInvited;
@@ -270,13 +271,16 @@ class JournalController extends Controller
             $invite->name = $request->name;
             $invite->email = $request->email;
 
+            // Does this user already have an account? If so, associate it.
+            if ($user = User::where('email', $request->email)->first()) {
+                $invite->user()->associate($user);
+            }
+
             $invite->sender()->associate(Auth::user());
-            $invite->journal()->associate($journal->id);
+            $invite->journal()->associate($journal);
             Auth::user()->invites()->save($invite);
             $invite->sendInviteNotification();
-
             event(new UserInvited($invite));
-
             $request->session()->flash('status', "An invitation to join <strong>{$journal->title}</strong> will be sent to <strong>{$invite->name}</strong> using the email address you provided.");
             return redirect()->route('journal.settings', compact('journal'));
         }
