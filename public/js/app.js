@@ -87043,6 +87043,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
 
+    data: function data() {
+        return {
+            dateFormatObj: {
+                sameDay: '[today at] h:ssa',
+                nextDay: '[tomorrow at] h:ssa',
+                nextWeek: 'dddd [at] h:ssa',
+                lastDay: '[yesterday at] h:ssa',
+                lastWeek: '[last] dddd [at] h:ssa',
+                sameElse: 'DD/MM/YYYY [at] h:ssa'
+            }
+        };
+    },
+
+
     computed: {
         authUser: function authUser() {
             return JSON.parse(this.authUserJson);
@@ -87052,6 +87066,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         invites: function invites() {
             return JSON.parse(this.invitesJson);
+        }
+    },
+
+    methods: {
+        on: function on(date) {
+            return Moment(date).calendar(null, this.dateFormatObj);
         }
     }
 });
@@ -87089,7 +87109,7 @@ var render = function() {
               ),
               _vm._v(" "),
               _c("td", [
-                _vm._v("Joined " + _vm._s(user.subscription.created_at))
+                _vm._v("Joined " + _vm._s(_vm.on(user.subscription.created_at)))
               ])
             ])
           }),
@@ -87104,7 +87124,7 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _c("td", [_vm._v("Invited " + _vm._s(invite.created_at))])
+              _c("td", [_vm._v("Invited " + _vm._s(_vm.on(invite.created_at)))])
             ])
           })
         ],

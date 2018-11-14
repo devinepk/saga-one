@@ -11,7 +11,7 @@
                         {{ user.name }}
                         <template v-if="user.id == authUser.id">(you)</template>
                     </td>
-                    <td>Joined {{ user.subscription.created_at }}</td>
+                    <td>Joined {{ on(user.subscription.created_at) }}</td>
                 </tr>
 
                 <tr v-for="(invite, index) in invites" :key="'invite' + index">
@@ -19,7 +19,7 @@
                         {{ invite.name }} (invited)
 
                     </td>
-                    <td>Invited {{ invite.created_at }}</td>
+                    <td>Invited {{ on(invite.created_at) }}</td>
                 </tr>
 
             </tbody>
@@ -91,6 +91,19 @@ export default {
         }
     },
 
+    data() {
+        return {
+            dateFormatObj: {
+                sameDay: '[today at] h:ssa',
+                nextDay: '[tomorrow at] h:ssa',
+                nextWeek: 'dddd [at] h:ssa',
+                lastDay: '[yesterday at] h:ssa',
+                lastWeek: '[last] dddd [at] h:ssa',
+                sameElse: 'DD/MM/YYYY [at] h:ssa'
+            }
+        };
+    },
+
     computed: {
         authUser: function() {
             return JSON.parse(this.authUserJson);
@@ -100,6 +113,12 @@ export default {
         },
         invites: function() {
             return JSON.parse(this.invitesJson);
+        }
+    },
+
+    methods: {
+        on(date) {
+            return Moment(date).calendar(null, this.dateFormatObj);
         }
     }
 }
