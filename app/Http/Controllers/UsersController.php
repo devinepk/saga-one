@@ -66,8 +66,8 @@ class UsersController extends Controller
         Auth::user()->name = $request->name;
         Auth::user()->save();
 
-        $request->session()->flash('status', "Your information has been updated." . $emailFlash);
-        return redirect()->route('user.account');
+        return redirect()->route('user.account')
+            ->with('status', "Your information has been updated." . $emailFlash);
 
     }
 }

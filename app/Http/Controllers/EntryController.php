@@ -50,8 +50,8 @@ class EntryController extends Controller
             $entry->author()->associate(Auth::user());
             $journal->entries()->save($entry);
 
-            $request->session()->flash('status', "<strong>{$entry->title}</strong> has been saved.");
-            return redirect()->route('journal.show', compact('journal'));
+            return redirect()->route('journal.show', compact('journal'))
+                ->with('status', "<strong>{$entry->title}</strong> has been saved.");
         }
 
         // Redirect to journal index
@@ -115,9 +115,10 @@ class EntryController extends Controller
             $entry->body = $request->body;
             $entry->title = $request->title;
             $entry->save();
-            $request->session()->flash('status', "<strong>{$entry->title}</strong> has been saved.");
             $journal = $entry->journal;
-            return redirect()->route('journal.show', compact('journal'));
+
+            return redirect()->route('journal.show', compact('journal'))
+                ->with('status', "<strong>{$entry->title}</strong> has been saved.");
         }
 
         // Redirect to journal index

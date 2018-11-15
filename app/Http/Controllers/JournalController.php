@@ -80,8 +80,8 @@ class JournalController extends Controller
             $journal->save();
             $journal->users()->save(Auth::user());
 
-            $request->session()->flash('status', "<strong>{$journal->title}</strong> has been created.");
-            return redirect()->route('journal.show', compact('journal'));
+            return redirect()->route('journal.show', compact('journal'))
+                ->with('status', "You have created a new journal called <strong>{$journal->title}</strong>. You are currently the only participant.");
         }
 
         // Redirect to journal index
@@ -171,8 +171,8 @@ class JournalController extends Controller
 
             $journal->save();
 
-            $request->session()->flash('status', "<strong>{$journal->title}</strong> has been updated.");
-            return redirect()->route('journal.settings', compact('journal'));
+            return redirect()->route('journal.settings', compact('journal'))
+                ->with('status', "<strong>{$journal->title}</strong> has been updated.");
         }
 
         // Redirect to journal index
@@ -279,10 +279,13 @@ class JournalController extends Controller
             $invite->sender()->associate(Auth::user());
             $invite->journal()->associate($journal);
             Auth::user()->invites_sent()->save($invite);
+
+            // Send a notification and trigger an event
             $invite->sendInviteNotification();
             event(new UserInvited($invite));
-            $request->session()->flash('status', "An invitation to join <strong>{$journal->title}</strong> will be sent to <strong>{$invite->name}</strong> at <strong>{$invite->email}</strong>.");
-            return redirect()->route('journal.settings', compact('journal'));
+
+            return redirect()->route('journal.settings', compact('journal'))
+                ->with('status', "An invitation to join <strong>{$journal->title}</strong> will be sent to <strong>{$invite->name}</strong> at <strong>{$invite->email}</strong>.");
         }
 
         // Redirect to journal index
