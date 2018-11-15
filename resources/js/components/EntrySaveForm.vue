@@ -27,11 +27,18 @@ export default {
         journalId: {
             type: Number,
             required: true
+        },
+        initialBody: {
+            type: String,
+            default: ''
         }
     },
 
     mounted: function() {
         let self = this;
+
+        self.entryBody = self.initialBody;
+
         Event.$on('quill-input', function(input) {
             self.entryBody = input;
         });

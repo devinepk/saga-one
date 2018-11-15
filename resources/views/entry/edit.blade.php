@@ -19,7 +19,12 @@
 
 <quill-editor value="{{ $entry->body }}"></quill-editor>
 
-<entry-save-form form-id="entry-save-form" action-url="{{ route('entry.update', $entry) }}" :journal-id="{{ $journal->id }}">
+<entry-save-form
+    form-id="entry-save-form"
+    action-url="{{ route('entry.update', $entry) }}"
+    :journal-id="{{ $journal->id }}"
+    initial-body="{{ $entry->body }}"
+>
     <template slot="csrf">@csrf</template>
     <template slot="method">@method('PUT')</template>
 </entry-save-form>

@@ -72192,11 +72192,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         journalId: {
             type: Number,
             required: true
+        },
+        initialBody: {
+            type: String,
+            default: ''
         }
     },
 
     mounted: function mounted() {
         var self = this;
+
+        self.entryBody = self.initialBody;
+
         Event.$on('quill-input', function (input) {
             self.entryBody = input;
         });
