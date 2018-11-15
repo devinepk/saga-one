@@ -34,19 +34,17 @@ class InviteController extends Controller
     /**
      * Show the invitation.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Invite  $invite
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Invite $invite)
+    public function show(Invite $invite)
     {
-
         if (Auth::user()->can('view', $invite)) {
             $journal = $invite->journal;
             return view('invite.show', compact('invite', 'journal'));
         }
 
-        return redirect()->route('journal.index');
+        return back();
     }
 
     /**
@@ -62,14 +60,13 @@ class InviteController extends Controller
 
         // Is there a user with this email address in the system already?
         if ($user = User::where('email', $invite->email)->first()) {
+
             if (Auth::id() != $user->id) {
                 // If this user isn't currently logged in, then log out the current user.
                 Auth::logout();
             }
 
             return redirect()->route('invite.show', $invite);
-
-
         }
 
         // Register the user AND add them to the journal.
@@ -84,10 +81,9 @@ class InviteController extends Controller
     /**
      * Resend the journal invite.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function resend(Request $request, Invite $invite)
+    public function resend(Invite $invite)
     {
         // If the invite has already been accepted, then redirect with messaging.
         if ($invite->accepted_at) {
@@ -103,32 +99,13 @@ class InviteController extends Controller
         return back()->with('invite_resent', "A fresh invite has been sent to <strong>{$invite->name}</strong> at <strong>{$invite->email}</strong>.");
     }
 
-    public function attachUserToJournal(Request $request, User $user) {
-        // Add the user to the journal
-        $user->journals()->attach($invite->journal->id);
-
-        // Trigger an event
-        event(new InviteAccepted($invite));
-
-        // Mark the invitation as accepted
-        $invite->accepted_at = now();
-        $invite->save();
-
-        // Redirect to journal.index
-        // TODO: FLASH MESSAGE DOESN'T WORK
-        return redirect()
-            ->route('journal.index')
-            ->with('status', "You have joined <strong>{$invite->journal->title}</strong>.");
-    }
-
     /**
      * Decline an invitation.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Invite  $invite
      * @return \Illuminate\Http\Response
      */
-    public function decline(Request $request, Invite $invite)
+    public function decline(Invite $invite)
     {
         if (Auth::user()->can('view', $invite)) {
             // dd('User is allowed to decline an invite');
@@ -141,7 +118,28 @@ class InviteController extends Controller
                 ->with('status', "You have declined {$invite->sender->name}'s invitation to join <strong>{$invite->journal->title}</strong>.");
         }
 
-        // dd('User is not allowed to decline an invite', $request, $invite);
-        return 'You are not allowed to access this invite.';
+        return back();
+    }
+
+    /**
+     * Accept an invitation.
+     *
+     * @param  \App\Invite  $invite
+     * @return \Illuminate\Http\Response
+     */
+    public function accept(Invite $invite)
+    {
+        if (Auth::user()->can('view', $invite)) {
+            // Mark the invite as accepted.
+            $invite->accept();
+
+            // Redirect to journal index with a message.
+            // TODO: THIS FLASH MESSAGE DOESN'T PERSIST THROUGH AUTHENTICATION.
+            return redirect()
+                ->route('journal.index')
+                ->with('status', "You have accepted {$invite->sender->name}'s invitation to join <strong>{$invite->journal->title}</strong>! Happy writing!");
+        }
+
+        return back();
     }
 }

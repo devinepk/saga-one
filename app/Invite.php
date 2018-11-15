@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Events\InviteDeclined;
+use App\Events\InviteAccepted;
 use App\Notifications\InviteNotification;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -57,5 +58,22 @@ class Invite extends Model
 
         // Trigger an event.
         event(new InviteDeclined);
+    }
+
+    /**
+     * Mark the invite as accepted.
+     *
+     * @return void
+     */
+    public function accept()
+    {
+        $this->accepted_at = now();
+        $this->save();
+
+        // Add the user to the journal
+        $this->journal->users()->attach($this->user);
+
+        // Trigger an event.
+        event(new InviteAccepted($this));
     }
 }

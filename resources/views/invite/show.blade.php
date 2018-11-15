@@ -19,7 +19,8 @@
             <p><strong>{{ $invite->sender->name }}</strong> has invited you to join <strong>{{ $invite->journal->title }}</strong>.<p>
             <p>To accept this invitation and add this journal to your account, click "Accept and Join" below.</p>
         </div>
-        <form method="" action="">
+        <form method="post" action="{{ route('invite.accept', $invite) }}">
+            @csrf
             <div class="row no-gutters">
                 <div class="col">
                     <a href="{{ route('invite.decline', $invite) }}" class="btn btn-block btn-dark">Decline</a>
