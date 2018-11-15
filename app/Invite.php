@@ -71,7 +71,7 @@ class Invite extends Model
         $this->save();
 
         // Add the user to the journal
-        $this->journal->users()->attach($this->user);
+        $this->journal->appendToQueue($this->user);
 
         // Trigger an event.
         event(new InviteAccepted($this));

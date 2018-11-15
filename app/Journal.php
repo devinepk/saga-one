@@ -82,6 +82,25 @@ class Journal extends Model
     }
 
     /**
+     * Attach a given user to this journal and add them to the end of the queue.
+     *
+     * @return \App\User
+     */
+    public function appendToQueue(User $user)
+    {
+        // Copy the first and last users in the queue
+        $last = $this->queue->reverse()->first();
+        $first = $this->queue->first();
+
+        // The last user in the queue will come before the new user.
+        $this->users()->updateExistingPivot($last->id, ['next_user_id' => $user->id]);
+
+        // Attach the new user.
+        // The first user in the queue will come after the new user.
+        $this->users()->attach($user, ['next_user_id' => $first->id]);
+    }
+
+    /**
      * Get the entries for this journal.
      */
     public function entries()
