@@ -88,18 +88,25 @@ class InviteController extends Controller
             if (Auth::id() != $user->id) {
                 // If this user isn't currently logged in, then log out the current user.
                 Auth::logout();
+                // Add a flag to the session and redirect to the login screen
+                $request->session()->put('invite', $id);
+                return redirect()->route('login');
             }
 
+            // Otherwise just show them the invite.
             return redirect()->route('invite.show', $invite);
         }
 
-        // Register the user AND add them to the journal.
+        // Log out any current user if one is logged in
+        if (Auth::check()) {
+            Auth::logout();
+        }
 
+        // Add a flag to the session
+        $request->session()->put('invite', $id);
 
-
-
-        // If not, redirect to the registration form???
-        return 'You need to sign up first...';
+        // Send the user to the registration form
+        return redirect()->route('register');
     }
 
     /**

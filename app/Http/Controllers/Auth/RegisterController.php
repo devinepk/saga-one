@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Invite;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -68,5 +71,25 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    /**
+     * The user has been registered.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function registered(Request $request, $user)
+    {
+        // Is this new user responding to a journal invite? If so, associate their account
+        // with that invite and redirect them to that invite.
+        if ($request->session()->has('invite')) {
+            $invite = Invite::find($request->session()->pull('invite'));
+            $invite->user()->associate(Auth::user());
+            $invite->save();
+
+            return redirect()->route('invite.show', $invite);
+        }
     }
 }

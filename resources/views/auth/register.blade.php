@@ -8,6 +8,11 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8 pt-5">
+
+            @if(session('invite'))
+                <alert>Sign up to accept the invite and start writing!</alert>
+            @endif
+
             <div class="card">
                 <div class="card-header">{{ __('Register') }}</div>
 
