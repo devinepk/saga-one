@@ -4835,7 +4835,7 @@
 /* unused harmony export faEject */
 /* unused harmony export faEllipsisH */
 /* unused harmony export faEllipsisV */
-/* unused harmony export faEnvelope */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return faEnvelope; });
 /* unused harmony export faEnvelopeOpen */
 /* unused harmony export faEnvelopeOpenText */
 /* unused harmony export faEnvelopeSquare */
@@ -4904,7 +4904,7 @@
 /* unused harmony export faFont */
 /* unused harmony export faFontAwesomeLogoFull */
 /* unused harmony export faFootballBall */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return faForward; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return faForward; });
 /* unused harmony export faFrog */
 /* unused harmony export faFrown */
 /* unused harmony export faFrownOpen */
@@ -5134,7 +5134,7 @@
 /* unused harmony export faPenFancy */
 /* unused harmony export faPenNib */
 /* unused harmony export faPenSquare */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return faPencilAlt; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return faPencilAlt; });
 /* unused harmony export faPencilRuler */
 /* unused harmony export faPeopleCarry */
 /* unused harmony export faPercent */
@@ -5152,7 +5152,7 @@
 /* unused harmony export faPlay */
 /* unused harmony export faPlayCircle */
 /* unused harmony export faPlug */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return faPlus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return faPlus; });
 /* unused harmony export faPlusCircle */
 /* unused harmony export faPlusSquare */
 /* unused harmony export faPodcast */
@@ -5234,7 +5234,7 @@
 /* unused harmony export faSign */
 /* unused harmony export faSignInAlt */
 /* unused harmony export faSignLanguage */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return faSignOutAlt; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return faSignOutAlt; });
 /* unused harmony export faSignal */
 /* unused harmony export faSignature */
 /* unused harmony export faSitemap */
@@ -5351,7 +5351,7 @@
 /* unused harmony export faTransgender */
 /* unused harmony export faTransgenderAlt */
 /* unused harmony export faTrash */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return faTrashAlt; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return faTrashAlt; });
 /* unused harmony export faTree */
 /* unused harmony export faTrophy */
 /* unused harmony export faTruck */
@@ -5373,12 +5373,12 @@
 /* unused harmony export faUnlock */
 /* unused harmony export faUnlockAlt */
 /* unused harmony export faUpload */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return faUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return faUser; });
 /* unused harmony export faUserAlt */
 /* unused harmony export faUserAltSlash */
 /* unused harmony export faUserAstronaut */
 /* unused harmony export faUserCheck */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return faUserCircle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return faUserCircle; });
 /* unused harmony export faUserClock */
 /* unused harmony export faUserCog */
 /* unused harmony export faUserEdit */
@@ -5389,7 +5389,7 @@
 /* unused harmony export faUserMd */
 /* unused harmony export faUserMinus */
 /* unused harmony export faUserNinja */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return faUserPlus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return faUserPlus; });
 /* unused harmony export faUserSecret */
 /* unused harmony export faUserShield */
 /* unused harmony export faUserSlash */
@@ -35251,7 +35251,8 @@ __webpack_require__(143);
 
 
 
-__WEBPACK_IMPORTED_MODULE_1__fortawesome_fontawesome_svg_core__["c" /* library */].add(__WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["d" /* faBell */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["n" /* faUser */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["e" /* faBook */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["k" /* faPlus */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["l" /* faSignOutAlt */], __WEBPACK_IMPORTED_MODULE_3__fortawesome_free_brands_svg_icons__["a" /* faReadme */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["h" /* faEdit */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["c" /* faBackward */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["i" /* faForward */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["b" /* faArrowAltCircleRight */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["j" /* faPencilAlt */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["f" /* faBookReader */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["p" /* faUserPlus */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["o" /* faUserCircle */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["m" /* faTrashAlt */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["a" /* faArchive */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["g" /* faCogs */]);
+
+__WEBPACK_IMPORTED_MODULE_1__fortawesome_fontawesome_svg_core__["c" /* library */].add(__WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["d" /* faBell */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["o" /* faUser */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["e" /* faBook */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["l" /* faPlus */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["m" /* faSignOutAlt */], __WEBPACK_IMPORTED_MODULE_3__fortawesome_free_brands_svg_icons__["a" /* faReadme */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["h" /* faEdit */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["c" /* faBackward */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["j" /* faForward */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["b" /* faArrowAltCircleRight */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["k" /* faPencilAlt */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["f" /* faBookReader */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["q" /* faUserPlus */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["p" /* faUserCircle */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["n" /* faTrashAlt */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["a" /* faArchive */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["g" /* faCogs */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["i" /* faEnvelope */]);
 
 // Moment
 window.Moment = __webpack_require__(0);
@@ -73264,6 +73265,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -73324,6 +73349,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         invites: function invites() {
             return JSON.parse(this.invitesJson);
+        },
+        pendingInvites: function pendingInvites() {
+            return this.invites.filter(function (item) {
+                return !item.declined_at && !item.accepted_at;
+            });
+        },
+        declinedInvites: function declinedInvites() {
+            return this.invites.filter(function (item) {
+                return item.declined_at;
+            });
         }
     },
 
@@ -73340,6 +73375,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 };
             }
             return classObj;
+        },
+        resendUrl: function resendUrl(invite) {
+            return '/invite/' + invite + '/resend';
         }
     }
 });
@@ -73355,62 +73393,154 @@ var render = function() {
   return _c("div", { staticClass: "card mb-5" }, [
     _c("h2", { staticClass: "card-header" }, [_vm._v("Participants")]),
     _vm._v(" "),
-    _c("table", { staticClass: "table table-hover border-bottom mb-0" }, [
-      _vm._m(0),
-      _vm._v(" "),
+    _c("div", { staticClass: "table-responsive" }, [
       _c(
-        "tbody",
+        "table",
+        {
+          staticClass: "table table-hover small text-nowrap border-bottom mb-0"
+        },
         [
-          _vm._l(_vm.users, function(user, index) {
-            return _c("tr", { key: "user" + index }, [
-              _c(
-                "td",
-                [
-                  _vm._v(
-                    "\n                    " +
-                      _vm._s(user.name) +
-                      "\n                    "
-                  ),
-                  user.id == _vm.authUser.id ? [_vm._v("(you)")] : _vm._e()
-                ],
-                2
-              ),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v("Joined " + _vm._s(_vm.on(user.subscription.created_at)))
-              ])
-            ])
-          }),
+          _vm._m(0),
           _vm._v(" "),
-          _vm._l(_vm.invites, function(invite, index) {
-            return !invite.accepted_at
-              ? _c(
+          _c(
+            "tbody",
+            [
+              _vm._l(_vm.users, function(user, index) {
+                return _c("tr", { key: "user" + index }, [
+                  _c(
+                    "td",
+                    [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(user.name) +
+                          "\n                    "
+                      ),
+                      user.id == _vm.authUser.id ? [_vm._v("(you)")] : _vm._e()
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(user.email))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _vm._v(
+                      "Joined " + _vm._s(_vm.on(user.subscription.created_at))
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(" ")])
+                ])
+              }),
+              _vm._v(" "),
+              _vm._l(_vm.pendingInvites, function(invite) {
+                return _c("tr", { key: "invite" + invite.id }, [
+                  _c("td", [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(invite.name) +
+                        "\n                    "
+                    ),
+                    _c(
+                      "span",
+                      {
+                        staticClass: "ml-1 p-1 badge badge-secondary",
+                        attrs: {
+                          "data-toggle": "tooltip",
+                          "data-placement": "top",
+                          title:
+                            "An invitation to join this journal has been sent to this user"
+                        }
+                      },
+                      [_vm._v("invited")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(invite.email))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _vm._v("Invited " + _vm._s(_vm.on(invite.updated_at)))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c(
+                      "a",
+                      {
+                        attrs: {
+                          href: _vm.resendUrl(invite.id),
+                          "data-toggle": "tooltip",
+                          "data-placement": "top",
+                          title: "Resend this invite"
+                        }
+                      },
+                      [
+                        _c("font-awesome-icon", { attrs: { icon: "envelope" } })
+                      ],
+                      1
+                    )
+                  ])
+                ])
+              }),
+              _vm._v(" "),
+              _vm._l(_vm.declinedInvites, function(invite) {
+                return _c(
                   "tr",
-                  { key: "invite" + index, class: _vm.inviteClassObj(invite) },
+                  {
+                    key: "invite" + invite.id,
+                    staticClass: "text-black-50 font-italic"
+                  },
                   [
                     _c("td", [
                       _vm._v(
                         "\n                    " +
                           _vm._s(invite.name) +
-                          "\n                "
+                          "\n                    "
+                      ),
+                      _c(
+                        "span",
+                        {
+                          staticClass: "ml-1 p-1 badge badge-danger",
+                          attrs: {
+                            "data-toggle": "tooltip",
+                            "data-placement": "top",
+                            title: "This user has declined to join this journal"
+                          }
+                        },
+                        [_vm._v("declined")]
                       )
                     ]),
                     _vm._v(" "),
-                    invite.declined_at
-                      ? _c("td", [
-                          _vm._v(
-                            "Declined " + _vm._s(_vm.on(invite.declined_at))
-                          )
-                        ])
-                      : _c("td", [
-                          _vm._v("Invited " + _vm._s(_vm.on(invite.created_at)))
-                        ])
+                    _c("td", [_vm._v(_vm._s(invite.email))]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v("Declined " + _vm._s(_vm.on(invite.declined_at)))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "a",
+                        {
+                          attrs: {
+                            href: _vm.resendUrl(invite.id),
+                            "data-toggle": "tooltip",
+                            "data-placement": "top",
+                            title: "Resend this invite"
+                          }
+                        },
+                        [
+                          _c("font-awesome-icon", {
+                            attrs: { icon: "envelope" }
+                          })
+                        ],
+                        1
+                      )
+                    ])
                   ]
                 )
-              : _vm._e()
-          })
-        ],
-        2
+              })
+            ],
+            2
+          )
+        ]
       )
     ]),
     _vm._v(" "),
@@ -73522,7 +73652,7 @@ var render = function() {
                       staticClass: "alert-link",
                       attrs: { href: _vm.verificationResendUrl }
                     },
-                    [_vm._v("'click here to request another")]
+                    [_vm._v("click here to request another")]
                   ),
                   _vm._v(".")
                 ])
@@ -73542,8 +73672,12 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", { staticClass: "border-top-0 border-dark" }, [_vm._v("Name")]),
         _c("th", { staticClass: "border-top-0 border-dark" }, [
+          _vm._v("Email")
+        ]),
+        _c("th", { staticClass: "border-top-0 border-dark" }, [
           _vm._v("Status")
-        ])
+        ]),
+        _c("th", { staticClass: "border-top-0 border-dark" }, [_vm._v(" ")])
       ])
     ])
   }

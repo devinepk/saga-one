@@ -47,14 +47,15 @@ class InviteNotification extends Notification
         $name = ( $notifiable->user ? $notifiable->user->name : $notifiable->name );
 
         return (new MailMessage)
-                    ->greeting("Guess what, {$name}!")
-                    ->line("{$notifiable->sender->name} has invited you to join {$notifiable->journal->title} on SagaOne!")
-                    ->line('To view this invitation and join this journal, click the button below.')
-                    ->action(
-                            'Join ' . $notifiable->journal->title,
-                            $this->inviteUrl($notifiable)
-                        )
-                    ->salutation('Happy writing!');
+            ->subject("You have been invited to join {$notifiable->journal->title}")
+            ->greeting("Guess what, {$name}!")
+            ->line("{$notifiable->sender->name} has invited you to join {$notifiable->journal->title} on SagaOne!")
+            ->line('To view this invitation and join this journal, click the button below.')
+            ->action(
+                    'Join ' . $notifiable->journal->title,
+                    $this->inviteUrl($notifiable)
+                )
+            ->salutation('Happy writing!');
     }
 
     /**

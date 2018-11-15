@@ -63,6 +63,7 @@
         users-json="{{ $journal->users }}"
         invites-json="{{ $journal->invites }}"
         invite-url="{{ route('journal.invite', $journal) }}"
+        verification-resend-url="{{ route('verification.resend') }}"
         name-error="{{ $errors->has('name') ? $errors->first('name') : '' }}"
         email-error="{{ $errors->has('email') ? $errors->first('email') : '' }}"
     >@csrf</participant-settings-card>

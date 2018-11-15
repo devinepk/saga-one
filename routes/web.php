@@ -31,3 +31,4 @@ Auth::routes(['verify' => true]);
 Route::get('invite/verify/{id}', 'InviteController@verify')->name('invite.verify');
 Route::get('invite/{invite}', 'InviteController@show')->name('invite.show');
 Route::get('invite/{invite}/decline', 'InviteController@decline')->name('invite.decline');
+Route::get('invite/{invite}/resend', 'InviteController@resend')->name('invite.resend');

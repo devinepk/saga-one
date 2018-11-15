@@ -26,13 +26,14 @@ import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { faArchive } from '@fortawesome/free-solid-svg-icons';
 import { faCogs } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 import { faReadme } from '@fortawesome/free-brands-svg-icons';
 
 library.add(
     faBell, faUser, faBook, faPlus, faSignOutAlt, faReadme, faEdit,
     faBackward, faForward, faArrowAltCircleRight, faPencilAlt, faBookReader,
-    faUserPlus, faUserCircle, faTrashAlt, faArchive, faCogs
+    faUserPlus, faUserCircle, faTrashAlt, faArchive, faCogs, faEnvelope
 );
 
 // Moment

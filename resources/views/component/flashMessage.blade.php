@@ -14,4 +14,12 @@
     @if (session('verified'))
         <alert level="primary">Thank you for verifying your email address!</alert>
     @endif
+
+    @if (session('resent'))
+        <alert level="primary">{{ __('A fresh verification link has been sent to your email address.') }}</alert>
+    @endif
+
+    @if (session('invite_resent'))
+        <alert level="primary">{!! session('invite_resent') !!}</alert>
+    @endif
 </div>

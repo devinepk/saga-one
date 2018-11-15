@@ -87,15 +87,20 @@ class InviteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function resend(Request $request)
+    public function resend(Request $request, Invite $invite)
     {
-        if ($request->user()->hasVerifiedEmail()) {
-            return redirect($this->redirectPath());
+        // If the invite has already been accepted, then redirect with messaging.
+        if ($invite->accepted_at) {
+            return back()->with('status', 'This invite has already been accepted.');
         }
 
-        $request->user()->sendEmailVerificationNotification();
+        // Mark the invite as undeclined
+        $invite->declined_at = null;
+        $invite->save();
 
-        return back()->with('resent', true);
+        // Resend the invite
+        $invite->sendInviteNotification();
+        return back()->with('invite_resent', "A fresh invite has been sent to <strong>{$invite->name}</strong> at <strong>{$invite->email}</strong>.");
     }
 
     public function attachUserToJournal(Request $request, User $user) {
