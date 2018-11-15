@@ -42,15 +42,15 @@ class InviteController extends Controller
         $pending_invites = Auth::user()->invites_received()->where([
             ['accepted_at', null],
             ['declined_at', null]
-        ])->get();
+        ])->with(['journal', 'sender'])->get();
 
         $accepted_invites = Auth::user()->invites_received()->where([
             ['accepted_at', '<>', null]
-        ])->get();
+        ])->with(['journal', 'sender'])->get();
 
         $declined_invites = Auth::user()->invites_received()->where([
             ['declined_at', '<>', null]
-        ])->get();
+        ])->with(['journal', 'sender'])->get();
 
         return view('invite.index', compact('pending_invites', 'accepted_invites', 'declined_invites'));
     }

@@ -70711,6 +70711,7 @@ var map = {
 	"./components/EntryComment.vue": 192,
 	"./components/EntryHeader.vue": 197,
 	"./components/EntrySaveForm.vue": 202,
+	"./components/InviteCard.vue": 233,
 	"./components/JournalCard.vue": 205,
 	"./components/JournalCountdown.vue": 210,
 	"./components/Modal.vue": 213,
@@ -87441,6 +87442,183 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 230 */,
+/* 231 */,
+/* 232 */,
+/* 233 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(234)
+/* template */
+var __vue_template__ = __webpack_require__(235)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/InviteCard.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7d3999e4", Component.options)
+  } else {
+    hotAPI.reload("data-v-7d3999e4", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 234 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        inviteJson: {
+            type: String,
+            default: '{}'
+        },
+        showViewBtn: {
+            type: Boolean,
+            default: false
+        }
+    },
+
+    computed: {
+        invites: function invites() {
+            return JSON.parse(this.inviteJson);
+        }
+    },
+
+    methods: {
+        viewUrl: function viewUrl(inviteId) {
+            return '/invite/' + inviteId;
+        },
+        prettyDateSent: function prettyDateSent(date) {
+            return Moment(date).format('MMM D, YYYY [at] h:mma');
+        }
+    }
+
+});
+
+/***/ }),
+/* 235 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "card mb-4" }, [
+    _c("h2", { staticClass: "card-header" }, [_vm._t("title")], 2),
+    _vm._v(" "),
+    _vm.invites.length
+      ? _c("table", { staticClass: "table table-hover text-nowrap mb-0" }, [
+          _c("thead", [
+            _c("tr", [
+              _c("th", { staticClass: "border-top-0" }, [_vm._v("Journal")]),
+              _c("th", { staticClass: "border-top-0" }, [_vm._v("Sender")]),
+              _c("th", { staticClass: "border-top-0" }, [_vm._v("Date sent")]),
+              _vm.showViewBtn
+                ? _c("th", { staticClass: "border-top-0" }, [_vm._v(" ")])
+                : _vm._e()
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(_vm.invites, function(invite) {
+              return _c("tr", { key: invite.id }, [
+                _c("td", { staticClass: "align-middle" }, [
+                  _vm._v(_vm._s(invite.journal.title))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "align-middle" }, [
+                  _vm._v(_vm._s(invite.sender.name))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "align-middle" }, [
+                  _vm._v(_vm._s(_vm.prettyDateSent(invite.updated_at)))
+                ]),
+                _vm._v(" "),
+                _vm.showViewBtn
+                  ? _c("td", [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "btn btn-primary btn-sm",
+                          attrs: { href: _vm.viewUrl(invite.id) }
+                        },
+                        [_vm._v("View")]
+                      )
+                    ])
+                  : _vm._e()
+              ])
+            })
+          )
+        ])
+      : _c("div", { staticClass: "card-body" }, [_c("p", [_vm._t("empty")], 2)])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-7d3999e4", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
