@@ -6,6 +6,7 @@ use App\Entry;
 use App\Journal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class EntryController extends Controller
 {
@@ -25,7 +26,7 @@ class EntryController extends Controller
      */
     public function create()
     {
-        // Use route journal.addEntry instead
+        // Use route journal.add instead
     }
 
     /**
@@ -38,34 +39,31 @@ class EntryController extends Controller
     {
         $journal = Journal::find($request->journal_id);
 
-        if (Auth::user()->can('addEntry', $journal)) {
-            $request->validate([
-                'title' => 'nullable|max:512'
-            ]);
+        $this->authorize('addEntry', $journal);
 
-            $entry = new Entry;
-            $entry->title = $request->title ? $request->title : '[Untitled]';
-            $entry->body = $request->body;
-            $entry->status = 'draft';
-            $entry->author()->associate(Auth::user());
-            $journal->entries()->save($entry);
+        $request->validate([
+            'title' => 'nullable|max:512'
+        ]);
 
-            return redirect()->route('journal.show', compact('journal'))
-                ->with('status', "<strong>{$entry->title}</strong> has been saved.");
-        }
+        $entry = new Entry;
+        $entry->title = $request->title ? $request->title : '[Untitled]';
+        $entry->body = $request->body;
+        $entry->status = 'draft';
+        $entry->author()->associate(Auth::user());
+        $journal->entries()->save($entry);
 
-        // Redirect to journal index
-        return redirect()->route('journal.index');
+        return redirect()->route('journal.show', compact('journal'))
+            ->with('status', "<strong>{$entry->title}</strong> has been saved.");
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Entry  $entry
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Entry $entry)
+    public function show(Entry $entry)
     {
         if (Auth::user()->can('view', $entry)) {
             $journal = $entry->journal;
@@ -74,11 +72,12 @@ class EntryController extends Controller
 
         // Show a flash message if the user belongs to the journal.
         if (Auth::user()->isInJournal($entry->journal)) {
-            $request->session()->flash('warning', "{$entry->journal->current_user->name} has <strong>{$entry->journal->title}</strong> right now. You'll be able to read it when it's your turn.");
+            return redirect()->route('journal.index')
+                ->with('warning', "{$entry->journal->current_user->name} has <strong>{$entry->journal->title}</strong> right now. You'll be able to read it when it's your turn.");
         }
 
-        // Redirect to journal index
-        return redirect()->route('journal.index');
+        // Otherwise throw exception
+        throw new AuthorizationException;
     }
 
     /**
@@ -89,13 +88,9 @@ class EntryController extends Controller
      */
     public function edit(Entry $entry)
     {
-        if (Auth::user()->can('update', $entry)) {
-            $journal = $entry->journal;
-            return view('entry.edit', compact('entry', 'journal'));
-        }
-
-        // Redirect to journal index
-        return redirect()->route('journal.index');
+        $this->authorize('update', $entry);
+        $journal = $entry->journal;
+        return view('entry.edit', compact('entry', 'journal'));
     }
 
     /**
@@ -107,38 +102,34 @@ class EntryController extends Controller
      */
     public function update(Request $request, Entry $entry)
     {
-        if (Auth::user()->can('update', $entry)) {
-            $request->validate([
-                'title' => 'nullable|max:512'
-            ]);
+        $this->authorize('update', $entry);
 
-            $entry->body = $request->body;
-            $entry->title = $request->title;
-            $entry->save();
-            $journal = $entry->journal;
+        $request->validate([
+            'title' => 'nullable|max:512'
+        ]);
 
-            return redirect()->route('journal.show', compact('journal'))
-                ->with('status', "<strong>{$entry->title}</strong> has been saved.");
-        }
+        $entry->body = $request->body;
+        $entry->title = $request->title;
+        $entry->save();
+        $journal = $entry->journal;
 
-        // Redirect to journal index
-        return redirect()->route('journal.index');
+        return redirect()->route('journal.show', compact('journal'))
+            ->with('status', "<strong>{$entry->title}</strong> has been saved.");
     }
 
     /**
      * Remove the entry from storage
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Entry  $entry
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Entry $entry)
+    public function destroy(Entry $entry)
     {
-        if (Auth::user()->can('delete', $entry)) {
-            $entry->delete();
-            $request->session()->flash('status', "<strong>{$entry->title}</strong> has been deleted.");
-        }
+        $this->authorize('delete', $entry);
+
+        $entry->delete();
         $journal = $entry->journal;
-        return redirect()->route('journal.show', compact('journal'));
+        return redirect()->route('journal.show', compact('journal'))
+            ->with('status', "<strong>{$entry->title}</strong> has been deleted.");
     }
 }

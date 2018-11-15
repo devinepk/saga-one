@@ -9,6 +9,7 @@ use App\Events\UserInvited;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class JournalController extends Controller
 {
@@ -49,12 +50,8 @@ class JournalController extends Controller
      */
     public function create()
     {
-        if (Auth::user()->can('create', Journal::class)) {
-            return view('journal.create');
-        }
-
-        // Redirect to journal index
-        return redirect()->route('journal.index');
+        $this->authorize('create', Journal::class);
+        return view('journal.create');
     }
 
     /**
@@ -65,27 +62,24 @@ class JournalController extends Controller
      */
     public function store(Request $request)
     {
-        if (Auth::user()->can('create', Journal::class)) {
-            $request->validate([
-                'title' => 'required|max:255',
-                'description' => 'nullable|max:255'
-            ]);
+        $this->authorize('create', Journal::class);
 
-            $journal = new Journal;
-            $journal->title = $request->title;
-            $journal->description = $request->description;
-            $journal->current_user()->associate(Auth::id());
-            $journal->creator()->associate(Auth::id());
+        $request->validate([
+            'title' => 'required|max:255',
+            'description' => 'nullable|max:255'
+        ]);
 
-            $journal->save();
-            $journal->users()->save(Auth::user());
+        $journal = new Journal;
+        $journal->title = $request->title;
+        $journal->description = $request->description;
+        $journal->current_user()->associate(Auth::id());
+        $journal->creator()->associate(Auth::id());
 
-            return redirect()->route('journal.show', compact('journal'))
-                ->with('status', "You have created a new journal called <strong>{$journal->title}</strong>. You are currently the only participant.");
-        }
+        $journal->save();
+        $journal->users()->save(Auth::user());
 
-        // Redirect to journal index
-        return redirect()->route('journal.index');
+        return redirect()->route('journal.show', compact('journal'))
+            ->with('status', "You have created a new journal called <strong>{$journal->title}</strong>. You are currently the only participant.");
     }
 
     /**
@@ -107,16 +101,17 @@ class JournalController extends Controller
 
         if (Auth::user()->isInJournal($journal)) {
             if ($journal->active) {
-                // Show a flash message if the user belongs to the journal.
-                $request->session()->flash('status', "{$journal->current_user->name} has <strong>{$journal->title}</strong> right now. You'll be able to view it when it's your turn.");
+                // Show a flash message if the user belongs to the journal and redirect.
+                return redirect()->route('journal.index')
+                    ->with('status', "{$journal->current_user->name} has <strong>{$journal->title}</strong> right now. You'll be able to view it when it's your turn.");
             } else {
                 // Redirect to the contents page
                 return redirect()->route('journal.contents', $journal);
             }
         }
 
-        // Redirect to journal index
-        return redirect()->route('journal.index');
+        // Otherwise throw exception
+        throw new AuthorizationException;
     }
 
     /**
@@ -132,13 +127,14 @@ class JournalController extends Controller
             return view('journal.settings', compact('journal'));
         }
 
-        // Show a flash message if the user belongs to the journal.
+        // Show a flash message and redirect if the user belongs to the journal.
         if (Auth::user()->isInJournal($journal)) {
-            $request->session()->flash('status', "Only {$journal->creator->name} can edit the settings for <strong>{$journal->title}</strong>.");
+            return redirect()->route('journal.index')
+                ->with('status', "Only {$journal->creator->name} can edit the settings for <strong>{$journal->title}</strong>.");
         }
 
-        // Redirect to journal index
-        return redirect()->route('journal.index');
+        // Otherwise throw exception
+        throw new AuthorizationException;
     }
 
     /**
@@ -150,33 +146,30 @@ class JournalController extends Controller
      */
     public function update(Request $request, Journal $journal)
     {
-        if (Auth::user()->can('update', $journal)) {
-            $request->validate([
-                'title' => 'sometimes|required|max:255',
-                'description' => 'nullable|max:255'
-            ]);
+        $this->authorize('update', $journal);
 
-            if ($request->has('title')) {
-                $journal->title = $request->title;
-            }
+        $request->validate([
+            'title' => 'sometimes|required|max:255',
+            'description' => 'nullable|max:255'
+        ]);
 
-            if ($request->has('description')) {
-                $journal->description = $request->description;
-            }
-
-            if ($request->has('period')) {
-                $journal->period = $request->period;
-                $journal->next_change = now()->addSeconds($request->period);
-            }
-
-            $journal->save();
-
-            return redirect()->route('journal.settings', compact('journal'))
-                ->with('status', "<strong>{$journal->title}</strong> has been updated.");
+        if ($request->has('title')) {
+            $journal->title = $request->title;
         }
 
-        // Redirect to journal index
-        return redirect()->route('journal.index');
+        if ($request->has('description')) {
+            $journal->description = $request->description;
+        }
+
+        if ($request->has('period')) {
+            $journal->period = $request->period;
+            $journal->next_change = now()->addSeconds($request->period);
+        }
+
+        $journal->save();
+
+        return redirect()->route('journal.settings', compact('journal'))
+            ->with('status', "<strong>{$journal->title}</strong> has been updated.");
     }
 
     /**
@@ -188,67 +181,54 @@ class JournalController extends Controller
      */
     public function archive(Request $request, Journal $journal)
     {
-        if (Auth::user()->can('archive', $journal)) {
+        $this->authorize('archive', $journal);
+
+        if ($journal->active) {
             // If active, then archive
-            if ($journal->active) {
-                $journal->active = false;
-                $journal->current_user()->dissociate();
-                $journal->save();
+            $journal->active = false;
+            $journal->current_user()->dissociate();
+            $journal->save();
 
-                $request->session()->flash('status', "<strong>{$journal->title}</strong> has been archived.");
-            } else {
-                // If inactive, then unarchive
-                $journal->active = true;
-                $journal->current_user()->associate(Auth::user());
-                $journal->save();
+            $request->session()->flash('status', "<strong>{$journal->title}</strong> has been archived.");
+        } else {
+            // If inactive, then unarchive
+            $journal->active = true;
+            $journal->current_user()->associate(Auth::user());
+            $journal->save();
 
-                $request->session()->flash('status', "<strong>{$journal->title}</strong> has been unarchived and is now in your possession.");
-            }
-            return redirect()->route('journal.settings', $journal);
+            $request->session()->flash('status', "<strong>{$journal->title}</strong> has been unarchived and is now in your possession.");
         }
-
-        // Redirect to journal index
-        return redirect()->route('journal.index');
+        return redirect()->route('journal.settings', $journal);
     }
 
     /**
      * Remove the journal from storage
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Journal  $journal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Journal $journal)
+    public function destroy(Journal $journal)
     {
-        if (Auth::user()->can('delete', $journal)) {
+        $this->authorize('delete', $journal);
 
-            $journal->delete();
-            $request->session()->flash('status', "<strong>{$journal->title}</strong> has been deleted.");
-        }
-
-        // Redirect to journal index
-        return redirect()->route('journal.index');
+        $journal->delete();
+        return redirect()->route('journal.index')
+            ->with('status', "<strong>{$journal->title}</strong> has been deleted.");
     }
 
     /**
-     * Un-archive a journal
+     * Un-delete a journal
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Journal  $journal
      * @return \Illuminate\Http\Response
      */
-    public function restore(Request $request, Journal $journal)
+    public function restore(Journal $journal)
     {
-        if (Auth::user()->can('restore', $journal)) {
+        $this->authorize('restore', $journal);
 
-            $journal->active = true;
-            $journal->save();
-
-            $request->session()->flash('status', "<strong>{$journal->title}</strong> has been restored from the archive.");
-        }
-
-        // Redirect to journal index
-        return redirect()->route('journal.index');
+        $journal->restore();
+        return redirect()->route('journal.index')
+            ->with('status', "<strong>{$journal->title}</strong> has been restored from the archive.");
     }
 
     /**
@@ -260,36 +240,33 @@ class JournalController extends Controller
      */
     public function invite(Request $request, Journal $journal)
     {
-        if (Auth::user()->can('invite', $journal)) {
+        $this->authorize('invite', $journal);
 
-            $request->validate([
-                'name'  => 'required|max:255',
-                'email' => 'required|email'
-            ]);
+        $request->validate([
+            'name'  => 'required|max:255',
+            'email' => 'required|email'
+        ]);
 
-            $invite = new Invite;
-            $invite->name = $request->name;
-            $invite->email = $request->email;
+        // Create a new invite and send it
+        $invite = new Invite;
+        $invite->name = $request->name;
+        $invite->email = $request->email;
 
-            // Does this user already have an account? If so, associate it.
-            if ($user = User::where('email', $request->email)->first()) {
-                $invite->user()->associate($user);
-            }
-
-            $invite->sender()->associate(Auth::user());
-            $invite->journal()->associate($journal);
-            Auth::user()->invites_sent()->save($invite);
-
-            // Send a notification and trigger an event
-            $invite->sendInviteNotification();
-            event(new UserInvited($invite));
-
-            return redirect()->route('journal.settings', compact('journal'))
-                ->with('status', "An invitation to join <strong>{$journal->title}</strong> will be sent to <strong>{$invite->name}</strong> at <strong>{$invite->email}</strong>.");
+        // Does this user already have an account? If so, associate it.
+        if ($user = User::where('email', $request->email)->first()) {
+            $invite->user()->associate($user);
         }
 
-        // Redirect to journal index
-        return redirect()->route('journal.index');
+        $invite->sender()->associate(Auth::user());
+        $invite->journal()->associate($journal);
+        Auth::user()->invites_sent()->save($invite);
+
+        // Send a notification and trigger an event
+        $invite->sendInviteNotification();
+        event(new UserInvited($invite));
+
+        return redirect()->route('journal.settings', compact('journal'))
+            ->with('status', "An invitation to join <strong>{$journal->title}</strong> will be sent to <strong>{$invite->name}</strong> at <strong>{$invite->email}</strong>.");
     }
 
     /**
@@ -310,15 +287,16 @@ class JournalController extends Controller
 
         // Show a flash message if the user belongs to the journal.
         if (Auth::user()->isInJournal($journal)) {
-            $request->session()->flash('warning', "{$journal->current_user->name} has <strong>{$journal->title}</strong> right now. You'll be able to read it when it's your turn.");
+            return redirect()->route('journal.index')
+                ->with('warning', "{$journal->current_user->name} has <strong>{$journal->title}</strong> right now. You'll be able to read it when it's your turn.");
         }
 
-        // Redirect to journal index
-        return redirect()->route('journal.index');
+        // Otherwise throw exception
+        throw new AuthorizationException;
     }
 
     /**
-     * Display all the entries in a journal
+     * Add an entry to the journal
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Journal  $journal
@@ -331,10 +309,11 @@ class JournalController extends Controller
 
         // Show a flash message if the user belongs to the journal.
         if (Auth::user()->isInJournal($journal)) {
-            $request->session()->flash('status', "{$journal->current_user->name} has <strong>{$journal->title}</strong> right now. You'll be able to write in it when it's your turn.");
+            return redirect()->route('journal.index')
+                ->with('status', "{$journal->current_user->name} has <strong>{$journal->title}</strong> right now. You'll be able to write in it when it's your turn.");
         }
 
-        // Redirect to journal index
-        return redirect()->route('journal.index');
+        // Otherwise throw exception
+        throw new AuthorizationException;
     }
 }

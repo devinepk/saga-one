@@ -44,7 +44,9 @@
 
                     <a class="dropdown-item" href="{{ route('journal.index') }}"><font-awesome-icon icon="book"></font-awesome-icon><span class="ml-2">Journals</span></a>
 
-                    <a class="dropdown-item" href="{{ route('journal.create') }}"><font-awesome-icon icon="plus"></font-awesome-icon><span class="ml-2">Create a journal</span></a>
+                    @can('create', App\Journal::class)
+                        <a class="dropdown-item" href="{{ route('journal.create') }}"><font-awesome-icon icon="plus"></font-awesome-icon><span class="ml-2">Create a journal</span></a>
+                    @endcan
 
                     <a class="dropdown-item" href="{{ route('invite.index') }}"><font-awesome-icon icon="mail-bulk"></font-awesome-icon><span class="ml-2">Invites</span></a>
 
