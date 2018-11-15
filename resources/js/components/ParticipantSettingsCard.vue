@@ -115,6 +115,10 @@ export default {
         }
     },
 
+    mounted() {
+        $('[data-toggle="tooltip"]').tooltip();
+    },
+
     data() {
         return {
             dateFormatObj: {

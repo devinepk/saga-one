@@ -19,8 +19,11 @@ class InvitePolicy
      */
     public function view(User $user, Invite $invite)
     {
+        // Only show invites that haven't been accepted or declined.
         // Only the user who received the invite can view it.
         // The user must already have created an account.
-        return $user->id === $invite->user_id;
+        return (!$invite->accepted_at &&
+                !$invite->declined_at &&
+                 $user->id === $invite->user_id);
     }
 }

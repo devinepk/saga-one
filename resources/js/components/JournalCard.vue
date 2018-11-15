@@ -19,7 +19,7 @@
         <a v-if="writeUrl" :href="writeUrl"></a>
         <a v-else-if="readUrl" :href="readUrl"></a>
 
-        <div class="cover-overlay align-items-end p-1 text-center">
+        <div v-if="showNextChange" class="cover-overlay align-items-end p-1 text-center">
             <span v-if="queue.length > 1">until <strong>{{ prettyNextChange }}</strong></span>
         </div>
         <span v-if="showBadgeCurrent"
@@ -108,6 +108,10 @@ export default {
             default: '{}'
         },
         useBadgeCurrent: {
+            type: Boolean,
+            default: true
+        },
+        showNextChange: {
             type: Boolean,
             default: true
         }

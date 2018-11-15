@@ -42,13 +42,15 @@
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenuLabel">
 
-                    <a class="dropdown-item" href="{{ route('user.account') }}"><font-awesome-icon icon="user-circle"></font-awesome-icon><span class="ml-2">Account</span></a>
-
-                    <div class="dropdown-divider"></div>
-
                     <a class="dropdown-item" href="{{ route('journal.index') }}"><font-awesome-icon icon="book"></font-awesome-icon><span class="ml-2">Journals</span></a>
 
                     <a class="dropdown-item" href="{{ route('journal.create') }}"><font-awesome-icon icon="plus"></font-awesome-icon><span class="ml-2">Create a journal</span></a>
+
+                    <a class="dropdown-item" href="{{ route('invite.index') }}"><font-awesome-icon icon="mail-bulk"></font-awesome-icon><span class="ml-2">Invites</span></a>
+
+                    <div class="dropdown-divider"></div>
+
+                    <a class="dropdown-item" href="{{ route('user.account') }}"><font-awesome-icon icon="user-circle"></font-awesome-icon><span class="ml-2">Account</span></a>
 
                     <div class="dropdown-divider"></div>
 

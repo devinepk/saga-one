@@ -80,7 +80,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Get the invites that this user has sent
      */
-    public function invites()
+    public function invites_sent()
     {
         return $this->hasMany('App\Invite', 'sender_id');
     }
@@ -96,9 +96,9 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Get the invite associated with this user, if applicable.
      */
-    public function invite()
+    public function invites_received()
     {
-        return $this->hasOne('App\Invite');
+        return $this->hasMany('App\Invite', 'user_id');
     }
 
     /**

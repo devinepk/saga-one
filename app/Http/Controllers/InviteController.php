@@ -26,9 +26,33 @@ class InviteController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->only('show', 'decline');
+        $this->middleware('auth')->except('verify');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
+    }
+
+    /**
+     * Show all pending invitations for the current user.
+     *
+     * @param  \App\Invite  $invite
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $pending_invites = Auth::user()->invites_received()->where([
+            ['accepted_at', null],
+            ['declined_at', null]
+        ])->get();
+
+        $accepted_invites = Auth::user()->invites_received()->where([
+            ['accepted_at', '<>', null]
+        ])->get();
+
+        $declined_invites = Auth::user()->invites_received()->where([
+            ['declined_at', '<>', null]
+        ])->get();
+
+        return view('invite.index', compact('pending_invites', 'accepted_invites', 'declined_invites'));
     }
 
     /**
@@ -44,7 +68,7 @@ class InviteController extends Controller
             return view('invite.show', compact('invite', 'journal'));
         }
 
-        return back();
+        return redirect()->route('journal.index');
     }
 
     /**
@@ -118,7 +142,7 @@ class InviteController extends Controller
                 ->with('status', "You have declined {$invite->sender->name}'s invitation to join <strong>{$invite->journal->title}</strong>.");
         }
 
-        return back();
+        return redirect()->route('journal.index');
     }
 
     /**
@@ -140,6 +164,6 @@ class InviteController extends Controller
                 ->with('status', "You have accepted {$invite->sender->name}'s invitation to join <strong>{$invite->journal->title}</strong>! Happy writing!");
         }
 
-        return back();
+        return redirect()->route('journal.index');
     }
 }

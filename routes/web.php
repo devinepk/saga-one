@@ -28,6 +28,7 @@ Route::put('account', 'UsersController@update')->name('user.update');
 Auth::routes(['verify' => true]);
 
 // Invites
+Route::get('invite', 'InviteController@index')->name('invite.index');
 Route::get('invite/verify/{id}', 'InviteController@verify')->name('invite.verify');
 Route::get('invite/{invite}', 'InviteController@show')->name('invite.show');
 Route::post('invite/{invite}', 'InviteController@accept')->name('invite.accept');
