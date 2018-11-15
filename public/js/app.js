@@ -87521,6 +87521,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -87533,6 +87539,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             default: false
         }
     },
+
+    mounted: function mounted() {
+        $('[data-toggle="tooltip"]').tooltip();
+    },
+
 
     computed: {
         invites: function invites() {
@@ -87597,7 +87608,12 @@ var render = function() {
                         "a",
                         {
                           staticClass: "btn btn-primary btn-sm",
-                          attrs: { href: _vm.viewUrl(invite.id) }
+                          attrs: {
+                            href: _vm.viewUrl(invite.id),
+                            "data-toggle": "tooltip",
+                            "data-placement": "top",
+                            title: "Respond to this invite"
+                          }
                         },
                         [_vm._v("View")]
                       )

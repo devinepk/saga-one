@@ -10,7 +10,13 @@
                     <td class="align-middle">{{ invite.journal.title }}</td>
                     <td class="align-middle">{{ invite.sender.name }}</td>
                     <td class="align-middle">{{ prettyDateSent(invite.updated_at) }}</td>
-                    <td v-if="showViewBtn"><a :href="viewUrl(invite.id)" class="btn btn-primary btn-sm">View</a></td>
+                    <td v-if="showViewBtn">
+                        <a :href="viewUrl(invite.id)"
+                            data-toggle="tooltip"
+                            data-placement="top"
+                            title="Respond to this invite"
+                            class="btn btn-primary btn-sm">View</a>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -31,6 +37,10 @@ export default {
             type: Boolean,
             default: false
         }
+    },
+
+    mounted() {
+        $('[data-toggle="tooltip"]').tooltip();
     },
 
     computed: {
