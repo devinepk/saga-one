@@ -64,9 +64,11 @@
         invites-json="{{ $journal->invites }}"
         invite-url="{{ route('journal.invite', $journal) }}"
         verification-resend-url="{{ route('verification.resend') }}"
-        name-error="{{ $errors->has('name') ? $errors->first('name') : '' }}"
-        email-error="{{ $errors->has('email') ? $errors->first('email') : '' }}"
-    >@csrf</participant-settings-card>
+        errors-json="{{ $errors }}"
+        old-name="{{ old('name') }}"
+        old-email="{{ old('email') }}"
+        csrf="{{ csrf_token() }}"
+    ></participant-settings-card>
 
 
     @can('update', $journal)

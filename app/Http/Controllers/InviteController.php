@@ -63,12 +63,9 @@ class InviteController extends Controller
      */
     public function show(Invite $invite)
     {
-        if (Auth::user()->can('view', $invite)) {
-            $journal = $invite->journal;
-            return view('invite.show', compact('invite', 'journal'));
-        }
-
-        return redirect()->route('journal.index');
+        $this->authorize('view', $invite);
+        $journal = $invite->journal;
+        return view('invite.show', compact('invite', 'journal'));
     }
 
     /**
@@ -116,10 +113,13 @@ class InviteController extends Controller
      */
     public function resend(Invite $invite)
     {
-        // If the invite has already been accepted, then redirect with messaging.
-        if ($invite->accepted_at) {
-            return back()->with('status', 'This invite has already been accepted.');
+        if (Auth::user()->can('view', $invite) && $invite->accepted_at) {
+            // If the invite has already been accepted, then redirect with messaging.
+            return redirect()->route('journal.settings', $invite->journal)
+                ->with('status', 'This invite has already been accepted.');
         }
+
+        $this->authorize('resend', $invite);
 
         // Mark the invite as undeclined
         $invite->declined_at = null;
@@ -138,18 +138,14 @@ class InviteController extends Controller
      */
     public function decline(Invite $invite)
     {
-        if (Auth::user()->can('view', $invite)) {
-            // dd('User is allowed to decline an invite');
-            // Mark the invite as declined.
-            $invite->decline();
+        $this->authorize('view', $invite);
+        // Mark the invite as declined.
+        $invite->decline();
 
-            // Redirect to journal index with a message.
-            return redirect()
-                ->route('journal.index')
-                ->with('status', "You have declined {$invite->sender->name}'s invitation to join <strong>{$invite->journal->title}</strong>.");
-        }
-
-        return redirect()->route('journal.index');
+        // Redirect to journal index with a message.
+        return redirect()
+            ->route('journal.index')
+            ->with('status', "You have declined {$invite->sender->name}'s invitation to join <strong>{$invite->journal->title}</strong>.");
     }
 
     /**
@@ -160,17 +156,29 @@ class InviteController extends Controller
      */
     public function accept(Invite $invite)
     {
-        if (Auth::user()->can('view', $invite)) {
-            // Mark the invite as accepted.
-            $invite->accept();
+        $this->authorize('view', $invite);
+        // Mark the invite as accepted.
+        $invite->accept();
 
-            // Redirect to journal index with a message.
-            // TODO: THIS FLASH MESSAGE DOESN'T PERSIST THROUGH AUTHENTICATION.
-            return redirect()
-                ->route('journal.index')
-                ->with('status', "You have accepted {$invite->sender->name}'s invitation to join <strong>{$invite->journal->title}</strong>! Happy writing!");
-        }
+        // Redirect to journal index with a message.
+        // TODO: FIX FLASH MESSAGE HERE
+        return redirect()
+            ->route('journal.index')
+            ->with('status', "You have accepted {$invite->sender->name}'s invitation to join <strong>{$invite->journal->title}</strong>! Happy writing!");
+    }
 
-        return redirect()->route('journal.index');
+    /**
+     * Delete an invitation.
+     *
+     * @param  \App\Invite  $invite
+     * @return \Illuminate\Http\Response
+     */
+    public function delete(Invite $invite)
+    {
+        $this->authorize('delete', $invite);
+        $invite->delete();
+        return redirect()
+            ->route('journal.settings', $invite->journal)
+            ->with('status', "Invite deleted.");
     }
 }

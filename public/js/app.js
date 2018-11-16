@@ -73306,6 +73306,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -73329,17 +73347,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             type: String,
             default: ''
         },
-        nameError: {
+        oldName: {
             type: String,
             default: ''
         },
-        emailError: {
+        oldEmail: {
             type: String,
             default: ''
         },
         verificationResendUrl: {
             type: String,
             default: ''
+        },
+        errorsJson: {
+            type: String,
+            default: '{}'
+        },
+        csrf: {
+            type: String,
+            required: true
         }
     },
 
@@ -73379,6 +73405,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this.invites.filter(function (item) {
                 return item.declined_at;
             });
+        },
+        errors: function errors() {
+            return JSON.parse(this.errorsJson);
         }
     },
 
@@ -73398,6 +73427,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         resendUrl: function resendUrl(invite) {
             return '/invite/' + invite + '/resend';
+        },
+        deleteUrl: function deleteUrl(invite) {
+            return '/invite/' + invite;
         }
     }
 });
@@ -73485,6 +73517,7 @@ var render = function() {
                     _c(
                       "a",
                       {
+                        staticClass: "px-1",
                         attrs: {
                           href: _vm.resendUrl(invite.id),
                           "data-toggle": "tooltip",
@@ -73496,6 +73529,50 @@ var render = function() {
                         _c("font-awesome-icon", { attrs: { icon: "envelope" } })
                       ],
                       1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "form",
+                      {
+                        staticClass: "d-inline",
+                        attrs: {
+                          method: "POST",
+                          action: _vm.deleteUrl(invite.id)
+                        }
+                      },
+                      [
+                        _c("input", {
+                          attrs: { type: "hidden", name: "_token" },
+                          domProps: { value: _vm.csrf }
+                        }),
+                        _vm._v(" "),
+                        _c("input", {
+                          attrs: {
+                            type: "hidden",
+                            name: "_method",
+                            value: "DELETE"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-link px-1",
+                            attrs: {
+                              type: "submit",
+                              "data-toggle": "tooltip",
+                              "data-placement": "top",
+                              title: "Delete this invite"
+                            }
+                          },
+                          [
+                            _c("font-awesome-icon", {
+                              attrs: { icon: "trash-alt" }
+                            })
+                          ],
+                          1
+                        )
+                      ]
                     )
                   ])
                 ])
@@ -73552,6 +73629,50 @@ var render = function() {
                           })
                         ],
                         1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "form",
+                        {
+                          staticClass: "d-inline",
+                          attrs: {
+                            method: "POST",
+                            action: _vm.deleteUrl(invite.id)
+                          }
+                        },
+                        [
+                          _c("input", {
+                            attrs: { type: "hidden", name: "_token" },
+                            domProps: { value: _vm.csrf }
+                          }),
+                          _vm._v(" "),
+                          _c("input", {
+                            attrs: {
+                              type: "hidden",
+                              name: "_method",
+                              value: "DELETE"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-sm btn-link px-1",
+                              attrs: {
+                                type: "submit",
+                                "data-toggle": "tooltip",
+                                "data-placement": "top",
+                                title: "Delete this invite"
+                              }
+                            },
+                            [
+                              _c("font-awesome-icon", {
+                                attrs: { icon: "trash-alt" }
+                              })
+                            ],
+                            1
+                          )
+                        ]
                       )
                     ])
                   ]
@@ -73571,84 +73692,92 @@ var render = function() {
         _c("h4", [_vm._v("Invite someone to join this journal")]),
         _vm._v(" "),
         _vm.authUserCanInvite && _vm.inviteUrl
-          ? _c(
-              "form",
-              {
-                staticClass: "form-inline",
-                attrs: { method: "post", action: _vm.inviteUrl }
-              },
-              [
-                _vm._t("default"),
-                _vm._v(" "),
-                _c(
-                  "label",
-                  { staticClass: "sr-only", attrs: { for: "name" } },
-                  [_vm._v("Name")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  staticClass: "form-control mb-1 mr-2",
-                  attrs: {
-                    type: "name",
-                    size: "25",
-                    id: "name",
-                    name: "name",
-                    placeholder: "Name",
-                    required: ""
-                  }
-                }),
-                _vm._v(" "),
-                _vm.nameError
-                  ? _c(
-                      "span",
-                      {
-                        staticClass: "invalid-feedback",
-                        attrs: { role: "alert" }
-                      },
-                      [_c("strong", [_vm._v(_vm._s(_vm.nameError))])]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _c(
-                  "label",
-                  { staticClass: "sr-only", attrs: { for: "email" } },
-                  [_vm._v("Email address")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  staticClass: "form-control mb-1 mr-2",
-                  attrs: {
-                    type: "email",
-                    size: "25",
-                    id: "email",
-                    name: "email",
-                    placeholder: "Email",
-                    required: ""
-                  }
-                }),
-                _vm._v(" "),
-                _vm.emailError
-                  ? _c(
-                      "span",
-                      {
-                        staticClass: "invalid-feedback",
-                        attrs: { role: "alert" }
-                      },
-                      [_c("strong", [_vm._v(_vm._s(_vm.emailError))])]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary mb-1",
-                    attrs: { type: "submit" }
-                  },
-                  [_vm._v("Invite")]
-                )
-              ],
-              2
-            )
+          ? [
+              _c(
+                "form",
+                {
+                  staticClass: "form-inline position-relative",
+                  attrs: { method: "post", action: _vm.inviteUrl }
+                },
+                [
+                  _c("input", {
+                    attrs: { type: "hidden", name: "_token" },
+                    domProps: { value: _vm.csrf }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    { staticClass: "sr-only", attrs: { for: "name" } },
+                    [_vm._v("Name")]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    staticClass: "form-control mb-1 mr-2",
+                    class: { "is-invalid": _vm.errors.name },
+                    attrs: {
+                      type: "name",
+                      size: "25",
+                      id: "name",
+                      name: "name",
+                      placeholder: "Name",
+                      required: ""
+                    },
+                    domProps: { value: _vm.oldName }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors.name
+                    ? _c(
+                        "span",
+                        {
+                          staticClass: "invalid-tooltip",
+                          attrs: { role: "alert" }
+                        },
+                        [_c("strong", [_vm._v(_vm._s(_vm.errors.name[0]))])]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    { staticClass: "sr-only", attrs: { for: "email" } },
+                    [_vm._v("Email address")]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    staticClass: "form-control mb-1 mr-2",
+                    class: { "is-invalid": _vm.errors.email },
+                    attrs: {
+                      type: "email",
+                      size: "25",
+                      id: "email",
+                      name: "email",
+                      placeholder: "Email",
+                      required: ""
+                    },
+                    domProps: { value: _vm.oldEmail }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors.email
+                    ? _c(
+                        "span",
+                        {
+                          staticClass: "invalid-tooltip",
+                          attrs: { role: "alert" }
+                        },
+                        [_c("strong", [_vm._v(_vm._s(_vm.errors.email[0]))])]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary mb-1",
+                      attrs: { type: "submit" }
+                    },
+                    [_vm._v("Invite")]
+                  )
+                ]
+              )
+            ]
           : _c(
               "alert",
               {
@@ -73679,7 +73808,7 @@ var render = function() {
               ]
             )
       ],
-      1
+      2
     )
   ])
 }
@@ -73690,14 +73819,10 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { staticClass: "border-top-0 border-dark" }, [_vm._v("Name")]),
-        _c("th", { staticClass: "border-top-0 border-dark" }, [
-          _vm._v("Email")
-        ]),
-        _c("th", { staticClass: "border-top-0 border-dark" }, [
-          _vm._v("Status")
-        ]),
-        _c("th", { staticClass: "border-top-0 border-dark" }, [_vm._v(" ")])
+        _c("th", { staticClass: "border-top-0" }, [_vm._v("Name")]),
+        _c("th", { staticClass: "border-top-0" }, [_vm._v("Email")]),
+        _c("th", { staticClass: "border-top-0" }, [_vm._v("Status")]),
+        _c("th", { staticClass: "border-top-0" }, [_vm._v(" ")])
       ])
     ])
   }

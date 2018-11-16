@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Journal;
-use App\Invite;
 use App\Events\UserInvited;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Pagination\LengthAwarePaginator;
+use App\Http\Requests\StoreInvite;
+use App\Invite;
+use App\Journal;
+use App\User;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
+use Validator;
 
 class JournalController extends Controller
 {
@@ -234,18 +236,15 @@ class JournalController extends Controller
     /**
      * Process an invitation to join a journal
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreInvite  $request
      * @param  \App\Journal  $journal
      * @return \Illuminate\Http\Response
      */
-    public function invite(Request $request, Journal $journal)
+    public function invite(StoreInvite $request, Journal $journal)
     {
         $this->authorize('invite', $journal);
 
-        $request->validate([
-            'name'  => 'required|max:255',
-            'email' => 'required|email'
-        ]);
+        $request->validated();
 
         // Create a new invite and send it
         $invite = new Invite;

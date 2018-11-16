@@ -32,5 +32,6 @@ Route::get('invite', 'InviteController@index')->name('invite.index');
 Route::get('invite/verify/{id}', 'InviteController@verify')->name('invite.verify');
 Route::get('invite/{invite}', 'InviteController@show')->name('invite.show');
 Route::post('invite/{invite}', 'InviteController@accept')->name('invite.accept');
+Route::delete('invite/{invite}', 'InviteController@delete')->name('invite.delete');
 Route::get('invite/{invite}/decline', 'InviteController@decline')->name('invite.decline');
 Route::get('invite/{invite}/resend', 'InviteController@resend')->name('invite.resend');

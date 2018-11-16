@@ -4,7 +4,7 @@
         <div class="table-responsive">
         <table class="table table-hover small text-nowrap border-bottom mb-0">
             <thead>
-                <tr><th class="border-top-0 border-dark">Name</th><th class="border-top-0 border-dark">Email</th><th class="border-top-0 border-dark">Status</th><th class="border-top-0 border-dark">&nbsp;</th></tr>
+                <tr><th class="border-top-0">Name</th><th class="border-top-0">Email</th><th class="border-top-0">Status</th><th class="border-top-0">&nbsp;</th></tr>
             </thead>
             <tbody>
                 <tr v-for="(user, index) in users" :key="'user' + index">
@@ -25,9 +25,16 @@
                     <td>{{ invite.email }}</td>
                     <td>Invited {{ on(invite.updated_at) }}</td>
                     <td>
-                        <a :href="resendUrl(invite.id)" data-toggle="tooltip" data-placement="top" title="Resend this invite">
+                        <a :href="resendUrl(invite.id)" class="px-1" data-toggle="tooltip" data-placement="top" title="Resend this invite">
                             <font-awesome-icon icon="envelope" />
                         </a>
+                        <form method="POST" :action="deleteUrl(invite.id)" class="d-inline">
+                            <input type="hidden" name="_token" :value="csrf">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-sm btn-link px-1" data-toggle="tooltip" data-placement="top" title="Delete this invite">
+                                <font-awesome-icon icon="trash-alt" />
+                            </button>
+                        </form>
                     </td>
                 </tr>
 
@@ -42,6 +49,13 @@
                         <a :href="resendUrl(invite.id)" data-toggle="tooltip" data-placement="top" title="Resend this invite">
                             <font-awesome-icon icon="envelope" />
                         </a>
+                        <form method="POST" :action="deleteUrl(invite.id)" class="d-inline">
+                            <input type="hidden" name="_token" :value="csrf">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-sm btn-link px-1" data-toggle="tooltip" data-placement="top" title="Delete this invite">
+                                <font-awesome-icon icon="trash-alt" />
+                            </button>
+                        </form>
                     </td>
                 </tr>
 
@@ -52,22 +66,26 @@
         <div class="card-body">
             <h4>Invite someone to join this journal</h4>
 
-            <form v-if="authUserCanInvite && inviteUrl" method="post" :action="inviteUrl" class="form-inline">
-                <slot></slot>
+            <template v-if="authUserCanInvite && inviteUrl">
+                <form method="post" :action="inviteUrl" class="form-inline position-relative">
+                    <input type="hidden" name="_token" :value="csrf">
 
-                <label for="name" class="sr-only">Name</label>
-                <input type="name" class="form-control mb-1 mr-2" size="25" id="name" name="name" placeholder="Name" required>
-                    <span v-if="nameError" class="invalid-feedback" role="alert">
-                        <strong>{{ nameError }}</strong>
+                    <label for="name" class="sr-only">Name</label>
+                    <input type="name" class="form-control mb-1 mr-2" :class="{ 'is-invalid': errors.name }" size="25" id="name" name="name" placeholder="Name" :value="oldName" required>
+                    <span v-if="errors.name" class="invalid-tooltip" role="alert">
+                        <strong>{{ errors.name[0] }}</strong>
                     </span>
-                <label for="email" class="sr-only">Email address</label>
-                <input type="email" class="form-control mb-1 mr-2" size="25" id="email" name="email" placeholder="Email" required>
-                    <span v-if="emailError" class="invalid-feedback" role="alert">
-                        <strong>{{ emailError }}</strong>
-                    </span>
-                <button type="submit" class="btn btn-primary mb-1">Invite</button>
-            </form>
 
+                    <label for="email" class="sr-only">Email address</label>
+                    <input type="email" class="form-control mb-1 mr-2" :class="{ 'is-invalid': errors.email }" size="25" id="email" name="email" placeholder="Email" :value="oldEmail" required>
+                    <span v-if="errors.email" class="invalid-tooltip" role="alert">
+                        <strong>{{ errors.email[0] }}</strong>
+                    </span>
+
+                    <button type="submit" class="btn btn-primary mb-1">Invite</button>
+                </form>
+
+            </template>
             <alert v-else level="danger" :dismissible="false" class="mb-0">
 
                 <p>Only verified users can invite others to join a journal. You have not yet verified your email address.</p>
@@ -101,17 +119,25 @@ export default {
             type: String,
             default: ''
         },
-        nameError: {
+        oldName: {
             type: String,
             default: ''
         },
-        emailError: {
+        oldEmail: {
             type: String,
             default: ''
         },
         verificationResendUrl: {
             type: String,
             default: ''
+        },
+        errorsJson: {
+            type: String,
+            default: '{}'
+        },
+        csrf: {
+            type: String,
+            required: true
         }
     },
 
@@ -147,6 +173,9 @@ export default {
         },
         declinedInvites: function() {
             return this.invites.filter((item) => item.declined_at);
+        },
+        errors: function() {
+            return JSON.parse(this.errorsJson);
         }
     },
 
@@ -166,6 +195,9 @@ export default {
         },
         resendUrl(invite) {
             return '/invite/' + invite + '/resend';
+        },
+        deleteUrl(invite) {
+            return '/invite/' + invite;
         }
     }
 }
