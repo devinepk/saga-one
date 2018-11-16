@@ -88,9 +88,16 @@ class Journal extends Model
      */
     public function appendToQueue(User $user)
     {
-        // Copy the first and last users in the queue
-        $last = $this->queue->reverse()->first();
-        $first = $this->queue->first();
+        if ($this->queue->count()) {
+            // If we have a queue, then find the first and last users in line.
+            $last = $this->queue->reverse()->first();
+            $first = $this->queue->first();
+
+        } else {
+            // Otherwise the creator is the only one in line.
+            $last = $this->creator;
+            $first = $this->creator;
+        }
 
         // The last user in the queue will come before the new user.
         $this->users()->updateExistingPivot($last->id, ['next_user_id' => $user->id]);
