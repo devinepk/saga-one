@@ -77,7 +77,6 @@ class InviteController extends Controller
      */
     public function verify(Request $request, $id) {
         $invite = Invite::find($id);
-        // dd($request, $invite);
 
         // Is there a user with this email address in the system already?
         if ($user = User::where('email', $invite->email)->first()) {
@@ -94,6 +93,7 @@ class InviteController extends Controller
             return redirect()->route('invite.show', $invite);
         }
 
+        // This is a new user.
         // Log out any current user if one is logged in
         if (Auth::check()) {
             Auth::logout();
@@ -139,12 +139,12 @@ class InviteController extends Controller
     public function decline(Invite $invite)
     {
         $this->authorize('view', $invite);
+
         // Mark the invite as declined.
         $invite->decline();
 
         // Redirect to journal index with a message.
-        return redirect()
-            ->route('journal.index')
+        return redirect()->route('journal.index')
             ->with('status', "You have declined {$invite->sender->name}'s invitation to join <strong>{$invite->journal->title}</strong>.");
     }
 
@@ -157,13 +157,12 @@ class InviteController extends Controller
     public function accept(Invite $invite)
     {
         $this->authorize('view', $invite);
+
         // Mark the invite as accepted.
         $invite->accept();
 
-        // Redirect to journal index with a message.
-        // TODO: FIX FLASH MESSAGE HERE
-        return redirect()
-            ->route('journal.index')
+        // Add a flag to the session and redirect to the journal index.
+        return redirect()->route('journal.index')
             ->with('status', "You have accepted {$invite->sender->name}'s invitation to join <strong>{$invite->journal->title}</strong>! Happy writing!");
     }
 
@@ -176,9 +175,10 @@ class InviteController extends Controller
     public function delete(Invite $invite)
     {
         $this->authorize('delete', $invite);
+
+        // Delete the invite (for real) and redirect
         $invite->delete();
-        return redirect()
-            ->route('journal.settings', $invite->journal)
+        return redirect()->route('journal.settings', $invite->journal)
             ->with('status', "Invite deleted.");
     }
 }
