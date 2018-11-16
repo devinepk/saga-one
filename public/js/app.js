@@ -73430,6 +73430,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         deleteUrl: function deleteUrl(invite) {
             return '/invite/' + invite;
+        },
+        invitedTip: function invitedTip(name) {
+            return "An invitation to join has been sent to " + name;
+        },
+        declinedTip: function declinedTip(name) {
+            return name + " has declined to join this journal";
         }
     }
 });
@@ -73461,6 +73467,7 @@ var render = function() {
                 return _c("tr", { key: "user" + index }, [
                   _c(
                     "td",
+                    { staticClass: "align-middle" },
                     [
                       _vm._v(
                         "\n                    " +
@@ -73472,21 +73479,23 @@ var render = function() {
                     2
                   ),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(user.email))]),
+                  _c("td", { staticClass: "align-middle" }, [
+                    _vm._v(_vm._s(user.email))
+                  ]),
                   _vm._v(" "),
-                  _c("td", [
+                  _c("td", { staticClass: "align-middle" }, [
                     _vm._v(
                       "Joined " + _vm._s(_vm.on(user.subscription.created_at))
                     )
                   ]),
                   _vm._v(" "),
-                  _c("td", [_vm._v(" ")])
+                  _c("td", { staticClass: "align-middle" }, [_vm._v(" ")])
                 ])
               }),
               _vm._v(" "),
               _vm._l(_vm.pendingInvites, function(invite) {
                 return _c("tr", { key: "invite" + invite.id }, [
-                  _c("td", [
+                  _c("td", { staticClass: "align-middle" }, [
                     _vm._v(
                       "\n                    " +
                         _vm._s(invite.name) +
@@ -73495,29 +73504,31 @@ var render = function() {
                     _c(
                       "span",
                       {
-                        staticClass: "ml-1 p-1 badge badge-secondary",
+                        staticClass:
+                          "ml-1 p-1 badge badge-secondary text-uppercase",
                         attrs: {
                           "data-toggle": "tooltip",
                           "data-placement": "top",
-                          title:
-                            "An invitation to join this journal has been sent to this user"
+                          title: _vm.invitedTip(invite.name)
                         }
                       },
                       [_vm._v("invited")]
                     )
                   ]),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(invite.email))]),
+                  _c("td", { staticClass: "align-middle" }, [
+                    _vm._v(_vm._s(invite.email))
+                  ]),
                   _vm._v(" "),
-                  _c("td", [
+                  _c("td", { staticClass: "align-middle" }, [
                     _vm._v("Invited " + _vm._s(_vm.on(invite.updated_at)))
                   ]),
                   _vm._v(" "),
-                  _c("td", [
+                  _c("td", { staticClass: "align-middle" }, [
                     _c(
                       "a",
                       {
-                        staticClass: "px-1",
+                        staticClass: "px-1 py-0",
                         attrs: {
                           href: _vm.resendUrl(invite.id),
                           "data-toggle": "tooltip",
@@ -73557,7 +73568,7 @@ var render = function() {
                         _c(
                           "button",
                           {
-                            staticClass: "btn btn-sm btn-link px-1",
+                            staticClass: "btn btn-sm btn-link px-1 py-0",
                             attrs: {
                               type: "submit",
                               "data-toggle": "tooltip",
@@ -73581,12 +73592,9 @@ var render = function() {
               _vm._l(_vm.declinedInvites, function(invite) {
                 return _c(
                   "tr",
-                  {
-                    key: "invite" + invite.id,
-                    staticClass: "text-black-50 font-italic"
-                  },
+                  { key: "invite" + invite.id, staticClass: "text-black-50" },
                   [
-                    _c("td", [
+                    _c("td", { staticClass: "align-middle" }, [
                       _vm._v(
                         "\n                    " +
                           _vm._s(invite.name) +
@@ -73595,27 +73603,31 @@ var render = function() {
                       _c(
                         "span",
                         {
-                          staticClass: "ml-1 p-1 badge badge-danger",
+                          staticClass:
+                            "ml-1 p-1 badge badge-danger text-uppercase",
                           attrs: {
                             "data-toggle": "tooltip",
                             "data-placement": "top",
-                            title: "This user has declined to join this journal"
+                            title: _vm.declinedTip(invite.name)
                           }
                         },
                         [_vm._v("declined")]
                       )
                     ]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(invite.email))]),
+                    _c("td", { staticClass: "align-middle" }, [
+                      _vm._v(_vm._s(invite.email))
+                    ]),
                     _vm._v(" "),
-                    _c("td", [
+                    _c("td", { staticClass: "align-middle" }, [
                       _vm._v("Declined " + _vm._s(_vm.on(invite.declined_at)))
                     ]),
                     _vm._v(" "),
-                    _c("td", [
+                    _c("td", { staticClass: "align-middle" }, [
                       _c(
                         "a",
                         {
+                          staticClass: "px-1 py-0",
                           attrs: {
                             href: _vm.resendUrl(invite.id),
                             "data-toggle": "tooltip",
@@ -73657,7 +73669,7 @@ var render = function() {
                           _c(
                             "button",
                             {
-                              staticClass: "btn btn-sm btn-link px-1",
+                              staticClass: "btn btn-sm btn-link px-1 py-0",
                               attrs: {
                                 type: "submit",
                                 "data-toggle": "tooltip",

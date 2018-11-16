@@ -8,51 +8,51 @@
             </thead>
             <tbody>
                 <tr v-for="(user, index) in users" :key="'user' + index">
-                    <td>
+                    <td class="align-middle">
                         {{ user.name }}
                         <template v-if="user.id == authUser.id">(you)</template>
                     </td>
-                    <td>{{ user.email }}</td>
-                    <td>Joined {{ on(user.subscription.created_at) }}</td>
-                    <td>&nbsp;</td>
+                    <td class="align-middle">{{ user.email }}</td>
+                    <td class="align-middle">Joined {{ on(user.subscription.created_at) }}</td>
+                    <td class="align-middle">&nbsp;</td>
                 </tr>
 
                 <tr v-for="invite in pendingInvites" :key="'invite' + invite.id">
-                    <td>
+                    <td class="align-middle">
                         {{ invite.name }}
-                        <span class="ml-1 p-1 badge badge-secondary" data-toggle="tooltip" data-placement="top" title="An invitation to join this journal has been sent to this user">invited</span>
+                        <span class="ml-1 p-1 badge badge-secondary text-uppercase" data-toggle="tooltip" data-placement="top" :title="invitedTip(invite.name)">invited</span>
                     </td>
-                    <td>{{ invite.email }}</td>
-                    <td>Invited {{ on(invite.updated_at) }}</td>
-                    <td>
-                        <a :href="resendUrl(invite.id)" class="px-1" data-toggle="tooltip" data-placement="top" title="Resend this invite">
+                    <td class="align-middle">{{ invite.email }}</td>
+                    <td class="align-middle">Invited {{ on(invite.updated_at) }}</td>
+                    <td class="align-middle">
+                        <a :href="resendUrl(invite.id)" class="px-1 py-0" data-toggle="tooltip" data-placement="top" title="Resend this invite">
                             <font-awesome-icon icon="envelope" />
                         </a>
                         <form method="POST" :action="deleteUrl(invite.id)" class="d-inline">
                             <input type="hidden" name="_token" :value="csrf">
                             <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn btn-sm btn-link px-1" data-toggle="tooltip" data-placement="top" title="Delete this invite">
+                            <button type="submit" class="btn btn-sm btn-link px-1 py-0" data-toggle="tooltip" data-placement="top" title="Delete this invite">
                                 <font-awesome-icon icon="trash-alt" />
                             </button>
                         </form>
                     </td>
                 </tr>
 
-                <tr v-for="invite in declinedInvites" class="text-black-50 font-italic" :key="'invite' + invite.id">
-                    <td>
+                <tr v-for="invite in declinedInvites" class="text-black-50" :key="'invite' + invite.id">
+                    <td class="align-middle">
                         {{ invite.name }}
-                        <span class="ml-1 p-1 badge badge-danger" data-toggle="tooltip" data-placement="top" title="This user has declined to join this journal">declined</span>
+                        <span class="ml-1 p-1 badge badge-danger text-uppercase" data-toggle="tooltip" data-placement="top" :title="declinedTip(invite.name)">declined</span>
                     </td>
-                    <td>{{ invite.email }}</td>
-                    <td>Declined {{ on(invite.declined_at) }}</td>
-                    <td>
-                        <a :href="resendUrl(invite.id)" data-toggle="tooltip" data-placement="top" title="Resend this invite">
+                    <td class="align-middle">{{ invite.email }}</td>
+                    <td class="align-middle">Declined {{ on(invite.declined_at) }}</td>
+                    <td class="align-middle">
+                        <a :href="resendUrl(invite.id)" class="px-1 py-0" data-toggle="tooltip" data-placement="top" title="Resend this invite">
                             <font-awesome-icon icon="envelope" />
                         </a>
                         <form method="POST" :action="deleteUrl(invite.id)" class="d-inline">
                             <input type="hidden" name="_token" :value="csrf">
                             <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn btn-sm btn-link px-1" data-toggle="tooltip" data-placement="top" title="Delete this invite">
+                            <button type="submit" class="btn btn-sm btn-link px-1 py-0" data-toggle="tooltip" data-placement="top" title="Delete this invite">
                                 <font-awesome-icon icon="trash-alt" />
                             </button>
                         </form>
@@ -198,6 +198,12 @@ export default {
         },
         deleteUrl(invite) {
             return '/invite/' + invite;
+        },
+        invitedTip(name) {
+            return "An invitation to join has been sent to " + name;
+        },
+        declinedTip(name) {
+            return name + " has declined to join this journal";
         }
     }
 }
