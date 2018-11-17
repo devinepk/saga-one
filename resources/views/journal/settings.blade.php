@@ -59,15 +59,7 @@
 
     <participant-settings-card
         auth-user-json="{{ Auth::user() }}"
-        :auth-user-can-invite="{{ Auth::user()->can('invite', $journal) ? 'true' : 'false' }}"
         users-json="{{ $journal->queue->count() ? $journal->queue : $journal->users }}"
-        invites-json="{{ $journal->invites }}"
-        invite-url="{{ route('journal.invite', $journal) }}"
-        verification-resend-url="{{ route('verification.resend') }}"
-        errors-json="{{ $errors }}"
-        old-name="{{ old('name') }}"
-        old-email="{{ old('email') }}"
-        csrf="{{ csrf_token() }}"
     ></participant-settings-card>
 
     <invite-settings-card

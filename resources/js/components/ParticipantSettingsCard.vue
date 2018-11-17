@@ -4,18 +4,23 @@
         <div class="table-responsive">
             <table class="table table-hover small text-nowrap mb-0">
                 <thead>
-                    <tr><th class="border-top-0">Name</th><th class="border-top-0">Email</th><th class="border-top-0">Status</th><th class="border-top-0">&nbsp;</th></tr>
+                    <tr>
+                        <th class="border-top-0">&nbsp;</th>
+                        <th class="border-top-0">Name</th>
+                        <th class="border-top-0">Email</th>
+                        <th class="border-top-0">Status</th>
+                    </tr>
                 </thead>
                 <tbody id="participants">
                     <tr v-for="user in users" :key="'user' + user.id" class="draggable">
+                        <td class="align-middle">
+                            <a class="text-primary handle px-1" data-toggle="tooltip" data-placement="top" title="Drag to reorder"><font-awesome-icon icon="grip-horizontal" /></a>
+                        </td>
                         <td class="align-middle">
                             {{ user.name }} <span v-if="user.id == authUser.id" class="text-muted">(you)</span>
                         </td>
                         <td class="align-middle">{{ user.email }}</td>
                         <td class="align-middle">Joined {{ on(user.subscription.created_at) }}</td>
-                        <td class="align-middle text-right">
-                            <a class="text-primary handle px-1" data-toggle="tooltip" data-placement="top" title="Drag to reorder"><font-awesome-icon icon="grip-horizontal" /></a>
-                        </td>
                     </tr>
                 </tbody>
             </table>

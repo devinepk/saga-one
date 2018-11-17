@@ -4,49 +4,56 @@
         <div class="table-responsive">
         <table class="table table-hover small text-nowrap border-bottom mb-0">
             <thead>
-                <tr><th class="border-top-0">Name</th><th class="border-top-0">Email</th><th class="border-top-0">Status</th><th class="border-top-0">&nbsp;</th></tr>
+                <tr>
+                    <th class="border-top-0 action-col">&nbsp;</th>
+                    <th class="border-top-0">Name</th>
+                    <th class="border-top-0">Email</th>
+                    <th class="border-top-0">Status</th>
+                </tr>
             </thead>
             <tbody>
 
                 <tr v-for="invite in pendingInvites" :key="'invite' + invite.id">
-                    <td class="align-middle">
-                        {{ invite.name }}
-                        <span class="ml-1 p-1 badge badge-secondary text-uppercase" data-toggle="tooltip" data-placement="top" :title="invitedTip(invite.name)">invited</span>
-                    </td>
-                    <td class="align-middle">{{ invite.email }}</td>
-                    <td class="align-middle">Invited {{ on(invite.updated_at) }}</td>
-                    <td class="align-middle text-right">
-                        <a :href="resendUrl(invite.id)" class="px-1 py-0" data-toggle="tooltip" data-placement="top" title="Resend this invite">
+                    <td class="align-middle action-col">
+                        <a :href="resendUrl(invite.id)" class="action px-1 py-0" data-toggle="tooltip" data-placement="top" title="Resend this invite">
                             <font-awesome-icon icon="envelope" />
                         </a>
                         <form method="POST" :action="deleteUrl(invite.id)" class="d-inline">
                             <input type="hidden" name="_token" :value="csrf">
                             <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn btn-sm btn-link px-1 py-0" data-toggle="tooltip" data-placement="top" title="Delete this invite">
+                            <button type="submit" class="action btn btn-sm btn-link px-1 py-0" data-toggle="tooltip" data-placement="top" title="Delete this invite">
                                 <font-awesome-icon icon="trash-alt" />
                             </button>
                         </form>
+                    </td>
+                    <td class="align-middle">
+                        {{ invite.name }}
+                    </td>
+                    <td class="align-middle">{{ invite.email }}</td>
+                    <td class="align-middle">
+                        <span class="p-1 badge badge-secondary text-uppercase" data-toggle="tooltip" data-placement="top" :title="invitedTip(invite.name)">invited</span> {{ on(invite.updated_at) }}
                     </td>
                 </tr>
 
                 <tr v-for="invite in declinedInvites" class="text-black-50" :key="'invite' + invite.id">
-                    <td class="align-middle">
-                        {{ invite.name }}
-                        <span class="ml-1 p-1 badge badge-danger text-uppercase" data-toggle="tooltip" data-placement="top" :title="declinedTip(invite.name)">declined</span>
-                    </td>
-                    <td class="align-middle">{{ invite.email }}</td>
-                    <td class="align-middle">Declined {{ on(invite.declined_at) }}</td>
-                    <td class="align-middle text-right">
-                        <a :href="resendUrl(invite.id)" class="px-1 py-0" data-toggle="tooltip" data-placement="top" title="Resend this invite">
+                    <td class="align-middle action-col">
+                        <a :href="resendUrl(invite.id)" class="action px-1 py-0" data-toggle="tooltip" data-placement="top" title="Resend this invite">
                             <font-awesome-icon icon="envelope" />
                         </a>
                         <form method="POST" :action="deleteUrl(invite.id)" class="d-inline">
                             <input type="hidden" name="_token" :value="csrf">
                             <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn btn-sm btn-link px-1 py-0" data-toggle="tooltip" data-placement="top" title="Delete this invite">
+                            <button type="submit" class="action btn btn-sm btn-link px-1 py-0" data-toggle="tooltip" data-placement="top" title="Delete this invite">
                                 <font-awesome-icon icon="trash-alt" />
                             </button>
                         </form>
+                    </td>
+                    <td class="align-middle">
+                        {{ invite.name }}
+                    </td>
+                    <td class="align-middle">{{ invite.email }}</td>
+                    <td class="align-middle">
+                        <span class="p-1 badge badge-danger text-uppercase" data-toggle="tooltip" data-placement="top" :title="declinedTip(invite.name)">declined</span> {{ on(invite.declined_at) }}
                     </td>
                 </tr>
 
@@ -192,3 +199,12 @@ export default {
     }
 }
 </script>
+
+<style>
+.action {
+    font-size: initial;
+}
+.action-col {
+    max-width: 50px;
+}
+</style>

@@ -73430,6 +73430,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -73495,6 +73500,26 @@ var render = function() {
               { key: "user" + user.id, staticClass: "draggable" },
               [
                 _c("td", { staticClass: "align-middle" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "text-primary handle px-1",
+                      attrs: {
+                        "data-toggle": "tooltip",
+                        "data-placement": "top",
+                        title: "Drag to reorder"
+                      }
+                    },
+                    [
+                      _c("font-awesome-icon", {
+                        attrs: { icon: "grip-horizontal" }
+                      })
+                    ],
+                    1
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "align-middle" }, [
                   _vm._v(
                     "\n                        " + _vm._s(user.name) + " "
                   ),
@@ -73513,26 +73538,6 @@ var render = function() {
                   _vm._v(
                     "Joined " + _vm._s(_vm.on(user.subscription.created_at))
                   )
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "align-middle text-right" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "text-primary handle px-1",
-                      attrs: {
-                        "data-toggle": "tooltip",
-                        "data-placement": "top",
-                        title: "Drag to reorder"
-                      }
-                    },
-                    [
-                      _c("font-awesome-icon", {
-                        attrs: { icon: "grip-horizontal" }
-                      })
-                    ],
-                    1
-                  )
                 ])
               ]
             )
@@ -73549,10 +73554,13 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
+        _c("th", { staticClass: "border-top-0" }, [_vm._v(" ")]),
+        _vm._v(" "),
         _c("th", { staticClass: "border-top-0" }, [_vm._v("Name")]),
+        _vm._v(" "),
         _c("th", { staticClass: "border-top-0" }, [_vm._v("Email")]),
-        _c("th", { staticClass: "border-top-0" }, [_vm._v("Status")]),
-        _c("th", { staticClass: "border-top-0" }, [_vm._v(" ")])
+        _vm._v(" "),
+        _c("th", { staticClass: "border-top-0" }, [_vm._v("Status")])
       ])
     ])
   }
@@ -90062,6 +90070,10 @@ return $.fn.extend( {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(251)
+}
 var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(247)
@@ -90070,7 +90082,7 @@ var __vue_template__ = __webpack_require__(248)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -90110,6 +90122,13 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -90334,40 +90353,11 @@ var render = function() {
             [
               _vm._l(_vm.pendingInvites, function(invite) {
                 return _c("tr", { key: "invite" + invite.id }, [
-                  _c("td", { staticClass: "align-middle" }, [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(invite.name) +
-                        "\n                    "
-                    ),
-                    _c(
-                      "span",
-                      {
-                        staticClass:
-                          "ml-1 p-1 badge badge-secondary text-uppercase",
-                        attrs: {
-                          "data-toggle": "tooltip",
-                          "data-placement": "top",
-                          title: _vm.invitedTip(invite.name)
-                        }
-                      },
-                      [_vm._v("invited")]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "align-middle" }, [
-                    _vm._v(_vm._s(invite.email))
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "align-middle" }, [
-                    _vm._v("Invited " + _vm._s(_vm.on(invite.updated_at)))
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "align-middle text-right" }, [
+                  _c("td", { staticClass: "align-middle action-col" }, [
                     _c(
                       "a",
                       {
-                        staticClass: "px-1 py-0",
+                        staticClass: "action px-1 py-0",
                         attrs: {
                           href: _vm.resendUrl(invite.id),
                           "data-toggle": "tooltip",
@@ -90407,7 +90397,7 @@ var render = function() {
                         _c(
                           "button",
                           {
-                            staticClass: "btn btn-sm btn-link px-1 py-0",
+                            staticClass: "action btn btn-sm btn-link px-1 py-0",
                             attrs: {
                               type: "submit",
                               "data-toggle": "tooltip",
@@ -90424,6 +90414,38 @@ var render = function() {
                         )
                       ]
                     )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "align-middle" }, [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(invite.name) +
+                        "\n                "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "align-middle" }, [
+                    _vm._v(_vm._s(invite.email))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "align-middle" }, [
+                    _c(
+                      "span",
+                      {
+                        staticClass: "p-1 badge badge-secondary text-uppercase",
+                        attrs: {
+                          "data-toggle": "tooltip",
+                          "data-placement": "top",
+                          title: _vm.invitedTip(invite.name)
+                        }
+                      },
+                      [_vm._v("invited")]
+                    ),
+                    _vm._v(
+                      " " +
+                        _vm._s(_vm.on(invite.updated_at)) +
+                        "\n                "
+                    )
                   ])
                 ])
               }),
@@ -90433,40 +90455,11 @@ var render = function() {
                   "tr",
                   { key: "invite" + invite.id, staticClass: "text-black-50" },
                   [
-                    _c("td", { staticClass: "align-middle" }, [
-                      _vm._v(
-                        "\n                    " +
-                          _vm._s(invite.name) +
-                          "\n                    "
-                      ),
-                      _c(
-                        "span",
-                        {
-                          staticClass:
-                            "ml-1 p-1 badge badge-danger text-uppercase",
-                          attrs: {
-                            "data-toggle": "tooltip",
-                            "data-placement": "top",
-                            title: _vm.declinedTip(invite.name)
-                          }
-                        },
-                        [_vm._v("declined")]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "align-middle" }, [
-                      _vm._v(_vm._s(invite.email))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "align-middle" }, [
-                      _vm._v("Declined " + _vm._s(_vm.on(invite.declined_at)))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "align-middle text-right" }, [
+                    _c("td", { staticClass: "align-middle action-col" }, [
                       _c(
                         "a",
                         {
-                          staticClass: "px-1 py-0",
+                          staticClass: "action px-1 py-0",
                           attrs: {
                             href: _vm.resendUrl(invite.id),
                             "data-toggle": "tooltip",
@@ -90508,7 +90501,8 @@ var render = function() {
                           _c(
                             "button",
                             {
-                              staticClass: "btn btn-sm btn-link px-1 py-0",
+                              staticClass:
+                                "action btn btn-sm btn-link px-1 py-0",
                               attrs: {
                                 type: "submit",
                                 "data-toggle": "tooltip",
@@ -90524,6 +90518,38 @@ var render = function() {
                             1
                           )
                         ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "align-middle" }, [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(invite.name) +
+                          "\n                "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "align-middle" }, [
+                      _vm._v(_vm._s(invite.email))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "align-middle" }, [
+                      _c(
+                        "span",
+                        {
+                          staticClass: "p-1 badge badge-danger text-uppercase",
+                          attrs: {
+                            "data-toggle": "tooltip",
+                            "data-placement": "top",
+                            title: _vm.declinedTip(invite.name)
+                          }
+                        },
+                        [_vm._v("declined")]
+                      ),
+                      _vm._v(
+                        " " +
+                          _vm._s(_vm.on(invite.declined_at)) +
+                          "\n                "
                       )
                     ])
                   ]
@@ -90670,10 +90696,13 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
+        _c("th", { staticClass: "border-top-0 action-col" }, [_vm._v(" ")]),
+        _vm._v(" "),
         _c("th", { staticClass: "border-top-0" }, [_vm._v("Name")]),
+        _vm._v(" "),
         _c("th", { staticClass: "border-top-0" }, [_vm._v("Email")]),
-        _c("th", { staticClass: "border-top-0" }, [_vm._v("Status")]),
-        _c("th", { staticClass: "border-top-0" }, [_vm._v(" ")])
+        _vm._v(" "),
+        _c("th", { staticClass: "border-top-0" }, [_vm._v("Status")])
       ])
     ])
   }
@@ -90723,6 +90752,46 @@ exports = module.exports = __webpack_require__(5)(false);
 
 // module
 exports.push([module.i, "\n.handle {\n    font-size: initial;\n    cursor: move;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 251 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(252);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(6)("4f17955f", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-35cbeb27\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./InviteSettingsCard.vue", function() {
+     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-35cbeb27\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./InviteSettingsCard.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 252 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(5)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.action {\n    font-size: initial;\n}\n.action-col {\n    max-width: 50px;\n}\n", ""]);
 
 // exports
 
