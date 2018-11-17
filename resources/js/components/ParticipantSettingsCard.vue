@@ -7,14 +7,15 @@
                 <tr><th class="border-top-0">Name</th><th class="border-top-0">Email</th><th class="border-top-0">Status</th><th class="border-top-0">&nbsp;</th></tr>
             </thead>
             <tbody>
-                <tr v-for="(user, index) in users" :key="'user' + index">
+                <tr v-for="user in users" :key="'user' + user.id">
                     <td class="align-middle">
-                        {{ user.name }}
-                        <template v-if="user.id == authUser.id">(you)</template>
+                        {{ user.name }} <span v-if="user.id == authUser.id" class="text-muted">(you)</span>
                     </td>
                     <td class="align-middle">{{ user.email }}</td>
                     <td class="align-middle">Joined {{ on(user.subscription.created_at) }}</td>
-                    <td class="align-middle">&nbsp;</td>
+                    <td class="align-middle">
+                        <font-awesome-icon icon="grip-horizontal" class="text-muted" data-toggle="tooltip" data-placement="top" title="Drag to reorder" />
+                    </td>
                 </tr>
 
                 <tr v-for="invite in pendingInvites" :key="'invite' + invite.id">

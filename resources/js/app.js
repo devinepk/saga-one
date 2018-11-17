@@ -10,7 +10,7 @@ require('./bootstrap');
 // Font Awesome Icons
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faBell } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faGripHorizontal } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -28,6 +28,7 @@ import { faArchive } from '@fortawesome/free-solid-svg-icons';
 import { faCogs } from '@fortawesome/free-solid-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faMailBulk } from '@fortawesome/free-solid-svg-icons';
+import { faMGripHorizontal } from '@fortawesome/free-solid-svg-icons';
 
 import { faReadme } from '@fortawesome/free-brands-svg-icons';
 
@@ -35,7 +36,7 @@ library.add(
     faBell, faUser, faBook, faPlus, faSignOutAlt, faReadme, faEdit,
     faBackward, faForward, faArrowAltCircleRight, faPencilAlt, faBookReader,
     faUserPlus, faUserCircle, faTrashAlt, faArchive, faCogs, faEnvelope,
-    faMailBulk
+    faMailBulk, faGripHorizontal
 );
 
 // Moment
