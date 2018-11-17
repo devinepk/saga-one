@@ -119,14 +119,6 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function getOtherJournalsAttribute()
     {
-        $other_journals = [];
-
-        foreach ($this->journals as $journal) {
-            if ($journal->active && $journal->current_user->id != $this->id) {
-                $other_journals[] = $journal;
-            }
-        }
-
-        return collect($other_journals);
+        return $this->journals()->where('current_user_id', '<>', $this->id)->get();
     }
 }
