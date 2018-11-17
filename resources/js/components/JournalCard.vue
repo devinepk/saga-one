@@ -117,10 +117,6 @@ export default {
         }
     },
 
-    mounted() {
-        $('[data-toggle="tooltip"]').tooltip();
-    },
-
     computed: {
         authUser: function() {
             return JSON.parse(this.authUserJson);

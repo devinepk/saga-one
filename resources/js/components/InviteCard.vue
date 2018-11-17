@@ -39,10 +39,6 @@ export default {
         }
     },
 
-    mounted() {
-        $('[data-toggle="tooltip"]').tooltip();
-    },
-
     computed: {
         invites() {
             return JSON.parse(this.inviteJson);

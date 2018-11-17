@@ -78,5 +78,10 @@ Vue.directive('focus', {
 });
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+
+    mounted() {
+        // Activate all tooltips
+        $('[data-toggle="tooltip"]').tooltip();
+    }
 });

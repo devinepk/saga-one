@@ -35295,7 +35295,12 @@ Vue.directive('focus', {
 });
 
 var app = new Vue({
-    el: '#app'
+    el: '#app',
+
+    mounted: function mounted() {
+        // Activate all tooltips
+        $('[data-toggle="tooltip"]').tooltip();
+    }
 });
 
 /***/ }),
@@ -71439,9 +71444,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         };
     },
-    mounted: function mounted() {
-        $('[data-toggle="tooltip"]').tooltip();
-    },
 
 
     computed: {
@@ -72368,11 +72370,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
 
-    mounted: function mounted() {
-        $('[data-toggle="tooltip"]').tooltip();
-    },
-
-
     computed: {
         invites: function invites() {
             return JSON.parse(this.inviteJson);
@@ -72679,11 +72676,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             default: true
         }
     },
-
-    mounted: function mounted() {
-        $('[data-toggle="tooltip"]').tooltip();
-    },
-
 
     computed: {
         authUser: function authUser() {
@@ -73561,9 +73553,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
 
-    mounted: function mounted() {
-        $('[data-toggle="tooltip"]').tooltip();
-    },
     data: function data() {
         return {
             dateFormatObj: {

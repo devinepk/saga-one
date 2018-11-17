@@ -91,10 +91,6 @@ export default {
         };
     },
 
-    mounted() {
-        $('[data-toggle="tooltip"]').tooltip();
-    },
-
     computed: {
         entry: function() {
             return JSON.parse(this.entryJson);
