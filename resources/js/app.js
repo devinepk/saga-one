@@ -72,6 +72,10 @@ Vue.directive('focus', {
 const app = new Vue({
     el: '#app',
 
+    data: {
+        journal: {}
+    },
+
     mounted() {
         // Activate all tooltips
         $('[data-toggle="tooltip"]').tooltip();

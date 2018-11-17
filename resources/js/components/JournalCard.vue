@@ -114,6 +114,19 @@ export default {
         showNextChange: {
             type: Boolean,
             default: true
+        },
+        bubble: {
+            // Whether this card should bubble it's journal info
+            // up to the root Vue instance.
+            type: Boolean,
+            default: false
+        }
+    },
+
+    mounted() {
+        if (this.bubble) {
+            // Send the journal info to the root Vue instance
+            this.$root.journal = this.journal;
         }
     },
 
