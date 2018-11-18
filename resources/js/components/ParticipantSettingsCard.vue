@@ -17,7 +17,6 @@
                 <thead>
                     <tr>
                         <th class="border-top-0">&nbsp;</th>
-                        <th class="border-top-0">&nbsp;</th>
                         <th class="border-top-0">Name</th>
                         <th class="border-top-0">Email</th>
                         <th class="border-top-0">Status</th>
@@ -26,19 +25,15 @@
                 <tbody id="participants">
                     <tr v-for="user in users" :key="'user' + user.id" :class="{ draggable: !isCurrentUser(user) }" :id="'user' + user.id">
                         <td class="align-middle text-center">
-                            <a v-if="!isCurrentUser(user)" class="text-primary handle icon px-1" data-toggle="tooltip" data-placement="top" title="Drag to reorder">
-                                <font-awesome-icon icon="grip-horizontal" />
-                            </a>
-                            <template v-else>&nbsp;</template>
-                        </td>
-                        <td class="align-middle">
                             <current-user-icon
                                 v-if="isCurrentUser(user)"
                                 :authCurrent="isCurrentUser(authUser)"
                                 :currentUser="journal.current_user.name"
                                 class="icon text-primary"
                             />
-                            <template v-else>&nbsp;</template>
+                            <a v-else class="text-primary handle icon px-1" data-toggle="tooltip" data-placement="top" title="Drag to reorder">
+                                <font-awesome-icon icon="grip-horizontal" />
+                            </a>
                         </td>
                         <td class="align-middle">
                             {{ user.name }} <span v-if="user.id == authUser.id" class="text-muted">(you)</span>

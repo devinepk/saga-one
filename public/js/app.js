@@ -76897,11 +76897,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -90986,8 +90981,15 @@ var render = function() {
                   "td",
                   { staticClass: "align-middle text-center" },
                   [
-                    !_vm.isCurrentUser(user)
-                      ? _c(
+                    _vm.isCurrentUser(user)
+                      ? _c("current-user-icon", {
+                          staticClass: "icon text-primary",
+                          attrs: {
+                            authCurrent: _vm.isCurrentUser(_vm.authUser),
+                            currentUser: _vm.journal.current_user.name
+                          }
+                        })
+                      : _c(
                           "a",
                           {
                             staticClass: "text-primary handle icon px-1",
@@ -91004,26 +91006,8 @@ var render = function() {
                           ],
                           1
                         )
-                      : [_vm._v(" ")]
                   ],
-                  2
-                ),
-                _vm._v(" "),
-                _c(
-                  "td",
-                  { staticClass: "align-middle" },
-                  [
-                    _vm.isCurrentUser(user)
-                      ? _c("current-user-icon", {
-                          staticClass: "icon text-primary",
-                          attrs: {
-                            authCurrent: _vm.isCurrentUser(_vm.authUser),
-                            currentUser: _vm.journal.current_user.name
-                          }
-                        })
-                      : [_vm._v(" ")]
-                  ],
-                  2
+                  1
                 ),
                 _vm._v(" "),
                 _c("td", { staticClass: "align-middle" }, [
@@ -91073,8 +91057,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { staticClass: "border-top-0" }, [_vm._v(" ")]),
-        _vm._v(" "),
         _c("th", { staticClass: "border-top-0" }, [_vm._v(" ")]),
         _vm._v(" "),
         _c("th", { staticClass: "border-top-0" }, [_vm._v("Name")]),
