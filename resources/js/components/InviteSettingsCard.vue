@@ -13,47 +13,33 @@
             </thead>
             <tbody>
 
-                <tr v-for="invite in pendingInvites" :key="'invite' + invite.id">
+                <tr v-for="invite in [...acceptedInvites, ...pendingInvites, ...declinedInvites]" :key="'invite' + invite.id">
                     <td class="align-middle action-col">
-                        <a :href="resendUrl(invite.id)" class="action px-1 py-0" data-toggle="tooltip" data-placement="top" title="Resend this invite">
-                            <font-awesome-icon icon="envelope" />
-                        </a>
-                        <form method="POST" :action="deleteUrl(invite.id)" class="d-inline">
-                            <input type="hidden" name="_token" :value="csrf">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="action btn btn-sm btn-link px-1 py-0" data-toggle="tooltip" data-placement="top" title="Delete this invite">
-                                <font-awesome-icon icon="trash-alt" />
-                            </button>
-                        </form>
+                        <template v-if="invite.accepted_at">&nbsp;</template>
+                        <template v-else>
+                            <a :href="resendUrl(invite.id)" class="action px-1 py-0" data-toggle="tooltip" data-placement="top" title="Resend this invite">
+                                <font-awesome-icon icon="envelope" />
+                            </a>
+                            <form method="POST" :action="deleteUrl(invite.id)" class="d-inline">
+                                <input type="hidden" name="_token" :value="csrf">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button type="submit" class="action btn btn-sm btn-link px-1 py-0" data-toggle="tooltip" data-placement="top" title="Delete this invite">
+                                    <font-awesome-icon icon="trash-alt" />
+                                </button>
+                            </form>
+                        </template>
                     </td>
-                    <td class="align-middle">
-                        {{ invite.name }}
-                    </td>
-                    <td class="align-middle">{{ invite.email }}</td>
-                    <td class="align-middle">
-                        <span class="p-1 badge badge-secondary text-uppercase" data-toggle="tooltip" data-placement="top" :title="invitedTip(invite.name)">invited</span> {{ on(invite.updated_at) }}
-                    </td>
-                </tr>
 
-                <tr v-for="invite in declinedInvites" class="text-black-50" :key="'invite' + invite.id">
-                    <td class="align-middle action-col">
-                        <a :href="resendUrl(invite.id)" class="action px-1 py-0" data-toggle="tooltip" data-placement="top" title="Resend this invite">
-                            <font-awesome-icon icon="envelope" />
-                        </a>
-                        <form method="POST" :action="deleteUrl(invite.id)" class="d-inline">
-                            <input type="hidden" name="_token" :value="csrf">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="action btn btn-sm btn-link px-1 py-0" data-toggle="tooltip" data-placement="top" title="Delete this invite">
-                                <font-awesome-icon icon="trash-alt" />
-                            </button>
-                        </form>
-                    </td>
-                    <td class="align-middle">
-                        {{ invite.name }}
-                    </td>
+                    <td class="align-middle">{{ invite.name }}</td>
+
                     <td class="align-middle">{{ invite.email }}</td>
+
                     <td class="align-middle">
-                        <span class="p-1 badge badge-danger text-uppercase" data-toggle="tooltip" data-placement="top" :title="declinedTip(invite.name)">declined</span> {{ on(invite.declined_at) }}
+                        <span class="p-1 badge text-uppercase"
+                            :class="badgeClass(invite)"
+                            data-toggle="tooltip"
+                            data-placement="top"
+                            :title="toolTip(invite)">{{ status(invite) }}</span> {{ on(invite.updated_at) }}
                     </td>
                 </tr>
 
@@ -97,59 +83,16 @@
 <script>
 export default {
     props: {
-        authUserJson: {
-            type: String,
-            default: '{}'
-        },
-        usersJson: {
-            type: String,
-            default: '{}'
-        },
-        invitesJson: {
-            type: String,
-            default: '{}'
-        },
-        authUserCanInvite: {
-            type: Boolean,
-            default: false
-        },
-        inviteUrl: {
-            type: String,
-            default: ''
-        },
-        oldName: {
-            type: String,
-            default: ''
-        },
-        oldEmail: {
-            type: String,
-            default: ''
-        },
-        verificationResendUrl: {
-            type: String,
-            default: ''
-        },
-        errorsJson: {
-            type: String,
-            default: '{}'
-        },
-        csrf: {
-            type: String,
-            required: true
-        }
-    },
-
-    data() {
-        return {
-            dateFormatObj: {
-                sameDay: '[today at] h:ssa',
-                nextDay: '[tomorrow at] h:ssa',
-                nextWeek: 'dddd [at] h:ssa',
-                lastDay: '[yesterday at] h:ssa',
-                lastWeek: '[last] dddd [at] h:ssa',
-                sameElse: 'DD/MM/YYYY [at] h:ssa'
-            }
-        };
+        authUserJson:          { type: String, default: '{}' },
+        usersJson:             { type: String, default: '{}' },
+        invitesJson:           { type: String, default: '{}' },
+        authUserCanInvite:     { type: Boolean, default: false },
+        inviteUrl:             { type: String, default: '' },
+        oldName:               { type: String, default: '' },
+        oldEmail:              { type: String, default: '' },
+        verificationResendUrl: { type: String, default: '' },
+        errorsJson:            { type: String, default: '{}' },
+        csrf:                  { type: String, required: true }
     },
 
     computed: {
@@ -159,11 +102,14 @@ export default {
         invites: function() {
             return JSON.parse(this.invitesJson);
         },
+        acceptedInvites: function () {
+            return this.invites.filter((invite) => invite.accepted_at);
+        },
         pendingInvites: function() {
-            return this.invites.filter((item) => !item.declined_at && !item.accepted_at);
+            return this.invites.filter((invite) => !invite.declined_at && !invite.accepted_at);
         },
         declinedInvites: function() {
-            return this.invites.filter((item) => item.declined_at);
+            return this.invites.filter((invite) => invite.declined_at);
         },
         errors: function() {
             return JSON.parse(this.errorsJson);
@@ -172,17 +118,23 @@ export default {
 
     methods: {
         on(date) {
-            return Moment(date).calendar(null, this.dateFormatObj);
+            return Moment(date).calendar(null, this.$root.dateFormatObj);
         },
         inviteClassObj(invite) {
-            let classObj = {};
             if (invite.declined_at) {
-                classObj = {
+                return {
                     'text-black-50': true,
                     'font-italic': true
-                }
+                };
             }
-            return classObj;
+            return {};
+        },
+        badgeClass(invite) {
+            return {
+                'badge-dark'     : invite.accepted_at,
+                'badge-secondary': !invite.declined_at && !invite.accepted_at,
+                'badge-danger'   : invite.declined_at
+            };
         },
         resendUrl(invite) {
             return '/invite/' + invite + '/resend';
@@ -190,11 +142,22 @@ export default {
         deleteUrl(invite) {
             return '/invite/' + invite;
         },
-        invitedTip(name) {
-            return "An invitation to join has been sent to " + name;
+        toolTip(invite) {
+            switch (this.status(invite)) {
+                case 'Accepted': return invite.name + " has accepted the invite to join this journal";
+                case 'Declined': return invite.name + " has declined to join this journal";
+                case 'Invited' : return invite.name + " has been invited to join this journal";
+            }
         },
-        declinedTip(name) {
-            return name + " has declined to join this journal";
+        status(invite) {
+            if (invite.accepted_at) {
+                return 'Accepted';
+            }
+            if (invite.declined_at) {
+                return 'Declined';
+            }
+            // Default
+            return 'Invited';
         }
     }
 }
