@@ -75338,10 +75338,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -75413,11 +75409,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         toolTip: function toolTip(invite) {
             switch (this.status(invite)) {
                 case 'Accepted':
-                    return invite.name + " has accepted the invite to join this journal";
+                    return "<strong>" + invite.name + "</strong> has <strong>accepted</strong> the invite to join this journal";
                 case 'Declined':
-                    return invite.name + " has declined to join this journal";
+                    return "<strong>" + invite.name + "</strong> has <strong>declined</strong> to join this journal";
                 case 'Invited':
-                    return invite.name + " has been invited to join this journal";
+                    return "<strong>" + invite.name + "</strong> has been <strong>invited</strong> to join this journal";
             }
         },
         status: function status(invite) {
@@ -75547,26 +75543,33 @@ var render = function() {
                         _vm._v(_vm._s(invite.email))
                       ]),
                       _vm._v(" "),
-                      _c("td", { staticClass: "align-middle" }, [
-                        _c(
-                          "span",
-                          {
-                            staticClass: "p-1 badge text-uppercase",
-                            class: _vm.badgeClass(invite),
-                            attrs: {
-                              "data-toggle": "tooltip",
-                              "data-placement": "top",
-                              title: _vm.toolTip(invite)
-                            }
-                          },
-                          [_vm._v(_vm._s(_vm.status(invite)))]
-                        ),
-                        _vm._v(
-                          " " +
-                            _vm._s(_vm.on(invite.updated_at)) +
-                            "\n                "
-                        )
-                      ])
+                      _c(
+                        "td",
+                        {
+                          staticClass: "align-middle",
+                          attrs: {
+                            "data-toggle": "tooltip",
+                            "data-placement": "left",
+                            "data-html": "true",
+                            title: _vm.toolTip(invite)
+                          }
+                        },
+                        [
+                          _c(
+                            "span",
+                            {
+                              staticClass: "p-1 badge text-uppercase",
+                              class: _vm.badgeClass(invite)
+                            },
+                            [_vm._v(_vm._s(_vm.status(invite)))]
+                          ),
+                          _vm._v(
+                            " " +
+                              _vm._s(_vm.on(invite.updated_at)) +
+                              "\n                "
+                          )
+                        ]
+                      )
                     ])
                   }
                 )

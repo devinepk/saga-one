@@ -34,12 +34,8 @@
 
                     <td class="align-middle">{{ invite.email }}</td>
 
-                    <td class="align-middle">
-                        <span class="p-1 badge text-uppercase"
-                            :class="badgeClass(invite)"
-                            data-toggle="tooltip"
-                            data-placement="top"
-                            :title="toolTip(invite)">{{ status(invite) }}</span> {{ on(invite.updated_at) }}
+                    <td class="align-middle" data-toggle="tooltip" data-placement="left" data-html="true" :title="toolTip(invite)">
+                        <span class="p-1 badge text-uppercase" :class="badgeClass(invite)">{{ status(invite) }}</span> {{ on(invite.updated_at) }}
                     </td>
                 </tr>
 
@@ -144,9 +140,9 @@ export default {
         },
         toolTip(invite) {
             switch (this.status(invite)) {
-                case 'Accepted': return invite.name + " has accepted the invite to join this journal";
-                case 'Declined': return invite.name + " has declined to join this journal";
-                case 'Invited' : return invite.name + " has been invited to join this journal";
+                case 'Accepted': return "<strong>" + invite.name + "</strong> has <strong>accepted</strong> the invite to join this journal";
+                case 'Declined': return "<strong>" + invite.name + "</strong> has <strong>declined</strong> to join this journal";
+                case 'Invited' : return "<strong>" + invite.name + "</strong> has been <strong>invited</strong> to join this journal";
             }
         },
         status(invite) {
