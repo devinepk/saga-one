@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        'App\Console\Commands\RegisteredUsers'
+        'App\Console\Commands\RegisteredUsers',
+        'App\Console\Commands\RotateJournals'
     ];
 
     /**
@@ -24,7 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('registered:users')->everyMinute();
+        $schedule->command('registered:users')->daily()->environments(['staging', 'production']);
         $schedule->command('journals:rotate')->everyMinute();
     }
 
