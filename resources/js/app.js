@@ -79,7 +79,9 @@ const app = new Vue({
     },
 
     mounted() {
-        // Activate all tooltips
-        $('[data-toggle="tooltip"]').tooltip();
+        this.$nextTick(function () {
+            // Wait until all components have been mounted, then activate all tooltips
+            $('[data-toggle="tooltip"]').tooltip();
+        });
     }
 });

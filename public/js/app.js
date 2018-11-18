@@ -33512,8 +33512,10 @@ var app = new Vue({
     },
 
     mounted: function mounted() {
-        // Activate all tooltips
-        $('[data-toggle="tooltip"]').tooltip();
+        this.$nextTick(function () {
+            // Wait until all components have been mounted, then activate all tooltips
+            $('[data-toggle="tooltip"]').tooltip();
+        });
     }
 });
 
@@ -75467,7 +75469,7 @@ var render = function() {
     _c("h2", { staticClass: "card-header" }, [_vm._v("Invites")]),
     _vm._v(" "),
     _c("div", { staticClass: "table-responsive" }, [
-      _vm.invites.length
+      _vm.pendingInvites.length
         ? _c(
             "table",
             {
@@ -90841,6 +90843,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -90872,14 +90875,18 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("font-awesome-icon", {
-    attrs: {
-      icon: "book-reader",
-      "data-toggle": "tooltip",
-      "data-placement": "top",
-      title: _vm.queueTip
-    }
-  })
+  return _c(
+    "span",
+    {
+      attrs: {
+        "data-toggle": "tooltip",
+        "data-placement": "top",
+        title: _vm.queueTip
+      }
+    },
+    [_c("font-awesome-icon", { attrs: { icon: "book-reader" } })],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

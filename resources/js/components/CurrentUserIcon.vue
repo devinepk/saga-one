@@ -1,8 +1,9 @@
 <template>
-    <font-awesome-icon
-        icon="book-reader"
-        data-toggle="tooltip" data-placement="top" :title="queueTip"
-    />
+    <span data-toggle="tooltip" data-placement="top" :title="queueTip">
+        <font-awesome-icon
+            icon="book-reader"
+        />
+    </span>
 </template>
 
 <script>
