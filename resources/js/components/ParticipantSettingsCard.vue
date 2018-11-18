@@ -1,9 +1,17 @@
 <template>
     <div class="card mb-5">
-        <h2 class="card-header">Participants</h2>
+
+        <div class="card-header">
+            <transition name="fade">
+                <span v-if="saveStatus" class="float-right mt-1" :class="saveClass">{{ saveStatus }}</span>
+            </transition>
+            <h2 class="m-0">Participants</h2>
+        </div>
+
         <div class="card-body">
             <p class="m-0">Drag and drop the journal participants below to set the turn order you like. You may change the order at any time, but altering the order won't change who has the journal right now.</p>
         </div>
+
         <div class="table-responsive position-relative">
             <table class="table table-hover small text-nowrap mb-0">
                 <thead>
@@ -40,17 +48,8 @@
                     </tr>
                 </tbody>
             </table>
-
-            <transition name="fade">
-                <div v-if="savingInProgress" class="saving-overlay text-light d-flex justify-content-center align-items-center">
-                    <p class="h1">
-                        <font-awesome-icon icon="spinner" :spin="true" />
-                        <span class="ml-1">Saving...</span>
-                    </p>
-                </div>
-            </transition>
-
         </div>
+
     </div>
 </template>
 
@@ -83,11 +82,18 @@ export default {
             scroll: false,
             update: self.postQueueUpdate
         });
+
+        // Take a snapshot of initial state in case we need to undo changes.
+        this.rollback = $( "#participants" ).sortable( "toArray" );
     },
 
     data() {
         return {
-            savingInProgress: false
+            savingInProgress: false,
+            rollback: null,
+            savingInProgress: false,
+            saveStatus: '',
+            saveError: false
         };
     },
 
@@ -103,6 +109,14 @@ export default {
             // Use a computed property because direct calls to $root may be made
             // before the journal is loaded there.
             return this.$root.journal;
+        },
+        saveClass: function() {
+            return {
+                'text-muted': this.savingInProgress,
+                'font-weight-bold': !this.savingInProgress,
+                'text-primary': !this.saveError,
+                'text-danger': this.saveError
+            };
         }
     },
 
@@ -118,22 +132,42 @@ export default {
         postQueueUpdate(event, ui) {
             let self = this;
             self.savingInProgress = true;
+            self.saveStatus = 'Saving...';
 
             let new_queue = $( "#participants" ).sortable( "toArray" );
 
             // Prepend the current user (which isn't draggable) to the new_queue
             new_queue.unshift("user" + this.journal.current_user.id);
-            console.log(new_queue);
 
             // Post to the app to save the new queue
             axios.post(self.queueUrl, { new_queue: new_queue } )
                 .then(function (response) {
-                    setTimeout(() => { self.savingInProgress = false; }, 1000);
-                    Event.$emit('queueUpdated', { new_queue: new_queue } );
+                    Event.$emit('queueUpdateSuccess', { queue: response.data.new } );
+                    self.savingInProgress = false;
+                    self.saveStatus = 'Saved!';
+                    setTimeout(self.resetSaveStatus, 2000);
                 })
                 .catch(function (error) {
-                    console.error(error);
+                    Event.$emit('queueUpdateFailure', self.rollback);
+                    self.savingInProgress = false;
+                    self.saveError = true;
+                    self.saveStatus = 'Failed to save!';
+                    setTimeout(self.resetSaveStatus, 2000);
+
+                    if (error.response) {
+                        console.error('Response received:', error.response);
+                    } else if (error.request) {
+                        console.error('Request sent:', error.request);
+                    } else {
+                        console.error('Config:', error.config);
+                    }
+
                 });
+        },
+
+        resetSaveStatus() {
+            this.saveStatus = '';
+            this.saveError = false;
         }
     }
 }

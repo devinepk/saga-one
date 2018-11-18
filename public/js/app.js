@@ -75467,226 +75467,237 @@ var render = function() {
     _c("h2", { staticClass: "card-header" }, [_vm._v("Invites")]),
     _vm._v(" "),
     _c("div", { staticClass: "table-responsive" }, [
-      _c(
-        "table",
-        {
-          staticClass: "table table-hover small text-nowrap border-bottom mb-0"
-        },
-        [
-          _vm._m(0),
-          _vm._v(" "),
-          _c(
-            "tbody",
+      _vm.invites.length
+        ? _c(
+            "table",
+            {
+              staticClass:
+                "table table-hover small text-nowrap border-bottom mb-0"
+            },
             [
-              _vm._l(_vm.pendingInvites, function(invite) {
-                return _c("tr", { key: "invite" + invite.id }, [
-                  _c("td", { staticClass: "align-middle action-col" }, [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "action px-1 py-0",
-                        attrs: {
-                          href: _vm.resendUrl(invite.id),
-                          "data-toggle": "tooltip",
-                          "data-placement": "top",
-                          title: "Resend this invite"
-                        }
-                      },
-                      [
-                        _c("font-awesome-icon", { attrs: { icon: "envelope" } })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "form",
-                      {
-                        staticClass: "d-inline",
-                        attrs: {
-                          method: "POST",
-                          action: _vm.deleteUrl(invite.id)
-                        }
-                      },
-                      [
-                        _c("input", {
-                          attrs: { type: "hidden", name: "_token" },
-                          domProps: { value: _vm.csrf }
-                        }),
-                        _vm._v(" "),
-                        _c("input", {
-                          attrs: {
-                            type: "hidden",
-                            name: "_method",
-                            value: "DELETE"
-                          }
-                        }),
-                        _vm._v(" "),
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                [
+                  _vm._l(_vm.pendingInvites, function(invite) {
+                    return _c("tr", { key: "invite" + invite.id }, [
+                      _c("td", { staticClass: "align-middle action-col" }, [
                         _c(
-                          "button",
+                          "a",
                           {
-                            staticClass: "action btn btn-sm btn-link px-1 py-0",
+                            staticClass: "action px-1 py-0",
                             attrs: {
-                              type: "submit",
+                              href: _vm.resendUrl(invite.id),
                               "data-toggle": "tooltip",
                               "data-placement": "top",
-                              title: "Delete this invite"
+                              title: "Resend this invite"
                             }
                           },
                           [
                             _c("font-awesome-icon", {
-                              attrs: { icon: "trash-alt" }
+                              attrs: { icon: "envelope" }
                             })
                           ],
                           1
-                        )
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "align-middle" }, [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(invite.name) +
-                        "\n                "
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "align-middle" }, [
-                    _vm._v(_vm._s(invite.email))
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "align-middle" }, [
-                    _c(
-                      "span",
-                      {
-                        staticClass: "p-1 badge badge-secondary text-uppercase",
-                        attrs: {
-                          "data-toggle": "tooltip",
-                          "data-placement": "top",
-                          title: _vm.invitedTip(invite.name)
-                        }
-                      },
-                      [_vm._v("invited")]
-                    ),
-                    _vm._v(
-                      " " +
-                        _vm._s(_vm.on(invite.updated_at)) +
-                        "\n                "
-                    )
-                  ])
-                ])
-              }),
-              _vm._v(" "),
-              _vm._l(_vm.declinedInvites, function(invite) {
-                return _c(
-                  "tr",
-                  { key: "invite" + invite.id, staticClass: "text-black-50" },
-                  [
-                    _c("td", { staticClass: "align-middle action-col" }, [
-                      _c(
-                        "a",
-                        {
-                          staticClass: "action px-1 py-0",
-                          attrs: {
-                            href: _vm.resendUrl(invite.id),
-                            "data-toggle": "tooltip",
-                            "data-placement": "top",
-                            title: "Resend this invite"
-                          }
-                        },
-                        [
-                          _c("font-awesome-icon", {
-                            attrs: { icon: "envelope" }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "form",
-                        {
-                          staticClass: "d-inline",
-                          attrs: {
-                            method: "POST",
-                            action: _vm.deleteUrl(invite.id)
-                          }
-                        },
-                        [
-                          _c("input", {
-                            attrs: { type: "hidden", name: "_token" },
-                            domProps: { value: _vm.csrf }
-                          }),
-                          _vm._v(" "),
-                          _c("input", {
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "form",
+                          {
+                            staticClass: "d-inline",
                             attrs: {
-                              type: "hidden",
-                              name: "_method",
-                              value: "DELETE"
+                              method: "POST",
+                              action: _vm.deleteUrl(invite.id)
                             }
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass:
-                                "action btn btn-sm btn-link px-1 py-0",
+                          },
+                          [
+                            _c("input", {
+                              attrs: { type: "hidden", name: "_token" },
+                              domProps: { value: _vm.csrf }
+                            }),
+                            _vm._v(" "),
+                            _c("input", {
                               attrs: {
-                                type: "submit",
+                                type: "hidden",
+                                name: "_method",
+                                value: "DELETE"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "action btn btn-sm btn-link px-1 py-0",
+                                attrs: {
+                                  type: "submit",
+                                  "data-toggle": "tooltip",
+                                  "data-placement": "top",
+                                  title: "Delete this invite"
+                                }
+                              },
+                              [
+                                _c("font-awesome-icon", {
+                                  attrs: { icon: "trash-alt" }
+                                })
+                              ],
+                              1
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "align-middle" }, [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(invite.name) +
+                            "\n                "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "align-middle" }, [
+                        _vm._v(_vm._s(invite.email))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "align-middle" }, [
+                        _c(
+                          "span",
+                          {
+                            staticClass:
+                              "p-1 badge badge-secondary text-uppercase",
+                            attrs: {
+                              "data-toggle": "tooltip",
+                              "data-placement": "top",
+                              title: _vm.invitedTip(invite.name)
+                            }
+                          },
+                          [_vm._v("invited")]
+                        ),
+                        _vm._v(
+                          " " +
+                            _vm._s(_vm.on(invite.updated_at)) +
+                            "\n                "
+                        )
+                      ])
+                    ])
+                  }),
+                  _vm._v(" "),
+                  _vm._l(_vm.declinedInvites, function(invite) {
+                    return _c(
+                      "tr",
+                      {
+                        key: "invite" + invite.id,
+                        staticClass: "text-black-50"
+                      },
+                      [
+                        _c("td", { staticClass: "align-middle action-col" }, [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "action px-1 py-0",
+                              attrs: {
+                                href: _vm.resendUrl(invite.id),
                                 "data-toggle": "tooltip",
                                 "data-placement": "top",
-                                title: "Delete this invite"
+                                title: "Resend this invite"
                               }
                             },
                             [
                               _c("font-awesome-icon", {
-                                attrs: { icon: "trash-alt" }
+                                attrs: { icon: "envelope" }
                               })
                             ],
                             1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "form",
+                            {
+                              staticClass: "d-inline",
+                              attrs: {
+                                method: "POST",
+                                action: _vm.deleteUrl(invite.id)
+                              }
+                            },
+                            [
+                              _c("input", {
+                                attrs: { type: "hidden", name: "_token" },
+                                domProps: { value: _vm.csrf }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                attrs: {
+                                  type: "hidden",
+                                  name: "_method",
+                                  value: "DELETE"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "action btn btn-sm btn-link px-1 py-0",
+                                  attrs: {
+                                    type: "submit",
+                                    "data-toggle": "tooltip",
+                                    "data-placement": "top",
+                                    title: "Delete this invite"
+                                  }
+                                },
+                                [
+                                  _c("font-awesome-icon", {
+                                    attrs: { icon: "trash-alt" }
+                                  })
+                                ],
+                                1
+                              )
+                            ]
                           )
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "align-middle" }, [
-                      _vm._v(
-                        "\n                    " +
-                          _vm._s(invite.name) +
-                          "\n                "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "align-middle" }, [
-                      _vm._v(_vm._s(invite.email))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "align-middle" }, [
-                      _c(
-                        "span",
-                        {
-                          staticClass: "p-1 badge badge-danger text-uppercase",
-                          attrs: {
-                            "data-toggle": "tooltip",
-                            "data-placement": "top",
-                            title: _vm.declinedTip(invite.name)
-                          }
-                        },
-                        [_vm._v("declined")]
-                      ),
-                      _vm._v(
-                        " " +
-                          _vm._s(_vm.on(invite.declined_at)) +
-                          "\n                "
-                      )
-                    ])
-                  ]
-                )
-              })
-            ],
-            2
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "align-middle" }, [
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(invite.name) +
+                              "\n                "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "align-middle" }, [
+                          _vm._v(_vm._s(invite.email))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "align-middle" }, [
+                          _c(
+                            "span",
+                            {
+                              staticClass:
+                                "p-1 badge badge-danger text-uppercase",
+                              attrs: {
+                                "data-toggle": "tooltip",
+                                "data-placement": "top",
+                                title: _vm.declinedTip(invite.name)
+                              }
+                            },
+                            [_vm._v("declined")]
+                          ),
+                          _vm._v(
+                            " " +
+                              _vm._s(_vm.on(invite.declined_at)) +
+                              "\n                "
+                          )
+                        ])
+                      ]
+                    )
+                  })
+                ],
+                2
+              )
+            ]
           )
-        ]
-      )
+        : _vm._e()
     ]),
     _vm._v(" "),
     _c(
@@ -76802,7 +76813,8 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -76887,11 +76899,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             scroll: false,
             update: self.postQueueUpdate
         });
+
+        // Take a snapshot of initial state in case we need to undo changes.
+        this.rollback = $("#participants").sortable("toArray");
     },
     data: function data() {
-        return {
-            savingInProgress: false
-        };
+        var _ref;
+
+        return _ref = {
+            savingInProgress: false,
+            rollback: null
+        }, _defineProperty(_ref, 'savingInProgress', false), _defineProperty(_ref, 'saveStatus', ''), _defineProperty(_ref, 'saveError', false), _ref;
     },
 
 
@@ -76907,6 +76925,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             // Use a computed property because direct calls to $root may be made
             // before the journal is loaded there.
             return this.$root.journal;
+        },
+        saveClass: function saveClass() {
+            return {
+                'text-muted': this.savingInProgress,
+                'font-weight-bold': !this.savingInProgress,
+                'text-primary': !this.saveError,
+                'text-danger': this.saveError
+            };
         }
     },
 
@@ -76920,22 +76946,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         postQueueUpdate: function postQueueUpdate(event, ui) {
             var self = this;
             self.savingInProgress = true;
+            self.saveStatus = 'Saving...';
 
             var new_queue = $("#participants").sortable("toArray");
 
             // Prepend the current user (which isn't draggable) to the new_queue
             new_queue.unshift("user" + this.journal.current_user.id);
-            console.log(new_queue);
 
             // Post to the app to save the new queue
             axios.post(self.queueUrl, { new_queue: new_queue }).then(function (response) {
-                setTimeout(function () {
-                    self.savingInProgress = false;
-                }, 1000);
-                Event.$emit('queueUpdated', { new_queue: new_queue });
+                Event.$emit('queueUpdateSuccess', { queue: response.data.new });
+                self.savingInProgress = false;
+                self.saveStatus = 'Saved!';
+                setTimeout(self.resetSaveStatus, 2000);
             }).catch(function (error) {
-                console.error(error);
+                Event.$emit('queueUpdateFailure', self.rollback);
+                self.savingInProgress = false;
+                self.saveError = true;
+                self.saveStatus = 'Failed to save!';
+                setTimeout(self.resetSaveStatus, 2000);
+
+                if (error.response) {
+                    console.error('Response received:', error.response);
+                } else if (error.request) {
+                    console.error('Request sent:', error.request);
+                } else {
+                    console.error('Config:', error.config);
+                }
             });
+        },
+        resetSaveStatus: function resetSaveStatus() {
+            this.saveStatus = '';
+            this.saveError = false;
         }
     }
 });
@@ -90871,131 +90913,113 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card mb-5" }, [
-    _c("h2", { staticClass: "card-header" }, [_vm._v("Participants")]),
+    _c(
+      "div",
+      { staticClass: "card-header" },
+      [
+        _c("transition", { attrs: { name: "fade" } }, [
+          _vm.saveStatus
+            ? _c(
+                "span",
+                { staticClass: "float-right mt-1", class: _vm.saveClass },
+                [_vm._v(_vm._s(_vm.saveStatus))]
+              )
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("h2", { staticClass: "m-0" }, [_vm._v("Participants")])
+      ],
+      1
+    ),
     _vm._v(" "),
     _vm._m(0),
     _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "table-responsive position-relative" },
-      [
-        _c(
-          "table",
-          { staticClass: "table table-hover small text-nowrap mb-0" },
-          [
-            _vm._m(1),
-            _vm._v(" "),
-            _c(
-              "tbody",
-              { attrs: { id: "participants" } },
-              _vm._l(_vm.users, function(user) {
-                return _c(
-                  "tr",
-                  {
-                    key: "user" + user.id,
-                    class: { draggable: !_vm.isCurrentUser(user) },
-                    attrs: { id: "user" + user.id }
-                  },
-                  [
-                    _c(
-                      "td",
-                      { staticClass: "align-middle text-center" },
-                      [
-                        !_vm.isCurrentUser(user)
-                          ? _c(
-                              "a",
-                              {
-                                staticClass: "text-primary handle icon px-1",
-                                attrs: {
-                                  "data-toggle": "tooltip",
-                                  "data-placement": "top",
-                                  title: "Drag to reorder"
-                                }
-                              },
-                              [
-                                _c("font-awesome-icon", {
-                                  attrs: { icon: "grip-horizontal" }
-                                })
-                              ],
-                              1
-                            )
-                          : [_vm._v(" ")]
-                      ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      { staticClass: "align-middle" },
-                      [
-                        _vm.isCurrentUser(user)
-                          ? _c("current-user-icon", {
-                              staticClass: "icon text-primary",
-                              attrs: {
-                                authCurrent: _vm.isCurrentUser(_vm.authUser),
-                                currentUser: _vm.journal.current_user.name
-                              }
-                            })
-                          : [_vm._v(" ")]
-                      ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "align-middle" }, [
-                      _vm._v(
-                        "\n                        " + _vm._s(user.name) + " "
-                      ),
-                      user.id == _vm.authUser.id
-                        ? _c("span", { staticClass: "text-muted" }, [
-                            _vm._v("(you)")
-                          ])
-                        : _vm._e()
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "align-middle" }, [
-                      _vm._v(_vm._s(user.email))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "align-middle" }, [
-                      _vm._v(
-                        "Joined " + _vm._s(_vm.on(user.subscription.created_at))
-                      )
-                    ])
-                  ]
-                )
-              })
-            )
-          ]
-        ),
+    _c("div", { staticClass: "table-responsive position-relative" }, [
+      _c("table", { staticClass: "table table-hover small text-nowrap mb-0" }, [
+        _vm._m(1),
         _vm._v(" "),
-        _c("transition", { attrs: { name: "fade" } }, [
-          _vm.savingInProgress
-            ? _c(
-                "div",
-                {
-                  staticClass:
-                    "saving-overlay text-light d-flex justify-content-center align-items-center"
-                },
-                [
-                  _c(
-                    "p",
-                    { staticClass: "h1" },
-                    [
-                      _c("font-awesome-icon", {
-                        attrs: { icon: "spinner", spin: true }
-                      }),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "ml-1" }, [_vm._v("Saving...")])
-                    ],
-                    1
+        _c(
+          "tbody",
+          { attrs: { id: "participants" } },
+          _vm._l(_vm.users, function(user) {
+            return _c(
+              "tr",
+              {
+                key: "user" + user.id,
+                class: { draggable: !_vm.isCurrentUser(user) },
+                attrs: { id: "user" + user.id }
+              },
+              [
+                _c(
+                  "td",
+                  { staticClass: "align-middle text-center" },
+                  [
+                    !_vm.isCurrentUser(user)
+                      ? _c(
+                          "a",
+                          {
+                            staticClass: "text-primary handle icon px-1",
+                            attrs: {
+                              "data-toggle": "tooltip",
+                              "data-placement": "top",
+                              title: "Drag to reorder"
+                            }
+                          },
+                          [
+                            _c("font-awesome-icon", {
+                              attrs: { icon: "grip-horizontal" }
+                            })
+                          ],
+                          1
+                        )
+                      : [_vm._v(" ")]
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "td",
+                  { staticClass: "align-middle" },
+                  [
+                    _vm.isCurrentUser(user)
+                      ? _c("current-user-icon", {
+                          staticClass: "icon text-primary",
+                          attrs: {
+                            authCurrent: _vm.isCurrentUser(_vm.authUser),
+                            currentUser: _vm.journal.current_user.name
+                          }
+                        })
+                      : [_vm._v(" ")]
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c("td", { staticClass: "align-middle" }, [
+                  _vm._v(
+                    "\n                        " + _vm._s(user.name) + " "
+                  ),
+                  user.id == _vm.authUser.id
+                    ? _c("span", { staticClass: "text-muted" }, [
+                        _vm._v("(you)")
+                      ])
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "align-middle" }, [
+                  _vm._v(_vm._s(user.email))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "align-middle" }, [
+                  _vm._v(
+                    "Joined " + _vm._s(_vm.on(user.subscription.created_at))
                   )
-                ]
-              )
-            : _vm._e()
-        ])
-      ],
-      1
-    )
+                ])
+              ]
+            )
+          })
+        )
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
