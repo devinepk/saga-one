@@ -17,10 +17,10 @@
                     <td class="align-middle action-col">
                         <template v-if="invite.accepted_at">&nbsp;</template>
                         <template v-else>
-                            <a :href="resendUrl(invite.id)" class="action px-1 py-0" data-toggle="tooltip" data-placement="top" title="Resend this invite">
+                            <a :href="resendUrl(invite.id)" class="action px-1 py-0 float-left" data-toggle="tooltip" data-placement="top" title="Resend this invite">
                                 <font-awesome-icon icon="envelope" />
                             </a>
-                            <form method="POST" :action="deleteUrl(invite.id)" class="d-inline">
+                            <form method="POST" :action="deleteUrl(invite.id)">
                                 <input type="hidden" name="_token" :value="csrf">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <button type="submit" class="action btn btn-sm btn-link px-1 py-0" data-toggle="tooltip" data-placement="top" title="Delete this invite">

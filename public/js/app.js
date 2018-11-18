@@ -75470,7 +75470,7 @@ var render = function() {
                                 _c(
                                   "a",
                                   {
-                                    staticClass: "action px-1 py-0",
+                                    staticClass: "action px-1 py-0 float-left",
                                     attrs: {
                                       href: _vm.resendUrl(invite.id),
                                       "data-toggle": "tooltip",
@@ -75489,7 +75489,6 @@ var render = function() {
                                 _c(
                                   "form",
                                   {
-                                    staticClass: "d-inline",
                                     attrs: {
                                       method: "POST",
                                       action: _vm.deleteUrl(invite.id)
