@@ -33508,7 +33508,16 @@ var app = new Vue({
     el: '#app',
 
     data: {
-        journal: {}
+        journal: {},
+        // format used by components calling Moment().calendar()
+        dateFormatObj: {
+            sameDay: '[today at] h:ssa',
+            nextDay: '[tomorrow at] h:ssa',
+            nextWeek: 'dddd [at] h:ssa',
+            lastDay: '[yesterday at] h:ssa',
+            lastWeek: '[last] dddd [at] h:ssa',
+            sameElse: 'DD/MM/YYYY [at] h:ssa'
+        }
     },
 
     mounted: function mounted() {
@@ -75333,78 +75342,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
-        authUserJson: {
-            type: String,
-            default: '{}'
-        },
-        usersJson: {
-            type: String,
-            default: '{}'
-        },
-        invitesJson: {
-            type: String,
-            default: '{}'
-        },
-        authUserCanInvite: {
-            type: Boolean,
-            default: false
-        },
-        inviteUrl: {
-            type: String,
-            default: ''
-        },
-        oldName: {
-            type: String,
-            default: ''
-        },
-        oldEmail: {
-            type: String,
-            default: ''
-        },
-        verificationResendUrl: {
-            type: String,
-            default: ''
-        },
-        errorsJson: {
-            type: String,
-            default: '{}'
-        },
-        csrf: {
-            type: String,
-            required: true
-        }
+        authUserJson: { type: String, default: '{}' },
+        usersJson: { type: String, default: '{}' },
+        invitesJson: { type: String, default: '{}' },
+        authUserCanInvite: { type: Boolean, default: false },
+        inviteUrl: { type: String, default: '' },
+        oldName: { type: String, default: '' },
+        oldEmail: { type: String, default: '' },
+        verificationResendUrl: { type: String, default: '' },
+        errorsJson: { type: String, default: '{}' },
+        csrf: { type: String, required: true }
     },
-
-    data: function data() {
-        return {
-            dateFormatObj: {
-                sameDay: '[today at] h:ssa',
-                nextDay: '[tomorrow at] h:ssa',
-                nextWeek: 'dddd [at] h:ssa',
-                lastDay: '[yesterday at] h:ssa',
-                lastWeek: '[last] dddd [at] h:ssa',
-                sameElse: 'DD/MM/YYYY [at] h:ssa'
-            }
-        };
-    },
-
 
     computed: {
         authUser: function authUser() {
@@ -75413,14 +75364,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         invites: function invites() {
             return JSON.parse(this.invitesJson);
         },
+        acceptedInvites: function acceptedInvites() {
+            return this.invites.filter(function (invite) {
+                return invite.accepted_at;
+            });
+        },
         pendingInvites: function pendingInvites() {
-            return this.invites.filter(function (item) {
-                return !item.declined_at && !item.accepted_at;
+            return this.invites.filter(function (invite) {
+                return !invite.declined_at && !invite.accepted_at;
             });
         },
         declinedInvites: function declinedInvites() {
-            return this.invites.filter(function (item) {
-                return item.declined_at;
+            return this.invites.filter(function (invite) {
+                return invite.declined_at;
             });
         },
         errors: function errors() {
@@ -75430,17 +75386,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         on: function on(date) {
-            return Moment(date).calendar(null, this.dateFormatObj);
+            return Moment(date).calendar(null, this.$root.dateFormatObj);
         },
         inviteClassObj: function inviteClassObj(invite) {
-            var classObj = {};
             if (invite.declined_at) {
-                classObj = {
+                return {
                     'text-black-50': true,
                     'font-italic': true
                 };
             }
-            return classObj;
+            return {};
+        },
+        badgeClass: function badgeClass(invite) {
+            return {
+                'badge-dark': invite.accepted_at,
+                'badge-secondary': !invite.declined_at && !invite.accepted_at,
+                'badge-danger': invite.declined_at
+            };
         },
         resendUrl: function resendUrl(invite) {
             return '/invite/' + invite + '/resend';
@@ -75448,11 +75410,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         deleteUrl: function deleteUrl(invite) {
             return '/invite/' + invite;
         },
-        invitedTip: function invitedTip(name) {
-            return "An invitation to join has been sent to " + name;
+        toolTip: function toolTip(invite) {
+            switch (this.status(invite)) {
+                case 'Accepted':
+                    return invite.name + " has accepted the invite to join this journal";
+                case 'Declined':
+                    return invite.name + " has declined to join this journal";
+                case 'Invited':
+                    return invite.name + " has been invited to join this journal";
+            }
         },
-        declinedTip: function declinedTip(name) {
-            return name + " has declined to join this journal";
+        status: function status(invite) {
+            if (invite.accepted_at) {
+                return 'Accepted';
+            }
+            if (invite.declined_at) {
+                return 'Declined';
+            }
+            // Default
+            return 'Invited';
         }
     }
 });
@@ -75469,7 +75445,7 @@ var render = function() {
     _c("h2", { staticClass: "card-header" }, [_vm._v("Invites")]),
     _vm._v(" "),
     _c("div", { staticClass: "table-responsive" }, [
-      _vm.pendingInvites.length
+      _vm.invites.length
         ? _c(
             "table",
             {
@@ -75481,81 +75457,90 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "tbody",
-                [
-                  _vm._l(_vm.pendingInvites, function(invite) {
+                _vm._l(
+                  _vm.acceptedInvites.concat(
+                    _vm.pendingInvites,
+                    _vm.declinedInvites
+                  ),
+                  function(invite) {
                     return _c("tr", { key: "invite" + invite.id }, [
-                      _c("td", { staticClass: "align-middle action-col" }, [
-                        _c(
-                          "a",
-                          {
-                            staticClass: "action px-1 py-0",
-                            attrs: {
-                              href: _vm.resendUrl(invite.id),
-                              "data-toggle": "tooltip",
-                              "data-placement": "top",
-                              title: "Resend this invite"
-                            }
-                          },
-                          [
-                            _c("font-awesome-icon", {
-                              attrs: { icon: "envelope" }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "form",
-                          {
-                            staticClass: "d-inline",
-                            attrs: {
-                              method: "POST",
-                              action: _vm.deleteUrl(invite.id)
-                            }
-                          },
-                          [
-                            _c("input", {
-                              attrs: { type: "hidden", name: "_token" },
-                              domProps: { value: _vm.csrf }
-                            }),
-                            _vm._v(" "),
-                            _c("input", {
-                              attrs: {
-                                type: "hidden",
-                                name: "_method",
-                                value: "DELETE"
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass:
-                                  "action btn btn-sm btn-link px-1 py-0",
-                                attrs: {
-                                  type: "submit",
-                                  "data-toggle": "tooltip",
-                                  "data-placement": "top",
-                                  title: "Delete this invite"
-                                }
-                              },
-                              [
-                                _c("font-awesome-icon", {
-                                  attrs: { icon: "trash-alt" }
-                                })
-                              ],
-                              1
-                            )
-                          ]
-                        )
-                      ]),
+                      _c(
+                        "td",
+                        { staticClass: "align-middle action-col" },
+                        [
+                          invite.accepted_at
+                            ? [_vm._v(" ")]
+                            : [
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "action px-1 py-0",
+                                    attrs: {
+                                      href: _vm.resendUrl(invite.id),
+                                      "data-toggle": "tooltip",
+                                      "data-placement": "top",
+                                      title: "Resend this invite"
+                                    }
+                                  },
+                                  [
+                                    _c("font-awesome-icon", {
+                                      attrs: { icon: "envelope" }
+                                    })
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "form",
+                                  {
+                                    staticClass: "d-inline",
+                                    attrs: {
+                                      method: "POST",
+                                      action: _vm.deleteUrl(invite.id)
+                                    }
+                                  },
+                                  [
+                                    _c("input", {
+                                      attrs: { type: "hidden", name: "_token" },
+                                      domProps: { value: _vm.csrf }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      attrs: {
+                                        type: "hidden",
+                                        name: "_method",
+                                        value: "DELETE"
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "action btn btn-sm btn-link px-1 py-0",
+                                        attrs: {
+                                          type: "submit",
+                                          "data-toggle": "tooltip",
+                                          "data-placement": "top",
+                                          title: "Delete this invite"
+                                        }
+                                      },
+                                      [
+                                        _c("font-awesome-icon", {
+                                          attrs: { icon: "trash-alt" }
+                                        })
+                                      ],
+                                      1
+                                    )
+                                  ]
+                                )
+                              ]
+                        ],
+                        2
+                      ),
                       _vm._v(" "),
                       _c("td", { staticClass: "align-middle" }, [
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(invite.name) +
-                            "\n                "
-                        )
+                        _vm._v(_vm._s(invite.name))
                       ]),
                       _vm._v(" "),
                       _c("td", { staticClass: "align-middle" }, [
@@ -75566,15 +75551,15 @@ var render = function() {
                         _c(
                           "span",
                           {
-                            staticClass:
-                              "p-1 badge badge-secondary text-uppercase",
+                            staticClass: "p-1 badge text-uppercase",
+                            class: _vm.badgeClass(invite),
                             attrs: {
                               "data-toggle": "tooltip",
                               "data-placement": "top",
-                              title: _vm.invitedTip(invite.name)
+                              title: _vm.toolTip(invite)
                             }
                           },
-                          [_vm._v("invited")]
+                          [_vm._v(_vm._s(_vm.status(invite)))]
                         ),
                         _vm._v(
                           " " +
@@ -75583,119 +75568,8 @@ var render = function() {
                         )
                       ])
                     ])
-                  }),
-                  _vm._v(" "),
-                  _vm._l(_vm.declinedInvites, function(invite) {
-                    return _c(
-                      "tr",
-                      {
-                        key: "invite" + invite.id,
-                        staticClass: "text-black-50"
-                      },
-                      [
-                        _c("td", { staticClass: "align-middle action-col" }, [
-                          _c(
-                            "a",
-                            {
-                              staticClass: "action px-1 py-0",
-                              attrs: {
-                                href: _vm.resendUrl(invite.id),
-                                "data-toggle": "tooltip",
-                                "data-placement": "top",
-                                title: "Resend this invite"
-                              }
-                            },
-                            [
-                              _c("font-awesome-icon", {
-                                attrs: { icon: "envelope" }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "form",
-                            {
-                              staticClass: "d-inline",
-                              attrs: {
-                                method: "POST",
-                                action: _vm.deleteUrl(invite.id)
-                              }
-                            },
-                            [
-                              _c("input", {
-                                attrs: { type: "hidden", name: "_token" },
-                                domProps: { value: _vm.csrf }
-                              }),
-                              _vm._v(" "),
-                              _c("input", {
-                                attrs: {
-                                  type: "hidden",
-                                  name: "_method",
-                                  value: "DELETE"
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "action btn btn-sm btn-link px-1 py-0",
-                                  attrs: {
-                                    type: "submit",
-                                    "data-toggle": "tooltip",
-                                    "data-placement": "top",
-                                    title: "Delete this invite"
-                                  }
-                                },
-                                [
-                                  _c("font-awesome-icon", {
-                                    attrs: { icon: "trash-alt" }
-                                  })
-                                ],
-                                1
-                              )
-                            ]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "align-middle" }, [
-                          _vm._v(
-                            "\n                    " +
-                              _vm._s(invite.name) +
-                              "\n                "
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "align-middle" }, [
-                          _vm._v(_vm._s(invite.email))
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "align-middle" }, [
-                          _c(
-                            "span",
-                            {
-                              staticClass:
-                                "p-1 badge badge-danger text-uppercase",
-                              attrs: {
-                                "data-toggle": "tooltip",
-                                "data-placement": "top",
-                                title: _vm.declinedTip(invite.name)
-                              }
-                            },
-                            [_vm._v("declined")]
-                          ),
-                          _vm._v(
-                            " " +
-                              _vm._s(_vm.on(invite.declined_at)) +
-                              "\n                "
-                          )
-                        ])
-                      ]
-                    )
-                  })
-                ],
-                2
+                  }
+                )
               )
             ]
           )
@@ -76967,7 +76841,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     methods: {
         on: function on(date) {
-            return Moment(date).calendar(null, this.dateFormatObj);
+            return Moment(date).calendar(null, this.$root.dateFormatObj);
         },
         isCurrentUser: function isCurrentUser(user) {
             return user.id == this.journal.current_user.id;

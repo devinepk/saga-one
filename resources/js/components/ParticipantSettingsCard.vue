@@ -117,7 +117,7 @@ export default {
 
     methods: {
         on(date) {
-            return Moment(date).calendar(null, this.dateFormatObj);
+            return Moment(date).calendar(null, this.$root.dateFormatObj);
         },
 
         isCurrentUser(user) {
