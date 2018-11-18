@@ -76023,8 +76023,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -76083,14 +76081,47 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             Event.$emit('journalLoaded');
         }
     },
+    mounted: function mounted() {
+        var self = this;
+        self.queue = JSON.parse(self.queueJson);
+
+        Event.$on('queueUpdateSuccess', function (newQ) {
+            // Rearrange the queue property to match the new queue
+            var newQueue = [];
+
+            // Start with the current user
+            var currentUser = self.queue[0];
+            newQueue.push(currentUser);
+
+            // Loop through and update the queue
+            var currentId = currentUser.id;
+
+            var _loop = function _loop(i) {
+                var nextId = newQ[currentId];
+                // Find the user with the next id and add them to the new queue
+                newQueue.push(self.queue.filter(function (user) {
+                    return user.id == nextId;
+                })[0]);
+                currentId = nextId;
+            };
+
+            for (var i = 0; i < self.queue.length - 1; i++) {
+                _loop(i);
+            }
+
+            self.queue = newQueue;
+        });
+    },
+    data: function data() {
+        return {
+            queue: []
+        };
+    },
 
 
     computed: {
         authUser: function authUser() {
             return JSON.parse(this.authUserJson);
-        },
-        queue: function queue() {
-            return JSON.parse(this.queueJson);
         },
         journal: function journal() {
             return JSON.parse(this.journalJson);
@@ -76291,45 +76322,46 @@ var render = function() {
         : _vm._e(),
       _vm._v(" "),
       _vm.queue.length
-        ? [
-            _c(
-              "ul",
-              { staticClass: "list-group list-group-flush" },
-              _vm._l(_vm.queue, function(user, index) {
-                return _c(
-                  "li",
-                  {
-                    key: index,
-                    staticClass: "list-group-item list-group-item-action",
-                    class: {
-                      active:
-                        user.id == _vm.authUser.id &&
-                        _vm.authUser.id == _vm.journal.current_user.id
-                    }
-                  },
-                  [
-                    user.id == _vm.journal.current_user.id
-                      ? _c("current-user-icon", {
-                          staticClass: "float-right mt-1",
-                          attrs: {
-                            authCurrent:
-                              _vm.authUser.id == _vm.journal.current_user.id,
-                            currentUser: _vm.journal.current_user.name
-                          }
-                        })
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c("font-awesome-icon", { attrs: { icon: "user" } }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "ml-2" }, [
-                      _vm._v(_vm._s(user.name))
-                    ])
-                  ],
-                  1
-                )
-              })
-            )
-          ]
+        ? _c(
+            "transition-group",
+            {
+              staticClass: "list-group list-group-flush",
+              attrs: { name: "flip-list", tag: "ul" }
+            },
+            _vm._l(_vm.queue, function(user) {
+              return _c(
+                "li",
+                {
+                  key: user.id,
+                  staticClass: "list-group-item list-group-item-action",
+                  class: {
+                    active:
+                      user.id == _vm.authUser.id &&
+                      _vm.authUser.id == _vm.journal.current_user.id
+                  }
+                },
+                [
+                  user.id == _vm.journal.current_user.id
+                    ? _c("current-user-icon", {
+                        staticClass: "float-right mt-1",
+                        attrs: {
+                          authCurrent:
+                            _vm.authUser.id == _vm.journal.current_user.id,
+                          currentUser: _vm.journal.current_user.name
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("font-awesome-icon", { attrs: { icon: "user" } }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "ml-2" }, [
+                    _vm._v(_vm._s(user.name))
+                  ])
+                ],
+                1
+              )
+            })
+          )
         : _c(
             "alert",
             {
@@ -76354,7 +76386,7 @@ var render = function() {
             ]
           )
     ],
-    2
+    1
   )
 }
 var staticRenderFns = []
@@ -76955,7 +76987,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             // Post to the app to save the new queue
             axios.post(self.queueUrl, { new_queue: new_queue }).then(function (response) {
-                Event.$emit('queueUpdateSuccess', { queue: response.data.new });
+                Event.$emit('queueUpdateSuccess', response.data.new);
                 self.savingInProgress = false;
                 self.saveStatus = 'Saved!';
                 setTimeout(self.resetSaveStatus, 2000);

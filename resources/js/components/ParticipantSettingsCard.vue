@@ -142,7 +142,7 @@ export default {
             // Post to the app to save the new queue
             axios.post(self.queueUrl, { new_queue: new_queue } )
                 .then(function (response) {
-                    Event.$emit('queueUpdateSuccess', { queue: response.data.new } );
+                    Event.$emit('queueUpdateSuccess', response.data.new );
                     self.savingInProgress = false;
                     self.saveStatus = 'Saved!';
                     setTimeout(self.resetSaveStatus, 2000);

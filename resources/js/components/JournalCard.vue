@@ -42,28 +42,26 @@
         </a>
     </div>
 
-    <template v-if="queue.length">
-        <ul class="list-group list-group-flush">
-            <li v-for="(user, index) in queue"
-                :key="index"
-                class="list-group-item list-group-item-action"
-                :class="{active: user.id == authUser.id && authUser.id == journal.current_user.id}"
-            >
-                <current-user-icon
-                    v-if="user.id == journal.current_user.id"
-                    :authCurrent="authUser.id == journal.current_user.id"
-                    :currentUser="journal.current_user.name"
-                    class="float-right mt-1"
-                />
+    <transition-group v-if="queue.length" name="flip-list" tag="ul" class="list-group list-group-flush">
+        <li v-for="user in queue"
+            :key="user.id"
+            class="list-group-item list-group-item-action"
+            :class="{active: user.id == authUser.id && authUser.id == journal.current_user.id}"
+        >
+            <current-user-icon
+                v-if="user.id == journal.current_user.id"
+                :authCurrent="authUser.id == journal.current_user.id"
+                :currentUser="journal.current_user.name"
+                class="float-right mt-1"
+            />
 
-                <font-awesome-icon icon="user"></font-awesome-icon>
+            <font-awesome-icon icon="user"></font-awesome-icon>
 
-                <span class="ml-2">{{ user.name }}</span>
+            <span class="ml-2">{{ user.name }}</span>
 
 
-            </li>
-        </ul>
-    </template>
+        </li>
+    </transition-group>
 
     <alert v-else class="mb-0" level="secondary" :dismissible="false">
         The real fun begins when you share this journal with others. <strong><a :href="settingsUrl" class="alert-link">Invite a friend</a> now!</strong>
@@ -131,12 +129,40 @@ export default {
         }
     },
 
+    mounted() {
+        let self = this;
+        self.queue = JSON.parse(self.queueJson);
+
+        Event.$on('queueUpdateSuccess', (newQ) => {
+            // Rearrange the queue property to match the new queue
+            let newQueue = [];
+
+            // Start with the current user
+            let currentUser = self.queue[0];
+            newQueue.push(currentUser);
+
+            // Loop through and update the queue
+            let currentId = currentUser.id
+            for (let i = 0; i < self.queue.length - 1; i++) {
+                let nextId = newQ[currentId];
+                // Find the user with the next id and add them to the new queue
+                newQueue.push(self.queue.filter(user => user.id == nextId)[0]);
+                currentId = nextId;
+            }
+
+            self.queue = newQueue;
+        });
+    },
+
+    data() {
+        return {
+            queue: []
+        };
+    },
+
     computed: {
         authUser: function() {
             return JSON.parse(this.authUserJson);
-        },
-        queue: function() {
-            return JSON.parse(this.queueJson);
         },
         journal: function() {
             return JSON.parse(this.journalJson);

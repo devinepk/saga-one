@@ -11905,3 +11905,10 @@ label {
   opacity: 0;
 }
 
+.flip-list-move {
+  -webkit-transition: -webkit-transform 0.7s;
+  transition: -webkit-transform 0.7s;
+  transition: transform 0.7s;
+  transition: transform 0.7s, -webkit-transform 0.7s;
+}
+
