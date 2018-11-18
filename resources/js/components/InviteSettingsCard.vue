@@ -2,7 +2,7 @@
     <div class="card mb-5">
         <h2 class="card-header">Invites</h2>
         <div class="table-responsive">
-        <table class="table table-hover small text-nowrap border-bottom mb-0">
+        <table v-if="invites.length" class="table table-hover small text-nowrap border-bottom mb-0">
             <thead>
                 <tr>
                     <th class="border-top-0 action-col">&nbsp;</th>
