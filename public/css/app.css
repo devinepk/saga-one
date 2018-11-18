@@ -11890,3 +11890,18 @@ label {
   font-weight: bold;
 }
 
+/**
+ * VUE TRANSITIONS
+ */
+
+.fade-enter-active,
+.fade-leave-active {
+  -webkit-transition: opacity .5s;
+  transition: opacity .5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+

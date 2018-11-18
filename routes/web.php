@@ -18,6 +18,9 @@ Route::get('journal/{journal}/add', 'JournalController@add')->name('journal.add'
 Route::put('journal/{journal}/archive', 'JournalController@archive')->name('journal.archive');
 Route::get('journal/{journal}/settings', 'JournalController@settings')->name('journal.settings');
 Route::post('journal/{journal}/invite', 'JournalController@invite')->name('journal.invite');
+
+
+Route::post('journal/{journal}/queue', 'Api\JournalAPIController@updateQueue')->name('api.journal.updateQueue');
 Route::resource('journal', 'JournalController');
 
 Route::resource('entry', 'EntryController');

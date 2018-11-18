@@ -49,11 +49,11 @@
                 class="list-group-item list-group-item-action"
                 :class="{active: user.id == authUser.id && authUser.id == journal.current_user.id}"
             >
-                <font-awesome-icon
+                <current-user-icon
                     v-if="user.id == journal.current_user.id"
-                    icon="book-reader"
+                    :authCurrent="authUser.id == journal.current_user.id"
+                    :currentUser="journal.current_user.name"
                     class="float-right mt-1"
-                    data-toggle="tooltip" data-placement="top" :title="queueTip(user.id, user.name)"
                 />
 
                 <font-awesome-icon icon="user"></font-awesome-icon>
@@ -116,17 +116,18 @@ export default {
             default: true
         },
         bubble: {
-            // Whether this card should bubble it's journal info
+            // Whether this card should bubble its journal info
             // up to the root Vue instance.
             type: Boolean,
             default: false
         }
     },
 
-    mounted() {
+    created() {
         if (this.bubble) {
             // Send the journal info to the root Vue instance
             this.$root.journal = this.journal;
+            Event.$emit('journalLoaded');
         }
     },
 
@@ -151,15 +152,6 @@ export default {
         },
         prettyNextChange: function() {
             return Moment(this.journal.next_change).format("MMM Do [at] h:mm a");
-        }
-    },
-
-    methods: {
-        queueTip: function(id, name) {
-            if (id == this.authUser.id) {
-                return "You have this journal right now."
-            }
-            return name + " has this journal right now."
         }
     }
 }

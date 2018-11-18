@@ -60,6 +60,7 @@
     <participant-settings-card
         auth-user-json="{{ Auth::user() }}"
         users-json="{{ $journal->queue->count() ? $journal->queue : $journal->users }}"
+        queue-url="{{ route('api.journal.updateQueue', $journal) }}"
     ></participant-settings-card>
 
     <invite-settings-card

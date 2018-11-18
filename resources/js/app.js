@@ -15,21 +15,23 @@ import {
     faBell, faGripHorizontal, faUser, faBook, faPlus, faSignOutAlt,
     faEdit, faBackward, faForward, faArrowAltCircleRight, faPencilAlt,
     faBookReader, faUserPlus, faUserCircle, faTrashAlt, faArchive,
-    faCogs, faEnvelope, faMailBulk
+    faCogs, faEnvelope, faMailBulk, faSpinner
 } from '@fortawesome/free-solid-svg-icons';
 
 import { faReadme } from '@fortawesome/free-brands-svg-icons';
 
 library.add(
-    faBell, faUser, faBook, faPlus, faSignOutAlt, faReadme, faEdit,
-    faBackward, faForward, faArrowAltCircleRight, faPencilAlt, faBookReader,
-    faUserPlus, faUserCircle, faTrashAlt, faArchive, faCogs, faEnvelope,
-    faMailBulk, faGripHorizontal
+    // fontawesome-svg-core
+    faBell, faGripHorizontal, faUser, faBook, faPlus, faSignOutAlt,
+    faEdit, faBackward, faForward, faArrowAltCircleRight, faPencilAlt,
+    faBookReader, faUserPlus, faUserCircle, faTrashAlt, faArchive,
+    faCogs, faEnvelope, faMailBulk, faSpinner,
+    // free-brands-svg-icons
+    faReadme
 );
 
 // JQuery UI widgets
 import 'jquery-ui/ui/widgets/sortable.js';
-import 'jquery-ui/ui/disable-selection.js';
 
 // Moment
 window.Moment = require('moment');
