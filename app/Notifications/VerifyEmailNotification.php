@@ -43,6 +43,7 @@ class VerifyEmailNotification extends VerifyEmail
     {
         return (new MailMessage)
                     ->subject('Please verify your email address')
+                    ->greeting("Nice to meet you, {$notifiable->name}!")
                     ->line('Thank you for registering for SagaOne! Please click the button below to verify your email address.')
                     ->action(
                         'Verify Email Address',
