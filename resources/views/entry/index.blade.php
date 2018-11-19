@@ -37,12 +37,6 @@
 
 
     @if (count($entries))
-        <h1>{{ $journal->title }}</h1>
-
-        @component('component.addButton')
-            @slot('url', route('journal.add', $journal))
-            Add a new entry
-        @endcomponent
 
         {{ $entries->links() }}
 
@@ -57,15 +51,13 @@
             </entry-card>
         @endforeach
 
+        {{ $entries->links() }}
+
     @else
-        <alert level="secondary">
+
+        <alert level="secondary" :dismissible="false">
             This journal is empty. Time to get writing!
         </alert>
-
-        @component('component.addButton')
-            @slot('url', route('journal.add', $journal))
-            Add a new entry
-        @endcomponent
 
     @endif
 
