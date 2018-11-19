@@ -88,8 +88,8 @@ class Journal extends Model
      */
     public function appendToQueue(User $user)
     {
-        if ($this->queue->count()) {
-            // If we have a queue, then find the first and last users in line.
+        if ($this->users->count() > 1) {
+            // Find the first and last users in line.
             $last = $this->queue->reverse()->first();
             $first = $this->queue->first();
 
@@ -105,6 +105,12 @@ class Journal extends Model
         // Attach the new user.
         // The first user in the queue will come after the new user.
         $this->users()->attach($user, ['next_user_id' => $first->id]);
+
+        // Set the next change date if necessary
+        if (blank($this->next_change)) {
+            $this->next_change = now()->addSeconds($this->period);
+            $this->save();
+        }
     }
 
     /**
