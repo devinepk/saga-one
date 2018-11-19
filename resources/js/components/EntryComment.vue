@@ -1,23 +1,32 @@
 <template>
-<div class="comment text-black-50 p-2">
-    <p class="m-0">
-        <font-awesome-icon icon="user" />
-        <span class="font-weight-bold">{{ author }}</span>
+<div class="comment p-2">
+    <p class="mb-0 comment-author text-primary" :class="{ 'text-right': userIsAuthUser }">
+        <font-awesome-icon v-if="!userIsAuthUser" icon="user" />
+        <span class="font-weight-bold">{{ comment.user.name }}</span>
     </p>
-    <p class="m-0 comment-message">
-        <slot></slot>
-    </p>
+    <div class="clearfix">
+        <p class="mb-0 text-black-50 comment-message" :class="{ 'float-right': userIsAuthUser }" v-html="comment.message"></p>
+    </div>
 </div>
 </template>
 
 <script>
 module.exports = {
-    props: ['author']
+    props: ['comment'],
+
+    computed: {
+        userIsAuthUser() {
+            return this.comment.user.id == this.$parent.authUser.id;
+        }
+    }
 }
 </script>
 
 <style>
-.comment-message {
+.comment-author {
     font-size: 0.75rem;
+}
+.comment-message {
+    max-width: 75%;
 }
 </style>

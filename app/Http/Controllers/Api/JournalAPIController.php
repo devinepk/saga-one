@@ -21,7 +21,8 @@ class JournalAPIController extends Controller
      * @param  \App\Journal  $journal
      * @return \Illuminate\Http\Response
      */
-    public function updateQueue(Request $request, Journal $journal) {
+    public function updateQueue(Request $request, Journal $journal)
+    {
         // Extract the user ids
         $users = array_map(function($user) {
             // Trim off 4 chars to erase the "user" prefix

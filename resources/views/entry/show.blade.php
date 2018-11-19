@@ -33,9 +33,10 @@
     <div class="col-lg-4 p-2">
 
         <comments-card
-            comments-json="{{ $entry->comments }}"
-            post-url="/"
-        >@csrf</comments-card>
+            comments-json="{{ $entry->comments()->with('user')->get()->toJson() }}"
+            post-url="{{ route('api.comment.add', $entry) }}"
+            auth-user-json="{{ Auth::user() }}"
+        ></comments-card>
 
     </div>
 </div>

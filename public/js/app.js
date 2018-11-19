@@ -73726,6 +73726,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -73736,18 +73740,47 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         postUrl: {
             type: String,
             required: true
+        },
+        authUserJson: {
+            type: String,
+            required: true
         }
     },
 
+    data: function data() {
+        return {
+            newMessage: '',
+            comments: []
+        };
+    },
+    mounted: function mounted() {
+        var self = this;
+
+        self.comments = JSON.parse(self.commentsJson);
+        self.$on('updateCommentSuccess', function (data) {
+            self.comments = JSON.parse(data);
+        });
+    },
+
+
     computed: {
-        comments: function comments() {
-            return JSON.parse(this.commentsJson);
+        authUser: function authUser() {
+            return JSON.parse(this.authUserJson);
         }
     },
 
     methods: {
         submitPostForm: function submitPostForm() {
-            this.$refs.postForm.submit();
+            var self = this;
+
+            // Post to the app to save the new comment
+            axios.post(self.postUrl, { message: self.newMessage }).then(function (response) {
+                self.comments = response.data;
+                self.newMessage = '';
+                console.log(response);
+            }).catch(function (error) {
+                console.log(error);
+            });
         }
     }
 });
@@ -73766,57 +73799,61 @@ var render = function() {
       { staticClass: "card-body border-0 p-0" },
       [
         _vm._l(_vm.comments, function(comment) {
-          return _c(
-            "entry-comment",
-            { key: comment.id, attrs: { author: "author" } },
-            [_vm._v("\n            " + _vm._s(comment.message) + "\n        ")]
-          )
+          return _c("entry-comment", {
+            key: comment.id,
+            attrs: { comment: comment }
+          })
         }),
         _vm._v(" "),
         !_vm.comments.length
           ? _c("div", { staticClass: "text-muted p-1" }, [
-              _vm._v(
-                "\n            Be the first to post a comment...\n        "
-              )
+              _c("span", { staticClass: "ml-1" }, [
+                _vm._v("Be the first to post a comment on this entry...")
+              ])
             ])
           : _vm._e()
       ],
       2
     ),
     _vm._v(" "),
-    _c(
-      "form",
-      {
-        ref: "postForm",
-        staticClass: "card-footer p-0",
-        attrs: { method: "post", action: _vm.postUrl }
-      },
-      [
-        _vm._t("csrf"),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control border-0",
-          attrs: {
-            type: "text",
-            id: "message",
-            name: "message",
-            placeholder: "Write a comment..."
-          },
-          on: {
-            keydown: function($event) {
-              if (
-                !("button" in $event) &&
-                _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-              ) {
-                return null
-              }
-              return _vm.submitPostForm($event)
-            }
+    _c("form", { staticClass: "card-footer p-0" }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.newMessage,
+            expression: "newMessage"
           }
-        })
-      ],
-      2
-    )
+        ],
+        staticClass: "form-control border-0",
+        attrs: {
+          type: "text",
+          id: "message",
+          name: "message",
+          placeholder: "Write a comment..."
+        },
+        domProps: { value: _vm.newMessage },
+        on: {
+          keydown: function($event) {
+            if (
+              !("button" in $event) &&
+              _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+            ) {
+              return null
+            }
+            $event.preventDefault()
+            return _vm.submitPostForm($event)
+          },
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.newMessage = $event.target.value
+          }
+        }
+      })
+    ])
   ])
 }
 var staticRenderFns = []
@@ -74430,7 +74467,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n.comment-message {\n    font-size: 0.75rem;\n}\n", ""]);
+exports.push([module.i, "\n.comment-author {\n    font-size: 0.75rem;\n}\n.comment-message {\n    max-width: 75%;\n}\n", ""]);
 
 // exports
 
@@ -74453,7 +74490,13 @@ exports.push([module.i, "\n.comment-message {\n    font-size: 0.75rem;\n}\n", ""
 //
 
 module.exports = {
-    props: ['author']
+    props: ['comment'],
+
+    computed: {
+        userIsAuthUser: function userIsAuthUser() {
+            return this.comment.user.id == this.$parent.authUser.id;
+        }
+    }
 };
 
 /***/ }),
@@ -74464,21 +74507,32 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "comment text-black-50 p-2" }, [
+  return _c("div", { staticClass: "comment p-2" }, [
     _c(
       "p",
-      { staticClass: "m-0" },
+      {
+        staticClass: "mb-0 comment-author text-primary",
+        class: { "text-right": _vm.userIsAuthUser }
+      },
       [
-        _c("font-awesome-icon", { attrs: { icon: "user" } }),
+        !_vm.userIsAuthUser
+          ? _c("font-awesome-icon", { attrs: { icon: "user" } })
+          : _vm._e(),
         _vm._v(" "),
         _c("span", { staticClass: "font-weight-bold" }, [
-          _vm._v(_vm._s(_vm.author))
+          _vm._v(_vm._s(_vm.comment.user.name))
         ])
       ],
       1
     ),
     _vm._v(" "),
-    _c("p", { staticClass: "m-0 comment-message" }, [_vm._t("default")], 2)
+    _c("div", { staticClass: "clearfix" }, [
+      _c("p", {
+        staticClass: "mb-0 text-black-50 comment-message",
+        class: { "float-right": _vm.userIsAuthUser },
+        domProps: { innerHTML: _vm._s(_vm.comment.message) }
+      })
+    ])
   ])
 }
 var staticRenderFns = []

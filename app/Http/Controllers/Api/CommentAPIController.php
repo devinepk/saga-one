@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Comment;
 use App\Http\Controllers\Controller;
 use App\Entry;
 use App\Journal;
@@ -21,6 +22,13 @@ class CommentAPIController extends Controller
      */
     public function add(Request $request, Entry $entry)
     {
-        return 'Adding a comment...';
+        // No validation necessary as message is a text field
+        $comment = new Comment;
+        $comment->message = htmlspecialchars($request->input('message'));
+        $comment->user()->associate(Auth::user());
+        $entry->comments()->save($comment);
+
+        // Return an updated set of comments for this entry
+        return $entry->comments()->with('user')->get()->toJson();
     }
 }
