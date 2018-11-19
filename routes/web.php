@@ -11,7 +11,7 @@
 |
 */
 
-Route::view('/', 'welcome');
+Route::view('/', 'welcome')->name('welcome');
 
 Route::get('journal/{journal}/contents', 'JournalController@contents')->name('journal.contents');
 Route::get('journal/{journal}/add', 'JournalController@add')->name('journal.add');
