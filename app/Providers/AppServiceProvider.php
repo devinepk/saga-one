@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use Carbon\Carbon;
+use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,9 +17,22 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if(env('APP_ENV') == 'production') {
-            \URL::forceScheme('https');
+        if (env('APP_ENV') == 'production') {
+            URL::forceScheme('https');
         }
+
+        VerifyEmail::toMailusing(function ($notifiable) {
+            $verificationUrl = URL::temporarySignedRoute(
+                'verification.verify', Carbon::now()->addMinutes(60), ['id' => $notifiable->getKey()]
+            );
+
+            return (new MailMessage)
+                    ->subject('Please verify your email address')
+                    ->greeting("Nice to meet you, {$notifiable->name}!")
+                    ->line('Thank you for registering for SagaOne! Please click the button below to verify your email address.')
+                    ->action('Verify Email Address', $verificationUrl)
+                    ->line('If you did not create an account, you may disregard this email.');
+        });
     }
 
     /**

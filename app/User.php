@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Notifications\VerifyEmailNotification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\CanResetPassword;
@@ -29,18 +28,6 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-    /**
-     * Send the email verification notification.
-     * This method overrides the MustVerifyEmail trait.
-     * See /Illuminate/Auth/MustVerifyEmail.
-     *
-     * @return void
-     */
-    public function sendEmailVerificationNotification()
-    {
-        $this->notify(new VerifyEmailNotification);
-    }
 
     /**
      * Get the journals that this user has created
