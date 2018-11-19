@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Invite;
+use App\Mail\UserWelcomeMailable;
+use App\Notifications\UserRegistered;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -91,5 +94,9 @@ class RegisterController extends Controller
 
             return redirect()->route('invite.show', $invite);
         }
+
+        // Send a welcome email
+        Mail::to($user->email)->send(new UserWelcomeMailable($user));
+        // $user->notify(new UserRegistered($user));
     }
 }

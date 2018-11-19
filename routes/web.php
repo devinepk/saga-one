@@ -39,3 +39,7 @@ Route::post('invite/{invite}', 'InviteController@accept')->name('invite.accept')
 Route::delete('invite/{invite}', 'InviteController@delete')->name('invite.delete');
 Route::get('invite/{invite}/decline', 'InviteController@decline')->name('invite.decline');
 Route::get('invite/{invite}/resend', 'InviteController@resend')->name('invite.resend');
+
+Route::get('/mailable', function () {
+    return new App\Mail\UserWelcomeMailable(App\User::find(1));
+});
