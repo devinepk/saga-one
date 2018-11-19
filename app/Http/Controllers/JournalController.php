@@ -7,6 +7,7 @@ use App\Http\Requests\StoreInvite;
 use App\Invite;
 use App\Journal;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -156,6 +157,7 @@ class JournalController extends Controller
             'description' => 'nullable|max:255'
         ]);
 
+
         if ($request->has('title')) {
             $journal->title = $request->title;
         }
@@ -164,15 +166,26 @@ class JournalController extends Controller
             $journal->description = $request->description;
         }
 
+        $status = "<strong>{$journal->title}</strong> has been updated.";
+
         if ($request->has('period')) {
             $journal->period = $request->period;
-            $journal->next_change = now()->addSeconds($request->period);
+            // Only set the date of next change if there is more than one participant
+            if ($journal->users->count() > 1) {
+                $journal->next_change = now()->addSeconds($request->period);
+                $formatted_next_change = new Carbon($journal->next_change, config('timezone', 'America/New_York'));
+                $formatted_next_change = $formatted_next_change->format('F jS \\a\\t g:ia');
+                $status = "The rotation setting for <strong>{$journal->title}</strong> has been saved. It is currently in the possession of <strong>{$journal->current_user->name}</strong> and will next rotate on <strong>{$formatted_next_change}</strong>.";
+            } else {
+                $journal->next_change = null;
+                $status = "The rotation setting for <strong>{$journal->title}</strong> has been saved, but this journal will never actually rotate, since you are the only participant. (Is it time to invite a friend?)";
+            }
         }
 
         $journal->save();
 
         return redirect()->route('journal.settings', compact('journal'))
-            ->with('status', "<strong>{$journal->title}</strong> has been updated.");
+            ->with('status', $status);
     }
 
     /**
