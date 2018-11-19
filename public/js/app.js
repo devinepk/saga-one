@@ -73726,10 +73726,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -73766,6 +73762,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {
         authUser: function authUser() {
             return JSON.parse(this.authUserJson);
+        },
+        placeholder: function placeholder() {
+            if (this.comments.length) {
+                return "Write a comment...";
+            }
+            return "Be the first to write a comment about this...";
         }
     },
 
@@ -73794,66 +73796,64 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card mb-3" }, [
-    _c(
-      "div",
-      { staticClass: "card-body border-0 p-0" },
-      [
-        _vm._l(_vm.comments, function(comment) {
-          return _c("entry-comment", {
-            key: comment.id,
-            attrs: { comment: comment }
+    _vm.comments.length
+      ? _c(
+          "div",
+          { staticClass: "card-body border-0 p-0" },
+          _vm._l(_vm.comments, function(comment) {
+            return _c("entry-comment", {
+              key: comment.id,
+              attrs: { comment: comment }
+            })
           })
-        }),
-        _vm._v(" "),
-        !_vm.comments.length
-          ? _c("div", { staticClass: "text-muted p-1" }, [
-              _c("span", { staticClass: "ml-1" }, [
-                _vm._v("Be the first to post a comment on this entry...")
-              ])
-            ])
-          : _vm._e()
-      ],
-      2
-    ),
+        )
+      : _vm._e(),
     _vm._v(" "),
-    _c("form", { staticClass: "card-footer p-0" }, [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.newMessage,
-            expression: "newMessage"
-          }
-        ],
-        staticClass: "form-control border-0",
-        attrs: {
-          type: "text",
-          id: "message",
-          name: "message",
-          placeholder: "Write a comment..."
-        },
-        domProps: { value: _vm.newMessage },
-        on: {
-          keydown: function($event) {
-            if (
-              !("button" in $event) &&
-              _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-            ) {
-              return null
+    _c(
+      "form",
+      {
+        staticClass: "card-footer p-0",
+        class: { "border-top-0": !_vm.comments.length }
+      },
+      [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.newMessage,
+              expression: "newMessage"
             }
-            $event.preventDefault()
-            return _vm.submitPostForm($event)
+          ],
+          staticClass: "form-control border-0",
+          attrs: {
+            type: "text",
+            id: "message",
+            name: "message",
+            placeholder: _vm.placeholder
           },
-          input: function($event) {
-            if ($event.target.composing) {
-              return
+          domProps: { value: _vm.newMessage },
+          on: {
+            keydown: function($event) {
+              if (
+                !("button" in $event) &&
+                _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+              ) {
+                return null
+              }
+              $event.preventDefault()
+              return _vm.submitPostForm($event)
+            },
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.newMessage = $event.target.value
             }
-            _vm.newMessage = $event.target.value
           }
-        }
-      })
-    ])
+        })
+      ]
+    )
   ])
 }
 var staticRenderFns = []
