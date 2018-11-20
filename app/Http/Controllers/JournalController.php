@@ -262,7 +262,6 @@ class JournalController extends Controller
 
         // Create a new invite and send it
         $invite = new Invite;
-        $invite->name = $request->name;
         $invite->email = $request->email;
 
         // Does this user already have an account? If so, associate it.
@@ -279,7 +278,7 @@ class JournalController extends Controller
         event(new UserInvited($invite));
 
         return redirect()->route('journal.settings', compact('journal'))
-            ->with('status', "An invitation to join <strong>{$journal->title}</strong> will be sent to <strong>{$invite->name}</strong> at <strong>{$invite->email}</strong>.");
+            ->with('status', "An invitation to join <strong>{$journal->title}</strong> will be sent to <strong>{$invite->email}</strong>.");
     }
 
     /**

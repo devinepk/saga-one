@@ -6,7 +6,6 @@
             <thead>
                 <tr>
                     <th class="border-top-0 action-col">&nbsp;</th>
-                    <th class="border-top-0">Name</th>
                     <th class="border-top-0">Email</th>
                     <th class="border-top-0">Status</th>
                 </tr>
@@ -30,8 +29,6 @@
                         </template>
                     </td>
 
-                    <td class="align-middle">{{ invite.name }}</td>
-
                     <td class="align-middle">{{ invite.email }}</td>
 
                     <td class="align-middle" data-toggle="tooltip" data-placement="left" data-html="true" :title="toolTip(invite)">
@@ -47,22 +44,20 @@
             <h4>Invite someone to join this journal</h4>
 
             <template v-if="authUserCanInvite && inviteUrl">
-                <form method="post" :action="inviteUrl" class="form-inline position-relative">
+                <form method="post" :action="inviteUrl" class="position-relative">
                     <input type="hidden" name="_token" :value="csrf">
-
-                    <label for="name" class="sr-only">Name</label>
-                    <input type="name" class="form-control mb-1 mr-2" :class="{ 'is-invalid': errors.name }" size="25" id="name" name="name" placeholder="Name" :value="oldName" required>
-                    <span v-if="errors.name" class="invalid-tooltip" role="alert">
-                        <strong>{{ errors.name[0] }}</strong>
-                    </span>
-
-                    <label for="email" class="sr-only">Email address</label>
-                    <input type="email" class="form-control mb-1 mr-2" :class="{ 'is-invalid': errors.email }" size="25" id="email" name="email" placeholder="Email" :value="oldEmail" required>
-                    <span v-if="errors.email" class="invalid-tooltip" role="alert">
-                        <strong>{{ errors.email[0] }}</strong>
-                    </span>
-
-                    <button type="submit" class="btn btn-primary mb-1">Invite</button>
+                    <div class="form-row">
+                        <div class="col-8">
+                            <label for="email" class="sr-only">Email address</label>
+                            <input type="email" class="form-control mb-1 mr-2" :class="{ 'is-invalid': errors.email }" size="25" id="email" name="email" placeholder="Email" :value="oldEmail" required>
+                            <span v-if="errors.email" class="invalid-feedback" role="alert">
+                                <strong>{{ errors.email[0] }}</strong>
+                            </span>
+                        </div>
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary mb-1">Invite</button>
+                        </div>
+                    </div>
                 </form>
 
             </template>
@@ -140,9 +135,9 @@ export default {
         },
         toolTip(invite) {
             switch (this.status(invite)) {
-                case 'Accepted': return "<strong>" + invite.name + "</strong> has <strong>accepted</strong> the invite to join this journal";
-                case 'Declined': return "<strong>" + invite.name + "</strong> has <strong>declined</strong> to join this journal";
-                case 'Invited' : return "<strong>" + invite.name + "</strong> has been <strong>invited</strong> to join this journal";
+                case 'Accepted': return "<strong>" + invite.email + "</strong> has <strong>accepted</strong> the invite to join this journal";
+                case 'Declined': return "<strong>" + invite.email + "</strong> has <strong>declined</strong> to join this journal";
+                case 'Invited' : return "<strong>" + invite.email + "</strong> has been <strong>invited</strong> to join this journal";
             }
         },
         status(invite) {

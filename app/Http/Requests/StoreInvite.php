@@ -26,11 +26,11 @@ class StoreInvite extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
             'email' => [
                 'required',
                 'email',
-                Rule::notIn(array_column($this->route('journal')->users->all(), 'email'))
+                Rule::notIn(array_column($this->route('journal')->users->all(), 'email')),
+                Rule::notIn(array_column($this->route('journal')->invites->all(), 'email'))
             ]
         ];
     }
@@ -45,7 +45,7 @@ class StoreInvite extends FormRequest
         return [
             'name.required'  => 'Please provide a :attribute.',
             'email.required' => 'Please provide an :attribute.',
-            'email.not_in'   => 'A user with that :attribute is already participating in this journal.',
+            'email.not_in'   => 'A user with that :attribute is already invited or participating in this journal.',
             'max'            => 'The :attribute may not be longer than :max characters.'
         ];
     }

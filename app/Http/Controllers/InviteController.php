@@ -76,6 +76,12 @@ class InviteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function verify(Request $request, $id) {
+
+        // TODO: Handle signed middleware logic manually
+        // and redirect to journal.index if user is reclicking
+        // an invite link from an email for an invite they've
+        // already accepted.
+
         $invite = Invite::find($id);
 
         // Is there a user with this email address in the system already?
