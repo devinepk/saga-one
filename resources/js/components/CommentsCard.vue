@@ -16,6 +16,7 @@
                 @keydown.enter.prevent="submitComment"
                 id="message"
                 name="message"
+                ref="message"
                 class="form-control border-0"
                 :placeholder="placeholder">
         </div>
@@ -85,16 +86,25 @@ export default {
                     self.newMessage = self.failureText = '';
                     self.comments = response.data;
                     console.log(response);
-                    // Wait for transitions to finish, then scroll down
-                    setTimeout(() => {
-                        document.getElementById('message').scrollIntoView(true);
-                    }, 100);
+
+                    // If the comment input is at the bottom of the page, then
+                    // wait for DOM to update, then scroll down
+                    if (self.scrollIsNeeded()) {
+                        setTimeout(() => {
+                            self.$refs.message.scrollIntoView(false);
+                        }, 100);
+                    }
                 })
                 .catch(function(error) {
                     self.failure = true;
                     self.failureText = self.newMessage;
                     console.error(error);
                 });
+        },
+
+        scrollIsNeeded() {
+            let rect = this.$refs.message.getBoundingClientRect();
+            return (window.innerHeight - rect.top < 100);
         }
     }
 }

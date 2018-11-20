@@ -73772,6 +73772,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -73832,15 +73833,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 self.newMessage = self.failureText = '';
                 self.comments = response.data;
                 console.log(response);
-                // Wait for transitions to finish, then scroll down
-                setTimeout(function () {
-                    document.getElementById('message').scrollIntoView(true);
-                }, 100);
+
+                // If the comment input is at the bottom of the page, then
+                // wait for DOM to update, then scroll down
+                if (self.scrollIsNeeded()) {
+                    setTimeout(function () {
+                        self.$refs.message.scrollIntoView(false);
+                    }, 100);
+                }
             }).catch(function (error) {
                 self.failure = true;
                 self.failureText = self.newMessage;
                 console.error(error);
             });
+        },
+        scrollIsNeeded: function scrollIsNeeded() {
+            var rect = this.$refs.message.getBoundingClientRect();
+            return window.innerHeight - rect.top < 100;
         }
     }
 });
@@ -73906,6 +73915,7 @@ var render = function() {
                     expression: "newMessage"
                   }
                 ],
+                ref: "message",
                 staticClass: "form-control border-0",
                 attrs: {
                   type: "text",
