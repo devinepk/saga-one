@@ -197,6 +197,13 @@ class Journal extends Model
             // Update the date of the next rotation
             $this->next_change = (new Carbon($this->next_change))->addSeconds($this->period);
             $this->save();
+
+            // Mark all draft entries as "final"
+            $drafts = $this->entries()->where('status', 'draft')->get();
+            foreach ($drafts as $draft) {
+                $draft->status = 'final';
+                $draft->save();
+            }
         }
     }
 }
