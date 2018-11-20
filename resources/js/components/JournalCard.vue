@@ -26,7 +26,7 @@
             class="badge badge-current badge-secondary text-white rounded-circle p-3 shadow"
             data-toggle="tooltip" data-placement="top" title="You have this journal right now."
         >
-            <font-awesome-icon size="4x" icon="book-reader" />
+            <font-awesome-icon size="4x" icon="star" />
         </span>
     </div>
 
