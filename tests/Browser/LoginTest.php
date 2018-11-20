@@ -9,12 +9,9 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class LoginTest extends DuskTestCase
 {
-    /**
-     * A Dusk test example.
-     *
-     * @return void
-     */
-    public function testLogin()
+    use DatabaseMigrations;
+
+    public function testAuthUserCanLogin()
     {
         $user = factory(User::class)->create();
 
@@ -24,6 +21,17 @@ class LoginTest extends DuskTestCase
                     ->type('password', 'secret')
                     ->press('Login')
                     ->assertPathIs('/journal');
+        });
+    }
+
+    public function testNoAuthUserCantLogin()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/login')
+                    ->type('email', 'example@example.com')
+                    ->type('password', 'secret')
+                    ->press('Login')
+                    ->assertPathIs('/login');
         });
     }
 }
