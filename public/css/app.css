@@ -11769,6 +11769,10 @@ a.text-dark:focus {
   display: none;
 }
 
+:root {
+  scroll-behavior: smooth;
+}
+
 /**
  * WELCOME PAGE
  */
@@ -11911,5 +11915,18 @@ label {
   transition: -webkit-transform 0.7s;
   transition: transform 0.7s;
   transition: transform 0.7s, -webkit-transform 0.7s;
+}
+
+.list-enter-active,
+.list-leave-active {
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+
+.list-enter,
+.list-leave-to {
+  opacity: 0;
+  -webkit-transform: translateY(30px);
+          transform: translateY(30px);
 }
 

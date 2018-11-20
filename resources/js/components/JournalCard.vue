@@ -114,8 +114,7 @@ export default {
             default: true
         },
         bubble: {
-            // Whether this card should bubble its journal info
-            // up to the root Vue instance.
+            // Whether this card should bubble info up to the root Vue instance.
             type: Boolean,
             default: false
         }
@@ -126,6 +125,8 @@ export default {
             // Send the journal info to the root Vue instance
             this.$root.journal = this.journal;
             Event.$emit('journalLoaded');
+            // Send the auth user info to the root Vue instance
+            this.$root.authUser = this.authUser;
         }
     },
 

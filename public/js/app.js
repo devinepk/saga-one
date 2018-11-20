@@ -151,6 +151,7 @@ var app = new Vue({
     el: '#app',
 
     data: {
+        authUser: {},
         journal: {},
         // format used by components calling Moment().calendar()
         dateFormatObj: {
@@ -73771,8 +73772,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -73828,11 +73827,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var self = this;
 
             // Post to the app to save the new comment
-            axios.post(self.postUrl + 'asdjkl', { message: self.newMessage }).then(function (response) {
+            axios.post(self.postUrl, { message: self.newMessage }).then(function (response) {
                 self.failure = false;
                 self.newMessage = self.failureText = '';
                 self.comments = response.data;
                 console.log(response);
+                // Wait for transitions to finish, then scroll down
+                setTimeout(function () {
+                    document.getElementById('message').scrollIntoView(true);
+                }, 100);
             }).catch(function (error) {
                 self.failure = true;
                 self.failureText = self.newMessage;
@@ -73850,86 +73853,94 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card mb-3" }, [
-    _vm.comments.length
-      ? _c(
-          "div",
-          { staticClass: "card-body border-0 p-0" },
-          _vm._l(_vm.comments, function(comment) {
-            return _c("entry-comment", {
-              key: comment.id,
-              attrs: { comment: comment }
+  return _c(
+    "div",
+    { staticClass: "card mb-3", attrs: { id: "comments" } },
+    [
+      _vm.comments.length
+        ? _c(
+            "transition-group",
+            {
+              staticClass: "card-body border-0 p-0",
+              attrs: { name: "list", tag: "div" }
+            },
+            _vm._l(_vm.comments, function(comment) {
+              return _c("entry-comment", {
+                key: comment.id,
+                attrs: { comment: comment }
+              })
             })
-          })
-        )
-      : _vm._e(),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "card-footer p-0",
-        class: { "border-top-0": !_vm.comments.length }
-      },
-      [
-        _c(
-          "div",
-          { staticClass: "position-relative" },
-          [
-            _c("transition", { attrs: { name: "fade" } }, [
-              _vm.showFailure
-                ? _c(
-                    "span",
-                    {
-                      staticClass:
-                        "badge badge-fail badge-danger rounded px-2 py-1"
-                    },
-                    [_vm._v("Failed to save!")]
-                  )
-                : _vm._e()
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.newMessage,
-                  expression: "newMessage"
-                }
-              ],
-              staticClass: "form-control border-0",
-              attrs: {
-                type: "text",
-                id: "message",
-                name: "message",
-                placeholder: _vm.placeholder
-              },
-              domProps: { value: _vm.newMessage },
-              on: {
-                keydown: function($event) {
-                  if (
-                    !("button" in $event) &&
-                    _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-                  ) {
-                    return null
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "card-footer p-0",
+          class: { "border-top-0": !_vm.comments.length }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "position-relative" },
+            [
+              _c("transition", { attrs: { name: "fade" } }, [
+                _vm.showFailure
+                  ? _c(
+                      "span",
+                      {
+                        staticClass:
+                          "badge badge-fail badge-danger rounded px-2 py-1"
+                      },
+                      [_vm._v("Failed to save!")]
+                    )
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.newMessage,
+                    expression: "newMessage"
                   }
-                  $event.preventDefault()
-                  return _vm.submitComment($event)
+                ],
+                staticClass: "form-control border-0",
+                attrs: {
+                  type: "text",
+                  id: "message",
+                  name: "message",
+                  placeholder: _vm.placeholder
                 },
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+                domProps: { value: _vm.newMessage },
+                on: {
+                  keydown: function($event) {
+                    if (
+                      !("button" in $event) &&
+                      _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                    ) {
+                      return null
+                    }
+                    $event.preventDefault()
+                    return _vm.submitComment($event)
+                  },
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.newMessage = $event.target.value
                   }
-                  _vm.newMessage = $event.target.value
                 }
-              }
-            })
-          ],
-          1
-        )
-      ]
-    )
-  ])
+              })
+            ],
+            1
+          )
+        ]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -74684,7 +74695,7 @@ module.exports = {
 
     computed: {
         userIsAuthUser: function userIsAuthUser() {
-            return this.comment.user.id == this.$parent.authUser.id;
+            return this.comment.user.id == this.$root.authUser.id;
         }
     }
 };
@@ -76160,8 +76171,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             default: true
         },
         bubble: {
-            // Whether this card should bubble its journal info
-            // up to the root Vue instance.
+            // Whether this card should bubble info up to the root Vue instance.
             type: Boolean,
             default: false
         }
@@ -76172,6 +76182,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             // Send the journal info to the root Vue instance
             this.$root.journal = this.journal;
             Event.$emit('journalLoaded');
+            // Send the auth user info to the root Vue instance
+            this.$root.authUser = this.authUser;
         }
     },
     mounted: function mounted() {

@@ -1,11 +1,9 @@
 <template>
-<div class="card mb-3">
+<div id="comments" class="card mb-3">
 
-    <div v-if="comments.length" class="card-body border-0 p-0">
-
+    <transition-group v-if="comments.length" name="list" tag="div" class="card-body border-0 p-0">
         <entry-comment v-for="comment in comments" :key="comment.id" :comment="comment" />
-
-    </div>
+    </transition-group>
 
     <div class="card-footer p-0" :class="{ 'border-top-0': !comments.length }">
         <div class="position-relative">
@@ -81,12 +79,16 @@ export default {
             let self = this;
 
             // Post to the app to save the new comment
-            axios.post(self.postUrl + 'asdjkl', { message: self.newMessage } )
+            axios.post(self.postUrl, { message: self.newMessage } )
                 .then(function(response) {
                     self.failure = false;
                     self.newMessage = self.failureText = '';
                     self.comments = response.data;
                     console.log(response);
+                    // Wait for transitions to finish, then scroll down
+                    setTimeout(() => {
+                        document.getElementById('message').scrollIntoView(true);
+                    }, 100);
                 })
                 .catch(function(error) {
                     self.failure = true;

@@ -75,6 +75,7 @@ const app = new Vue({
     el: '#app',
 
     data: {
+        authUser: {},
         journal: {},
         // format used by components calling Moment().calendar()
         dateFormatObj: {

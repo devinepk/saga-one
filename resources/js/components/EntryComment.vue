@@ -16,7 +16,7 @@ module.exports = {
 
     computed: {
         userIsAuthUser() {
-            return this.comment.user.id == this.$parent.authUser.id;
+            return this.comment.user.id == this.$root.authUser.id;
         }
     }
 }
