@@ -7,15 +7,21 @@
 
     </div>
 
-    <form class="card-footer p-0" :class="{ 'border-top-0': !comments.length }">
-        <input type="text"
-            v-model="newMessage"
-            @keydown.enter.prevent ="submitPostForm"
-            id="message"
-            name="message"
-            class="form-control border-0"
-            :placeholder="placeholder">
-    </form>
+    <div class="card-footer p-0" :class="{ 'border-top-0': !comments.length }">
+        <div class="position-relative">
+            <transition name="fade">
+                <span v-if="showFailure" class="badge badge-fail badge-danger rounded px-2 py-1">Failed to save!</span>
+            </transition>
+
+            <input type="text"
+                v-model="newMessage"
+                @keydown.enter.prevent="submitComment"
+                id="message"
+                name="message"
+                class="form-control border-0"
+                :placeholder="placeholder">
+        </div>
+    </div>
 
 </div>
 </template>
@@ -40,7 +46,9 @@ export default {
     data() {
         return {
             newMessage: '',
-            comments: []
+            comments: [],
+            failure: false,
+            failureText: ''
         };
     },
 
@@ -62,24 +70,38 @@ export default {
                 return "Write a comment...";
             }
             return "Be the first to write a comment about this...";
+        },
+        showFailure: function() {
+            return this.failure && this.failureText == this.newMessage;
         }
     },
 
     methods: {
-        submitPostForm() {
+        submitComment() {
             let self = this;
 
             // Post to the app to save the new comment
-            axios.post(self.postUrl, { message: self.newMessage } )
+            axios.post(self.postUrl + 'asdjkl', { message: self.newMessage } )
                 .then(function(response) {
+                    self.failure = false;
+                    self.newMessage = self.failureText = '';
                     self.comments = response.data;
-                    self.newMessage = '';
                     console.log(response);
                 })
                 .catch(function(error) {
-                    console.log(error);
+                    self.failure = true;
+                    self.failureText = self.newMessage;
+                    console.error(error);
                 });
         }
     }
 }
 </script>
+
+<style>
+.badge-fail {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+</style>

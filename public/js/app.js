@@ -73693,6 +73693,10 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(282)
+}
 var normalizeComponent = __webpack_require__(37)
 /* script */
 var __vue_script__ = __webpack_require__(220)
@@ -73701,7 +73705,7 @@ var __vue_template__ = __webpack_require__(221)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -73763,6 +73767,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -73783,7 +73793,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             newMessage: '',
-            comments: []
+            comments: [],
+            failure: false,
+            failureText: ''
         };
     },
     mounted: function mounted() {
@@ -73805,20 +73817,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return "Write a comment...";
             }
             return "Be the first to write a comment about this...";
+        },
+        showFailure: function showFailure() {
+            return this.failure && this.failureText == this.newMessage;
         }
     },
 
     methods: {
-        submitPostForm: function submitPostForm() {
+        submitComment: function submitComment() {
             var self = this;
 
             // Post to the app to save the new comment
-            axios.post(self.postUrl, { message: self.newMessage }).then(function (response) {
+            axios.post(self.postUrl + 'asdjkl', { message: self.newMessage }).then(function (response) {
+                self.failure = false;
+                self.newMessage = self.failureText = '';
                 self.comments = response.data;
-                self.newMessage = '';
                 console.log(response);
             }).catch(function (error) {
-                console.log(error);
+                self.failure = true;
+                self.failureText = self.newMessage;
+                console.error(error);
             });
         }
     }
@@ -73847,48 +73865,68 @@ var render = function() {
       : _vm._e(),
     _vm._v(" "),
     _c(
-      "form",
+      "div",
       {
         staticClass: "card-footer p-0",
         class: { "border-top-0": !_vm.comments.length }
       },
       [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.newMessage,
-              expression: "newMessage"
-            }
+        _c(
+          "div",
+          { staticClass: "position-relative" },
+          [
+            _c("transition", { attrs: { name: "fade" } }, [
+              _vm.showFailure
+                ? _c(
+                    "span",
+                    {
+                      staticClass:
+                        "badge badge-fail badge-danger rounded px-2 py-1"
+                    },
+                    [_vm._v("Failed to save!")]
+                  )
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.newMessage,
+                  expression: "newMessage"
+                }
+              ],
+              staticClass: "form-control border-0",
+              attrs: {
+                type: "text",
+                id: "message",
+                name: "message",
+                placeholder: _vm.placeholder
+              },
+              domProps: { value: _vm.newMessage },
+              on: {
+                keydown: function($event) {
+                  if (
+                    !("button" in $event) &&
+                    _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                  ) {
+                    return null
+                  }
+                  $event.preventDefault()
+                  return _vm.submitComment($event)
+                },
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.newMessage = $event.target.value
+                }
+              }
+            })
           ],
-          staticClass: "form-control border-0",
-          attrs: {
-            type: "text",
-            id: "message",
-            name: "message",
-            placeholder: _vm.placeholder
-          },
-          domProps: { value: _vm.newMessage },
-          on: {
-            keydown: function($event) {
-              if (
-                !("button" in $event) &&
-                _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-              ) {
-                return null
-              }
-              $event.preventDefault()
-              return _vm.submitPostForm($event)
-            },
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.newMessage = $event.target.value
-            }
-          }
-        })
+          1
+        )
       ]
     )
   ])
@@ -90980,6 +91018,46 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-67eb4292", module.exports)
   }
 }
+
+/***/ }),
+/* 282 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(283);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(40)("75ed771c", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-af6615e2\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CommentsCard.vue", function() {
+     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-af6615e2\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CommentsCard.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 283 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(4)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.badge-fail {\n    position: absolute;\n    right: 10px;\n    bottom: 10px;\n}\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);
