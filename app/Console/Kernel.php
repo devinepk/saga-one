@@ -14,7 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         'App\Console\Commands\RegisteredUsers',
-        'App\Console\Commands\RotateJournals'
+        'App\Console\Commands\RotateJournals',
+        'App\Console\Commands\SendWelcome'
     ];
 
     /**
