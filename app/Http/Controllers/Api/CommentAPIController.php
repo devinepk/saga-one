@@ -22,13 +22,16 @@ class CommentAPIController extends Controller
      */
     public function add(Request $request, Entry $entry)
     {
-        // No validation necessary as message is a text field
-        $comment = new Comment;
-        $comment->message = htmlspecialchars($request->input('message'));
-        $comment->user()->associate(Auth::user());
-        $entry->comments()->save($comment);
+        // // No validation necessary as message is a text field
+        // $comment = new Comment;
+        // $comment->message = htmlspecialchars($request->input('message'));
+        // $comment->user()->associate(Auth::user());
+        // $entry->comments()->save($comment);
 
-        // Return an updated set of comments for this entry
-        return $entry->comments()->with('user')->get()->toJson();
+        // // Return an updated set of comments for this entry
+        // return $entry->comments()->with('user')->get()->toJson();
+
+        // Test: simply return a string
+        return "Success!";
     }
 }
