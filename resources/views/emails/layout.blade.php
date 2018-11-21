@@ -317,7 +317,6 @@
                     <tr>
                         <td class="header">
                             <a href="{{ url('/') }}"><img src="{{ $message->embed(asset('/img/SagaOne.png')) }}"></a>
-
                         </td>
                     </tr>
 
@@ -330,13 +329,15 @@
                                     <td class="content-cell">
                                         @yield('body')
 
-                                    <table class="subcopy" width="100%" cellpadding="0" cellspacing="0">
-                                        <tr>
-                                            <td>
-                                                @yield('subcopy')
-                                            </td>
-                                        </tr>
-                                    </table>
+                                    @hasSection('subcopy')
+                                        <table class="subcopy" width="100%" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td>
+                                                    @yield('subcopy')
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    @endif
                                     </td>
                                 </tr>
                             </table>
