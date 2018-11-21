@@ -73844,7 +73844,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 self.failure = true;
                 self.failureText = self.newMessage;
-                console.error(error);
+                console.error(error.response);
             });
         },
         scrollIsNeeded: function scrollIsNeeded() {

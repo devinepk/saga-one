@@ -98,7 +98,7 @@ export default {
                 .catch(function(error) {
                     self.failure = true;
                     self.failureText = self.newMessage;
-                    console.error(error);
+                    console.error(error.response);
                 });
         },
 
