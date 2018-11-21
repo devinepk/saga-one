@@ -75,5 +75,17 @@ class UsersTableSeeder extends Seeder
             'created_at' => $now,
             'updated_at' => $now
         ]);
+
+        DB::table('users')->insert([
+            'name' => 'Alex Patterson',
+            'email' => 'alexkpatterson@gmail.com',
+            'password' => bcrypt('alexpatterson'),
+            'email_verified_at' => $now,
+            'created_at' => $now,
+            'updated_at' => $now
+        ]);
+
+        // Add 10 more random users just for good measure
+        factory(App\User::class, 10)->create();
     }
 }
