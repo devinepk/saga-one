@@ -24,8 +24,18 @@ Route::post('journal/{journal}/queue', 'Api\JournalAPIController@updateQueue')->
 Route::resource('journal', 'JournalController');
 
 // Route::post('entry/{entry}/comment', 'Api\CommentApiController@add')->name('api.comment.add');
-Route::post('entry/{entry}/comment', function() {
-    return 'Success!';
+
+Route::post('entry/{entry}/comment', function(Illuminate\Http\Request $request, App\Entry $entry) {
+
+    // No validation necessary as message is a text field
+    $comment = new App\Comment;
+    $comment->message = htmlspecialchars($request->input('message'));
+    $comment->user()->associate(Auth::user());
+    $entry->comments()->save($comment);
+
+    // Return an updated set of comments for this entry
+    return $entry->comments()->with('user')->get()->toJson();
+
 })->name('api.comment.add');
 
 Route::resource('entry', 'EntryController');
