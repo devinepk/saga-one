@@ -23,7 +23,11 @@ Route::post('journal/{journal}/invite', 'JournalController@invite')->name('journ
 Route::post('journal/{journal}/queue', 'Api\JournalAPIController@updateQueue')->name('api.journal.updateQueue');
 Route::resource('journal', 'JournalController');
 
-Route::post('entry/{entry}/comment', 'Api\CommentApiController@add')->name('api.comment.add');
+// Route::post('entry/{entry}/comment', 'Api\CommentApiController@add')->name('api.comment.add');
+Route::post('entry/{entry}/comment', function() {
+    return 'Success!';
+})->name('api.comment.add');
+
 Route::resource('entry', 'EntryController');
 
 Route::get('account', 'UsersController@account')->name('user.account');
