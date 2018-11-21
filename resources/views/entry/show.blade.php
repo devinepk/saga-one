@@ -34,7 +34,7 @@
 
         <comments-card
             comments-json="{{ $entry->comments()->with('user')->get()->toJson() }}"
-            post-url="{{ route('api.comment.add', $entry) }}"
+            post-url="{{ route('api.comment.add', $entry, false) }}"
             auth-user-json="{{ Auth::user() }}"
         ></comments-card>
 
