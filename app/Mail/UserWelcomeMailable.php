@@ -37,6 +37,7 @@ class UserWelcomeMailable extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.welcome', ['user' => $this->user]);
+        return $this->subject('Welcome to SagaOne!')
+                    ->view('emails.welcome', ['user' => $this->user]);
     }
 }
