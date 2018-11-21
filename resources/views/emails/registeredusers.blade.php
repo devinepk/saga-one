@@ -1,3 +1,5 @@
-<div>
+@extends('emails.layout')
+
+@section('body')
     Users registered today: {{ $count }}
-</div>
+@endsection
