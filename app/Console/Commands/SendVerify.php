@@ -51,10 +51,11 @@ class SendVerify extends Command
                 return;
             }
         } else {
+            // Make, but don't save, a mock user
             $user = factory(User::class)->make();
         }
 
-        Mail::to($user)->send(new VerifyEmailMailable($user));
+        $user->sendEmailVerificationNotification();
         $this->info("Verification email sent to {$user->name} at {$user->email}.");
     }
 }
