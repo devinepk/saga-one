@@ -96,7 +96,6 @@ class RegisterController extends Controller
         }
 
         // Send a welcome email
-        Mail::to($user->email)->send(new UserWelcomeMailable($user));
-        // $user->notify(new UserRegistered($user));
+        Mail::to($user)->send(new UserWelcomeMailable($user));
     }
 }

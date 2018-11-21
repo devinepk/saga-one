@@ -54,7 +54,7 @@ class SendWelcome extends Command
             $user = factory(User::class)->make();
         }
 
-        Mail::to($user->email)->send(new UserWelcomeMailable($user));
+        Mail::to($user)->send(new UserWelcomeMailable($user));
         $this->info("Welcome email sent to {$user->name} at {$user->email}.");
     }
 }

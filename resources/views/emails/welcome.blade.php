@@ -1,8 +1,5 @@
 @extends('emails.layout')
 
-
-
-
 @section('body')
 <h1>Welcome to SagaOne, {{ $user->name }}!</h1>
 
