@@ -44,11 +44,14 @@ class InviteAccepted extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject("{$invite->user->name} has accepted your invitation")
+                    ->subject("{$this->invite->user->name} has accepted your invitation")
                     ->greeting("Great news, {$notifiable->name}!")
-                    ->line("{$invite->user->name} has accepted your invitation to join your journal called {$invite->journal->title}!")
+                    ->line("{$this->invite->user->name} has accepted your invitation to join your journal called {$this->invite->journal->title}!")
                     ->line("To invite others to this journal, click the button below.")
-                    ->action("Invite others to {$invite->journal->title}", route('journal.settings', $invite->journal))
+                    ->action(
+                        "Invite others to {$this->invite->journal->title}",
+                        route('journal.settings', $this->invite->journal)
+                    )
                     ->salutation('Happy writing!');
     }
 

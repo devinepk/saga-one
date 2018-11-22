@@ -19,6 +19,7 @@ class Kernel extends ConsoleKernel
         'App\Console\Commands\SendVerify',
         'App\Console\Commands\SendInvite',
         'App\Console\Commands\SendJournalRotated',
+        'App\Console\Commands\SendInviteAccepted',
     ];
 
     /**
