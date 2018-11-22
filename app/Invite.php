@@ -8,7 +8,7 @@ use App\Journal;
 use App\User;
 use App\Events\InviteDeclined;
 use App\Events\InviteAccepted;
-use App\Notifications\InviteNotification;
+use App\Notifications\UserInvited;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
@@ -47,7 +47,7 @@ class Invite extends Model
      */
     public function sendInviteNotification()
     {
-        $this->notify(new InviteNotification);
+        $this->notify(new UserInvited);
     }
 
     /**
