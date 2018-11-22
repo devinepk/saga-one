@@ -6,8 +6,9 @@ use App\Comment;
 use App\Entry;
 use App\Journal;
 use App\User;
-use App\Events\InviteDeclined;
-use App\Events\InviteAccepted;
+use App\Events\InviteDeclined as InviteDeclinedEvent;
+use App\Events\InviteAccepted as InviteAcceptedEvent;
+use App\Notifications\InviteAccepted as InviteAcceptedNotification;
 use App\Notifications\UserInvited;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -61,7 +62,7 @@ class Invite extends Model
         $this->save();
 
         // Trigger an event.
-        event(new InviteDeclined);
+        event(new InviteDeclinedEvent);
     }
 
     /**
@@ -78,6 +79,9 @@ class Invite extends Model
         $this->journal->appendToQueue($this->user);
 
         // Trigger an event.
-        event(new InviteAccepted($this));
+        event(new InviteAcceptedEvent($this));
+
+        // Notify the sender of acceptance
+        $this->sender->notify(new InviteAcceptedNotification($this));
     }
 }
