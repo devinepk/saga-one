@@ -9,6 +9,7 @@ use App\User;
 use App\Events\InviteDeclined as InviteDeclinedEvent;
 use App\Events\InviteAccepted as InviteAcceptedEvent;
 use App\Notifications\InviteAccepted as InviteAcceptedNotification;
+use App\Notifications\InviteDeclined as InviteDeclinedNotification;
 use App\Notifications\UserInvited;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -63,6 +64,9 @@ class Invite extends Model
 
         // Trigger an event.
         event(new InviteDeclinedEvent);
+
+        // Notify the sender of declination
+        $this->sender->notify(new InviteDeclinedNotification($this));
     }
 
     /**
