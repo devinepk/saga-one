@@ -193,21 +193,20 @@ class Journal extends Model
      */
     public function rotate()
     {
-        // Only rotate if there is more than one participant in the journal
-        if ($this->users()->count() > 1) {
+        // Update the current user to the next user
+        $this->current_user()->associate($this->next_user->id);
 
-            // Update the current user to the next user
-            $this->current_user()->associate($this->next_user->id);
-            // Update the date of the next rotation
-            $this->next_change = (new Carbon($this->next_change))->addSeconds($this->period);
-            $this->save();
+        // Update the date of the next rotation
+        $this->next_change = (new Carbon($this->next_change))->addSeconds($this->period);
+        $this->save();
 
-            // Mark all draft entries as "final"
-            $drafts = $this->entries()->where('status', 'draft')->get();
-            foreach ($drafts as $draft) {
+        // Mark all draft entries as "final"
+        $this->entries()
+            ->where('status', 'draft')
+            ->get()
+            ->each(function ($draft) {
                 $draft->status = 'final';
                 $draft->save();
-            }
-        }
+            });
     }
 }

@@ -40,13 +40,12 @@ class RotateJournals extends Command
     {
         $expired_journals = Journal::where('next_change', '<=', now())->get();
 
-
-        foreach ($expired_journals as $journal) {
+        $expired_journals->each(function ($journal) {
             $journal->rotate();
             // TODO: Trigger event
             // TODO: Send emails
-        }
+        });
 
-        $this->info(count($expired_journals) .' journal(s) rotated.');
+        $this->info($expired_journals->count() .' journal(s) rotated.');
     }
 }
