@@ -1,0 +1,5 @@
+.env
+.env.testing
+.env.dusk.testing
+.phpunit.result.cache
+.DS_Store
