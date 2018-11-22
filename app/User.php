@@ -2,6 +2,10 @@
 
 namespace App;
 
+use App\Comment;
+use App\Entry;
+use App\Invite;
+use App\Journal;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\CanResetPassword;
@@ -34,7 +38,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function journals_created()
     {
-        return $this->hasMany('App\Journal', 'creator_id');
+        return $this->hasMany(Journal::class, 'creator_id');
     }
 
     /**
@@ -42,7 +46,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function current_journals()
     {
-        return $this->hasMany('App\Journal', 'current_user_id');
+        return $this->hasMany(Journal::class, 'current_user_id');
     }
 
     /**
@@ -50,7 +54,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function journals()
     {
-        return $this->belongsToMany('App\Journal')
+        return $this->belongsToMany(Journal::class)
             ->as('subscription')
             ->withPivot('next_user_id', 'deleted_at')
             ->withTimestamps();
@@ -61,7 +65,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function entries()
     {
-        return $this->hasMany('App\Entry', 'author_id');
+        return $this->hasMany(Entry::class, 'author_id');
     }
 
     /**
@@ -69,7 +73,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function invites_sent()
     {
-        return $this->hasMany('App\Invite', 'sender_id');
+        return $this->hasMany(Invite::class, 'sender_id');
     }
 
     /**
@@ -77,7 +81,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function comments()
     {
-        return $this->hasMany('App\Comment');
+        return $this->hasMany(Comment::class);
     }
 
     /**
@@ -85,7 +89,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function invites_received()
     {
-        return $this->hasMany('App\Invite', 'user_id');
+        return $this->hasMany(Invite::class, 'user_id');
     }
 
     /**

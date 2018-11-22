@@ -2,6 +2,10 @@
 
 namespace App;
 
+use App\Comment;
+use App\Invite;
+use App\Journal;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
@@ -14,7 +18,7 @@ class Entry extends Model
      */
     public function journal()
     {
-        return $this->belongsTo('App\Journal');
+        return $this->belongsTo(Journal::class);
     }
 
     /**
@@ -22,7 +26,7 @@ class Entry extends Model
      */
     public function author()
     {
-        return $this->belongsTo('App\User', 'author_id');
+        return $this->belongsTo(User::class, 'author_id');
     }
 
     /**
@@ -30,6 +34,6 @@ class Entry extends Model
      */
     public function comments()
     {
-        return $this->hasMany('App\Comment');
+        return $this->hasMany(Comment::class);
     }
 }

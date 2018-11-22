@@ -2,6 +2,10 @@
 
 namespace App;
 
+use App\Comment;
+use App\Entry;
+use App\Invite;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
@@ -21,7 +25,7 @@ class Journal extends Model
      */
     public function creator()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(User::class);
     }
 
     /**
@@ -29,7 +33,7 @@ class Journal extends Model
      */
     public function current_user()
     {
-        return $this->belongsTo('App\User')->withDefault();
+        return $this->belongsTo(User::class)->withDefault();
     }
 
     /**
@@ -37,7 +41,7 @@ class Journal extends Model
      */
     public function users()
     {
-        return $this->belongsToMany('App\User')
+        return $this->belongsToMany(User::class)
             ->as('subscription')
             ->withPivot('next_user_id', 'deleted_at')
             ->withTimestamps();
@@ -118,7 +122,7 @@ class Journal extends Model
      */
     public function entries()
     {
-        return $this->hasMany('App\Entry')->orderBy('updated_at', 'desc');
+        return $this->hasMany(Entry::class)->orderBy('updated_at', 'desc');
     }
 
     /**
@@ -181,7 +185,7 @@ class Journal extends Model
      */
     public function invites()
     {
-        return $this->hasMany('App\Invite')->orderBy('created_at', 'desc');
+        return $this->hasMany(Invite::class)->orderBy('created_at', 'desc');
     }
 
     /**

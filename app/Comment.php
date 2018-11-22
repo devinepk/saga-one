@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Entry;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
@@ -11,7 +13,7 @@ class Comment extends Model
      */
     public function entry()
     {
-        return $this->belongsTo('App\Entry');
+        return $this->belongsTo(Entry::class);
     }
 
     /**
@@ -19,6 +21,6 @@ class Comment extends Model
      */
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(User::class);
     }
 }

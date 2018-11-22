@@ -2,6 +2,10 @@
 
 namespace App;
 
+use App\Comment;
+use App\Entry;
+use App\Journal;
+use App\User;
 use App\Events\InviteDeclined;
 use App\Events\InviteAccepted;
 use App\Notifications\InviteNotification;
@@ -17,7 +21,7 @@ class Invite extends Model
      */
     public function sender()
     {
-        return $this->belongsTo('App\User', 'sender_id');
+        return $this->belongsTo(User::class, 'sender_id');
     }
 
     /**
@@ -25,7 +29,7 @@ class Invite extends Model
      */
     public function journal()
     {
-        return $this->belongsTo('App\Journal');
+        return $this->belongsTo(Journal::class);
     }
 
     /**
@@ -33,7 +37,7 @@ class Invite extends Model
      */
     public function user()
     {
-        return $this->belongsTo('App\User', 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     /**
