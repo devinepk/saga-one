@@ -16,7 +16,8 @@ class Kernel extends ConsoleKernel
         'App\Console\Commands\RegisteredUsers',
         'App\Console\Commands\RotateJournals',
         'App\Console\Commands\SendWelcome',
-        'App\Console\Commands\SendVerify'
+        'App\Console\Commands\SendVerify',
+        'App\Console\Commands\SendInvite'
     ];
 
     /**

@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\User;
-use App\Mail\VerifyEmailMailable;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 
@@ -22,7 +21,7 @@ class SendVerify extends Command
      *
      * @var string
      */
-    protected $description = 'Send a sample email verification email';
+    protected $description = 'Send a sample email verification notification';
 
     /**
      * Create a new command instance.
