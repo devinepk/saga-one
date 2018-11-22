@@ -42,8 +42,8 @@ class RotateJournals extends Command
 
         $expired_journals->each(function ($journal) {
             $journal->rotate();
+            $journal->sendTurnNotification();
             // TODO: Trigger event
-            // TODO: Send emails
         });
 
         $this->info($expired_journals->count() .' journal(s) rotated.');

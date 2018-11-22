@@ -6,12 +6,15 @@ use App\Comment;
 use App\Entry;
 use App\Invite;
 use App\User;
+use App\Notifications\JournalRotatedToUser;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
+use Illuminate\Notifications\Notifiable;
 
 class Journal extends Model
 {
+    use Notifiable;
 
     /**
      * The attributes that should be mutated to dates.
@@ -208,5 +211,24 @@ class Journal extends Model
                 $draft->status = 'final';
                 $draft->save();
             });
+    }
+
+    /**
+     * Notify the current user that the journal is in their possession
+     */
+    public function sendTurnNotification()
+    {
+        $this->notify(new JournalRotatedToUser);
+    }
+
+    /**
+     * Route notifications for the mail channel.
+     *
+     * @param  \Illuminate\Notifications\Notification  $notification
+     * @return string
+     */
+    public function routeNotificationForMail($notification)
+    {
+        return $this->current_user->email;
     }
 }
