@@ -17,6 +17,7 @@ yarn-error.log
 .DS_Store
 
 # Elastic Beanstalk Files
+.ebignore
 .ebextensions/*
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
