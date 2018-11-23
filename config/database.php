@@ -5,8 +5,8 @@ if (env('APP_ENV') == 'production') {
     $dbhost = $_SERVER['RDS_HOSTNAME'];
     $dbuser = $_SERVER['RDS_USERNAME'];
     $dbpass = $_SERVER['RDS_PASSWORD'];
+    $dbport = $_SERVER['RDS_PORT'];
     $dbname = $_SERVER['RDS_DB_NAME'];
-    $dbport = '5432';
 } else {
     // localhost & heroku config
     $url = parse_url(getenv("DATABASE_URL"));
