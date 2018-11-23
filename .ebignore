@@ -3,3 +3,11 @@
 .env.dusk.testing
 .phpunit.result.cache
 .DS_Store
+
+
+// Ignore until your HTTPS certificate is validated
+.ebextensions/https-instance-securitygroup.config
+.ebextensions/https-instance.config
+
+// Ignore saved config files
+.ebextensions/saved_configs/*
