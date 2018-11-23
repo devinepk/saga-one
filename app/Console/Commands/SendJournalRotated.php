@@ -47,15 +47,18 @@ class SendJournalRotated extends Command
 
             if (blank($journal)) {
                 $this->error('Unable to find journal with id ' . $id);
-                return;
             }
-        } else {
+        } elseif (env('APP_ENV' !== 'production')) {
             // Make, but don't save, a mock journal and current user
             $journal = factory(Journal::class)->make();
             $journal->current_user = factory(User::class)->make();
+        } else {
+            $this->error('Cannot create mock journal in production. Use --journal=JOURNAL to pass an existing journal as an argument.');
         }
 
-        $journal->sendTurnNotification();
-        $this->info("Rotation notification email for journal \"{$journal->title}\" sent to {$journal->current_user->name} at {$journal->current_user->email}.");
+        if ($journal) {
+            $journal->sendTurnNotification();
+            $this->info("Rotation notification email for journal \"{$journal->title}\" sent to {$journal->current_user->name} at {$journal->current_user->email}.");
+        }
     }
 }

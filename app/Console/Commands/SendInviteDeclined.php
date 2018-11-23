@@ -49,17 +49,20 @@ class SendInviteDeclined extends Command
 
             if (blank($invite)) {
                 $this->error('Unable to find invite with id ' . $id);
-                return;
             }
-        } else {
+        } elseif (env('APP_ENV' !== 'production')) {
             // Make, but don't save, a mock invite, journal, invited user, and sender
             $invite = factory(Invite::class)->make();
             $invite->journal = factory(Journal::class)->make();
             $invite->user = factory(User::class)->make();
             $invite->sender = factory(User::class)->make();
+        } else {
+            $this->error('Cannot create mock invite in production. Use --invite=INVITE to pass an existing journal as an argument.');
         }
 
-        $invite->sender->notify(new InviteDeclined($invite));
-        $this->info("Invite declined notification for journal \"{$invite->journal->title}\" sent to {$invite->sender->name}.");
+        if ($invite) {
+            $invite->sender->notify(new InviteDeclined($invite));
+            $this->info("Invite declined notification for journal \"{$invite->journal->title}\" sent to {$invite->sender->name}.");
+        }
     }
 }

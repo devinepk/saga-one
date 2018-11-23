@@ -48,16 +48,19 @@ class SendInvite extends Command
 
             if (blank($invite)) {
                 $this->error('Unable to find invite with id ' . $id);
-                return;
             }
-        } else {
+        } elseif (env('APP_ENV' !== 'production')) {
             // Make, but don't save, a mock invite from a mock user to a mock journal
             $invite = factory(Invite::class)->make();
             $invite->journal = factory(Journal::class)->make();
             $invite->sender = factory(User::class)->make();
+        } else {
+            $this->error('Cannot create mock invite in production. Use --invite=INVITE to pass an existing journal as an argument.');
         }
 
-        $invite->sendInviteNotification();
-        $this->info("Invite sent to {$invite->email}.");
+        if ($invite) {
+            $invite->sendInviteNotification();
+            $this->info("Invite sent to {$invite->email}.");
+        }
     }
 }

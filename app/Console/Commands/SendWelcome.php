@@ -48,13 +48,16 @@ class SendWelcome extends Command
 
             if (blank($user)) {
                 $this->error('Unable to find user with id ' . $id);
-                return;
             }
-        } else {
+        } elseif (env('APP_ENV' !== 'production')) {
             $user = factory(User::class)->make();
+        } else {
+            $this->error('Cannot create mock user in production. Use --user=USER to pass an existing user as an argument.');
         }
 
-        Mail::to($user)->send(new UserWelcomeMailable($user));
-        $this->info("Welcome email sent to {$user->name} at {$user->email}.");
+        if ($user) {
+            Mail::to($user)->send(new UserWelcomeMailable($user));
+            $this->info("Welcome email sent to {$user->name} at {$user->email}.");
+        }
     }
 }

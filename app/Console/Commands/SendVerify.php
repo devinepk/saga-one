@@ -47,14 +47,17 @@ class SendVerify extends Command
 
             if (blank($user)) {
                 $this->error('Unable to find user with id ' . $id);
-                return;
             }
-        } else {
+        } elseif (env('APP_ENV' !== 'production')) {
             // Make, but don't save, a mock user
             $user = factory(User::class)->make();
+        } else {
+            $this->error('Cannot create mock user in production. Use --user=USER to pass an existing user as an argument.');
         }
 
-        $user->sendEmailVerificationNotification();
-        $this->info("Verification email sent to {$user->name} at {$user->email}.");
+        if ($user) {
+            $user->sendEmailVerificationNotification();
+            $this->info("Verification email sent to {$user->name} at {$user->email}.");
+        }
     }
 }
