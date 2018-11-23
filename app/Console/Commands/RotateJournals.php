@@ -46,6 +46,6 @@ class RotateJournals extends Command
             // TODO: Trigger event
         });
 
-        $this->info($expired_journals->count() .' journal(s) rotated.');
+        $this->info('[' . now() . ']: ' . $expired_journals->count() .' journal(s) rotated.');
     }
 }
