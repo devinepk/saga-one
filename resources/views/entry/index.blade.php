@@ -29,7 +29,7 @@
         auth-user-json="{{ Auth::user() }}"
         read-url="{{ Auth::user()->can('view', $journal) ? route('journal.contents', $journal) : '' }}"
         write-url="{{ Auth::user()->can('addEntry', $journal) ? route('journal.show', $journal) : '' }}"
-        image-url="{{ asset('/img/cover1.jpg') }}"
+        image-url="{{ asset('storage/img/cover1.jpg') }}"
         settings-url="{{ Auth::user()->can('viewSettings', $journal) ? route('journal.settings', $journal) : '' }}"
         queue-json="{{ $journal->queue }}"
         journal-json="{{ $journal }}"

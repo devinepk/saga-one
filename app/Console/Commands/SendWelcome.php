@@ -49,7 +49,7 @@ class SendWelcome extends Command
             if (blank($user)) {
                 $this->error('Unable to find user with id ' . $id);
             }
-        } elseif (env('APP_ENV' !== 'production')) {
+        } elseif (env('APP_ENV') !== 'production') {
             $user = factory(User::class)->make();
         } else {
             $this->error('Cannot create mock user in production. Use --user=USER to pass an existing user as an argument.');

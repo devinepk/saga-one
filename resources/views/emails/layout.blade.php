@@ -316,9 +316,7 @@
                 <table class="content" width="100%" cellpadding="0" cellspacing="0">
                     <tr>
                         <td class="header">
-                            {{-- {{ dd(asset('/img/SagaOne.png')) }} --}}
-                            <a href="{{ url('/') }}" target="_blank"><img src="http://localhost:8000/img/SagaOne.png"></a>
-                            {{-- <a href="{{ url('/') }}"><img src="{{ $message->embed(asset('/img/SagaOne.png')) }}"></a> --}}
+                            <a href="{{ url('/') }}" target="_blank"><img src="{{ asset('storage/img/SagaOne.png') }}"></a>
                         </td>
                     </tr>
 
