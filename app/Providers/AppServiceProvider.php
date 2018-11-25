@@ -6,7 +6,10 @@ use App\Mail\VerifyEmailMailable;
 use Carbon\Carbon;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Queue\Events\JobProcessed;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
@@ -34,6 +37,15 @@ class AppServiceProvider extends ServiceProvider
                 ->line('Thank you for registering for SagaOne! Please click the button below to verify your email address.')
                 ->action('Verify Email Address', $verificationUrl)
                 ->line('If you did not create an account, you may disregard this email.');
+        });
+
+        // Queue logging
+        Queue::after(function (JobProcessed $event) {
+            Log::debug('Queue worker has completed a job:', [
+                'connection' => $event->connectionName,
+                'job' => $event->job,
+                'payload' => $event->job->payload()
+            ]);
         });
     }
 
