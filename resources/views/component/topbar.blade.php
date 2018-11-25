@@ -26,7 +26,7 @@
         <ul class="navbar-nav ml-auto">
 
             {{-- Authentication links --}}
-            @auth
+            @authgit
             <li class="nav-item dropdown px-3">
 
                 {{-- Notifications --}}
