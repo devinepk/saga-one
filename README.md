@@ -5,12 +5,13 @@ Saga One is a great way to share your life with a small group of friends or fami
 
 ## To Do's
 - [ ] Write copy for weclome page and README.
-- [ ] Create favicon.
+- [x] Create favicon.
 - [ ] Create notifications DB table and display notifications to users.
 - [ ] Set up queues
 - [x] Set up CRON on AWS
 - [x] Set up Mailgun on AWS
-- [ ] Implement file storage with Amazon S3
+- [x] Implement file storage with Amazon S3
+- [ ] Allow users to upload journal cover images
 - [ ] Upgrade Mailgun for production
 - [ ] Add installation instructions to README.
 - [ ] Add build instructions to README.
