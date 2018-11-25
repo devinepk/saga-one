@@ -48,7 +48,7 @@ class SendVerify extends Command
             if (blank($user)) {
                 $this->error('Unable to find user with id ' . $id);
             }
-        } elseif (env('APP_ENV' !== 'production')) {
+        } elseif (env('APP_ENV') !== 'production') {
             // Make, but don't save, a mock user
             $user = factory(User::class)->make();
         } else {

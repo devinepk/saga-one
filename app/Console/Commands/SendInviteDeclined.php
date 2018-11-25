@@ -50,7 +50,7 @@ class SendInviteDeclined extends Command
             if (blank($invite)) {
                 $this->error('Unable to find invite with id ' . $id);
             }
-        } elseif (env('APP_ENV' !== 'production')) {
+        } elseif (env('APP_ENV') !== 'production') {
             // Make, but don't save, a mock invite, journal, invited user, and sender
             $invite = factory(Invite::class)->make();
             $invite->journal = factory(Journal::class)->make();
