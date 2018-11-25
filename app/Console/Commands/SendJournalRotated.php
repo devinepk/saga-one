@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\User;
 use App\Journal;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\App;
 
 class SendJournalRotated extends Command
 {
@@ -48,12 +49,12 @@ class SendJournalRotated extends Command
             if (blank($journal)) {
                 $this->error('Unable to find journal with id ' . $id);
             }
-        } elseif (env('APP_ENV') !== 'production') {
+        } elseif (App::environment('production')) {
+            $this->error('Cannot create mock journal in production. Use --journal=JOURNAL to pass an existing journal as an argument.');
+        } else {
             // Make, but don't save, a mock journal and current user
             $journal = factory(Journal::class)->make();
             $journal->current_user = factory(User::class)->make();
-        } else {
-            $this->error('Cannot create mock journal in production. Use --journal=JOURNAL to pass an existing journal as an argument.');
         }
 
         if ($journal) {

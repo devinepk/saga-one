@@ -6,6 +6,7 @@ use App\Invite;
 use App\Journal;
 use App\User;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\App;
 
 class SendInvite extends Command
 {
@@ -49,13 +50,13 @@ class SendInvite extends Command
             if (blank($invite)) {
                 $this->error('Unable to find invite with id ' . $id);
             }
-        } elseif (env('APP_ENV') !== 'production') {
+        } elseif (App::environment('production')) {
+            $this->error('Cannot create mock invite in production. Use --invite=INVITE to pass an existing journal as an argument.');
+        } else {
             // Make, but don't save, a mock invite from a mock user to a mock journal
             $invite = factory(Invite::class)->make();
             $invite->journal = factory(Journal::class)->make();
             $invite->sender = factory(User::class)->make();
-        } else {
-            $this->error('Cannot create mock invite in production. Use --invite=INVITE to pass an existing journal as an argument.');
         }
 
         if ($invite) {

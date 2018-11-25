@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\App;
 
 class SendVerify extends Command
 {
@@ -48,11 +49,11 @@ class SendVerify extends Command
             if (blank($user)) {
                 $this->error('Unable to find user with id ' . $id);
             }
-        } elseif (env('APP_ENV') !== 'production') {
+        } elseif (App::environment('production')) {
+            $this->error('Cannot create mock user in production. Use --user=USER to pass an existing user as an argument.');
+        } else {
             // Make, but don't save, a mock user
             $user = factory(User::class)->make();
-        } else {
-            $this->error('Cannot create mock user in production. Use --user=USER to pass an existing user as an argument.');
         }
 
         if ($user) {

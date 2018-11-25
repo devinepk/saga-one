@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\User;
 use App\Mail\UserWelcomeMailable;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Mail;
 
 class SendWelcome extends Command
@@ -49,10 +50,10 @@ class SendWelcome extends Command
             if (blank($user)) {
                 $this->error('Unable to find user with id ' . $id);
             }
-        } elseif (env('APP_ENV') !== 'production') {
-            $user = factory(User::class)->make();
-        } else {
+        } elseif (App::environment('production')) {
             $this->error('Cannot create mock user in production. Use --user=USER to pass an existing user as an argument.');
+        } else {
+            $user = factory(User::class)->make();
         }
 
         if ($user) {
