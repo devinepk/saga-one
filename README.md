@@ -11,6 +11,8 @@ Saga One is a great way to share your life with a small group of friends or fami
 - [x] Set up CRON on AWS
 - [x] Set up Mailgun on AWS
 - [x] Implement file storage with Amazon S3
+- [ ] Journal countdown T0 behavior
+- [ ] Configure HTTPS
 - [ ] Allow users to upload journal cover images
 - [ ] Upgrade Mailgun for production
 - [ ] Add installation instructions to README.
