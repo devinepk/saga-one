@@ -204,6 +204,7 @@ class Journal extends Model
         $this->save();
 
         // Mark all draft entries as "final"
+        // TODO: Is there a way to set status field for all drafts at once?
         $this->entries()
             ->where('status', 'draft')
             ->get()
@@ -218,17 +219,14 @@ class Journal extends Model
      */
     public function sendTurnNotification()
     {
-        $this->notify(new JournalRotatedToUser);
+        $this->current_user->notify(new JournalRotatedToUser($this));
     }
 
     /**
-     * Route notifications for the mail channel.
-     *
-     * @param  \Illuminate\Notifications\Notification  $notification
-     * @return string
+     * Get a formatted date of next change for this journal
      */
-    public function routeNotificationForMail($notification)
-    {
-        return $this->current_user->email;
+    public function getFormattedNextChangeAttribute() {
+        return (new Carbon($this->next_change, config('timezone', 'America/New_York')))
+                    ->format('F jS \\a\\t g:ia');
     }
 }
