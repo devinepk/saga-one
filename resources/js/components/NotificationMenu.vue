@@ -45,6 +45,7 @@ export default {
         markAsReadUrlPattern: String,
         journalSettingsUrlPattern: String,
         journalWriteUrlPattern: String,
+        inviteUrlPattern: String,
         replace: String
     },
 
@@ -68,6 +69,9 @@ export default {
         },
         journalWriteUrl(id) {
             return this.journalWriteUrlPattern.replace(this.replace, id);
+        },
+        inviteUrl(id) {
+            return this.inviteUrlPattern.replace(this.replace, id);
         },
         toggleItems() {
             this.showItems = !this.showItems;

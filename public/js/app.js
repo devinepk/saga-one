@@ -76886,6 +76886,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 case "App\\Notifications\\JournalRotatedToUser":
                     return 'You have this journal until ' + data.next_change + '.';
+
+                case 'App\\Notifications\\UserInvited':
+                    return '<strong>' + data.sender + '</strong> has invited you to join <strong>' + data.journal + '</strong>! <strong><a href="' + this.menu.inviteUrl(data.invite_id) + '"> Respond to this invite.</a></strong>';
             }
         },
         header: function header() {
@@ -76898,6 +76901,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 case "App\\Notifications\\JournalRotatedToUser":
                     return 'It\'s your turn to write in <strong><a href="' + this.menu.journalWriteUrl(this.notification.notifiable_id) + '">' + this.notification.data.journal + '</a></strong>!</h5>';
+
+                case 'App\\Notifications\\UserInvited':
+                    return 'You\'ve been invited!';
             }
         }
     },
@@ -77022,6 +77028,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         markAsReadUrlPattern: String,
         journalSettingsUrlPattern: String,
         journalWriteUrlPattern: String,
+        inviteUrlPattern: String,
         replace: String
     },
 
@@ -77045,6 +77052,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         journalWriteUrl: function journalWriteUrl(id) {
             return this.journalWriteUrlPattern.replace(this.replace, id);
+        },
+        inviteUrl: function inviteUrl(id) {
+            return this.inviteUrlPattern.replace(this.replace, id);
         },
         toggleItems: function toggleItems() {
             this.showItems = !this.showItems;

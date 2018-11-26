@@ -33,6 +33,7 @@
                 mark-as-read-url-pattern="{{ route('notification.read', 'ID') }}"
                 journal-settings-url-pattern="{{ route('journal.settings', 'ID') }}"
                 journal-write-url-pattern="{{ route('journal.show', 'ID') }}"
+                invite-url-pattern="{{ route('invite.show', 'ID') }}"
                 replace="ID"
                 notifications-json="{{ Auth::user()->unreadNotifications }}"
             ></notification-menu>

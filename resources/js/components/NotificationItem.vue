@@ -52,6 +52,9 @@ export default {
 
                 case "App\\Notifications\\JournalRotatedToUser":
                     return 'You have this journal until ' + data.next_change + '.';
+
+                case "App\\Notifications\\UserInvited":
+                    return '<strong>' + data.sender + '</strong> has invited you to join <strong>' + data.journal + '</strong>! <strong><a href="' + this.menu.inviteUrl(data.invite_id) + '"> Respond to this invite.</a></strong>';
             }
         },
 
@@ -65,6 +68,9 @@ export default {
 
                 case "App\\Notifications\\JournalRotatedToUser":
                     return 'It\'s your turn to write in <strong><a href="' + this.menu.journalWriteUrl(this.notification.notifiable_id) + '">' + this.notification.data.journal + '</a></strong>!</h5>';
+
+                case "App\\Notifications\\UserInvited":
+                    return 'You\'ve been invited!';
             }
         }
     },

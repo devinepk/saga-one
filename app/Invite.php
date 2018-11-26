@@ -49,7 +49,14 @@ class Invite extends Model
      */
     public function sendInviteNotification()
     {
-        $this->notify(new UserInvited);
+        if ($this->user) {
+            // If this invite is for a current user, then notify that user
+            $this->user->notify(new UserInvited($this));
+        } else {
+            // If the invite is for someone who is not a current user,
+            // then send a GuestInvite
+            dd('no user found');
+        }
     }
 
     /**

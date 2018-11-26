@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Invite;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\URL;
@@ -13,14 +14,16 @@ class UserInvited extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    public $invite;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Invite $invite)
     {
-        //
+        $this->invite = $invite;
     }
 
     /**
@@ -42,17 +45,14 @@ class UserInvited extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        // If the user already has an account, then use the name they set in their account.
-        $greeting = ( $notifiable->user ? "Guess what, {$notifiable->user->name}!" : "Guess what!" );
-
         return (new MailMessage)
-            ->subject("You have been invited to join {$notifiable->journal->title}")
-            ->greeting($greeting)
-            ->line("{$notifiable->sender->name} has invited you to join {$notifiable->journal->title} on SagaOne!")
+            ->subject("You have been invited to join {$this->invite->journal->title}")
+            ->greeting("Guess what, {$notifiable->name}!")
+            ->line("{$this->invite->sender->name} has invited you to join {$this->invite->journal->title} on SagaOne!")
             ->line('To view this invitation and join this journal, click the button below.')
             ->action(
-                    'Join ' . $notifiable->journal->title,
-                    $this->inviteUrl($notifiable)
+                    'Join ' . $this->invite->journal->title,
+                    $this->inviteUrl($this->invite)
                 )
             ->salutation('Happy writing!');
     }
@@ -65,19 +65,23 @@ class UserInvited extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        //
+        return [
+            'sender' => $this->invite->sender->name,
+            'journal' => $this->invite->journal->title,
+            'invite_id' => $this->invite->id
+        ];
     }
 
     /**
      * Get the invite URL for the given notifiable.
      *
-     * @param  mixed  $notifiable
+     * @param  \App\Invite
      * @return string
      */
-    protected function inviteUrl($notifiable)
+    protected function inviteUrl(Invite $invite)
     {
         return URL::signedRoute(
-            'invite.verify', ['id' => $notifiable->getKey()]
+            'invite.verify', ['id' => $invite->getKey()]
         );
     }
 }
