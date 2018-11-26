@@ -13,14 +13,16 @@ class JournalRotatedToUser extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    public $journal;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Journal $journal)
     {
-        //
+        $this->journal = $journal;
     }
 
     /**
@@ -31,7 +33,7 @@ class JournalRotatedToUser extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -42,17 +44,14 @@ class JournalRotatedToUser extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $formatted_next_change = (new Carbon($notifiable->next_change, config('timezone', 'America/New_York')))
-                                    ->format('F jS \\a\\t g:ia');
-
         return (new MailMessage)
-            ->subject("It's your turn to write in {$notifiable->title}")
-            ->greeting("Greetings, {$notifiable->current_user->name}!")
-            ->line("It's your turn to write in {$notifiable->title}!")
-            ->line("You will be able to read and write in this journal until {$formatted_next_change}.")
+            ->subject("It's your turn to write in {$this->journal->title}")
+            ->greeting("Greetings, {$notifiable->name}!")
+            ->line("It's your turn to write in {$this->journal->title}!")
+            ->line("You will be able to read and write in this journal until {$this->journal->formatted_next_change}.")
             ->action(
-                    'Go to ' . $notifiable->title,
-                    route('journal.show', $notifiable)
+                    'Go to ' . $this->journal->title,
+                    route('journal.show', $this->journal)
                 )
             ->salutation('Happy writing!');
     }
@@ -66,7 +65,8 @@ class JournalRotatedToUser extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            //
+            'journal' => $this->journal->title,
+            'next_change' => $this->journal->formatted_next_change
         ];
     }
 }
