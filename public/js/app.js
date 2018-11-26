@@ -77017,9 +77017,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             switch (this.notification.type) {
                 case "App\\Notifications\\InviteAccepted":
-                    return '<strong>' + data.user + '</strong> has <span class="text-dark font-weight-bold">accepted</span> your invite to <strong><a href="' + this.$parent.journalUrl(data.journal_id) + '">' + data.journal + '</strong>';
+                    return '<strong>' + data.user + '</strong> has <span class="text-dark font-weight-bold">accepted</span> your invite to <strong><a href="' + this.$parent.journalSettingsUrl(data.journal_id) + '">' + data.journal + '</a></strong>';
+
                 case "App\\Notifications\\InviteDeclined":
-                    return '<strong>' + data.user + '</strong> has <span class="text-danger font-weight-bold">declined</span> your invite to <strong><a href="' + this.$parent.journalUrl(data.journal_id) + '">' + data.journal + '</strong>';
+                    return '<strong>' + data.user + '</strong> has <span class="text-danger font-weight-bold">declined</span> your invite to <strong><a href="' + this.$parent.journalSettingsUrl(data.journal_id) + '">' + data.journal + '</a></strong>';
+
+                case "App\\Notifications\\JournalRotatedToUser":
+                    return 'It\'s your turn to write in <strong><a href="' + this.$parent.journalWriteUrl(this.notification.notifiable_id) + '">' + data.journal + '</a></strong>! You have this journal until ' + data.next_change + '.';
             }
         }
     },
@@ -77054,7 +77058,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return !_vm.read
     ? _c("div", { staticClass: "row no-gutters" }, [
-        _c("div", { staticClass: "col p-2" }, [
+        _c("div", { staticClass: "col p-3" }, [
           _c("p", {
             staticClass: "mb-0",
             domProps: { innerHTML: _vm._s(_vm.message) }
@@ -77184,7 +77188,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             required: true
         },
         markAsReadUrlPattern: String,
-        journalUrlPattern: String,
+        journalSettingsUrlPattern: String,
+        journalWriteUrlPattern: String,
         replace: String
     },
 
@@ -77202,8 +77207,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         markAsReadUrl: function markAsReadUrl(id) {
             return this.markAsReadUrlPattern.replace(this.replace, id);
         },
-        journalUrl: function journalUrl(id) {
-            return this.journalUrlPattern.replace(this.replace, id);
+        journalSettingsUrl: function journalSettingsUrl(id) {
+            return this.journalSettingsUrlPattern.replace(this.replace, id);
+        },
+        journalWriteUrl: function journalWriteUrl(id) {
+            return this.journalWriteUrlPattern.replace(this.replace, id);
         }
     }
 });

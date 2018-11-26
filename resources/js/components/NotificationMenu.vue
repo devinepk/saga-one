@@ -29,7 +29,8 @@ export default {
             required: true
         },
         markAsReadUrlPattern: String,
-        journalUrlPattern: String,
+        journalSettingsUrlPattern: String,
+        journalWriteUrlPattern: String,
         replace: String
     },
 
@@ -47,8 +48,11 @@ export default {
         markAsReadUrl(id) {
             return this.markAsReadUrlPattern.replace(this.replace, id);
         },
-        journalUrl(id) {
-            return this.journalUrlPattern.replace(this.replace, id);
+        journalSettingsUrl(id) {
+            return this.journalSettingsUrlPattern.replace(this.replace, id);
+        },
+        journalWriteUrl(id) {
+            return this.journalWriteUrlPattern.replace(this.replace, id);
         }
     }
 }

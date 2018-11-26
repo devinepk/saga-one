@@ -31,7 +31,8 @@
             {{-- Notifications --}}
             <notification-menu
                 mark-as-read-url-pattern="{{ route('notification.read', 'ID') }}"
-                journal-url-pattern="{{ route('journal.settings', 'ID') }}"
+                journal-settings-url-pattern="{{ route('journal.settings', 'ID') }}"
+                journal-write-url-pattern="{{ route('journal.show', 'ID') }}"
                 replace="ID"
                 notifications-json="{{ Auth::user()->unreadNotifications }}"
             ></notification-menu>

@@ -1,6 +1,6 @@
 <template>
 <div v-if="!read" class="row no-gutters">
-    <div class="col p-2">
+    <div class="col p-3">
         <p class="mb-0" v-html="message"></p>
     </div>
     <a href="#" @click.prevent="markAsRead" class="col-2 d-flex justify-content-center align-items-center">
@@ -42,9 +42,13 @@ export default {
 
             switch (this.notification.type) {
                 case "App\\Notifications\\InviteAccepted":
-                    return '<strong>' + data.user + '</strong> has <span class="text-dark font-weight-bold">accepted</span> your invite to <strong><a href="' + this.$parent.journalUrl(data.journal_id) + '">' + data.journal + '</strong>';
+                    return '<strong>' + data.user + '</strong> has <span class="text-dark font-weight-bold">accepted</span> your invite to <strong><a href="' + this.$parent.journalSettingsUrl(data.journal_id) + '">' + data.journal + '</a></strong>';
+
                 case "App\\Notifications\\InviteDeclined":
-                    return '<strong>' + data.user + '</strong> has <span class="text-danger font-weight-bold">declined</span> your invite to <strong><a href="' + this.$parent.journalUrl(data.journal_id) + '">' + data.journal + '</strong>';
+                    return '<strong>' + data.user + '</strong> has <span class="text-danger font-weight-bold">declined</span> your invite to <strong><a href="' + this.$parent.journalSettingsUrl(data.journal_id) + '">' + data.journal + '</a></strong>';
+
+                case "App\\Notifications\\JournalRotatedToUser":
+                    return 'It\'s your turn to write in <strong><a href="' + this.$parent.journalWriteUrl(this.notification.notifiable_id) + '">' + data.journal + '</a></strong>! You have this journal until ' + data.next_change + '.';
             }
         }
     },
