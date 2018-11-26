@@ -22,9 +22,11 @@
 /**
  * TOP BAR
  */
-.notification-item {
+.notification-menu {
     @include media-breakpoint-up(sm) {
-        width: 400px;
+        position: absolute;
+        left: -100%;
+        width: 200%
     }
 }
 

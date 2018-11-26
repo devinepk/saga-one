@@ -1,18 +1,15 @@
 <template>
-<div v-if="!read" class="row no-gutters">
-    <div class="col p-3">
-        <p class="mb-0" v-html="message"></p>
+
+    <div v-if="!read" class="card">
+        <div class="card-header">
+            <span class="close" @click="markAsRead">&times;</span>
+            <h5 class="mb-0" v-html="header"></h5>
+        </div>
+        <div class="card-body">
+            <p class="mb-0" v-html="message"></p>
+        </div>
     </div>
-    <a href="#" @click.prevent="markAsRead" class="col-2 d-flex justify-content-center align-items-center">
-        <font-awesome-icon
-            icon="check-square"
-            size="2x"
-            data-toggle="tooltip"
-            data-placement="bottom"
-            title="Mark as read"
-        />
-    </a>
-</div>
+
 </template>
 
 <script>
@@ -48,7 +45,20 @@ export default {
                     return '<strong>' + data.user + '</strong> has <span class="text-danger font-weight-bold">declined</span> your invite to <strong><a href="' + this.$parent.journalSettingsUrl(data.journal_id) + '">' + data.journal + '</a></strong>';
 
                 case "App\\Notifications\\JournalRotatedToUser":
-                    return 'It\'s your turn to write in <strong><a href="' + this.$parent.journalWriteUrl(this.notification.notifiable_id) + '">' + data.journal + '</a></strong>! You have this journal until ' + data.next_change + '.';
+                    return 'You have this journal until ' + data.next_change + '.';
+            }
+        },
+
+        header() {
+            switch (this.notification.type) {
+                case "App\\Notifications\\InviteAccepted":
+                    return 'Invite Accepted';
+
+                case "App\\Notifications\\InviteDeclined":
+                    return 'Invite Declined';
+
+                case "App\\Notifications\\JournalRotatedToUser":
+                    return 'It\'s your turn to write in <strong><a href="' + this.$parent.journalWriteUrl(this.notification.notifiable_id) + '">' + this.notification.data.journal + '</a></strong>!</h5>';
             }
         }
     },

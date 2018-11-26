@@ -76987,9 +76987,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -77023,7 +77020,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     return '<strong>' + data.user + '</strong> has <span class="text-danger font-weight-bold">declined</span> your invite to <strong><a href="' + this.$parent.journalSettingsUrl(data.journal_id) + '">' + data.journal + '</a></strong>';
 
                 case "App\\Notifications\\JournalRotatedToUser":
-                    return 'It\'s your turn to write in <strong><a href="' + this.$parent.journalWriteUrl(this.notification.notifiable_id) + '">' + data.journal + '</a></strong>! You have this journal until ' + data.next_change + '.';
+                    return 'You have this journal until ' + data.next_change + '.';
+            }
+        },
+        header: function header() {
+            switch (this.notification.type) {
+                case "App\\Notifications\\InviteAccepted":
+                    return 'Invite Accepted';
+
+                case "App\\Notifications\\InviteDeclined":
+                    return 'Invite Declined';
+
+                case "App\\Notifications\\JournalRotatedToUser":
+                    return 'It\'s your turn to write in <strong><a href="' + this.$parent.journalWriteUrl(this.notification.notifiable_id) + '">' + this.notification.data.journal + '</a></strong>!</h5>';
             }
         }
     },
@@ -77057,40 +77066,24 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return !_vm.read
-    ? _c("div", { staticClass: "row no-gutters" }, [
-        _c("div", { staticClass: "col p-3" }, [
+    ? _c("div", { staticClass: "card" }, [
+        _c("div", { staticClass: "card-header" }, [
+          _c("span", { staticClass: "close", on: { click: _vm.markAsRead } }, [
+            _vm._v("×")
+          ]),
+          _vm._v(" "),
+          _c("h5", {
+            staticClass: "mb-0",
+            domProps: { innerHTML: _vm._s(_vm.header) }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
           _c("p", {
             staticClass: "mb-0",
             domProps: { innerHTML: _vm._s(_vm.message) }
           })
-        ]),
-        _vm._v(" "),
-        _c(
-          "a",
-          {
-            staticClass:
-              "col-2 d-flex justify-content-center align-items-center",
-            attrs: { href: "#" },
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                return _vm.markAsRead($event)
-              }
-            }
-          },
-          [
-            _c("font-awesome-icon", {
-              attrs: {
-                icon: "check-square",
-                size: "2x",
-                "data-toggle": "tooltip",
-                "data-placement": "bottom",
-                title: "Mark as read"
-              }
-            })
-          ],
-          1
-        )
+        ])
       ])
     : _vm._e()
 }
@@ -77180,6 +77173,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -77195,7 +77191,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
-            notifications: {}
+            notifications: {},
+            showItems: false
         };
     },
     mounted: function mounted() {
@@ -77212,6 +77209,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         journalWriteUrl: function journalWriteUrl(id) {
             return this.journalWriteUrlPattern.replace(this.replace, id);
+        },
+        toggleItems: function toggleItems() {
+            this.showItems = !this.showItems;
         }
     }
 });
@@ -77224,78 +77224,79 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("li", { staticClass: "nav-item dropdown px-3" }, [
-    _c(
-      "a",
-      {
-        staticClass: "nav-link",
-        attrs: {
-          id: "notificationsLabel",
-          "data-toggle": "dropdown",
-          "aria-haspopup": "true",
-          "aria-expanded": "false",
-          href: "#"
-        }
-      },
-      [
-        _c("font-awesome-icon", { attrs: { icon: "bell" } }),
-        _vm._v(" "),
-        _c("span", { staticClass: "ml-2" }, [_vm._v("Notifications")]),
-        _vm._v(" "),
-        _vm.notifications.length
+  return _c(
+    "li",
+    { staticClass: "nav-item px-3 position-relative" },
+    [
+      _c(
+        "a",
+        {
+          staticClass: "nav-link",
+          attrs: { id: "notificationsLabel", href: "#" },
+          on: { click: _vm.toggleItems }
+        },
+        [
+          _c("font-awesome-icon", { attrs: { icon: "bell" } }),
+          _vm._v(" "),
+          _c("span", { staticClass: "ml-2" }, [_vm._v("Notifications")]),
+          _vm._v(" "),
+          _vm.notifications.length
+            ? _c(
+                "span",
+                {
+                  staticClass:
+                    "badge badge-light rounded ml-2 align-text-bottom"
+                },
+                [_vm._v(_vm._s(_vm.notifications.length))]
+              )
+            : _vm._e()
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("transition", { attrs: { name: "fade" } }, [
+        _vm.showItems
           ? _c(
-              "span",
-              {
-                staticClass: "badge badge-light rounded ml-2 align-text-bottom"
-              },
-              [_vm._v(_vm._s(_vm.notifications.length))]
-            )
-          : _vm._e()
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _vm.notifications.length
-      ? _c(
-          "div",
-          {
-            staticClass:
-              "dropdown-menu dropdown-menu-right notification-item p-0",
-            attrs: { "aria-labelledby": "notificationsLabel" }
-          },
-          _vm._l(_vm.notifications, function(notification, index) {
-            return _c(
               "div",
-              { key: notification.id },
+              {
+                staticClass: "p-0 text-body bg-white shadow notification-menu"
+              },
               [
-                _c("notification-item", {
-                  attrs: {
-                    index: index,
-                    "mark-as-read-url": _vm.markAsReadUrl(notification.id)
-                  }
+                _vm._l(_vm.notifications, function(notification, index) {
+                  return _c(
+                    "div",
+                    { key: notification.id },
+                    [
+                      _c("notification-item", {
+                        attrs: {
+                          index: index,
+                          "mark-as-read-url": _vm.markAsReadUrl(notification.id)
+                        }
+                      }),
+                      _vm._v(" "),
+                      index != _vm.notifications.length - 1
+                        ? _c("div", { staticClass: "dropdown-divider m-0" })
+                        : _vm._e()
+                    ],
+                    1
+                  )
                 }),
                 _vm._v(" "),
-                index != _vm.notifications.length - 1
-                  ? _c("div", { staticClass: "dropdown-divider m-0" })
+                !_vm.notifications.length
+                  ? _c(
+                      "p",
+                      { staticClass: "mb-0 p-3 text-center font-italic" },
+                      [_vm._v("No new notifications")]
+                    )
                   : _vm._e()
               ],
-              1
+              2
             )
-          })
-        )
-      : _c(
-          "div",
-          {
-            staticClass:
-              "dropdown-menu dropdown-menu-right notification-item p-0"
-          },
-          [
-            _c("p", { staticClass: "mb-0 p-3 text-center font-italic" }, [
-              _vm._v("No new notifications")
-            ])
-          ]
-        )
-  ])
+          : _vm._e()
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

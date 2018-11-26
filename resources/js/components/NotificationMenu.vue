@@ -1,24 +1,27 @@
 <template>
-<li class="nav-item dropdown px-3">
-    <a class="nav-link" id="notificationsLabel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
-        <font-awesome-icon icon="bell"></font-awesome-icon>
-        <span class="ml-2">Notifications</span>
-        <span v-if="notifications.length" class="badge badge-light rounded ml-2 align-text-bottom">{{ notifications.length }}</span>
-    </a>
 
-    <div v-if="notifications.length" class="dropdown-menu dropdown-menu-right notification-item p-0" aria-labelledby="notificationsLabel">
-        <div v-for="(notification, index) in notifications" :key="notification.id">
-            <notification-item
-                :index="index"
-                :mark-as-read-url="markAsReadUrl(notification.id)" />
-            <div v-if="index != notifications.length - 1" class="dropdown-divider m-0"></div>
-        </div>
-    </div>
+    <li class="nav-item px-3 position-relative">
 
-    <div v-else class="dropdown-menu dropdown-menu-right notification-item p-0">
-        <p class="mb-0 p-3 text-center font-italic">No new notifications</p>
-    </div>
-</li>
+        <a class="nav-link" id="notificationsLabel" @click="toggleItems" href="#">
+            <font-awesome-icon icon="bell"></font-awesome-icon>
+            <span class="ml-2">Notifications</span>
+            <span v-if="notifications.length" class="badge badge-light rounded ml-2 align-text-bottom">{{ notifications.length }}</span>
+        </a>
+
+        <transition name="fade">
+            <div v-if="showItems" class="p-0 text-body bg-white shadow notification-menu">
+                <div v-for="(notification, index) in notifications" :key="notification.id">
+                    <notification-item
+                        :index="index"
+                        :mark-as-read-url="markAsReadUrl(notification.id)" />
+                    <div v-if="index != notifications.length - 1" class="dropdown-divider m-0"></div>
+                </div>
+
+                <p v-if="!notifications.length" class="mb-0 p-3 text-center font-italic">No new notifications</p>
+            </div>
+        </transition>
+
+    </li>
 </template>
 
 <script>
@@ -36,7 +39,8 @@ export default {
 
     data() {
         return {
-            notifications: {}
+            notifications: {},
+            showItems: false
         };
     },
 
@@ -53,6 +57,9 @@ export default {
         },
         journalWriteUrl(id) {
             return this.journalWriteUrlPattern.replace(this.replace, id);
+        },
+        toggleItems() {
+            this.showItems = !this.showItems;
         }
     }
 }
