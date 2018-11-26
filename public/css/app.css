@@ -11774,6 +11774,16 @@ a.text-dark:focus {
 }
 
 /**
+ * TOP BAR
+ */
+
+@media (min-width: 576px) {
+  .notification-item {
+    width: 400px;
+  }
+}
+
+/**
  * WELCOME PAGE
  */
 
