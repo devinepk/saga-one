@@ -23,7 +23,7 @@
             <span v-if="queue.length > 1">until <strong>{{ prettyNextChange }}</strong></span>
         </div>
         <span v-if="showBadgeCurrent"
-            class="badge badge-current badge-secondary text-white rounded-circle p-3 shadow"
+            class="badge badge-current badge-secondary text-white rounded-circle shadow"
             data-toggle="tooltip" data-placement="top" title="You have this journal right now."
         >
             <font-awesome-icon size="4x" icon="star" />
@@ -193,6 +193,9 @@ export default {
     position: absolute;
     top: 10px;
     right: 10px;
+    height: 80px;
+    width: 80px;
+    padding-top: 18px;
 }
 .journal-card-cover {
     height: 200px;
