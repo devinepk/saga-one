@@ -11,6 +11,7 @@ use App\Events\InviteAccepted as InviteAcceptedEvent;
 use App\Notifications\InviteAccepted as InviteAcceptedNotification;
 use App\Notifications\InviteDeclined as InviteDeclinedNotification;
 use App\Notifications\UserInvited;
+use App\Notifications\GuestInvited;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
@@ -55,7 +56,7 @@ class Invite extends Model
         } else {
             // If the invite is for someone who is not a current user,
             // then send a GuestInvite
-            dd('no user found');
+            $this->notify(new GuestInvited);
         }
     }
 
