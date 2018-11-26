@@ -7,11 +7,12 @@
     </a>
 
     <div v-if="notifications.length" class="dropdown-menu dropdown-menu-right notification-item p-0" aria-labelledby="notificationsLabel">
-        <notification-item
-            v-for="(notification, index) in notifications"
-            :key="notification.id"
-            :index="index"
-            :mark-as-read-url="markAsReadUrl(notification.id)" />
+        <div v-for="(notification, index) in notifications" :key="notification.id">
+            <notification-item
+                :index="index"
+                :mark-as-read-url="markAsReadUrl(notification.id)" />
+            <div v-if="index != notifications.length - 1" class="dropdown-divider m-0"></div>
+        </div>
     </div>
 
     <div v-else class="dropdown-menu dropdown-menu-right notification-item p-0">

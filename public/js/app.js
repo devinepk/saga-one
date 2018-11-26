@@ -77017,7 +77017,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             switch (this.notification.type) {
                 case "App\\Notifications\\InviteAccepted":
-                    return "<strong>" + data.user + "</strong> has accepted your invite to <strong><a href=\"" + this.$parent.journalUrl(data.journal_id) + "\">" + data.journal + "</strong>";
+                    return '<strong>' + data.user + '</strong> has <span class="text-dark font-weight-bold">accepted</span> your invite to <strong><a href="' + this.$parent.journalUrl(data.journal_id) + '">' + data.journal + '</strong>';
+                case "App\\Notifications\\InviteDeclined":
+                    return '<strong>' + data.user + '</strong> has <span class="text-danger font-weight-bold">declined</span> your invite to <strong><a href="' + this.$parent.journalUrl(data.journal_id) + '">' + data.journal + '</strong>';
             }
         }
     },
@@ -77173,6 +77175,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -77253,13 +77256,23 @@ var render = function() {
             attrs: { "aria-labelledby": "notificationsLabel" }
           },
           _vm._l(_vm.notifications, function(notification, index) {
-            return _c("notification-item", {
-              key: notification.id,
-              attrs: {
-                index: index,
-                "mark-as-read-url": _vm.markAsReadUrl(notification.id)
-              }
-            })
+            return _c(
+              "div",
+              { key: notification.id },
+              [
+                _c("notification-item", {
+                  attrs: {
+                    index: index,
+                    "mark-as-read-url": _vm.markAsReadUrl(notification.id)
+                  }
+                }),
+                _vm._v(" "),
+                index != _vm.notifications.length - 1
+                  ? _c("div", { staticClass: "dropdown-divider m-0" })
+                  : _vm._e()
+              ],
+              1
+            )
           })
         )
       : _c(

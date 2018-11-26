@@ -42,7 +42,9 @@ export default {
 
             switch (this.notification.type) {
                 case "App\\Notifications\\InviteAccepted":
-                    return "<strong>" + data.user + "</strong> has accepted your invite to <strong><a href=\"" + this.$parent.journalUrl(data.journal_id) + "\">" + data.journal + "</strong>";
+                    return '<strong>' + data.user + '</strong> has <span class="text-dark font-weight-bold">accepted</span> your invite to <strong><a href="' + this.$parent.journalUrl(data.journal_id) + '">' + data.journal + '</strong>';
+                case "App\\Notifications\\InviteDeclined":
+                    return '<strong>' + data.user + '</strong> has <span class="text-danger font-weight-bold">declined</span> your invite to <strong><a href="' + this.$parent.journalUrl(data.journal_id) + '">' + data.journal + '</strong>';
             }
         }
     },

@@ -34,8 +34,7 @@
                 journal-url-pattern="{{ route('journal.settings', 'ID') }}"
                 replace="ID"
                 notifications-json="{{ Auth::user()->unreadNotifications }}"
-            >
-            </notification-menu>
+            ></notification-menu>
 
             <li class="nav-item dropdown px-3">
 

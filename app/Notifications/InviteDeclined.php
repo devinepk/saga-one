@@ -32,7 +32,7 @@ class InviteDeclined extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -64,7 +64,10 @@ class InviteDeclined extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            //
+            'user' => $this->invite->user->name,
+            'journal_id' => $this->invite->journal_id,
+            'journal' => $this->invite->journal->title,
+            'accepted_at' => $this->invite->accepted_at
         ];
     }
 }
