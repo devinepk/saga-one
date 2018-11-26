@@ -7,6 +7,7 @@
                 <tr>
                     <th class="border-top-0 action-col">&nbsp;</th>
                     <th class="border-top-0">Email</th>
+                    <th class="border-top-0">Invited</th>
                     <th class="border-top-0">Status</th>
                 </tr>
             </thead>
@@ -30,6 +31,8 @@
                     </td>
 
                     <td class="align-middle">{{ invite.email }}</td>
+
+                    <td class="align-middle">{{ on(invite.created_at) }}</td>
 
                     <td class="align-middle" data-toggle="tooltip" data-placement="left" data-html="true" :title="toolTip(invite)">
                         <span class="p-1 badge text-uppercase" :class="badgeClass(invite)">{{ status(invite) }}</span> {{ on(invite.updated_at) }}
