@@ -110,7 +110,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .badge-fail {
     position: absolute;
     right: 10px;

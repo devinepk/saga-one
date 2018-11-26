@@ -9,13 +9,24 @@
         </a>
 
         <transition name="fade">
-            <div v-if="showItems" class="p-0 text-body bg-white shadow notification-menu">
-                <div v-for="(notification, index) in notifications" :key="notification.id">
+            <div v-if="showItems" class="p-0 text-body bg-white shadow notification-menu border-bottom">
+                <div class="bg-primary text-right pr-2">
+                    <small>
+                        <template v-if="notifications.length">
+                            <a class="text-light" href="#">Dismiss all</a>
+                            <span class="px-2">|</span>
+                        </template>
+                        <a class="text-light" href="#" @click="closeWindow">Close</a>
+                    </small>
+                </div>
+
+                <transition-group name="fade" tag="div">
                     <notification-item
+                        v-for="(notification, index) in notifications"
+                        :key="notification.id"
                         :index="index"
                         :mark-as-read-url="markAsReadUrl(notification.id)" />
-                    <div v-if="index != notifications.length - 1" class="dropdown-divider m-0"></div>
-                </div>
+                </transition-group>
 
                 <p v-if="!notifications.length" class="mb-0 p-3 text-center font-italic">No new notifications</p>
             </div>
@@ -60,6 +71,9 @@ export default {
         },
         toggleItems() {
             this.showItems = !this.showItems;
+        },
+        closeWindow() {
+            this.showItems = false;
         }
     }
 }

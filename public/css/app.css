@@ -11942,3 +11942,16 @@ label {
           transform: translateY(30px);
 }
 
+.listup-enter-active,
+.listup-leave-active {
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+
+.listup-enter,
+.list-leave-to {
+  opacity: 0;
+  -webkit-transform: translateY(-30px);
+          transform: translateY(-30px);
+}
+
