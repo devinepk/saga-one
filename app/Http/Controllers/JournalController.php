@@ -76,13 +76,17 @@ class JournalController extends Controller
         $journal = new Journal;
         $journal->title = $request->title;
         $journal->description = $request->description;
+
+        // Default period is one week
+        $journal->period = 604800;
+
         $journal->current_user()->associate(Auth::id());
         $journal->creator()->associate(Auth::id());
 
         $journal->save();
         $journal->users()->save(Auth::user());
 
-        return redirect()->route('journal.show', compact('journal'))
+        return redirect()->route('journal.settings', compact('journal'))
             ->with('status', "You have created a new journal called <strong>{$journal->title}</strong>. You are currently the only participant.");
     }
 
