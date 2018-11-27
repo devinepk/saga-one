@@ -33459,7 +33459,7 @@ __webpack_require__(145);
 
 __WEBPACK_IMPORTED_MODULE_1__fortawesome_fontawesome_svg_core__["c" /* library */].add(
 // fontawesome-svg-core
-__WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["d" /* faBell */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["l" /* faGripHorizontal */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["u" /* faUser */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["e" /* faBook */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["o" /* faPlus */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["p" /* faSignOutAlt */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["i" /* faEdit */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["c" /* faBackward */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["k" /* faForward */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["b" /* faArrowAltCircleRight */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["n" /* faPencilAlt */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["f" /* faBookReader */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["w" /* faUserPlus */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["v" /* faUserCircle */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["t" /* faTrashAlt */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["a" /* faArchive */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["h" /* faCogs */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["j" /* faEnvelope */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["m" /* faMailBulk */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["q" /* faSpinner */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["r" /* faStar */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["g" /* faCheckSquare */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["x" /* faUsers */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["s" /* faSyncAlt */],
+__WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["d" /* faBell */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["m" /* faGripHorizontal */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["v" /* faUser */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["e" /* faBook */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["p" /* faPlus */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["q" /* faSignOutAlt */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["i" /* faEdit */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["c" /* faBackward */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["l" /* faForward */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["b" /* faArrowAltCircleRight */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["o" /* faPencilAlt */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["f" /* faBookReader */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["x" /* faUserPlus */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["w" /* faUserCircle */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["u" /* faTrashAlt */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["a" /* faArchive */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["h" /* faCogs */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["j" /* faEnvelope */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["n" /* faMailBulk */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["r" /* faSpinner */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["s" /* faStar */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["g" /* faCheckSquare */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["y" /* faUsers */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["t" /* faSyncAlt */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_free_solid_svg_icons__["k" /* faExclamationTriangle */],
 // free-brands-svg-icons
 __WEBPACK_IMPORTED_MODULE_3__fortawesome_free_brands_svg_icons__["b" /* faReadme */], __WEBPACK_IMPORTED_MODULE_3__fortawesome_free_brands_svg_icons__["a" /* faConnectdevelop */]);
 
@@ -56325,7 +56325,7 @@ var FontAwesomeLayersText = {
 /* unused harmony export faExchangeAlt */
 /* unused harmony export faExclamation */
 /* unused harmony export faExclamationCircle */
-/* unused harmony export faExclamationTriangle */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return faExclamationTriangle; });
 /* unused harmony export faExpand */
 /* unused harmony export faExpandArrowsAlt */
 /* unused harmony export faExternalLinkAlt */
@@ -56384,7 +56384,7 @@ var FontAwesomeLayersText = {
 /* unused harmony export faFont */
 /* unused harmony export faFontAwesomeLogoFull */
 /* unused harmony export faFootballBall */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return faForward; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return faForward; });
 /* unused harmony export faFrog */
 /* unused harmony export faFrown */
 /* unused harmony export faFrownOpen */
@@ -56423,7 +56423,7 @@ var FontAwesomeLayersText = {
 /* unused harmony export faGrinTongueSquint */
 /* unused harmony export faGrinTongueWink */
 /* unused harmony export faGrinWink */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return faGripHorizontal; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return faGripHorizontal; });
 /* unused harmony export faGripVertical */
 /* unused harmony export faHSquare */
 /* unused harmony export faHammer */
@@ -56533,7 +56533,7 @@ var FontAwesomeLayersText = {
 /* unused harmony export faLuggageCart */
 /* unused harmony export faMagic */
 /* unused harmony export faMagnet */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return faMailBulk; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return faMailBulk; });
 /* unused harmony export faMale */
 /* unused harmony export faMap */
 /* unused harmony export faMapMarked */
@@ -56614,7 +56614,7 @@ var FontAwesomeLayersText = {
 /* unused harmony export faPenFancy */
 /* unused harmony export faPenNib */
 /* unused harmony export faPenSquare */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return faPencilAlt; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return faPencilAlt; });
 /* unused harmony export faPencilRuler */
 /* unused harmony export faPeopleCarry */
 /* unused harmony export faPercent */
@@ -56632,7 +56632,7 @@ var FontAwesomeLayersText = {
 /* unused harmony export faPlay */
 /* unused harmony export faPlayCircle */
 /* unused harmony export faPlug */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return faPlus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return faPlus; });
 /* unused harmony export faPlusCircle */
 /* unused harmony export faPlusSquare */
 /* unused harmony export faPodcast */
@@ -56714,7 +56714,7 @@ var FontAwesomeLayersText = {
 /* unused harmony export faSign */
 /* unused harmony export faSignInAlt */
 /* unused harmony export faSignLanguage */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return faSignOutAlt; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return faSignOutAlt; });
 /* unused harmony export faSignal */
 /* unused harmony export faSignature */
 /* unused harmony export faSitemap */
@@ -56742,14 +56742,14 @@ var FontAwesomeLayersText = {
 /* unused harmony export faSpa */
 /* unused harmony export faSpaceShuttle */
 /* unused harmony export faSpider */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return faSpinner; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return faSpinner; });
 /* unused harmony export faSplotch */
 /* unused harmony export faSprayCan */
 /* unused harmony export faSquare */
 /* unused harmony export faSquareFull */
 /* unused harmony export faSquareRootAlt */
 /* unused harmony export faStamp */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return faStar; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return faStar; });
 /* unused harmony export faStarAndCrescent */
 /* unused harmony export faStarHalf */
 /* unused harmony export faStarHalfAlt */
@@ -56780,7 +56780,7 @@ var FontAwesomeLayersText = {
 /* unused harmony export faSwimmingPool */
 /* unused harmony export faSynagogue */
 /* unused harmony export faSync */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return faSyncAlt; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return faSyncAlt; });
 /* unused harmony export faSyringe */
 /* unused harmony export faTable */
 /* unused harmony export faTableTennis */
@@ -56831,7 +56831,7 @@ var FontAwesomeLayersText = {
 /* unused harmony export faTransgender */
 /* unused harmony export faTransgenderAlt */
 /* unused harmony export faTrash */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return faTrashAlt; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return faTrashAlt; });
 /* unused harmony export faTree */
 /* unused harmony export faTrophy */
 /* unused harmony export faTruck */
@@ -56853,12 +56853,12 @@ var FontAwesomeLayersText = {
 /* unused harmony export faUnlock */
 /* unused harmony export faUnlockAlt */
 /* unused harmony export faUpload */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return faUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return faUser; });
 /* unused harmony export faUserAlt */
 /* unused harmony export faUserAltSlash */
 /* unused harmony export faUserAstronaut */
 /* unused harmony export faUserCheck */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return faUserCircle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return faUserCircle; });
 /* unused harmony export faUserClock */
 /* unused harmony export faUserCog */
 /* unused harmony export faUserEdit */
@@ -56869,14 +56869,14 @@ var FontAwesomeLayersText = {
 /* unused harmony export faUserMd */
 /* unused harmony export faUserMinus */
 /* unused harmony export faUserNinja */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return faUserPlus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "x", function() { return faUserPlus; });
 /* unused harmony export faUserSecret */
 /* unused harmony export faUserShield */
 /* unused harmony export faUserSlash */
 /* unused harmony export faUserTag */
 /* unused harmony export faUserTie */
 /* unused harmony export faUserTimes */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "x", function() { return faUsers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "y", function() { return faUsers; });
 /* unused harmony export faUsersCog */
 /* unused harmony export faUtensilSpoon */
 /* unused harmony export faUtensils */
@@ -73581,6 +73581,7 @@ module.exports = function listToStyles (parentId, list) {
 //
 //
 //
+//
 
 module.exports = {
     props: {
@@ -73607,6 +73608,9 @@ module.exports = {
                 $arr.push('alert-dismissible', 'fade', 'show');
             }
             return $arr;
+        },
+        levelIcon: function levelIcon() {
+            return 'exclamation-triangle';
         }
     }
 };
@@ -73636,6 +73640,10 @@ var render = function() {
             },
             [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
           )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.level == "danger"
+        ? _c("font-awesome-icon", { attrs: { icon: _vm.levelIcon } })
         : _vm._e(),
       _vm._v(" "),
       _vm._t("default")
@@ -76615,14 +76623,19 @@ module.exports = Component.exports
 //
 //
 //
+//
+//
+//
+//
 
 module.exports = {
-    props: ['targetDateString'],
+    props: ['targetDateString', 'rotateUrl'],
 
     data: function data() {
         return {
             targetDate: null,
-            diff: null
+            diff: null,
+            error: false
         };
     },
 
@@ -76676,7 +76689,24 @@ module.exports = {
     methods: {
         updateRemaining: function updateRemaining() {
             this.diff = this.targetDate.diff(Moment());
-            requestAnimationFrame(this.updateRemaining);
+            if (this.diff >= 0) {
+                requestAnimationFrame(this.updateRemaining);
+            } else {
+                // Post to the server to update the journal
+                this.triggerRotation();
+            }
+        },
+
+        triggerRotation: function triggerRotation() {
+            var self = this;
+
+            // Post to the app to trigger a journal rotation
+            axios.post(self.rotateUrl).then(function (response) {
+                console.log(response);
+            }).catch(function (error) {
+                self.error = true;
+                console.error(error.response);
+            });
         }
     }
 };
@@ -76689,60 +76719,79 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      {
-        staticClass:
-          "row no-gutters justify-content-center text-light text-center font-weight-bold mb-4"
-      },
-      [
-        _c("div", { staticClass: "col" }, [
-          _c("div", { staticClass: "bg-primary py-2 rounded-left" }, [
-            _c("p", { staticClass: "m-0 h2" }, [
-              _vm._v(_vm._s(_vm.days.value))
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "m-0" }, [_vm._v(_vm._s(_vm.days.string))])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col" }, [
-          _c("div", { staticClass: "bg-primary py-2" }, [
-            _c("p", { staticClass: "m-0 h2" }, [
-              _vm._v(_vm._s(_vm.hours.value))
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "m-0" }, [_vm._v(_vm._s(_vm.hours.string))])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col" }, [
-          _c("div", { staticClass: "bg-primary py-2" }, [
-            _c("p", { staticClass: "m-0 h2" }, [
-              _vm._v(_vm._s(_vm.minutes.value))
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "m-0" }, [
-              _vm._v(_vm._s(_vm.minutes.string))
+  return _c(
+    "div",
+    [
+      _c(
+        "transition",
+        { attrs: { name: "fade" } },
+        [
+          _vm.error
+            ? _c("alert", { attrs: { level: "danger" } }, [
+                _vm._v("Journal rotation failed. Please refresh this page.")
+              ])
+            : _vm._e()
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass:
+            "row no-gutters justify-content-center text-light text-center font-weight-bold mb-4"
+        },
+        [
+          _c("div", { staticClass: "col" }, [
+            _c("div", { staticClass: "bg-primary py-2 rounded-left" }, [
+              _c("p", { staticClass: "m-0 h2" }, [
+                _vm._v(_vm._s(_vm.days.value))
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "m-0" }, [_vm._v(_vm._s(_vm.days.string))])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col" }, [
+            _c("div", { staticClass: "bg-primary py-2" }, [
+              _c("p", { staticClass: "m-0 h2" }, [
+                _vm._v(_vm._s(_vm.hours.value))
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "m-0" }, [
+                _vm._v(_vm._s(_vm.hours.string))
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col" }, [
+            _c("div", { staticClass: "bg-primary py-2" }, [
+              _c("p", { staticClass: "m-0 h2" }, [
+                _vm._v(_vm._s(_vm.minutes.value))
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "m-0" }, [
+                _vm._v(_vm._s(_vm.minutes.string))
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col" }, [
+            _c("div", { staticClass: "bg-primary rounded-right py-2" }, [
+              _c("p", { staticClass: "m-0 h2" }, [
+                _vm._v(_vm._s(_vm.seconds.value))
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "m-0" }, [
+                _vm._v(_vm._s(_vm.seconds.string))
+              ])
             ])
           ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col" }, [
-          _c("div", { staticClass: "bg-primary rounded-right py-2" }, [
-            _c("p", { staticClass: "m-0 h2" }, [
-              _vm._v(_vm._s(_vm.seconds.value))
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "m-0" }, [
-              _vm._v(_vm._s(_vm.seconds.string))
-            ])
-          ])
-        ])
-      ]
-    )
-  ])
+        ]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -77084,7 +77133,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     return 'Invite Declined';
 
                 case "App\\Notifications\\JournalRotatedToUser":
-                    return 'It\'s your turn to write in <strong><a href="' + this.menu.journalWriteUrl(this.notification.notifiable_id) + '">' + this.notification.data.journal + '</a></strong>!</h5>';
+                    return 'It\'s your turn to write in <strong><a href="' + this.menu.journalWriteUrl(this.notification.data.journal_id) + '">' + this.notification.data.journal + '</a></strong>!</h5>';
 
                 case 'App\\Notifications\\UserInvited':
                     return 'You\'ve been invited!';

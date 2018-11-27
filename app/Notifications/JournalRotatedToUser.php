@@ -66,6 +66,7 @@ class JournalRotatedToUser extends Notification implements ShouldQueue
     {
         return [
             'journal' => $this->journal->title,
+            'journal_id' => $this->journal->id,
             'next_change' => $this->journal->formatted_next_change
         ];
     }

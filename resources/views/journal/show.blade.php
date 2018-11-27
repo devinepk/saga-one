@@ -21,7 +21,10 @@
     ></journal-card>
 
     @if ($journal->queue->count())
-        <journal-countdown target-date-string="{{ $journal->next_change }}"></journal-countdown>
+        <journal-countdown
+            target-date-string="{{ $journal->next_change }}"
+            rotate-url="{{ route('api.journal.rotate', $journal) }}"
+        ></journal-countdown>
     @endif
 
     <h2>Your draft entries</h2>

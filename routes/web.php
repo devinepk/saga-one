@@ -21,6 +21,7 @@ Route::post('journal/{journal}/invite', 'JournalController@invite')->name('journ
 
 
 Route::post('journal/{journal}/queue', 'Api\JournalAPIController@updateQueue')->name('api.journal.updateQueue');
+Route::post('journal/{journal}/rotate', 'Api\JournalAPIController@rotate')->name('api.journal.rotate');
 Route::resource('journal', 'JournalController');
 
 Route::post('entry/{entry}/comment', 'Api\CommentAPIController@add')->name('api.comment.add');

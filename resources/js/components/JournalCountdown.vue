@@ -1,5 +1,9 @@
 <template>
 <div>
+    <transition name="fade">
+        <alert v-if="error" level="danger">Journal rotation failed. Please refresh this page.</alert>
+    </transition>
+
     <div class="row no-gutters justify-content-center text-light text-center font-weight-bold mb-4">
         <div class="col">
             <div class="bg-primary py-2 rounded-left">
@@ -31,12 +35,13 @@
 
 <script>
 module.exports = {
-    props: ['targetDateString'],
+    props: ['targetDateString', 'rotateUrl'],
 
     data: function() {
         return {
             targetDate: null,
-            diff: null
+            diff: null,
+            error: false
         }
     },
 
@@ -90,7 +95,27 @@ module.exports = {
     methods: {
         updateRemaining: function() {
             this.diff = this.targetDate.diff(Moment());
-            requestAnimationFrame(this.updateRemaining);
+            if (this.diff >= 0) {
+                requestAnimationFrame(this.updateRemaining);
+            } else {
+                // Post to the server to update the journal
+                this.triggerRotation();
+            }
+        },
+
+        triggerRotation: function() {
+            let self = this;
+
+            // Post to the app to trigger a journal rotation
+            axios.post(self.rotateUrl)
+                .then(function(response) {
+                    console.log(response);
+
+                })
+                .catch(function(error) {
+                    self.error = true;
+                    console.error(error.response);
+                });
         }
     }
 }

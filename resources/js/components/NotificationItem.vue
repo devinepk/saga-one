@@ -66,7 +66,7 @@ export default {
                     return 'Invite Declined';
 
                 case "App\\Notifications\\JournalRotatedToUser":
-                    return 'It\'s your turn to write in <strong><a href="' + this.menu.journalWriteUrl(this.notification.notifiable_id) + '">' + this.notification.data.journal + '</a></strong>!</h5>';
+                    return 'It\'s your turn to write in <strong><a href="' + this.menu.journalWriteUrl(this.notification.data.journal_id) + '">' + this.notification.data.journal + '</a></strong>!</h5>';
 
                 case "App\\Notifications\\UserInvited":
                     return 'You\'ve been invited!';

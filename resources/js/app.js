@@ -16,7 +16,7 @@ import {
     faEdit, faBackward, faForward, faArrowAltCircleRight, faPencilAlt,
     faBookReader, faUserPlus, faUserCircle, faTrashAlt, faArchive,
     faCogs, faEnvelope, faMailBulk, faSpinner, faStar, faCheckSquare,
-    faUsers, faSyncAlt
+    faUsers, faSyncAlt, faExclamationTriangle
 } from '@fortawesome/free-solid-svg-icons';
 
 import { faReadme, faConnectdevelop } from '@fortawesome/free-brands-svg-icons';
@@ -27,7 +27,7 @@ library.add(
     faEdit, faBackward, faForward, faArrowAltCircleRight, faPencilAlt,
     faBookReader, faUserPlus, faUserCircle, faTrashAlt, faArchive,
     faCogs, faEnvelope, faMailBulk, faSpinner, faStar, faCheckSquare,
-    faUsers, faSyncAlt,
+    faUsers, faSyncAlt, faExclamationTriangle,
     // free-brands-svg-icons
     faReadme, faConnectdevelop
 );

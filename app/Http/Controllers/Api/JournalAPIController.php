@@ -7,6 +7,7 @@ use App\Journal;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class JournalAPIController extends Controller
 {
@@ -70,5 +71,22 @@ class JournalAPIController extends Controller
         }
 
         return ['old' => $old, 'new' => $new];
+    }
+
+    /**
+     * Process an API request to rotate a journal
+     * (Called from the JournalCountdown vue component.)
+     *
+     * @param  \App\Journal  $journal
+     * @return \Illuminate\Http\Response
+     */
+    public function rotate(Journal $journal)
+    {
+        if ($journal->next_change <= now()) {
+            // This journal is, in fact, due for rotation.
+            $journal->rotate();
+            $journal->sendTurnNotification();
+            Log::debug("An API request triggered a journal rotation. Journal \"{$journal->title}\" rotated to {$journal->current_user->name}.");
+        }
     }
 }

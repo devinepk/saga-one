@@ -3,6 +3,7 @@
         <button v-if="dismissible" type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
+        <font-awesome-icon v-if="level == 'danger'" :icon="levelIcon" />
         <slot></slot>
     </div>
 </template>
@@ -33,6 +34,9 @@ module.exports = {
                 $arr.push('alert-dismissible', 'fade', 'show');
             }
             return $arr;
+        },
+        levelIcon: function() {
+            return 'exclamation-triangle';
         }
     }
 }
