@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Journal;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class RotateJournals extends Command
 {
@@ -47,5 +48,7 @@ class RotateJournals extends Command
         });
 
         $this->info('[' . now() . ']: ' . $expired_journals->count() .' journal(s) rotated.');
+
+        Log::debug($expired_journals->count() .' journal(s) rotated.');
     }
 }
