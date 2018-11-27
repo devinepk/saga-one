@@ -74303,7 +74303,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.excerpt-overlay[data-v-24681072] {\n    background: -webkit-gradient(linear, left top, left bottom, color-stop(50%, rgba(255,255,255,0)),to(rgba(255,255,255,1)));\n    background: linear-gradient(to bottom, rgba(255,255,255,0) 50%,rgba(255,255,255,1) 100%);\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n}\n.ql-editor[data-v-24681072] {\n    min-height: unset;\n    padding: 0;\n}\n", ""]);
+exports.push([module.i, "\n.excerpt-overlay[data-v-24681072] {\n    background: -webkit-gradient(linear, left top, left bottom, color-stop(50%, rgba(255,255,255,0)),to(rgba(255,255,255,1)));\n    background: linear-gradient(to bottom, rgba(255,255,255,0) 50%,rgba(255,255,255,1) 100%);\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n}\n.ql-editor[data-v-24681072] {\n    min-height: unset;\n    padding: 0;\n}\n.published-stamp-container[data-v-24681072] {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    background-color: rgba(255,255,255,0.5);\n}\n.published-stamp[data-v-24681072] {\n    -webkit-transform: rotate(-20deg);\n            transform: rotate(-20deg);\n    font-size: 3rem;\n    line-height: 1;\n    text-shadow: 2px 2px 5px grey;\n}\n.published-stamp > strong[data-v-24681072] {\n    letter-spacing: 3px;\n}\n", ""]);
 
 // exports
 
@@ -74314,6 +74314,18 @@ exports.push([module.i, "\n.excerpt-overlay[data-v-24681072] {\n    background: 
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -74389,14 +74401,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
-            dateFormatObj: {
-                sameDay: '[today at] h:ssa',
-                nextDay: '[tomorrow at] h:ssa',
-                nextWeek: 'dddd [at] h:ssa',
-                lastDay: '[yesterday at] h:ssa',
-                lastWeek: '[last] dddd [at] h:ssa',
-                sameElse: 'DD/MM/YYYY [at] h:ssa'
-            },
+            isPublishedDraft: false,
             excerptOptions: {
                 TruncateLength: 50,
                 TruncateBy: "words",
@@ -74405,6 +74410,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 Suffix: '...'
             }
         };
+    },
+    mounted: function mounted() {
+        Event.$on('journalRotated', this.publish);
     },
 
 
@@ -74419,16 +74427,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return JSON.parse(this.authorJson);
         },
         createdAt: function createdAt() {
-            return Moment(this.entry.created_at).calendar(null, this.dateFormatObj);
+            return Moment(this.entry.created_at).calendar(null, this.$root.dateFormatObj);
         },
         updatedAt: function updatedAt() {
-            return Moment(this.entry.updated_at).calendar(null, this.dateFormatObj);
+            return Moment(this.entry.updated_at).calendar(null, this.$root.dateFormatObj);
         },
         deleteModal: function deleteModal() {
             return 'delete-confirm-' + this.entry.id;
         },
         deleteModalRef: function deleteModalRef() {
             return '#' + this.deleteModal;
+        },
+        showEditOptions: function showEditOptions() {
+            return !this.isPublishedDraft && (this.editUrl || this.deleteUrl);
+        }
+    },
+
+    methods: {
+        publish: function publish() {
+            // Animate the "publishing" of this entry to the journal
+            this.isPublishedDraft = true;
+            // Set author name so footer text changes
+            this.author.name = this.$root.authUser.name;
         }
     }
 });
@@ -74441,158 +74461,210 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card mb-5" }, [
-    _c("div", { staticClass: "card-header" }, [
-      _vm.editUrl || _vm.deleteUrl
-        ? _c(
-            "div",
-            { staticClass: "float-right text-muted" },
-            [
-              _c(
-                "span",
-                {
-                  attrs: {
-                    "data-toggle": "tooltip",
-                    "data-placement": "top",
-                    title: "Edit this entry"
-                  }
-                },
-                [
-                  _vm.editUrl
-                    ? _c(
-                        "a",
-                        { staticClass: "btn", attrs: { href: _vm.editUrl } },
-                        [_c("font-awesome-icon", { attrs: { icon: "edit" } })],
-                        1
-                      )
-                    : _vm._e()
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "span",
-                {
-                  attrs: {
-                    "data-toggle": "tooltip",
-                    "data-placement": "top",
-                    title: "Delete this entry"
-                  }
-                },
-                [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-link",
-                      attrs: {
-                        type: "button",
-                        "data-toggle": "modal",
-                        "data-target": _vm.deleteModalRef
-                      }
-                    },
-                    [_c("font-awesome-icon", { attrs: { icon: "trash-alt" } })],
-                    1
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "modal",
-                { attrs: { "modal-id": _vm.deleteModal } },
-                [
-                  _c("template", { slot: "title" }, [
-                    _vm._v("Delete this entry?")
-                  ]),
-                  _vm._v(" "),
-                  _c("p", [
-                    _vm._v("Are you sure you want to delete this entry?")
-                  ]),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "text-center" }, [
-                    _c("strong", [_vm._v(_vm._s(_vm.entry.title))])
-                  ]),
-                  _vm._v(" "),
-                  _c("template", { slot: "footer" }, [
+  return _c(
+    "div",
+    { staticClass: "card mb-5" },
+    [
+      _c(
+        "div",
+        { staticClass: "card-header" },
+        [
+          _c("transition", { attrs: { name: "fade" } }, [
+            _vm.showEditOptions
+              ? _c(
+                  "div",
+                  { staticClass: "float-right text-muted" },
+                  [
                     _c(
-                      "button",
+                      "span",
                       {
-                        staticClass: "btn btn-link",
-                        attrs: { type: "button", "data-dismiss": "modal" }
+                        attrs: {
+                          "data-toggle": "tooltip",
+                          "data-placement": "top",
+                          title: "Edit this entry"
+                        }
                       },
-                      [_vm._v("Cancel")]
+                      [
+                        _vm.editUrl
+                          ? _c(
+                              "a",
+                              {
+                                staticClass: "btn",
+                                attrs: { href: _vm.editUrl }
+                              },
+                              [
+                                _c("font-awesome-icon", {
+                                  attrs: { icon: "edit" }
+                                })
+                              ],
+                              1
+                            )
+                          : _vm._e()
+                      ]
                     ),
                     _vm._v(" "),
-                    _vm.deleteUrl
-                      ? _c(
-                          "form",
+                    _c(
+                      "span",
+                      {
+                        attrs: {
+                          "data-toggle": "tooltip",
+                          "data-placement": "top",
+                          title: "Delete this entry"
+                        }
+                      },
+                      [
+                        _c(
+                          "button",
                           {
-                            staticClass: "d-inline",
-                            attrs: { method: "post", action: _vm.deleteUrl }
+                            staticClass: "btn btn-link",
+                            attrs: {
+                              type: "button",
+                              "data-toggle": "modal",
+                              "data-target": _vm.deleteModalRef
+                            }
                           },
                           [
-                            _vm._t("deleteformfields"),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-danger",
-                                attrs: { type: "submit" }
-                              },
-                              [_vm._v("Yes, delete")]
-                            )
+                            _c("font-awesome-icon", {
+                              attrs: { icon: "trash-alt" }
+                            })
                           ],
-                          2
+                          1
                         )
-                      : _vm._e()
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "modal",
+                      { attrs: { "modal-id": _vm.deleteModal } },
+                      [
+                        _c("template", { slot: "title" }, [
+                          _vm._v("Delete this entry?")
+                        ]),
+                        _vm._v(" "),
+                        _c("p", [
+                          _vm._v("Are you sure you want to delete this entry?")
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "text-center" }, [
+                          _c("strong", [_vm._v(_vm._s(_vm.entry.title))])
+                        ]),
+                        _vm._v(" "),
+                        _c("template", { slot: "footer" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-link",
+                              attrs: { type: "button", "data-dismiss": "modal" }
+                            },
+                            [_vm._v("Cancel")]
+                          ),
+                          _vm._v(" "),
+                          _vm.deleteUrl
+                            ? _c(
+                                "form",
+                                {
+                                  staticClass: "d-inline",
+                                  attrs: {
+                                    method: "post",
+                                    action: _vm.deleteUrl
+                                  }
+                                },
+                                [
+                                  _vm._t("deleteformfields"),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-danger",
+                                      attrs: { type: "submit" }
+                                    },
+                                    [_vm._v("Yes, delete")]
+                                  )
+                                ],
+                                2
+                              )
+                            : _vm._e()
+                        ])
+                      ],
+                      2
+                    )
+                  ],
+                  1
+                )
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c(
+            "h2",
+            { staticClass: "m-0" },
+            [
+              !_vm.isPublishedDraft
+                ? _c("a", { attrs: { href: _vm.titleUrl } }, [
+                    _vm._v(_vm._s(_vm.entry.title))
                   ])
-                ],
-                2
-              )
+                : [_vm._v(_vm._s(_vm.entry.title))],
+              _vm._v(" "),
+              _vm.unread
+                ? _c("span", { staticClass: "badge badge-info ml-3 rounded" }, [
+                    _vm._v("unread")
+                  ])
+                : _vm._e()
             ],
-            1
+            2
           )
-        : _vm._e(),
+        ],
+        1
+      ),
       _vm._v(" "),
-      _c("h2", { staticClass: "m-0" }, [
-        _c("a", { attrs: { href: _vm.titleUrl } }, [
-          _vm._v(_vm._s(_vm.entry.title))
-        ]),
-        _vm.unread
-          ? _c("span", { staticClass: "badge badge-info ml-3 rounded" }, [
-              _vm._v("unread")
+      _c("div", { staticClass: "card-body position-relative" }, [
+        _c("div", {
+          staticClass: "ql-editor",
+          domProps: { innerHTML: _vm._s(_vm.excerpt) }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-footer text-muted" }, [
+        _vm.author.name
+          ? _c("span", [
+              _vm._v(
+                "Written by " +
+                  _vm._s(_vm.author.name) +
+                  " " +
+                  _vm._s(_vm.updatedAt) +
+                  "."
+              )
+            ])
+          : _c("span", [
+              _vm._v(
+                "Created " +
+                  _vm._s(_vm.createdAt) +
+                  ". Last updated " +
+                  _vm._s(_vm.updatedAt) +
+                  "."
+              )
+            ])
+      ]),
+      _vm._v(" "),
+      _c("transition", { attrs: { name: "fade" } }, [
+        _vm.isPublishedDraft
+          ? _c("div", { staticClass: "published-stamp-container" }, [
+              _c(
+                "span",
+                {
+                  staticClass: "published-stamp h1 text-danger text-monospace"
+                },
+                [
+                  _c("strong", [_vm._v("Published")]),
+                  _c("br"),
+                  _vm._v("to journal")
+                ]
+              )
             ])
           : _vm._e()
       ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "card-body position-relative" }, [
-      _c("div", {
-        staticClass: "ql-editor",
-        domProps: { innerHTML: _vm._s(_vm.excerpt) }
-      })
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "card-footer text-muted" }, [
-      _vm.author.name
-        ? _c("span", [
-            _vm._v(
-              "Written by " +
-                _vm._s(_vm.author.name) +
-                " " +
-                _vm._s(_vm.updatedAt) +
-                "."
-            )
-          ])
-        : _c("span", [
-            _vm._v(
-              "Created " +
-                _vm._s(_vm.createdAt) +
-                ". Last updated " +
-                _vm._s(_vm.updatedAt) +
-                "."
-            )
-          ])
-    ])
-  ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -76627,6 +76699,10 @@ module.exports = Component.exports
 //
 //
 //
+//
+//
+//
+//
 
 module.exports = {
     props: ['targetDateString', 'rotateUrl'],
@@ -76683,6 +76759,11 @@ module.exports = {
                 value: val,
                 string: val === 1 ? 'second' : 'seconds'
             };
+        },
+
+        bgColorClass: function bgColorClass() {
+            if (this.diff > 10000) return 'bg-primary';
+            return 'bg-danger';
         }
     },
 
@@ -76702,7 +76783,7 @@ module.exports = {
 
             // Post to the app to trigger a journal rotation
             axios.post(self.rotateUrl).then(function (response) {
-                console.log(response);
+                Event.$emit('journalRotated');
             }).catch(function (error) {
                 self.error = true;
                 console.error(error.response);
@@ -76743,17 +76824,23 @@ var render = function() {
         },
         [
           _c("div", { staticClass: "col" }, [
-            _c("div", { staticClass: "bg-primary py-2 rounded-left" }, [
-              _c("p", { staticClass: "m-0 h2" }, [
-                _vm._v(_vm._s(_vm.days.value))
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "m-0" }, [_vm._v(_vm._s(_vm.days.string))])
-            ])
+            _c(
+              "div",
+              { staticClass: "py-2 rounded-left", class: _vm.bgColorClass },
+              [
+                _c("p", { staticClass: "m-0 h2" }, [
+                  _vm._v(_vm._s(_vm.days.value))
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "m-0" }, [
+                  _vm._v(_vm._s(_vm.days.string))
+                ])
+              ]
+            )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col" }, [
-            _c("div", { staticClass: "bg-primary py-2" }, [
+            _c("div", { staticClass: "py-2", class: _vm.bgColorClass }, [
               _c("p", { staticClass: "m-0 h2" }, [
                 _vm._v(_vm._s(_vm.hours.value))
               ]),
@@ -76765,7 +76852,7 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col" }, [
-            _c("div", { staticClass: "bg-primary py-2" }, [
+            _c("div", { staticClass: "py-2", class: _vm.bgColorClass }, [
               _c("p", { staticClass: "m-0 h2" }, [
                 _vm._v(_vm._s(_vm.minutes.value))
               ]),
@@ -76777,17 +76864,38 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col" }, [
-            _c("div", { staticClass: "bg-primary rounded-right py-2" }, [
-              _c("p", { staticClass: "m-0 h2" }, [
-                _vm._v(_vm._s(_vm.seconds.value))
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "m-0" }, [
-                _vm._v(_vm._s(_vm.seconds.string))
-              ])
-            ])
+            _c(
+              "div",
+              { staticClass: "rounded-right py-2", class: _vm.bgColorClass },
+              [
+                _c("p", { staticClass: "m-0 h2" }, [
+                  _vm._v(_vm._s(_vm.seconds.value))
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "m-0" }, [
+                  _vm._v(_vm._s(_vm.seconds.string))
+                ])
+              ]
+            )
           ])
         ]
+      ),
+      _vm._v(" "),
+      _c(
+        "transition",
+        { attrs: { name: "fade" } },
+        [
+          _vm.diff < 0
+            ? _c("alert", [
+                _c("strong", [
+                  _vm._v(
+                    "This journal has rotated to the next user. You'll have to wait until it's your turn again to read or write in it."
+                  )
+                ])
+              ])
+            : _vm._e()
+        ],
+        1
       )
     ],
     1

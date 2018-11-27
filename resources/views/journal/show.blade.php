@@ -27,11 +27,8 @@
         ></journal-countdown>
     @endif
 
-    <h2>Your draft entries</h2>
-
-    @if (count($drafts))
-        <p>You can edit these entries now, but when the journal moves to the next person, they'll be posted to the journal permanently and no further edits will be possible.</p>
-    @endif
+    <h2>Your entries</h2>
+    <p>While you have this journal, you can read previous entries as well as add new ones. The entries you add now can be edited later as long as you have this journal, but once your turn is over, they will be published to the journal permanently. <strong>So make sure your entries are finished before the timer runs out!</strong></p>
 
     @component('component.addButton')
         @slot('url', route('journal.add', $journal))
@@ -41,7 +38,7 @@
     @if(count($drafts))
         {{ $drafts->links() }}
     @else
-        <div class="alert alert-secondary">You haven't started any new entries. Time to get writing!</div>
+        <alert level="secondary" :dismissible="false">You haven't added any entries yet. Time to get writing!</alert>
     @endif
 
     @foreach ($drafts as $draft)

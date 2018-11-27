@@ -6,30 +6,34 @@
 
     <div class="row no-gutters justify-content-center text-light text-center font-weight-bold mb-4">
         <div class="col">
-            <div class="bg-primary py-2 rounded-left">
+            <div :class="bgColorClass" class="py-2 rounded-left">
                 <p class="m-0 h2">{{ days.value }}</p>
                 <p class="m-0">{{ days.string }}</p>
             </div>
         </div>
         <div class="col">
-            <div class="bg-primary py-2">
+            <div :class="bgColorClass" class="py-2">
                 <p class="m-0 h2">{{ hours.value }}</p>
                 <p class="m-0">{{ hours.string }}</p>
             </div>
         </div>
         <div class="col">
-            <div class="bg-primary py-2">
+            <div :class="bgColorClass" class="py-2">
                 <p class="m-0 h2">{{ minutes.value }}</p>
                 <p class="m-0">{{ minutes.string }}</p>
             </div>
         </div>
         <div class="col">
-            <div class="bg-primary rounded-right py-2">
+            <div :class="bgColorClass" class="rounded-right py-2">
                 <p class="m-0 h2">{{ seconds.value }}</p>
                 <p class="m-0">{{ seconds.string }}</p>
             </div>
         </div>
     </div>
+
+    <transition name="fade">
+        <alert v-if="diff < 0"><strong>This journal has rotated to the next user. You'll have to wait until it's your turn again to read or write in it.</strong></alert>
+    </transition>
 </div>
 </template>
 
@@ -89,6 +93,11 @@ module.exports = {
                 value: val,
                 string: val === 1 ? 'second' : 'seconds'
             }
+        },
+
+        bgColorClass: function() {
+            if (this.diff > 10000) return 'bg-primary';
+            return 'bg-danger';
         }
     },
 
@@ -109,8 +118,7 @@ module.exports = {
             // Post to the app to trigger a journal rotation
             axios.post(self.rotateUrl)
                 .then(function(response) {
-                    console.log(response);
-
+                    Event.$emit('journalRotated');
                 })
                 .catch(function(error) {
                     self.error = true;
