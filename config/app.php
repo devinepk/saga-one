@@ -163,6 +163,7 @@ return [
         /*
          * Package Service Providers...
          */
+        'Dusterio\AwsWorker\Integrations\LaravelServiceProvider',
 
         /*
          * Application Service Providers...
