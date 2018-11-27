@@ -32,6 +32,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('registered:users')->daily()->environments(['staging', 'production']);
         $schedule->command('journals:rotate')->everyMinute();
+        $schedule->command('report:stats')->everyHour();
     }
 
     /**
