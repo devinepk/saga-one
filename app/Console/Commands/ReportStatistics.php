@@ -9,6 +9,7 @@ use App\Invite;
 use App\Comment;
 use App\Mail\ReportStatisticsMailable;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class ReportStatistics extends Command
@@ -67,6 +68,7 @@ class ReportStatistics extends Command
 
         // Send a mailable
         Mail::to($this->argument('email'))->send(new ReportStatisticsMailable($report));
+        Log::debug('Site statistics sent to <' . $this->argument('email') . '>.');
         $this->info('[' . now() . ']: Report Statistics command complete');
     }
 }

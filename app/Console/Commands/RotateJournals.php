@@ -41,14 +41,21 @@ class RotateJournals extends Command
     {
         $expired_journals = Journal::where('next_change', '<=', now())->get();
 
-        $expired_journals->each(function ($journal) {
-            $journal->rotate();
-            $journal->sendTurnNotification();
-            // TODO: Trigger event
-        });
+        if ($expired_journals->count()) {
+            Log::debug('Rotating journals...');
+
+            $expired_journals->each(function ($journal) {
+                $journal->rotate();
+                $journal->sendTurnNotification();
+                Log::debug("--Journal \"{$journal->title}\" rotated to {$journal->current_user->name}.");
+            });
+
+            Log::debug('Rotation complete. ' . $expired_journals->count() .' journal(s) rotated.');
+        } else {
+            Log::debug('No journals due for rotation.');
+        }
+
 
         $this->info('[' . now() . ']: ' . $expired_journals->count() .' journal(s) rotated.');
-
-        Log::debug($expired_journals->count() .' journal(s) rotated.');
     }
 }
