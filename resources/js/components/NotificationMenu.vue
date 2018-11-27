@@ -1,36 +1,25 @@
 <template>
 
-    <li class="nav-item px-3 position-relative">
+    <li class="nav-item px-3 dropdown">
 
-        <a class="nav-link" id="notificationsLabel" @click="toggleItems" href="#">
+        <a class="nav-link" id="notificationsLabel" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <font-awesome-icon icon="bell"></font-awesome-icon>
             <span class="ml-2">Notifications</span>
             <span v-if="notifications.length" class="badge badge-light rounded ml-2 align-text-bottom">{{ notifications.length }}</span>
         </a>
 
-        <transition name="fade">
-            <div v-if="showItems" class="p-0 text-body bg-white shadow notification-menu border-bottom">
-                <div class="bg-primary text-right pr-2">
-                    <small>
-                        <template v-if="notifications.length">
-                            <a class="text-light" href="#">Dismiss all</a>
-                            <span class="px-2">|</span>
-                        </template>
-                        <a class="text-light" href="#" @click="closeWindow">Close</a>
-                    </small>
-                </div>
+        <div class="p-0 text-body bg-white shadow dropdown-menu dropdown-menu-right notifications-dropdown" aria-labelledby="notificationsLabel">
 
-                <transition-group name="fade" tag="div">
-                    <notification-item
-                        v-for="(notification, index) in notifications"
-                        :key="notification.id"
-                        :index="index"
-                        :mark-as-read-url="markAsReadUrl(notification.id)" />
-                </transition-group>
+            <transition-group name="fade" tag="div">
+                <notification-item
+                    v-for="(notification, index) in notifications"
+                    :key="notification.id"
+                    :index="index"
+                    :mark-as-read-url="markAsReadUrl(notification.id)" />
+            </transition-group>
 
-                <p v-if="!notifications.length" class="mb-0 p-3 text-center font-italic">No new notifications</p>
-            </div>
-        </transition>
+            <p v-if="!notifications.length" class="mb-0 p-3 text-center font-italic">No new notifications</p>
+        </div>
 
     </li>
 </template>
@@ -82,3 +71,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.notifications-dropdown{
+    width: 250%;
+}
+</style>

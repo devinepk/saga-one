@@ -1,16 +1,15 @@
 <template>
 
-    <div v-if="!read" class="card border-bottom-0">
-        <div class="card-header">
-            <span class="close" @click="markAsRead">&times;</span>
+    <div v-if="!read">
+        <div class="dropdown-item py-3">
+            <span class="close pb-2" @click.prevent="markAsRead">&times;</span>
             <transition name="fade">
                 <span v-if="error" class="float-right badge badge-danger rounded px-2 py-1 mr-1 mt-1">Failed to dismiss!</span>
             </transition>
             <h5 class="mb-0" v-html="header"></h5>
-        </div>
-        <div class="card-body">
             <p class="mb-0" v-html="message"></p>
         </div>
+        <div class="dropdown-divider m-0"></div>
     </div>
 
 </template>
@@ -102,5 +101,13 @@ export default {
     position: absolute;
     right: 10px;
     bottom: 10px;
+}
+.dropdown-item {
+    white-space: initial;
+}
+.dropdown-item:active {
+    color: initial;
+    text-decoration: initial;
+    background-color: initial;
 }
 </style>
