@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark text-light p-0 shadow">
 
-    <a class="brand navbar-brand mx-3" href="{{ Auth::check() ? route('journal.index') : route('welcome') }}">
+    <a class="brand navbar-brand mx-3" href="{{ route('welcome') }}">
         <span class="saga">Saga</span>one
     </a>
 

@@ -3,20 +3,99 @@
 @section('title', 'SagaOne')
 
 @section('content')
-<main class="welcome flex-center full-height position-relative">
-    <div>
-
-        <h1 class="brand"><span class="saga">Saga</span>one</h1>
-        <nav class="nav justify-content-around mt-4">
+<main class="welcome">
+    <section class="flex-center full-height position-relative">
         @auth
-            <a href="/journal" class="nav-link text-light">View your journals</a>
-
-        @else
-            <a href="{{ route('login') }}" class="nav-link text-light">Login</a>
-            <a href="{{ route('register') }}" class="nav-link border text-light">Sign up</a>
+            <nav class="nav top-right welcome-links">
+                <a href="{{ route('journal.index') }}" class="nav-link text-light">Home</a>
+                <a class="nav-link text-light" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
+            </nav>
         @endauth
-        </nav class="nav justify-content-center">
 
-    </div>
+        <div>
+            <h1 class="brand"><span class="saga">Saga</span>one</h1>
+
+            @guest
+                <nav class="nav welcome-links justify-content-around mt-4">
+                    <a href="{{ route('login') }}" class="nav-link text-light">Login</a>
+                    <a href="{{ route('register') }}" class="nav-link btn btn-outline-light font-weight-bold">Sign up</a>
+                </nav>
+            @endguest
+        </div>
+    </section>
+
+    <section class="bg-dark p-5 mb-5 text-center shadow">
+        <div class="row">
+            <div class="col-md mb-sm-5 mb-md-0">
+                <font-awesome-icon icon="book" size="10x" class="d-block mx-auto mb-4"></font-awesome-icon>
+                <span class="h5 text-secondary text-uppercase">Step 1</span>
+                <h2>Create a journal</h2>
+            </div>
+
+            <div class="col-md mb-sm-5 mb-md-0">
+                <font-awesome-icon icon="users" size="10x" class="d-block mx-auto mb-4"></font-awesome-icon>
+                <span class="h5 text-secondary text-uppercase">Step 2</span>
+                <h2>Invite your friends</h2>
+            </div>
+
+            <div class="col-md">
+                <font-awesome-icon icon="pencil-alt" size="10x" class="d-block mx-auto mb-4"></font-awesome-icon>
+                <span class="h5 text-secondary text-uppercase">Step 3</span>
+                <h2>Take turns writing</h2>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5">
+
+            <div class="row justify-content-center py-5">
+                <div class="col-md-3 col-lg-2 text-center">
+                    <font-awesome-icon icon="sync-alt" size="8x" :rotation=90 class="d-block mx-auto mb-4"></font-awesome-icon>
+                </div>
+                <div class="col-md-9 col-lg-6">
+                    <h2 class="text-secondary">Turn-based online journals</h2>
+                    <p>Journals <strong class="text-secondary">automatically pass from person to person</strong> after a set period of time. For example, you can create a journal that rotates to the next user every day, every week, or every month.</p>
+                </div>
+            </div>
+
+            <div class="row justify-content-center py-5">
+                <div class="col-md-3 col-lg-2 text-center">
+                    <font-awesome-icon :icon="['fab', 'readme']" size="8x" class="d-block mx-auto mb-4"></font-awesome-icon>
+                </div>
+                <div class="col-md-9 col-lg-6">
+                    <h2 class="text-secondary">Read and write when it's your turn</h2>
+                    <p>Only the person who has the journal can read it. When it's your turn with a journal, you can <strong class="text-secondary">write</strong> new entries, <strong class="text-secondary">read</strong> previous entries, and even <strong class="text-secondary">comment</strong> on previous entries.</p>
+                </div>
+            </div>
+
+            <div class="row justify-content-center py-5">
+                <div class="col-md-3 col-lg-2 text-center">
+                    <font-awesome-icon :icon="['fab', 'connectdevelop']" size="8x" :rotation=90 class="d-block mx-auto mb-4"></font-awesome-icon>
+                </div>
+                <div class="col-md-9 col-lg-6">
+                    <h2 class="text-secondary">Connect with others</h2>
+                    <p>SagaOne leverages the power of the Internet to <strong class="text-secondary">create community</strong> but fosters a <strong class="text-secondary">small, intimate environment</strong>. It's a great way to share your life and build a sense of connection with others!</p>
+                </div>
+            </div>
+    </section>
+
+    <footer class="bg-dark p-5 row">
+        <div class="col pt-2">
+            <small>&copy; {{ now()->year }} SagaOne</small>
+        </div>
+
+        <nav class="col nav justify-content-end welcome-links">
+            @auth
+                <a href="{{ route('journal.index') }}" class="nav-link text-light">Home</a>
+                <a class="nav-link text-light" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
+            @else
+                <a href="{{ route('login') }}" class="nav-link text-light">Login</a>
+                <a href="{{ route('register') }}" class="nav-link btn btn-outline-light font-weight-bold">Sign up</a>
+            @endauth
+        </nav>
+    </footer>
+
 </main>
 @endsection

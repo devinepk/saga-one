@@ -11774,18 +11774,6 @@ a.text-dark:focus {
 }
 
 /**
- * TOP BAR
- */
-
-@media (min-width: 576px) {
-  .notification-menu {
-    position: absolute;
-    left: -100%;
-    width: 200%;
-  }
-}
-
-/**
  * WELCOME PAGE
  */
 
@@ -11795,6 +11783,19 @@ a.text-dark:focus {
 
 .home .welcome {
   color: #e9ecef;
+  font-size: 1rem;
+}
+
+.home .welcome .top-right {
+  position: absolute;
+  right: 10px;
+  top: 18px;
+}
+
+.home .welcome .welcome-links {
+  font-weight: bold;
+  letter-spacing: .1rem;
+  text-transform: uppercase;
 }
 
 .home .welcome .brand {
