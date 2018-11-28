@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Queue\Events\JobProcessed;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Queue;
@@ -22,9 +23,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // if (env('APP_ENV') == 'production') {
-        //     URL::forceScheme('https');
-        // }
+        if (App::environment('production')) {
+            URL::forceScheme('https');
+        }
 
         // Force the URL generator to use the url specified in the env settings
         URL::forceRootUrl(config('app.url'));
