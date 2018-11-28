@@ -5,6 +5,12 @@
 @section('journal-content')
 <div class="container">
 
+    @if (!Auth::user()->hasVerifiedEmail())
+        <alert level="danger">
+            Verify your email address to invite others to join this journal. Check your email for a verification link. (Or <a href="{{ route('verification.resend') }}" class="alert-link">click here to request another</a>.)
+        </alert>
+    @endif
+
     <h1>{{ $journal->title }} Settings</h1>
 
     @if (!$journal->active)
