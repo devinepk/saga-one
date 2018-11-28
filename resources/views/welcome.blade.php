@@ -7,8 +7,8 @@
     <section class="flex-center full-height position-relative">
         @auth
             <nav class="nav top-right welcome-links">
-                <a href="{{ route('journal.index') }}" class="nav-link text-light">Home</a>
-                <a class="nav-link text-light" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                <a href="{{ route('journal.index') }}" class="nav-link text-light">{{ __('auth.home') }}</a>
+                <a class="nav-link text-light" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('auth.logout') }}</a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
             </nav>
         @endauth
@@ -18,8 +18,8 @@
 
             @guest
                 <nav class="nav welcome-links justify-content-around mt-4">
-                    <a href="{{ route('login') }}" class="nav-link text-light">Login</a>
-                    <a href="{{ route('register') }}" class="nav-link btn btn-outline-light font-weight-bold">Sign up</a>
+                    <a href="{{ route('login') }}" class="nav-link text-light">{{ __('auth.login') }}</a>
+                    <a href="{{ route('register') }}" class="nav-link btn btn-outline-light font-weight-bold">{{ __('auth.register') }}</a>
                 </nav>
             @endguest
         </div>
@@ -87,12 +87,12 @@
 
         <nav class="col nav justify-content-end welcome-links">
             @auth
-                <a href="{{ route('journal.index') }}" class="nav-link text-light">Home</a>
-                <a class="nav-link text-light" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                <a href="{{ route('journal.index') }}" class="nav-link text-light">{{ __('auth.home') }}</a>
+                <a class="nav-link text-light" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('auth.logout') }}</a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
             @else
-                <a href="{{ route('login') }}" class="nav-link text-light">Login</a>
-                <a href="{{ route('register') }}" class="nav-link btn btn-outline-light font-weight-bold">Sign up</a>
+                <a href="{{ route('login') }}" class="nav-link text-light">{{ __('auth.login') }}</a>
+                <a href="{{ route('register') }}" class="nav-link btn btn-outline-light font-weight-bold">{{ __('auth.register') }}</a>
             @endauth
         </nav>
     </footer>

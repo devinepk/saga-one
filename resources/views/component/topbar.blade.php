@@ -88,11 +88,11 @@
 
             {{-- Login and Register --}}
             <li class="nav-item px-3">
-                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                <a class="nav-link" href="{{ route('login') }}">{{ __('auth.login') }}</a>
             </li>
 
             <li class="nav-item px-3">
-                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                <a class="nav-link" href="{{ route('register') }}">{{ __('auth.register') }}</a>
             </li>
             @endauth
         </ul>
