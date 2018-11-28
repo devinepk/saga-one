@@ -11,7 +11,7 @@
     </alert>
 @endif
 
-<div class="row mt-5 justify-content-center">
+<div class="row my-5 justify-content-center">
     <div class="col-md-8">
         <div class="card">
             <form class="card-body" method="post" action="{{ route('user.update') }}" id="account-form">
@@ -40,6 +40,51 @@
 
             </form>
             <button type="submit" class="btn btn-block btn-primary" form="account-form">Save account information</button>
+        </div>
+    </div>
+</div>
+
+
+<div class="row my-5 justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <h2 class="card-header">Change password</h2>
+            <form class="card-body" method="post" action="{{ route('user.changePassword') }}" id="password-form">
+                @csrf
+                @method('PUT')
+
+                <div class="form-group">
+                    <label for="old_password">Current password</label>
+                    <input id="old_password" name="old_password" type="password" class="form-control{{ $errors->has('old_password') ? ' is-invalid' : '' }}" required>
+                    @if ($errors->has('old_password'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('old_password') }}</strong>
+                        </span>
+                    @endif
+                </div>
+
+                <div class="form-group">
+                    <label for="new_password">New password</label>
+                    <input id="new_password" name="new_password" type="password" class="form-control{{ $errors->has('new_password') ? ' is-invalid' : '' }}" required>
+                    @if ($errors->has('new_password'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('new_password') }}</strong>
+                        </span>
+                    @endif
+                </div>
+
+                <div class="form-group">
+                    <label for="new_password_confirmation">Confirm new password</label>
+                    <input id="new_password_confirmation" name="new_password_confirmation" type="password" class="form-control{{ $errors->has('new_password_confirmation') ? ' is-invalid' : '' }}" required>
+                    @if ($errors->has('new_password_confirmation'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('new_password_confirmation') }}</strong>
+                        </span>
+                    @endif
+                </div>
+
+            </form>
+            <button type="submit" class="btn btn-block btn-primary" form="password-form">Change password</button>
         </div>
     </div>
 </div>

@@ -30,6 +30,7 @@ Route::resource('entry', 'EntryController');
 
 Route::get('account', 'UsersController@account')->name('user.account');
 Route::put('account', 'UsersController@update')->name('user.update');
+Route::put('account/changepassword', 'UsersController@changePassword')->name('user.changePassword');
 
 Auth::routes(['verify' => true]);
 

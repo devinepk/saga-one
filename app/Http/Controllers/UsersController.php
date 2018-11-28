@@ -7,6 +7,8 @@ use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class UsersController extends Controller
 {
@@ -69,5 +71,38 @@ class UsersController extends Controller
         return redirect()->route('user.account')
             ->with('status', "Your information has been updated." . $emailFlash);
 
+    }
+
+    /**
+     * Change the user's password.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'old_password' => 'required|max:255',
+            'new_password' => 'required|confirmed|different:old_password|min:6|max:255',
+        ]);
+
+        $user = Auth::user();
+
+        // Validate the old password
+        if (Hash::check($request->old_password, $user->password)) {
+            // Validate the new password
+
+            $user->password = Hash::make($request->new_password);
+            $user->save();
+
+            return redirect()->route('user.account')
+                ->with('status', "Your password has been changed.");
+        }
+
+        // Cf. Illuminate\Foundation\Auth\AuthenticatesUsers::sendFailedLoginResponse()
+        throw ValidationException::withMessages([
+            'old_password' => [trans('auth.failed')],
+        ]);
     }
 }

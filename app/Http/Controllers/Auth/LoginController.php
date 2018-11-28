@@ -21,9 +21,7 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers {
-        login as protected default_login;
-    }
+    use AuthenticatesUsers;
 
     /**
      * Where to redirect users after login.
