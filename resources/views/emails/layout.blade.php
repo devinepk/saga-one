@@ -316,7 +316,7 @@
                 <table class="content" width="100%" cellpadding="0" cellspacing="0">
                     <tr>
                         <td class="header">
-                            <a href="{{ url('/') }}" target="_blank"><img src="{{ Storage::url('img/SagaOne.png') }}"></a>
+                            <a href="{{ route('welcome') }}" target="_blank"><img src="{{ Storage::url('img/SagaOne.png') }}"></a>
                         </td>
                     </tr>
 
