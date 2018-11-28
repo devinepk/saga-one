@@ -6,7 +6,8 @@
 <hr>
 
     <h2>Report date: {{ $report->meta->date }}</h2>
-    <h2>Environment: {{ $report->environment->level }}</h2>
+    <h2>Environment level: {{ $report->environment->level }}</h2>
+    <h2>Environment name: {{ $report->environment->name }}</h2>
     <h2>Site url: <a href="{{ $report->environment->url }}">{{ $report->environment->url }}</a></h2>
 
 <hr>

@@ -56,6 +56,7 @@ class ReportStatistics extends Command
         // Environment data
         $report->environment = new \stdClass;
         $report->environment->level = config('app.env');
+        $report->environment->name = env('APP_ENV_NAME', '(none)');
         $report->environment->url = config('app.url');
 
         // Totals
