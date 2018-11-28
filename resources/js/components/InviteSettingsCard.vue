@@ -66,8 +66,7 @@
             </template>
             <alert v-else level="danger" :dismissible="false" class="mb-0">
 
-                <p>Only verified users can invite others to join a journal. You have not yet verified your email address.</p>
-                <p>Please check your email for a verification link. If you did not receive the email, <a :href="verificationResendUrl" class="alert-link">click here to request another</a>.</p>
+                Only verified users can invite others to join a journal. You have not yet verified your email address. Please check your email for a verification link. If you did not receive the email, <a :href="verificationResendUrl" class="alert-link">click here to request another</a>.
 
             </alert>
         </div>
