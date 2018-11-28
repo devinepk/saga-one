@@ -172,17 +172,13 @@ class JournalController extends Controller
 
         $status = "<strong>{$journal->title}</strong> has been updated.";
 
+        // Update the rotation period
         if ($request->has('period')) {
             $journal->period = $request->period;
-            // Only set the date of next change if there is more than one participant
             if ($journal->users->count() > 1) {
-                $journal->next_change = now()->addSeconds($request->period);
-                $formatted_next_change = new Carbon($journal->next_change, config('timezone', 'America/New_York'));
-                $formatted_next_change = $formatted_next_change->format('F jS \\a\\t g:ia');
-                $status = "The rotation setting for <strong>{$journal->title}</strong> has been saved. It is currently in the possession of <strong>{$journal->current_user->name}</strong> and will next rotate on <strong>{$formatted_next_change}</strong>.";
+                $status = "The rotation setting for <strong>{$journal->title}</strong> has been saved and will take affect after the next rotation. This journal is currently in the possession of <strong>{$journal->current_user->name}</strong> and will next rotate on <strong>{$journal->formatted_next_change}</strong>.";
             } else {
-                $journal->next_change = null;
-                $status = "The rotation setting for <strong>{$journal->title}</strong> has been saved, but this journal will never actually rotate, since you are the only participant. (Is it time to invite a friend?)";
+                $status = "The rotation setting for <strong>{$journal->title}</strong> has been saved, but this journal will never actually rotate, since you are the only participant. Time to invite a friend?";
             }
         }
 

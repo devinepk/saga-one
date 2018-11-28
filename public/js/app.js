@@ -75690,7 +75690,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -76001,26 +76000,18 @@ var render = function() {
                 attrs: { level: "danger", dismissible: false }
               },
               [
-                _c("p", [
-                  _vm._v(
-                    "Only verified users can invite others to join a journal. You have not yet verified your email address."
-                  )
-                ]),
-                _vm._v(" "),
-                _c("p", [
-                  _vm._v(
-                    "Please check your email for a verification link. If you did not receive the email, "
-                  ),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "alert-link",
-                      attrs: { href: _vm.verificationResendUrl }
-                    },
-                    [_vm._v("click here to request another")]
-                  ),
-                  _vm._v(".")
-                ])
+                _vm._v(
+                  "\n\n            Only verified users can invite others to join a journal. You have not yet verified your email address. Please check your email for a verification link. If you did not receive the email, "
+                ),
+                _c(
+                  "a",
+                  {
+                    staticClass: "alert-link",
+                    attrs: { href: _vm.verificationResendUrl }
+                  },
+                  [_vm._v("click here to request another")]
+                ),
+                _vm._v(".\n\n        ")
               ]
             )
       ],
@@ -77807,7 +77798,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             return Moment(date).calendar(null, this.$root.dateFormatObj);
         },
         isCurrentUser: function isCurrentUser(user) {
-            return user.id == this.journal.current_user.id;
+            return this.journal.active && user.id == this.journal.current_user.id;
         },
         postQueueUpdate: function postQueueUpdate(event, ui) {
             var self = this;
