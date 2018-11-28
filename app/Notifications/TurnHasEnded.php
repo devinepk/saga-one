@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class TurnHasStarted extends Notification implements ShouldQueue
+class TurnHasEnded extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -45,14 +45,10 @@ class TurnHasStarted extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject("It's your turn to write in {$this->journal->title}")
-            ->greeting("Greetings, {$notifiable->name}!")
-            ->line("It's your turn to write in {$this->journal->title}!")
-            ->line("You will be able to read and write in this journal until {$this->journal->formatted_next_change}.")
-            ->action(
-                    'Go to ' . $this->journal->title,
-                    route('journal.show', $this->journal)
-                )
+            ->subject("Your turn has ended with {$this->journal->title}")
+            ->line("Your turn with the journal {$this->journal->title} has ended. This journal has moved on to {$this->journal->next_user->name}.")
+            ->line("Any entries you wrote while you had this journal have been permanently added to it.")
+            ->line("You'll be able to read and write in this journal again when it's your turn.")
             ->salutation('Happy writing!');
     }
 
@@ -66,8 +62,7 @@ class TurnHasStarted extends Notification implements ShouldQueue
     {
         return [
             'journal' => $this->journal->title,
-            'journal_id' => $this->journal->id,
-            'next_change' => $this->journal->formatted_next_change
+            'next_user' => $this->journal->next_user->name
         ];
     }
 }

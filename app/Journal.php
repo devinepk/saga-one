@@ -6,10 +6,11 @@ use App\Comment;
 use App\Entry;
 use App\Invite;
 use App\User;
-use App\Notifications\JournalRotatedToUser;
+use App\Notifications\TurnHasEnded;
+use App\Notifications\TurnHasStarted;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 
 class Journal extends Model
@@ -214,9 +215,19 @@ class Journal extends Model
      *
      * @return void
      */
-    public function sendTurnNotification()
+    public function sendTurnHasStartedNotification()
     {
-        $this->current_user->notify(new JournalRotatedToUser($this));
+        $this->current_user->notify(new TurnHasStarted($this));
+    }
+
+    /**
+     * Notify the current user that their turn has ended
+     *
+     * @return void
+     */
+    public function sendTurnHasEndedNotification()
+    {
+        $this->current_user->notify(new TurnHasEnded($this));
     }
 
     /**

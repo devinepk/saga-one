@@ -46,10 +46,11 @@ class RotateJournals extends Command
 
             $expired_journals->each(function ($journal) {
 
+                $journal->sendTurnHasEndedNotification();
                 $journal->rotate();
                 // We have to reload the relationship since it has changed in the DB
                 $journal->load('current_user');
-                $journal->sendTurnNotification();
+                $journal->sendTurnHasStartedNotification();
 
                 Log::debug("--Journal \"{$journal->title}\" rotated to {$journal->current_user->name}.");
             });
