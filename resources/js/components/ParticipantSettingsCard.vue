@@ -121,7 +121,8 @@ export default {
         },
 
         isCurrentUser(user) {
-            return user.id == this.journal.current_user.id;
+            return (this.journal.active &&
+                    user.id == this.journal.current_user.id);
         },
 
         postQueueUpdate(event, ui) {
