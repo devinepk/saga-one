@@ -193,6 +193,8 @@ class Journal extends Model
 
     /**
      * Rotate this journal to the next user
+     *
+     * @return void
      */
     public function rotate()
     {
@@ -204,18 +206,13 @@ class Journal extends Model
         $this->save();
 
         // Mark all draft entries as "final"
-        // TODO: Is there a way to set status field for all drafts at once?
-        $this->entries()
-            ->where('status', 'draft')
-            ->get()
-            ->each(function ($draft) {
-                $draft->status = 'final';
-                $draft->save();
-            });
+        $this->entries()->whereStatus('draft')->update(['status' => 'final']);
     }
 
     /**
      * Notify the current user that the journal is in their possession
+     *
+     * @return void
      */
     public function sendTurnNotification()
     {
@@ -224,6 +221,8 @@ class Journal extends Model
 
     /**
      * Get a formatted date of next change for this journal
+     *
+     * @return \Carbon\Carbon
      */
     public function getFormattedNextChangeAttribute() {
         return (new Carbon($this->next_change, config('timezone', 'America/New_York')))

@@ -45,16 +45,20 @@ class RotateJournals extends Command
             Log::debug('Rotating journals...');
 
             $expired_journals->each(function ($journal) {
+
                 $journal->rotate();
+                // We have to reload the relationship since it has changed in the DB
+                $journal->load('current_user');
                 $journal->sendTurnNotification();
+
                 Log::debug("--Journal \"{$journal->title}\" rotated to {$journal->current_user->name}.");
             });
 
             Log::debug('Rotation complete. ' . $expired_journals->count() .' journal(s) rotated.');
+
         } else {
             Log::debug('No journals due for rotation.');
         }
-
 
         $this->info('[' . now() . ']: ' . $expired_journals->count() .' journal(s) rotated.');
     }
