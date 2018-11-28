@@ -1,22 +1,5 @@
 <?php
 
-if (env('APP_ENV') == 'production') {
-    // AWS config
-    $dbhost = $_SERVER['RDS_HOSTNAME'];
-    $dbuser = $_SERVER['RDS_USERNAME'];
-    $dbpass = $_SERVER['RDS_PASSWORD'];
-    $dbport = $_SERVER['RDS_PORT'];
-    $dbname = $_SERVER['RDS_DB_NAME'];
-} else {
-    // localhost & heroku config
-    $url = parse_url(getenv("DATABASE_URL"));
-    $dbhost = $url['host'];
-    $dbuser = $url['user'];
-    $dbpass = $url['pass'];
-    $dbport = $url['port'];
-    $dbname = substr($url['path'],1);
-}
-
 return [
 
     /*
@@ -74,11 +57,11 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'host' => $dbhost,
-            'port' => $dbport,
-            'database' => $dbname,
-            'username' => $dbuser,
-            'password' => $dbpass,
+            'host' => env('RDS_HOSTNAME', env('DB_HOST', '127.0.0.1')),
+            'port' => env('RDS_PORT', env('DB_PORT', '5432')),
+            'database' => env('RDS_DB_NAME', env('DB_DATABASE', '')),
+            'username' => env('RDS_USERNAME', env('DB_USERNAME', '')),
+            'password' => env('RDS_PASSWORD', env('DB_PASSWORD', '')),
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
