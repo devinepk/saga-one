@@ -26,6 +26,9 @@ class AppServiceProvider extends ServiceProvider
         //     URL::forceScheme('https');
         // }
 
+        // Force the URL generator to use the url specified in the env settings
+        URL::forceRootUrl(config('app.url'));
+
         VerifyEmail::toMailusing(function ($notifiable) {
             $verificationUrl = URL::temporarySignedRoute(
                 'verification.verify', Carbon::now()->addMinutes(60), ['id' => $notifiable->getKey()]
