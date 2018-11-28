@@ -84,7 +84,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="period">How often should this journal rotate?</label>
-                        <select id="period" name="period" class="form-control" required>
+                        <select id="period" name="period" class="form-control" required {{ $journal->active ?: 'disabled' }}>
                             <option {{ $journal->period ? '' : 'selected' }}>Select one</option>
                             <option value="3600" {{ $journal->period == '3600' ? 'selected' : '' }}>Every hour</option>
                             <option value="86400" {{ $journal->period == '86400' ? 'selected' : '' }}>Every day</option>
@@ -98,10 +98,15 @@
                                 <strong>{{ $errors->first('period') }}</strong>
                             </span>
                         @endif
+                        @if(!$journal->active)
+                            <span class="text-danger">
+                                <strong>This setting can't be changed because this journal has been archived.</strong>
+                            </span>
+                        @endif
                     </div>
                 </form>
             </div>
-            <button type="submit" form="rotation-form" class="btn btn-block btn-primary">Save General Settings</button>
+            <button type="submit" form="rotation-form" class="btn btn-block btn-primary" {{ $journal->active ?: 'disabled' }}>Save General Settings</button>
         </div>
     @endcan
 
