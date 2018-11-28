@@ -78110,11 +78110,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         this.editor = new __WEBPACK_IMPORTED_MODULE_0_quill___default.a(this.$refs.editor, {
             modules: {
-                toolbar: [[{ header: [1, 2, 3, 4, false] }], ['bold', 'italic', 'underline', 'strike'], [{ 'color': [] }, { 'background': [] }], ['blockquote'], [{ 'list': 'ordered' }, { 'list': 'bullet' }], [{ 'script': 'sub' }, { 'script': 'super' }], [{ 'indent': '-1' }, { 'indent': '+1' }], [{ 'align': [] }], ['clean']]
+                toolbar: [[{ header: [1, 2, 3, 4, false] }], ['bold', 'italic', 'underline', 'strike'], [{ 'color': [] }, { 'background': [] }], ['blockquote'], [{ 'list': 'ordered' }, { 'list': 'bullet' }], [{ 'script': 'sub' }, { 'script': 'super' }], [{ 'indent': '-1' }, { 'indent': '+1' }], [{ 'align': [] }], ['link'], ['clean']]
 
             },
             theme: 'snow',
-            formats: ['bold', 'underline', 'header', 'italic', 'strike', 'color', 'background', 'blockquote', 'list', 'script', 'indent', 'align']
+            formats: ['bold', 'underline', 'header', 'italic', 'strike', 'color', 'background', 'blockquote', 'list', 'script', 'indent', 'align', 'link'],
+            bounds: 'main'
         });
 
         // Activate tooltips

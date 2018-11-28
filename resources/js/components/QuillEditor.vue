@@ -32,6 +32,7 @@ export default {
                     [{ 'script': 'sub'}, { 'script': 'super' }],
                     [{ 'indent': '-1'}, { 'indent': '+1' }],
                     [{ 'align': [] }],
+                    ['link'],
                     ['clean']
                 ]
 
@@ -40,8 +41,9 @@ export default {
             formats: [
                 'bold', 'underline', 'header', 'italic',
                 'strike', 'color', 'background', 'blockquote', 'list',
-                'script', 'indent', 'align'
-            ]
+                'script', 'indent', 'align', 'link'
+            ],
+            bounds: 'main'
         });
 
         // Activate tooltips
