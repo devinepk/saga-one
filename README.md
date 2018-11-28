@@ -41,3 +41,8 @@ SagaOne is hosted on AWS Elastic Beanstalk at https://www.saga-one.com. Follow t
 
 If you do not have the Elastic Beanstalk CLI installed, [install it](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html?icmpid=docs_elasticbeanstalk_console).
 
+## Task Scheduling
+
+Locally, set up a crontab job to run tasks. `crontab -l` lists any tasks registered for you, and `crontab -e` creates a new one. Cf. [Laravel Task Schedules docs](https://laravel.com/docs/5.7/scheduling#scheduling-artisan-commands).
+
+But AWS doesn't support crontab. Instead, the `cron.yaml` file in the root instructs AWS to post to the route `/worker/schedule`, which runs the tasks.
