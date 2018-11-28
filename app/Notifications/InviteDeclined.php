@@ -46,6 +46,7 @@ class InviteDeclined extends Notification implements ShouldQueue
         return (new MailMessage)
                     ->error()
                     ->subject("{$this->invite->user->name} has declined your invitation")
+                    ->greeting("Disappointing news...")
                     ->line("{$this->invite->user->name} has declined your invitation to join the journal called {$this->invite->journal->title}.")
                     ->line("To invite others to this journal (or resend this invite), click the button below.")
                     ->action(

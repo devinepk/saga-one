@@ -52,9 +52,13 @@ class SendJournalRotated extends Command
         } elseif (App::environment('production')) {
             $this->error('Cannot create mock journal in production. Use --journal=JOURNAL to pass an existing journal as an argument.');
         } else {
-            // Make, but don't save, a mock journal and current user
+            // Create a mock journal and a mock user
             $journal = factory(Journal::class)->make();
-            $journal->current_user = factory(User::class)->make();
+            $user = factory(User::class)->create();
+            $journal->current_user()->associate($user->id);
+            $journal->creator()->associate($user->id);
+            $journal->next_change = now()->addSeconds($journal->period);
+            $journal->save();
         }
 
         if ($journal) {

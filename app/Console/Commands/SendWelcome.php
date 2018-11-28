@@ -53,7 +53,8 @@ class SendWelcome extends Command
         } elseif (App::environment('production')) {
             $this->error('Cannot create mock user in production. Use --user=USER to pass an existing user as an argument.');
         } else {
-            $user = factory(User::class)->make();
+            // Create a mock user
+            $user = factory(User::class)->create();
         }
 
         if ($user) {

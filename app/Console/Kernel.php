@@ -13,13 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        'App\Console\Commands\RegisteredUsers',
-        'App\Console\Commands\RotateJournals',
-        'App\Console\Commands\SendWelcome',
-        'App\Console\Commands\SendVerify',
-        'App\Console\Commands\SendInvite',
-        'App\Console\Commands\SendJournalRotated',
-        'App\Console\Commands\SendInviteAccepted',
+        //
     ];
 
     /**
@@ -30,9 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('registered:users')->daily()->environments(['staging', 'production']);
         $schedule->command('journals:rotate')->everyMinute();
-        $schedule->command('report:stats')->hourly();
+        $schedule->command('report:stats')->twiceDaily(7, 19);
     }
 
     /**

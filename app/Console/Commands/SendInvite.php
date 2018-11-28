@@ -53,10 +53,20 @@ class SendInvite extends Command
         } elseif (App::environment('production')) {
             $this->error('Cannot create mock invite in production. Use --invite=INVITE to pass an existing journal as an argument.');
         } else {
-            // Make, but don't save, a mock invite from a mock user to a mock journal
+            // Create a mock invite, journal, invited user, and sender
+            $users = factory(User::class, 2)->create();
+
+            $journal = factory(Journal::class)->make();
+            $journal->current_user()->associate($users[0]->id);
+            $journal->creator()->associate($users[0]->id);
+            $journal->next_change = now()->addSeconds($journal->period);
+            $journal->save();
+
             $invite = factory(Invite::class)->make();
-            $invite->journal = factory(Journal::class)->make();
-            $invite->sender = factory(User::class)->make();
+            $invite->journal()->associate($journal->id);
+            $invite->user()->associate($users[1]->id);
+            $invite->sender()->associate($users[0]->id);
+            $invite->save();
         }
 
         if ($invite) {
