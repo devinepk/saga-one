@@ -6,6 +6,3 @@
 
 // Ignore saved config files
 .ebextensions/saved_configs/*
-
-// Ignore cronjob file for now
-.ebextensions/conjob.config
