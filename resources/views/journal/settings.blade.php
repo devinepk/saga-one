@@ -112,7 +112,7 @@
                     </div>
                 </form>
             </div>
-            <button type="submit" form="rotation-form" class="btn btn-block btn-primary" {{ $journal->active ? '' : 'disabled' }}>Save General Settings</button>
+            <button type="submit" form="rotation-form" class="btn btn-block btn-primary" {{ $journal->active ? '' : 'disabled' }}>Save Journal Rotation Settings</button>
         </div>
     @endcan
 
