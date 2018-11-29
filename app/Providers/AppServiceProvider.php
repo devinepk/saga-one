@@ -23,11 +23,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if (App::environment('worker')) {
-            // Force the URL generator to use the url specified in the env settings.
-            // Otherwise the worker uses host 'localhost' for some reason.
-            URL::forceRootUrl(config('app.url'));
-        }
+        // Force the URL generator to use the url specified in the env settings
+        URL::forceRootUrl(config('app.url'));
 
         VerifyEmail::toMailusing(function ($notifiable) {
             $verificationUrl = URL::temporarySignedRoute(
