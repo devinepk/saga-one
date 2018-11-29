@@ -14,7 +14,7 @@ class AddImagePathToJournals extends Migration
     public function up()
     {
         Schema::table('journals', function (Blueprint $table) {
-            $table->string('image_path')->default('img/cover1.jpg');
+            $table->string('image_path')->nullable();
         });
     }
 
