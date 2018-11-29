@@ -6,3 +6,4 @@
 
 // Ignore saved config files
 .ebextensions/saved_configs/*
+.ebextensions/http_redirect.config
