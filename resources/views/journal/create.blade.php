@@ -29,14 +29,14 @@
                         @endif
                     </div>
 
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input{{ $errors->has('cover_image') ? ' is-invalid' : '' }}" name="cover_image" id="coverImage">
-                        <label class="custom-file-label" for="coverImage">Upload an image (optional)</label>
-                        @if ($errors->has('cover_image'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('cover_image') }}</strong>
-                            </span>
-                        @endif
+                    <div class="form-group">
+                        <label for="cover_image">Cover image (optional):</label>
+                        <file-input
+                            errors-json="{{ $errors }}"
+                            name="cover_image"
+                            id="cover_image"
+                            initial-placeholder="Choose a file"
+                        ></file-input>
                     </div>
                 </form>
             </div>
