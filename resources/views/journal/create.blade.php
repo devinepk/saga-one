@@ -8,7 +8,7 @@
         <div class="card">
             <div class="card-header"><h1 class="mb-0">Create a new journal</h1></div>
             <div class="card-body">
-                <form method="post" action="{{ route('journal.store') }}" id="create-form">
+                <form method="post" action="{{ route('journal.store') }}" id="create-form" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="title">Give this journal a title:</label>
@@ -20,8 +20,23 @@
                         @endif
                     </div>
                     <div class="form-group">
-                        <label for="description">Give this journal a short description:</label>
-                        <input type="text" class="form-control" id="description" name="description">
+                        <label for="description">Give this journal a short description (optional):</label>
+                        <input type="text" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" id="description" value="{{ old('description') }}" name="description">
+                        @if ($errors->has('description'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('description') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input{{ $errors->has('cover_image') ? ' is-invalid' : '' }}" name="cover_image" id="coverImage">
+                        <label class="custom-file-label" for="coverImage">Upload an image (optional)</label>
+                        @if ($errors->has('cover_image'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('cover_image') }}</strong>
+                            </span>
+                        @endif
                     </div>
                 </form>
             </div>

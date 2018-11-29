@@ -198,10 +198,10 @@ export default {
     padding-top: 18px;
 }
 .journal-card-cover {
-    height: 200px;
+    height: 300px;
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: top center;
+    background-position: center;
     position: relative;
 }
 .journal-card-cover > a {

@@ -12,6 +12,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Validator;
 
 class JournalController extends Controller
@@ -70,12 +71,18 @@ class JournalController extends Controller
 
         $request->validate([
             'title' => 'required|max:255',
-            'description' => 'nullable|max:255'
+            'description' => 'nullable|max:255',
+            'cover_image' => 'nullable|file|image|max:2000'
         ]);
 
         $journal = new Journal;
         $journal->title = $request->title;
         $journal->description = $request->description;
+
+        // Store the cover image if one was uploaded
+        if ($request->has('cover_image')) {
+            $journal->image_path = Storage::putFile('covers', $request->file('cover_image'), 'public');
+        }
 
         // Default period is one week
         $journal->period = 604800;
