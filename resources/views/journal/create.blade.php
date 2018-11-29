@@ -30,7 +30,12 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="cover_image">Cover image (optional):</label>
+                        <label for="cover_image">Cover image (optional):
+                            <help-icon
+                                text="Images should be under 2MB"
+                                class="ml-1"
+                            ></help-icon>
+                        </label>
                         <file-input
                             errors-json="{{ $errors }}"
                             name="cover_image"
@@ -38,6 +43,23 @@
                             initial-placeholder="Choose a file"
                         ></file-input>
                     </div>
+
+                    <div class="form-group">
+                        <label for="period">How often should this journal rotate?</label>
+                        <select id="period" name="period" class="custom-select" required>
+                            <option value="86400">Every day</option>
+                            <option value="604800" selected>Every week</option>
+                            <option value="{{ 604800 * 2 }}">Every two weeks</option>
+                            <option value="{{ 604800 * 3 }}">Every three weeks</option>
+                            <option value="{{ 604800 * 4 }}">Every four weeks</option>
+                        </select>
+                        @if ($errors->has('period'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('period') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+
                 </form>
             </div>
             <div class="card-footer p-0">

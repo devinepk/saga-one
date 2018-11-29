@@ -12,6 +12,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Validator;
 
@@ -164,28 +165,46 @@ class JournalController extends Controller
         $this->authorize('update', $journal);
 
         $request->validate([
-            'title' => 'sometimes|required|max:255',
-            'description' => 'nullable|max:255'
+            'title' => 'required|max:255',
+            'description' => 'nullable|max:255',
+            'cover_image' => 'sometimes|file|image|max:2000'
         ]);
 
-
-        if ($request->has('title')) {
-            $journal->title = $request->title;
-        }
-
-        if ($request->has('description')) {
-            $journal->description = $request->description;
-        }
-
+        $journal->title = $request->title;
+        $journal->description = $request->description;
         $status = "<strong>{$journal->title}</strong> has been updated.";
 
-        // Update the rotation period
-        if ($request->has('period')) {
+        if ($request->filled('remove_image') && $journal->has_custom_image) {
+            // Delete the old image and set the new image as the default.
+            Storage::delete($journal->image_path);
+            $journal->image_path = $journal->default_image_path;
+            $status .= " The cover image you had uploaded has been removed.";
+        }
+
+
+        // Replace the cover image if one was uploaded
+        if ($request->has('cover_image')) {
+            // If there was an old image, delete it.
+            if ($journal->has_custom_image) {
+                Storage::delete($journal->image_path);
+            }
+            // Save the new image
+            $journal->image_path = Storage::putFile('covers', $request->file('cover_image'), 'public');
+            $status .= " You uploaded a new cover image.";
+        }
+
+
+
+        // Update the rotation period but only if it has changed. (We don't need to show status messages
+        // if they haven't changed the rotation period.)
+        if ($journal->period != $request->period) {
+
             $journal->period = $request->period;
+
             if ($journal->users->count() > 1) {
-                $status = "The rotation setting for <strong>{$journal->title}</strong> has been saved and will take affect after the next rotation. This journal is currently in the possession of <strong>{$journal->current_user->name}</strong> and will next rotate on <strong>{$journal->formatted_next_change}</strong>.";
+                $status .= " The rotation setting has been saved and will take affect after the next rotation. This journal is currently in the possession of <strong>{$journal->current_user->name}</strong> and will next rotate on <strong>{$journal->formatted_next_change}</strong>.";
             } else {
-                $status = "The rotation setting for <strong>{$journal->title}</strong> has been saved, but this journal will never actually rotate, since you are the only participant. Time to invite a friend?";
+                $status .= " The rotation setting has been saved, but this journal will never actually rotate, since you are the only participant. Time to invite a friend?";
             }
         }
 

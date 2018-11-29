@@ -33,9 +33,9 @@
 
     @can('update', $journal)
         <div class="card my-5">
-            <h2 class="card-header">General settings</h2>
+            <h2 class="card-header">Journal settings</h2>
             <div class="card-body">
-                <form id="update-form" method="post" action="{{ route('journal.update', $journal) }}">
+                <form id="update-form" method="post" action="{{ route('journal.update', $journal) }}" enctype="multipart/form-data">
                     @method('PUT')
                     @csrf
                     <div class="form-group">
@@ -57,9 +57,58 @@
                             </span>
                         @endif
                     </div>
+
+                    @if ($journal->has_custom_image)
+                        <div class="form-group">
+                            <label>Remove the uploaded cover image?</label>
+                            <label class="rocker align-middle ml-3">
+                                <input type="checkbox" id="remove_image" name="remove_image">
+                                <span class="switch-left">Yes</span>
+                                <span class="switch-right">No</span>
+                            </label>
+                        </div>
+                    @endif
+
+                    <div class="form-group">
+                        <label for="cover_image">Upload a new cover image:
+                            <help-icon
+                                text="Images should be under 2MB"
+                                class="ml-1"
+                            ></help-icon>
+                        </label>
+                        <file-input
+                            errors-json="{{ $errors }}"
+                            name="cover_image"
+                            id="cover_image"
+                            initial-placeholder="Choose a file"
+                        ></file-input>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="period">How often should this journal rotate?</label>
+                        <select id="period" name="period" class="custom-select" required {{ $journal->active ? '' : 'disabled' }}>
+                            <option value="3600" {{ $journal->period == '3600' ? 'selected' : '' }}>Every hour</option>
+                            <option value="86400" {{ $journal->period == '86400' ? 'selected' : '' }}>Every day</option>
+                            <option value="604800" {{ $journal->period == '604800' ? 'selected' : '' }}>Every week</option>
+                            <option value="{{ 604800 * 2 }}" {{ $journal->period == 604800 * 2 ? 'selected' : '' }}>Every two weeks</option>
+                            <option value="{{ 604800 * 3 }}" {{ $journal->period == 604800 * 3 ? 'selected' : '' }}>Every three weeks</option>
+                            <option value="{{ 604800 * 4 }}" {{ $journal->period == 604800 * 4 ? 'selected' : '' }}>Every four weeks</option>
+                        </select>
+                        @if ($errors->has('period'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('period') }}</strong>
+                            </span>
+                        @endif
+                        @if(!$journal->active)
+                            <span class="text-danger">
+                                <strong>This setting can't be changed because this journal has been archived.</strong>
+                            </span>
+                        @endif
+                    </div>
+
                 </form>
             </div>
-            <button type="submit" form="update-form" class="btn btn-block btn-primary">Save General Settings</button>
+            <button type="submit" form="update-form" class="btn btn-block btn-primary">Save Journal Settings</button>
         </div>
     @endcan
 
@@ -80,41 +129,6 @@
         old-email="{{ old('email') }}"
         csrf="{{ csrf_token() }}"
     ></invite-settings-card>
-
-    @can('update', $journal)
-        <div class="card mb-5">
-            <h2 class="card-header">Rotation Settings</h2>
-            <div class="card-body">
-                <form id="rotation-form" method="post" action="{{ route('journal.update', $journal) }}">
-                    @method('PUT')
-                    @csrf
-                    <div class="form-group">
-                        <label for="period">How often should this journal rotate?</label>
-                        <select id="period" name="period" class="form-control" required {{ $journal->active ? '' : 'disabled' }}>
-                            <option {{ $journal->period ? '' : 'selected' }}>Select one</option>
-                            <option value="3600" {{ $journal->period == '3600' ? 'selected' : '' }}>Every hour</option>
-                            <option value="86400" {{ $journal->period == '86400' ? 'selected' : '' }}>Every day</option>
-                            <option value="604800" {{ $journal->period == '604800' ? 'selected' : '' }}>Every week</option>
-                            <option value="{{ 604800 * 2 }}" {{ $journal->period == 604800 * 2 ? 'selected' : '' }}>Every two weeks</option>
-                            <option value="{{ 604800 * 3 }}" {{ $journal->period == 604800 * 3 ? 'selected' : '' }}>Every three weeks</option>
-                            <option value="{{ 604800 * 4 }}" {{ $journal->period == 604800 * 4 ? 'selected' : '' }}>Every four weeks</option>
-                        </select>
-                        @if ($errors->has('period'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('period') }}</strong>
-                            </span>
-                        @endif
-                        @if(!$journal->active)
-                            <span class="text-danger">
-                                <strong>This setting can't be changed because this journal has been archived.</strong>
-                            </span>
-                        @endif
-                    </div>
-                </form>
-            </div>
-            <button type="submit" form="rotation-form" class="btn btn-block btn-primary" {{ $journal->active ? '' : 'disabled' }}>Save Journal Rotation Settings</button>
-        </div>
-    @endcan
 
     @can('archive', $journal)
         <div class="card mb-5">

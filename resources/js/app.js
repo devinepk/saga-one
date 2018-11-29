@@ -16,7 +16,8 @@ import {
     faEdit, faBackward, faForward, faArrowAltCircleRight, faPencilAlt,
     faBookReader, faUserPlus, faUserCircle, faTrashAlt, faArchive,
     faCogs, faEnvelope, faMailBulk, faSpinner, faStar, faCheckSquare,
-    faUsers, faSyncAlt, faExclamationTriangle, faCheckCircle
+    faUsers, faSyncAlt, faExclamationTriangle, faCheckCircle,
+    faQuestionCircle
 } from '@fortawesome/free-solid-svg-icons';
 
 import { faReadme, faConnectdevelop } from '@fortawesome/free-brands-svg-icons';
@@ -28,6 +29,7 @@ library.add(
     faBookReader, faUserPlus, faUserCircle, faTrashAlt, faArchive,
     faCogs, faEnvelope, faMailBulk, faSpinner, faStar, faCheckSquare,
     faUsers, faSyncAlt, faExclamationTriangle, faCheckCircle,
+    faQuestionCircle,
     // free-brands-svg-icons
     faReadme, faConnectdevelop
 );

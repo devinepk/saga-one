@@ -18,6 +18,13 @@ class Journal extends Model
     use Notifiable;
 
     /**
+     * The default cover image to use if another isn't specified
+     *
+     * @var array
+     */
+    public $default_image_path = 'img/cover1.jpg';
+
+    /**
      * The attributes that should be mutated to dates.
      *
      * @var array
@@ -235,8 +242,30 @@ class Journal extends Model
      *
      * @return \Carbon\Carbon
      */
-    public function getFormattedNextChangeAttribute() {
+    public function getFormattedNextChangeAttribute()
+    {
         return (new Carbon($this->next_change, config('timezone', 'America/New_York')))
                     ->format('F jS \\a\\t g:ia');
+    }
+
+    /**
+     * Get the journal cover image
+     *
+     * @param  string $value
+     * @return bool
+     */
+    public function getImagePathAttribute($value)
+    {
+        return $value ?: $this->default_image_path;
+    }
+
+    /**
+     * Does this journal have a custom cover image?
+     *
+     * @return bool
+     */
+    public function getHasCustomImageAttribute()
+    {
+        return ($this->image_path != $this->default_image_path);
     }
 }
