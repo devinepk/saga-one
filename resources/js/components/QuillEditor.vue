@@ -32,16 +32,15 @@ export default {
                     [{ 'script': 'sub'}, { 'script': 'super' }],
                     [{ 'indent': '-1'}, { 'indent': '+1' }],
                     [{ 'align': [] }],
-                    ['link'],
+                    ['link', 'image'],
                     ['clean']
                 ]
-
             },
             theme: 'snow',
             formats: [
                 'bold', 'underline', 'header', 'italic',
                 'strike', 'color', 'background', 'blockquote', 'list',
-                'script', 'indent', 'align', 'link'
+                'script', 'indent', 'align', 'link', 'image'
             ],
             bounds: 'main'
         });
