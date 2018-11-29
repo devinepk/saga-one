@@ -6,7 +6,7 @@
             <font-awesome-icon v-if="uploaded" icon="check-circle" class="text-primary ml-1" />
         </label>
         <span v-if="errors.cover_image" class="invalid-feedback" role="alert">
-            <strong>{{ $errors.cover_image }}</strong>
+            <strong>{{ errors.cover_image[0] }}</strong>
         </span>
     </div>
 </template>

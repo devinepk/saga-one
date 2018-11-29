@@ -91912,7 +91912,7 @@ var render = function() {
       ? _c(
           "span",
           { staticClass: "invalid-feedback", attrs: { role: "alert" } },
-          [_c("strong", [_vm._v(_vm._s(_vm.$errors.cover_image))])]
+          [_c("strong", [_vm._v(_vm._s(_vm.errors.cover_image[0]))])]
         )
       : _vm._e()
   ])
