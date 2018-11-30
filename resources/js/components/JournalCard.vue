@@ -105,10 +105,9 @@ export default {
             type: Boolean,
             default: true
         },
-        bubble: {
-            // Whether this card should bubble info up to the root Vue instance.
-            type: Boolean,
-            default: false
+        journalJson: {
+            type: String,
+            default: ''
         }
     },
 
@@ -145,6 +144,11 @@ export default {
 
     computed: {
         journal: function() {
+            // If a journal was passed to this card, use it.
+            if (this.journalJson) {
+                return JSON.parse(this.journalJson);
+            }
+            // Otherwise fall back to the journal stored in the root instance
             return this.$root.journal;
         },
         authUser: function() {
