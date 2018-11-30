@@ -41,7 +41,11 @@ class CommentAPIController extends Controller
      */
     public function delete(Request $request, Comment $comment)
     {
-        $comment->delete();
+        if ($request->user == $comment->user_id) {
+            $comment->delete();
+        } else {
+            abort(403);
+        }
     }
 
     /**
