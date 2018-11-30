@@ -8,7 +8,7 @@
                 <span class="font-weight-bold">{{ comment.user.name }}</span>
             </p>
 
-            <small class="text-muted">{{ createdAt }}</small>
+            <small class="text-muted">{{ updatedAt }}</small>
 
         </div>
 
@@ -68,12 +68,14 @@ module.exports = {
             editMode: false,
             failure: false,
             displayMessage: '',
-            editMessage: ''
+            editMessage: '',
+            updatedAt: ''
         };
     },
 
     mounted() {
         this.editMessage = this.displayMessage = this.comment.message;
+        this.updatedAt = Moment(this.comment.updated_at).calendar(null, this.$root.dateFormatObj);
     },
 
     computed: {
@@ -82,9 +84,6 @@ module.exports = {
         },
         isNew() {
             return (this.comment.created_at > this.$root.journal.last_change);
-        },
-        createdAt() {
-            return Moment(this.comment.created_at).calendar(null, this.$root.dateFormatObj);
         },
         showAuthor() {
             // Show the author if the previous comment is from another user,
@@ -135,6 +134,7 @@ module.exports = {
             axios.post('/comment/' + self.comment.id + '/update', post)
                 .then(function(response) {
                     self.displayMessage = self.editMessage;
+                    self.updatedAt = Moment().calendar(null, self.$root.dateFormatObj);
                     self.editMode = false;
                 })
                 .catch(function(error) {
