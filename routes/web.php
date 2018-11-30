@@ -28,6 +28,7 @@ Route::resource('journal', 'JournalController');
 // Comments
 Route::post('entry/{entry}/comment', 'Api\CommentAPIController@add')->name('api.comment.add');
 Route::post('comment/{comment}/delete', 'Api\CommentAPIController@delete')->name('api.comment.delete');
+Route::post('comment/{comment}/update', 'Api\CommentAPIController@update')->name('api.comment.update');
 
 // Entries
 Route::resource('entry', 'EntryController');

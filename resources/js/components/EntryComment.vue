@@ -8,10 +8,28 @@
 
         <div class="clearfix text-black-50">
 
-            <p class="mb-0 comment-message" :class="{ 'float-right': userIsAuthUser }" v-html="comment.message"></p>
+            <div class="comment-message" :class="{ 'float-right': userIsAuthUser }">
+
+                <transition name="fade">
+                    <div v-if="failure" class="text-right">
+                        <span class="badge badge-fail badge-danger rounded px-2 py-1">Failed to save!</span>
+                    </div>
+                </transition>
+
+                <textarea v-if="userIsAuthUser && editMode"
+                    class="form-control"
+                    v-model="editMessage"
+                    @keydown.enter.prevent="updateComment"
+                    id="message"
+                    name="message">
+                </textarea>
+
+                <p v-else class="mb-0">{{ displayMessage }}</p>
+
+            </div>
 
             <transition name="fade">
-                <div v-if="userIsAuthUser && showActions" class="position-absolute">
+                <div v-if="userIsAuthUser && showActions && isNew" class="position-absolute">
                     <button @click="deleteComment" class="btn btn-link p-0" data-toggle="tooltip" data-placement="top" title="Delete comment">
                         <font-awesome-icon size="sm" icon="trash-alt" />
                     </button>
@@ -39,13 +57,24 @@ module.exports = {
 
     data() {
         return {
-            showActions: false
+            showActions: false,
+            editMode: false,
+            failure: false,
+            displayMessage: '',
+            editMessage: ''
         };
+    },
+
+    mounted() {
+        this.editMessage = this.displayMessage = this.comment.message;
     },
 
     computed: {
         userIsAuthUser() {
             return this.comment.user.id == this.$root.authUser.id;
+        },
+        isNew() {
+            return (this.comment.created_at > this.$root.journal.last_change);
         }
     },
 
@@ -64,16 +93,38 @@ module.exports = {
                 });
         },
         editComment() {
-
+            this.editMode = !this.editMode;
         },
         updateComment() {
+            let self = this;
 
+            let post = {
+                user: self.$root.authUser.id,
+                message: self.editMessage
+            };
+
+            // Post to the app to update the comment
+            axios.post('/comment/' + self.comment.id + '/update', post)
+                .then(function(response) {
+                    self.displayMessage = self.editMessage;
+                    self.editMode = false;
+                })
+                .catch(function(error) {
+                    console.error(error.response);
+                    self.editMessage = self.comment.message;
+                    self.editMode = false;
+                    self.failure = true;
+                    setTimeout(() => self.failure = false, 1000);
+                });
         }
     }
 }
 </script>
 
-<style>
+<style scoped>
+#message {
+    resize: none;
+}
 .comment {
     transition: 0.2s;
 }

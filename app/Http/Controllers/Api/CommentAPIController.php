@@ -43,4 +43,21 @@ class CommentAPIController extends Controller
     {
         $comment->delete();
     }
+
+    /**
+     * Process an API request to update a comment
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Comment  $comment
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Comment $comment)
+    {
+        if ($request->user == $comment->user_id) {
+            $comment->message = $request->message;
+            $comment->save();
+        } else {
+            abort(403);
+        }
+    }
 }

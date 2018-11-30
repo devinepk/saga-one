@@ -68,7 +68,7 @@ export default {
             if (this.comments.length) {
                 return "Write a comment...";
             }
-            return "Be the first to write a comment about this...";
+            return "Be the first to write a comment...";
         },
         showFailure: function() {
             return this.failure && this.failureText == this.newMessage;
@@ -85,7 +85,6 @@ export default {
                     self.failure = false;
                     self.newMessage = self.failureText = '';
                     self.comments = response.data;
-                    console.log(response);
 
                     // If the comment input is at the bottom of the page, then
                     // wait for DOM to update, then scroll down

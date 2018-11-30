@@ -73834,7 +73834,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (this.comments.length) {
                 return "Write a comment...";
             }
-            return "Be the first to write a comment about this...";
+            return "Be the first to write a comment...";
         },
         showFailure: function showFailure() {
             return this.failure && this.failureText == this.newMessage;
@@ -73850,7 +73850,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 self.failure = false;
                 self.newMessage = self.failureText = '';
                 self.comments = response.data;
-                console.log(response);
 
                 // If the comment input is at the bottom of the page, then
                 // wait for DOM to update, then scroll down
@@ -74689,19 +74688,19 @@ if (false) {
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(205)
+  __webpack_require__(305)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(207)
 /* template */
-var __vue_template__ = __webpack_require__(208)
+var __vue_template__ = __webpack_require__(307)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-183a5ef8"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -74734,49 +74733,29 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 205 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(206);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(3)("f7aaac1a", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-183a5ef8\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./EntryComment.vue", function() {
-     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-183a5ef8\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./EntryComment.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 206 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.comment {\n    -webkit-transition: 0.2s;\n    transition: 0.2s;\n}\n.comment:hover{\n    background-color: #eee;\n}\n.comment-author {\n    font-size: 0.75rem;\n}\n.comment-message {\n    max-width: 75%;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
+/* 205 */,
+/* 206 */,
 /* 207 */
 /***/ (function(module, exports) {
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -74818,14 +74797,24 @@ module.exports = {
 
     data: function data() {
         return {
-            showActions: false
+            showActions: false,
+            editMode: false,
+            failure: false,
+            displayMessage: '',
+            editMessage: ''
         };
+    },
+    mounted: function mounted() {
+        this.editMessage = this.displayMessage = this.comment.message;
     },
 
 
     computed: {
         userIsAuthUser: function userIsAuthUser() {
             return this.comment.user.id == this.$root.authUser.id;
+        },
+        isNew: function isNew() {
+            return this.comment.created_at > this.$root.journal.last_change;
         }
     },
 
@@ -74841,121 +74830,36 @@ module.exports = {
                 console.error(error.response);
             });
         },
-        editComment: function editComment() {},
-        updateComment: function updateComment() {}
+        editComment: function editComment() {
+            this.editMode = !this.editMode;
+        },
+        updateComment: function updateComment() {
+            var self = this;
+
+            var post = {
+                user: self.$root.authUser.id,
+                message: self.editMessage
+            };
+
+            // Post to the app to update the comment
+            axios.post('/comment/' + self.comment.id + '/update', post).then(function (response) {
+                self.displayMessage = self.editMessage;
+                self.editMode = false;
+            }).catch(function (error) {
+                console.error(error.response);
+                self.editMessage = self.comment.message;
+                self.editMode = false;
+                self.failure = true;
+                setTimeout(function () {
+                    return self.failure = false;
+                }, 1000);
+            });
+        }
     }
 };
 
 /***/ }),
-/* 208 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "comment p-2",
-      on: {
-        mouseover: function($event) {
-          _vm.showActions = true
-        },
-        mouseout: function($event) {
-          _vm.showActions = false
-        }
-      }
-    },
-    [
-      _c(
-        "p",
-        {
-          staticClass: "mb-0 comment-author text-primary",
-          class: { "text-right": _vm.userIsAuthUser }
-        },
-        [
-          !_vm.userIsAuthUser
-            ? _c("font-awesome-icon", { attrs: { icon: "user" } })
-            : _vm._e(),
-          _vm._v(" "),
-          _c("span", { staticClass: "font-weight-bold" }, [
-            _vm._v(_vm._s(_vm.comment.user.name))
-          ])
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "clearfix text-black-50" },
-        [
-          _c("p", {
-            staticClass: "mb-0 comment-message",
-            class: { "float-right": _vm.userIsAuthUser },
-            domProps: { innerHTML: _vm._s(_vm.comment.message) }
-          }),
-          _vm._v(" "),
-          _c("transition", { attrs: { name: "fade" } }, [
-            _vm.userIsAuthUser && _vm.showActions
-              ? _c("div", { staticClass: "position-absolute" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-link p-0",
-                      attrs: {
-                        "data-toggle": "tooltip",
-                        "data-placement": "top",
-                        title: "Delete comment"
-                      },
-                      on: { click: _vm.deleteComment }
-                    },
-                    [
-                      _c("font-awesome-icon", {
-                        attrs: { size: "sm", icon: "trash-alt" }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-link p-0",
-                      attrs: {
-                        "data-toggle": "tooltip",
-                        "data-placement": "top",
-                        title: "Edit comment"
-                      },
-                      on: { click: _vm.editComment }
-                    },
-                    [
-                      _c("font-awesome-icon", {
-                        attrs: { size: "sm", icon: "pencil-alt" }
-                      })
-                    ],
-                    1
-                  )
-                ])
-              : _vm._e()
-          ])
-        ],
-        1
-      )
-    ]
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-183a5ef8", module.exports)
-  }
-}
-
-/***/ }),
+/* 208 */,
 /* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -101987,6 +101891,216 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-bf929b56", module.exports)
+  }
+}
+
+/***/ }),
+/* 305 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(306);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("46bfc5a4", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-183a5ef8\",\"scoped\":true,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./EntryComment.vue", function() {
+     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-183a5ef8\",\"scoped\":true,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./EntryComment.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 306 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n#message[data-v-183a5ef8] {\n    resize: none;\n}\n.comment[data-v-183a5ef8] {\n    -webkit-transition: 0.2s;\n    transition: 0.2s;\n}\n.comment[data-v-183a5ef8]:hover{\n    background-color: #eee;\n}\n.comment-author[data-v-183a5ef8] {\n    font-size: 0.75rem;\n}\n.comment-message[data-v-183a5ef8] {\n    max-width: 75%;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 307 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "comment p-2",
+      on: {
+        mouseover: function($event) {
+          _vm.showActions = true
+        },
+        mouseout: function($event) {
+          _vm.showActions = false
+        }
+      }
+    },
+    [
+      _c(
+        "p",
+        {
+          staticClass: "mb-0 comment-author text-primary",
+          class: { "text-right": _vm.userIsAuthUser }
+        },
+        [
+          !_vm.userIsAuthUser
+            ? _c("font-awesome-icon", { attrs: { icon: "user" } })
+            : _vm._e(),
+          _vm._v(" "),
+          _c("span", { staticClass: "font-weight-bold" }, [
+            _vm._v(_vm._s(_vm.comment.user.name))
+          ])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "clearfix text-black-50" },
+        [
+          _c(
+            "div",
+            {
+              staticClass: "comment-message",
+              class: { "float-right": _vm.userIsAuthUser }
+            },
+            [
+              _c("transition", { attrs: { name: "fade" } }, [
+                _vm.failure
+                  ? _c("div", { staticClass: "text-right" }, [
+                      _c(
+                        "span",
+                        {
+                          staticClass:
+                            "badge badge-fail badge-danger rounded px-2 py-1"
+                        },
+                        [_vm._v("Failed to save!")]
+                      )
+                    ])
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _vm.userIsAuthUser && _vm.editMode
+                ? _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.editMessage,
+                        expression: "editMessage"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { id: "message", name: "message" },
+                    domProps: { value: _vm.editMessage },
+                    on: {
+                      keydown: function($event) {
+                        if (
+                          !("button" in $event) &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
+                        }
+                        $event.preventDefault()
+                        return _vm.updateComment($event)
+                      },
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.editMessage = $event.target.value
+                      }
+                    }
+                  })
+                : _c("p", { staticClass: "mb-0" }, [
+                    _vm._v(_vm._s(_vm.displayMessage))
+                  ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("transition", { attrs: { name: "fade" } }, [
+            _vm.userIsAuthUser && _vm.showActions && _vm.isNew
+              ? _c("div", { staticClass: "position-absolute" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-link p-0",
+                      attrs: {
+                        "data-toggle": "tooltip",
+                        "data-placement": "top",
+                        title: "Delete comment"
+                      },
+                      on: { click: _vm.deleteComment }
+                    },
+                    [
+                      _c("font-awesome-icon", {
+                        attrs: { size: "sm", icon: "trash-alt" }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-link p-0",
+                      attrs: {
+                        "data-toggle": "tooltip",
+                        "data-placement": "top",
+                        title: "Edit comment"
+                      },
+                      on: { click: _vm.editComment }
+                    },
+                    [
+                      _c("font-awesome-icon", {
+                        attrs: { size: "sm", icon: "pencil-alt" }
+                      })
+                    ],
+                    1
+                  )
+                ])
+              : _vm._e()
+          ])
+        ],
+        1
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-183a5ef8", module.exports)
   }
 }
 
