@@ -27,6 +27,14 @@
 <script>
 export default {
     props: {
+        authUserJson: {
+            type: String,
+            required: true
+        },
+        journalJson: {
+            type: String,
+            default: '{}'
+        },
         notificationsJson: {
             type: String,
             required: true
@@ -45,8 +53,30 @@ export default {
         };
     },
 
+    created() {
+        // Send the journal info to the root Vue instance
+        this.$root.journal = this.journal;
+        Event.$emit('journalLoaded');
+        // Send the auth user info to the root Vue instance
+        this.$root.authUser = this.authUser;
+    },
+
     mounted() {
         this.notifications = JSON.parse(this.notificationsJson);
+
+        Echo.private('user.' + this.authUser.id)
+            .listen('UserInvited', (e) => {
+                console.log(e);
+            });
+    },
+
+    computed: {
+        authUser: function() {
+            return JSON.parse(this.authUserJson);
+        },
+        journal: function() {
+            return JSON.parse(this.journalJson);
+        },
     },
 
     methods: {

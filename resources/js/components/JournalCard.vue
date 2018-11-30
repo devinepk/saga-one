@@ -73,10 +73,6 @@
 <script>
 export default {
     props: {
-        authUserJson: {
-            type: String,
-            required: true
-        },
         writeUrl: {
             type: String,
             required: false,
@@ -101,10 +97,6 @@ export default {
             type: String,
             default: '{}'
         },
-        journalJson: {
-            type: String,
-            default: '{}'
-        },
         useBadgeCurrent: {
             type: Boolean,
             default: true
@@ -117,16 +109,6 @@ export default {
             // Whether this card should bubble info up to the root Vue instance.
             type: Boolean,
             default: false
-        }
-    },
-
-    created() {
-        if (this.bubble) {
-            // Send the journal info to the root Vue instance
-            this.$root.journal = this.journal;
-            Event.$emit('journalLoaded');
-            // Send the auth user info to the root Vue instance
-            this.$root.authUser = this.authUser;
         }
     },
 
@@ -162,11 +144,11 @@ export default {
     },
 
     computed: {
-        authUser: function() {
-            return JSON.parse(this.authUserJson);
-        },
         journal: function() {
-            return JSON.parse(this.journalJson);
+            return this.$root.journal;
+        },
+        authUser: function() {
+            return this.$root.authUser;
         },
         readTip: function() {
             return 'Read ' + this.journal.title;

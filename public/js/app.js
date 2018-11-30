@@ -76591,10 +76591,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
-        authUserJson: {
-            type: String,
-            required: true
-        },
         writeUrl: {
             type: String,
             required: false,
@@ -76619,10 +76615,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             type: String,
             default: '{}'
         },
-        journalJson: {
-            type: String,
-            default: '{}'
-        },
         useBadgeCurrent: {
             type: Boolean,
             default: true
@@ -76638,15 +76630,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
 
-    created: function created() {
-        if (this.bubble) {
-            // Send the journal info to the root Vue instance
-            this.$root.journal = this.journal;
-            Event.$emit('journalLoaded');
-            // Send the auth user info to the root Vue instance
-            this.$root.authUser = this.authUser;
-        }
-    },
     mounted: function mounted() {
         var self = this;
         self.queue = JSON.parse(self.queueJson);
@@ -76686,11 +76669,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
     computed: {
-        authUser: function authUser() {
-            return JSON.parse(this.authUserJson);
-        },
         journal: function journal() {
-            return JSON.parse(this.journalJson);
+            return this.$root.journal;
+        },
+        authUser: function authUser() {
+            return this.$root.authUser;
         },
         readTip: function readTip() {
             return 'Read ' + this.journal.title;
@@ -77820,6 +77803,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
+        authUserJson: {
+            type: String,
+            required: true
+        },
+        journalJson: {
+            type: String,
+            default: '{}'
+        },
         notificationsJson: {
             type: String,
             required: true
@@ -77837,14 +77828,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             showItems: false
         };
     },
+    created: function created() {
+        // Send the journal info to the root Vue instance
+        this.$root.journal = this.journal;
+        Event.$emit('journalLoaded');
+        // Send the auth user info to the root Vue instance
+        this.$root.authUser = this.authUser;
+    },
     mounted: function mounted() {
         this.notifications = JSON.parse(this.notificationsJson);
 
-        Echo.private('notifications').listen('UserInvited', function (e) {
+        Echo.private('user.' + this.authUser.id).listen('UserInvited', function (e) {
             console.log(e);
         });
     },
 
+
+    computed: {
+        authUser: function authUser() {
+            return JSON.parse(this.authUserJson);
+        },
+        journal: function journal() {
+            return JSON.parse(this.journalJson);
+        }
+    },
 
     methods: {
         markAsReadUrl: function markAsReadUrl(id) {

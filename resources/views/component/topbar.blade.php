@@ -30,6 +30,8 @@
 
             {{-- Notifications --}}
             <notification-menu
+                auth-user-json="{{ Auth::user() }}"
+                journal-json="{{ isset($journal) ? $journal : '{}' }}"
                 mark-as-read-url-pattern="{{ route('notification.read', 'ID') }}"
                 journal-settings-url-pattern="{{ route('journal.settings', 'ID') }}"
                 journal-write-url-pattern="{{ route('journal.show', 'ID') }}"
