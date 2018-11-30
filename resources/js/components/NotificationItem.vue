@@ -49,8 +49,11 @@ export default {
                 case "App\\Notifications\\InviteDeclined":
                     return '<strong>' + data.user + '</strong> has <span class="text-danger font-weight-bold">declined</span> your invite to <strong><a href="' + this.menu.journalSettingsUrl(data.journal_id) + '">' + data.journal + '</a></strong>.';
 
-                case "App\\Notifications\\JournalRotatedToUser":
+                case "App\\Notifications\\TurnHasStarted":
                     return 'You have this journal until ' + data.next_change + '.';
+
+                case "App\\Notifications\\TurnHasEnded":
+                    return 'You turn with  <strong>' + data.journal + '</strong> has ended. This journal has moved on to <strong>' + data.next_user + '</strong>.';
 
                 case "App\\Notifications\\UserInvited":
                     return '<strong>' + data.sender + '</strong> has invited you to join <strong>' + data.journal + '</strong>! <strong><a href="' + this.menu.inviteUrl(data.invite_id) + '"> Respond to this invite.</a></strong>';
@@ -65,8 +68,11 @@ export default {
                 case "App\\Notifications\\InviteDeclined":
                     return 'Invite Declined';
 
-                case "App\\Notifications\\JournalRotatedToUser":
+                case "App\\Notifications\\TurnHasStarted":
                     return 'It\'s your turn to write in <strong><a href="' + this.menu.journalWriteUrl(this.notification.data.journal_id) + '">' + this.notification.data.journal + '</a></strong>!</h5>';
+
+                case "App\\Notifications\\TurnHasEnded":
+                    return 'Your turn has ended.';
 
                 case "App\\Notifications\\UserInvited":
                     return 'You\'ve been invited!';
