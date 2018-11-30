@@ -84650,6 +84650,12 @@ module.exports = {
         },
         createdAt: function createdAt() {
             return Moment(this.comment.created_at).calendar(null, this.$root.dateFormatObj);
+        },
+        showAuthor: function showAuthor() {
+            // Show the author if the previous comment is from another user,
+            // or if we're at the top of the list.
+            var previousComment = this.$parent.$parent.comments[this.index - 1];
+            return this.index === 0 || this.comment.user.id !== previousComment.user.id;
         }
     },
 
@@ -84725,20 +84731,22 @@ var render = function() {
           class: { "text-right": _vm.userIsAuthUser }
         },
         [
-          _c(
-            "p",
-            { staticClass: "mb-0 comment-author text-primary" },
-            [
-              !_vm.userIsAuthUser
-                ? _c("font-awesome-icon", { attrs: { icon: "user" } })
-                : _vm._e(),
-              _vm._v(" "),
-              _c("span", { staticClass: "font-weight-bold" }, [
-                _vm._v(_vm._s(_vm.comment.user.name))
-              ])
-            ],
-            1
-          ),
+          _vm.showAuthor
+            ? _c(
+                "p",
+                { staticClass: "mb-0 comment-author text-primary" },
+                [
+                  !_vm.userIsAuthUser
+                    ? _c("font-awesome-icon", { attrs: { icon: "user" } })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "font-weight-bold" }, [
+                    _vm._v(_vm._s(_vm.comment.user.name))
+                  ])
+                ],
+                1
+              )
+            : _vm._e(),
           _vm._v(" "),
           _c("small", { staticClass: "text-muted" }, [
             _vm._v(_vm._s(_vm.createdAt))

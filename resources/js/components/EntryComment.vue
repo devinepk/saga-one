@@ -3,7 +3,7 @@
 
         <div class="comment-header" :class="{ 'text-right': userIsAuthUser }">
 
-            <p class="mb-0 comment-author text-primary" >
+            <p v-if="showAuthor" class="mb-0 comment-author text-primary" >
                 <font-awesome-icon v-if="!userIsAuthUser" icon="user" />
                 <span class="font-weight-bold">{{ comment.user.name }}</span>
             </p>
@@ -84,6 +84,13 @@ module.exports = {
         },
         createdAt() {
             return Moment(this.comment.created_at).calendar(null, this.$root.dateFormatObj);
+        },
+        showAuthor() {
+            // Show the author if the previous comment is from another user,
+            // or if we're at the top of the list.
+            let previousComment = this.$parent.$parent.comments[this.index-1];
+            return (this.index === 0 ||
+                    this.comment.user.id !== previousComment.user.id);
         }
     },
 
