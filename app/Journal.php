@@ -230,11 +230,12 @@ class Journal extends Model
     /**
      * Notify the current user that their turn has ended
      *
+     * @param \App\User $next_user
      * @return void
      */
-    public function sendTurnHasEndedNotification()
+    public function sendTurnHasEndedNotification(User $next_user)
     {
-        $this->current_user->notify(new TurnHasEnded($this));
+        $this->current_user->notify(new TurnHasEnded($this, $next_user));
     }
 
     /**
