@@ -13,25 +13,31 @@
 
 Route::view('/', 'welcome')->name('welcome');
 
+// Journals
 Route::get('journal/{journal}/contents', 'JournalController@contents')->name('journal.contents');
 Route::get('journal/{journal}/add', 'JournalController@add')->name('journal.add');
 Route::put('journal/{journal}/archive', 'JournalController@archive')->name('journal.archive');
 Route::get('journal/{journal}/settings', 'JournalController@settings')->name('journal.settings');
 Route::post('journal/{journal}/invite', 'JournalController@invite')->name('journal.invite');
 
-
+// Journals: API
 Route::post('journal/{journal}/queue', 'Api\JournalAPIController@updateQueue')->name('api.journal.updateQueue');
 Route::post('journal/{journal}/rotate', 'Api\JournalAPIController@rotate')->name('api.journal.rotate');
 Route::resource('journal', 'JournalController');
 
+// Comments
 Route::post('entry/{entry}/comment', 'Api\CommentAPIController@add')->name('api.comment.add');
+Route::post('comment/{comment}/delete', 'Api\CommentAPIController@delete')->name('api.comment.delete');
 
+// Entries
 Route::resource('entry', 'EntryController');
 
+// User account
 Route::get('account', 'UsersController@account')->name('user.account');
 Route::put('account', 'UsersController@update')->name('user.update');
 Route::put('account/changepassword', 'UsersController@changePassword')->name('user.changePassword');
 
+// Auth routes
 Auth::routes(['verify' => true]);
 
 // Invites

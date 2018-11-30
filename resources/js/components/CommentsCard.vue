@@ -2,7 +2,7 @@
 <div id="comments" class="card mb-3">
 
     <transition-group v-if="comments.length" name="list" tag="div" class="card-body border-0 p-0">
-        <entry-comment v-for="comment in comments" :key="comment.id" :comment="comment" />
+        <entry-comment v-for="(comment, index) in comments" :key="comment.id" :comment="comment" :index="index" />
     </transition-group>
 
     <div class="card-footer p-0" :class="{ 'border-top-0': !comments.length }">

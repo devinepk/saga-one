@@ -31,4 +31,16 @@ class CommentAPIController extends Controller
         // Return an updated set of comments for this entry
         return $entry->comments()->with('user')->get()->toJson();
     }
+
+    /**
+     * Process an API request to delete a comment
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Comment  $comment
+     * @return \Illuminate\Http\Response
+     */
+    public function delete(Request $request, Comment $comment)
+    {
+        $comment->delete();
+    }
 }

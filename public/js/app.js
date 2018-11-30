@@ -73891,10 +73891,10 @@ var render = function() {
               staticClass: "card-body border-0 p-0",
               attrs: { name: "list", tag: "div" }
             },
-            _vm._l(_vm.comments, function(comment) {
+            _vm._l(_vm.comments, function(comment, index) {
               return _c("entry-comment", {
                 key: comment.id,
-                attrs: { comment: comment }
+                attrs: { comment: comment, index: index }
               })
             })
           )
@@ -74768,7 +74768,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n.comment-author {\n    font-size: 0.75rem;\n}\n.comment-message {\n    max-width: 75%;\n}\n", ""]);
+exports.push([module.i, "\n.comment {\n    -webkit-transition: 0.2s;\n    transition: 0.2s;\n}\n.comment:hover{\n    background-color: #eee;\n}\n.comment-author {\n    font-size: 0.75rem;\n}\n.comment-message {\n    max-width: 75%;\n}\n", ""]);
 
 // exports
 
@@ -74789,14 +74789,60 @@ exports.push([module.i, "\n.comment-author {\n    font-size: 0.75rem;\n}\n.comme
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 module.exports = {
-    props: ['comment'],
+    props: {
+        comment: {
+            required: true
+        },
+        index: {
+            type: Number,
+            required: true
+        }
+    },
+
+    data: function data() {
+        return {
+            showActions: false
+        };
+    },
+
 
     computed: {
         userIsAuthUser: function userIsAuthUser() {
             return this.comment.user.id == this.$root.authUser.id;
         }
+    },
+
+    methods: {
+        deleteComment: function deleteComment() {
+            var self = this;
+
+            // Post to the app to delete the comment
+            axios.post('/comment/' + self.comment.id + '/delete', { 'user': self.$root.authUser.id }).then(function (response) {
+                console.log(response);
+                self.$parent.$parent.comments.splice(self.index, 1);
+            }).catch(function (error) {
+                console.error(error.response);
+            });
+        },
+        editComment: function editComment() {},
+        updateComment: function updateComment() {}
     }
 };
 
@@ -74808,33 +74854,96 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "comment p-2" }, [
-    _c(
-      "p",
-      {
-        staticClass: "mb-0 comment-author text-primary",
-        class: { "text-right": _vm.userIsAuthUser }
-      },
-      [
-        !_vm.userIsAuthUser
-          ? _c("font-awesome-icon", { attrs: { icon: "user" } })
-          : _vm._e(),
-        _vm._v(" "),
-        _c("span", { staticClass: "font-weight-bold" }, [
-          _vm._v(_vm._s(_vm.comment.user.name))
-        ])
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "clearfix" }, [
-      _c("p", {
-        staticClass: "mb-0 text-black-50 comment-message",
-        class: { "float-right": _vm.userIsAuthUser },
-        domProps: { innerHTML: _vm._s(_vm.comment.message) }
-      })
-    ])
-  ])
+  return _c(
+    "div",
+    {
+      staticClass: "comment p-2",
+      on: {
+        mouseover: function($event) {
+          _vm.showActions = true
+        },
+        mouseout: function($event) {
+          _vm.showActions = false
+        }
+      }
+    },
+    [
+      _c(
+        "p",
+        {
+          staticClass: "mb-0 comment-author text-primary",
+          class: { "text-right": _vm.userIsAuthUser }
+        },
+        [
+          !_vm.userIsAuthUser
+            ? _c("font-awesome-icon", { attrs: { icon: "user" } })
+            : _vm._e(),
+          _vm._v(" "),
+          _c("span", { staticClass: "font-weight-bold" }, [
+            _vm._v(_vm._s(_vm.comment.user.name))
+          ])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "clearfix text-black-50" },
+        [
+          _c("p", {
+            staticClass: "mb-0 comment-message",
+            class: { "float-right": _vm.userIsAuthUser },
+            domProps: { innerHTML: _vm._s(_vm.comment.message) }
+          }),
+          _vm._v(" "),
+          _c("transition", { attrs: { name: "fade" } }, [
+            _vm.userIsAuthUser && _vm.showActions
+              ? _c("div", { staticClass: "position-absolute" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-link p-0",
+                      attrs: {
+                        "data-toggle": "tooltip",
+                        "data-placement": "top",
+                        title: "Delete comment"
+                      },
+                      on: { click: _vm.deleteComment }
+                    },
+                    [
+                      _c("font-awesome-icon", {
+                        attrs: { size: "sm", icon: "trash-alt" }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-link p-0",
+                      attrs: {
+                        "data-toggle": "tooltip",
+                        "data-placement": "top",
+                        title: "Edit comment"
+                      },
+                      on: { click: _vm.editComment }
+                    },
+                    [
+                      _c("font-awesome-icon", {
+                        attrs: { size: "sm", icon: "pencil-alt" }
+                      })
+                    ],
+                    1
+                  )
+                ])
+              : _vm._e()
+          ])
+        ],
+        1
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

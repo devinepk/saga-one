@@ -266,6 +266,9 @@ input:checked:focus + .switch-left + .switch-right {
 /**
  * VUE TRANSITIONS
  */
+.comment .fade-enter-active, .comment .fade-leave-active {
+    transition: opacity .2s;
+}
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s;
 }
