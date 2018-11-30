@@ -181,7 +181,6 @@ class JournalController extends Controller
             $status .= " The cover image you had uploaded has been removed.";
         }
 
-
         // Replace the cover image if one was uploaded
         if ($request->has('cover_image')) {
             // If there was an old image, delete it.
@@ -192,8 +191,6 @@ class JournalController extends Controller
             $journal->image_path = Storage::putFile('covers', $request->file('cover_image'), 'public');
             $status .= " You uploaded a new cover image.";
         }
-
-
 
         // Update the rotation period but only if it has changed. (We don't need to show status messages
         // if they haven't changed the rotation period.)

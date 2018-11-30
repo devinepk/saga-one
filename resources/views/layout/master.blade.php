@@ -19,6 +19,6 @@
 
     </div>
 
-    @yield('bottom_of_body')
+    @yield('js')
 </body>
 </html>

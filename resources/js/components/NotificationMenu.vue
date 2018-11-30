@@ -64,7 +64,7 @@ export default {
     mounted() {
         this.notifications = JSON.parse(this.notificationsJson);
 
-        Echo.private('user.' + this.authUser.id)
+        Echo.private('App.User.' + this.authUser.id)
             .listen('UserInvited', (e) => {
                 console.log(e);
             });

@@ -8,7 +8,7 @@
     <div class="row">
 
         @foreach($journals as $journal)
-            <div class="col-sm col-md-6 col-lg-4">
+            <div class="col-md-6 col-lg-4">
 
                 <journal-card
                     auth-user-json="{{ Auth::user() }}"
