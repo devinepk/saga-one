@@ -83,12 +83,12 @@ const app = new Vue({
         journal: {},
         // format used by components calling Moment().calendar()
         dateFormatObj: {
-            sameDay: '[today at] h:ssa',
-            nextDay: '[tomorrow at] h:ssa',
-            nextWeek: 'dddd [at] h:ssa',
+            sameDay: '[today at] h:mma',
+            nextDay: '[tomorrow at] h:mma',
+            nextWeek: 'dddd [at] h:mma',
             lastDay: '[yesterday at] h:ssa',
-            lastWeek: '[last] dddd [at] h:ssa',
-            sameElse: 'DD/MM/YYYY [at] h:ssa'
+            lastWeek: '[last] dddd [at] h:mma',
+            sameElse: 'DD/MM/YYYY [at] h:mma'
         }
     },
 
