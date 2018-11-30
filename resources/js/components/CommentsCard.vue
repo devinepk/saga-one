@@ -11,14 +11,16 @@
                 <span v-if="showFailure" class="badge badge-fail badge-danger rounded px-2 py-1">Failed to save!</span>
             </transition>
 
-            <input type="text"
+            <textarea
                 v-model="newMessage"
                 @keydown.enter.prevent="submitComment"
-                id="message"
+                id="add-message"
                 name="message"
                 ref="message"
                 class="form-control border-0"
-                :placeholder="placeholder">
+                :placeholder="placeholder"
+                rows="1"
+            ></textarea>
         </div>
     </div>
 
@@ -110,6 +112,9 @@ export default {
 </script>
 
 <style scoped>
+#add-message {
+    resize: none;
+}
 .badge-fail {
     position: absolute;
     right: 10px;

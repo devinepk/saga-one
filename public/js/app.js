@@ -83541,7 +83541,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.badge-fail[data-v-af6615e2] {\n    position: absolute;\n    right: 10px;\n    bottom: 10px;\n}\n", ""]);
+exports.push([module.i, "\n#add-message[data-v-af6615e2] {\n    resize: none;\n}\n.badge-fail[data-v-af6615e2] {\n    position: absolute;\n    right: 10px;\n    bottom: 10px;\n}\n", ""]);
 
 // exports
 
@@ -83552,6 +83552,8 @@ exports.push([module.i, "\n.badge-fail[data-v-af6615e2] {\n    position: absolut
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -83711,7 +83713,7 @@ var render = function() {
                   : _vm._e()
               ]),
               _vm._v(" "),
-              _c("input", {
+              _c("textarea", {
                 directives: [
                   {
                     name: "model",
@@ -83723,10 +83725,10 @@ var render = function() {
                 ref: "message",
                 staticClass: "form-control border-0",
                 attrs: {
-                  type: "text",
-                  id: "message",
+                  id: "add-message",
                   name: "message",
-                  placeholder: _vm.placeholder
+                  placeholder: _vm.placeholder,
+                  rows: "1"
                 },
                 domProps: { value: _vm.newMessage },
                 on: {
@@ -84555,7 +84557,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n#message[data-v-183a5ef8] {\n    resize: none;\n}\n.comment[data-v-183a5ef8] {\n    -webkit-transition: 0.2s;\n    transition: 0.2s;\n}\n.comment[data-v-183a5ef8]:hover{\n    background-color: #eee;\n}\n.comment-author[data-v-183a5ef8] {\n    margin-bottom: -5px !important;\n    font-size: 0.75rem;\n}\n.comment-message[data-v-183a5ef8] {\n    max-width: 75%;\n}\n", ""]);
+exports.push([module.i, "\n.edit-message > textarea[data-v-183a5ef8] {\n    resize: none;\n}\n.edit-message[data-v-183a5ef8] {\n    width:75%;\n}\n.comment[data-v-183a5ef8] {\n    -webkit-transition: 0.2s;\n    transition: 0.2s;\n}\n.comment[data-v-183a5ef8]:hover{\n    background-color: #eee;\n}\n.comment-author[data-v-183a5ef8] {\n    margin-bottom: -5px !important;\n    font-size: 0.75rem;\n}\n.comment-message[data-v-183a5ef8] {\n    max-width: 75%;\n}\n", ""]);
 
 // exports
 
@@ -84675,10 +84677,22 @@ module.exports = {
             });
         },
         editComment: function editComment() {
+            var _this = this;
+
             this.editMode = !this.editMode;
+            // Focus the textarea. For some reason we need to wait a tick.
+            this.$nextTick(function () {
+                return _this.$refs.edit.focus();
+            });
         },
         updateComment: function updateComment() {
             var self = this;
+
+            // Only send a request if the comment has actually changed.
+            if (self.comment.message == self.editMessage) {
+                self.editMode = false;
+                return;
+            }
 
             var post = {
                 user: self.$root.authUser.id,
@@ -84758,30 +84772,30 @@ var render = function() {
         "div",
         { staticClass: "clearfix text-black-50" },
         [
-          _c(
-            "div",
-            {
-              staticClass: "comment-message",
-              class: { "float-right": _vm.userIsAuthUser }
-            },
-            [
-              _c("transition", { attrs: { name: "fade" } }, [
-                _vm.failure
-                  ? _c("div", { staticClass: "text-right" }, [
-                      _c(
-                        "span",
-                        {
-                          staticClass:
-                            "badge badge-fail badge-danger rounded px-2 py-1"
-                        },
-                        [_vm._v("Error")]
-                      )
-                    ])
-                  : _vm._e()
-              ]),
-              _vm._v(" "),
-              _vm.userIsAuthUser && _vm.editMode
-                ? _c("textarea", {
+          _vm.userIsAuthUser && _vm.editMode
+            ? _c(
+                "div",
+                {
+                  staticClass: "edit-message",
+                  class: { "float-right": _vm.userIsAuthUser }
+                },
+                [
+                  _c("transition", { attrs: { name: "fade" } }, [
+                    _vm.failure
+                      ? _c("div", { staticClass: "text-right" }, [
+                          _c(
+                            "span",
+                            {
+                              staticClass:
+                                "badge badge-fail badge-danger rounded px-2 py-1"
+                            },
+                            [_vm._v("Error")]
+                          )
+                        ])
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c("textarea", {
                     directives: [
                       {
                         name: "model",
@@ -84790,8 +84804,9 @@ var render = function() {
                         expression: "editMessage"
                       }
                     ],
-                    staticClass: "form-control",
-                    attrs: { id: "message", name: "message" },
+                    ref: "edit",
+                    staticClass: "form-control text-black-50",
+                    attrs: { name: "message" },
                     domProps: { value: _vm.editMessage },
                     on: {
                       keydown: function($event) {
@@ -84818,12 +84833,17 @@ var render = function() {
                       }
                     }
                   })
-                : _c("p", { staticClass: "mb-0" }, [
-                    _vm._v(_vm._s(_vm.displayMessage))
-                  ])
-            ],
-            1
-          ),
+                ],
+                1
+              )
+            : _c(
+                "p",
+                {
+                  staticClass: "mb-0 comment-message",
+                  class: { "float-right": _vm.userIsAuthUser }
+                },
+                [_vm._v(_vm._s(_vm.displayMessage))]
+              ),
           _vm._v(" "),
           _c("transition", { attrs: { name: "fade" } }, [
             _vm.userIsAuthUser && _vm.showActions && _vm.isNew

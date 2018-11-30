@@ -14,7 +14,7 @@
 
         <div class="clearfix text-black-50">
 
-            <div class="comment-message" :class="{ 'float-right': userIsAuthUser }">
+            <div v-if="userIsAuthUser && editMode" class="edit-message" :class="{ 'float-right': userIsAuthUser }">
 
                 <transition name="fade">
                     <div v-if="failure" class="text-right">
@@ -22,17 +22,17 @@
                     </div>
                 </transition>
 
-                <textarea v-if="userIsAuthUser && editMode"
-                    class="form-control"
+                <textarea
+                    class="form-control text-black-50"
                     v-model="editMessage"
                     @keydown.enter.prevent="updateComment"
-                    id="message"
-                    name="message">
+                    name="message"
+                    ref="edit">
                 </textarea>
 
-                <p v-else class="mb-0">{{ displayMessage }}</p>
-
             </div>
+
+            <p v-else class="mb-0 comment-message" :class="{ 'float-right': userIsAuthUser }">{{ displayMessage }}</p>
 
             <transition name="fade">
                 <div v-if="userIsAuthUser && showActions && isNew" class="position-absolute">
@@ -111,9 +111,17 @@ module.exports = {
         },
         editComment() {
             this.editMode = !this.editMode;
+            // Focus the textarea. For some reason we need to wait a tick.
+            this.$nextTick(() => this.$refs.edit.focus());
         },
         updateComment() {
             let self = this;
+
+            // Only send a request if the comment has actually changed.
+            if (self.comment.message == self.editMessage) {
+                self.editMode = false;
+                return;
+            }
 
             let post = {
                 user: self.$root.authUser.id,
@@ -139,8 +147,11 @@ module.exports = {
 </script>
 
 <style scoped>
-#message {
+.edit-message > textarea {
     resize: none;
+}
+.edit-message {
+    width:75%;
 }
 .comment {
     transition: 0.2s;
