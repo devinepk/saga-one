@@ -74783,6 +74783,12 @@ module.exports = Component.exports
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 module.exports = {
     props: {
@@ -74815,6 +74821,9 @@ module.exports = {
         },
         isNew: function isNew() {
             return this.comment.created_at > this.$root.journal.last_change;
+        },
+        createdAt: function createdAt() {
+            return Moment(this.comment.created_at).calendar(null, this.$root.dateFormatObj);
         }
     },
 
@@ -101932,7 +101941,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n#message[data-v-183a5ef8] {\n    resize: none;\n}\n.comment[data-v-183a5ef8] {\n    -webkit-transition: 0.2s;\n    transition: 0.2s;\n}\n.comment[data-v-183a5ef8]:hover{\n    background-color: #eee;\n}\n.comment-author[data-v-183a5ef8] {\n    font-size: 0.75rem;\n}\n.comment-message[data-v-183a5ef8] {\n    max-width: 75%;\n}\n", ""]);
+exports.push([module.i, "\n#message[data-v-183a5ef8] {\n    resize: none;\n}\n.comment[data-v-183a5ef8] {\n    -webkit-transition: 0.2s;\n    transition: 0.2s;\n}\n.comment[data-v-183a5ef8]:hover{\n    background-color: #eee;\n}\n.comment-author[data-v-183a5ef8] {\n    margin-bottom: -5px !important;\n    font-size: 0.75rem;\n}\n.comment-message[data-v-183a5ef8] {\n    max-width: 75%;\n}\n", ""]);
 
 // exports
 
@@ -101960,21 +101969,31 @@ var render = function() {
     },
     [
       _c(
-        "p",
+        "div",
         {
-          staticClass: "mb-0 comment-author text-primary",
+          staticClass: "comment-header",
           class: { "text-right": _vm.userIsAuthUser }
         },
         [
-          !_vm.userIsAuthUser
-            ? _c("font-awesome-icon", { attrs: { icon: "user" } })
-            : _vm._e(),
+          _c(
+            "p",
+            { staticClass: "mb-0 comment-author text-primary" },
+            [
+              !_vm.userIsAuthUser
+                ? _c("font-awesome-icon", { attrs: { icon: "user" } })
+                : _vm._e(),
+              _vm._v(" "),
+              _c("span", { staticClass: "font-weight-bold" }, [
+                _vm._v(_vm._s(_vm.comment.user.name))
+              ])
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("span", { staticClass: "font-weight-bold" }, [
-            _vm._v(_vm._s(_vm.comment.user.name))
+          _c("small", { staticClass: "text-muted" }, [
+            _vm._v(_vm._s(_vm.createdAt))
           ])
-        ],
-        1
+        ]
       ),
       _vm._v(" "),
       _c(

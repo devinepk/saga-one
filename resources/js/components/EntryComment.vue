@@ -1,10 +1,16 @@
 <template>
     <div class="comment p-2" @mouseover="showActions = true" @mouseout="showActions = false">
 
-        <p class="mb-0 comment-author text-primary" :class="{ 'text-right': userIsAuthUser }">
-            <font-awesome-icon v-if="!userIsAuthUser" icon="user" />
-            <span class="font-weight-bold">{{ comment.user.name }}</span>
-        </p>
+        <div class="comment-header" :class="{ 'text-right': userIsAuthUser }">
+
+            <p class="mb-0 comment-author text-primary" >
+                <font-awesome-icon v-if="!userIsAuthUser" icon="user" />
+                <span class="font-weight-bold">{{ comment.user.name }}</span>
+            </p>
+
+            <small class="text-muted">{{ createdAt }}</small>
+
+        </div>
 
         <div class="clearfix text-black-50">
 
@@ -75,6 +81,9 @@ module.exports = {
         },
         isNew() {
             return (this.comment.created_at > this.$root.journal.last_change);
+        },
+        createdAt() {
+            return Moment(this.comment.created_at).calendar(null, this.$root.dateFormatObj);
         }
     },
 
@@ -133,6 +142,7 @@ module.exports = {
     background-color: #eee;
 }
 .comment-author {
+    margin-bottom: -5px !important;
     font-size: 0.75rem;
 }
 .comment-message {
