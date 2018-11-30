@@ -12,7 +12,7 @@
 
                 <transition name="fade">
                     <div v-if="failure" class="text-right">
-                        <span class="badge badge-fail badge-danger rounded px-2 py-1">Failed to save!</span>
+                        <span class="badge badge-fail badge-danger rounded px-2 py-1">Error</span>
                     </div>
                 </transition>
 
@@ -83,13 +83,14 @@ module.exports = {
             let self = this;
 
             // Post to the app to delete the comment
-            axios.post('/comment/' + self.comment.id + '/delete', { 'user': self.$root.authUser.id } )
+            axios.post('/comment/' + self.comment.id + '/delete', { user: self.$root.authUser.id } )
                 .then(function(response) {
-                    console.log(response);
                     self.$parent.$parent.comments.splice(self.index, 1);
                 })
                 .catch(function(error) {
                     console.error(error.response);
+                    self.failure = true;
+                    setTimeout(() => self.failure = false, 1000);
                 });
         },
         editComment() {

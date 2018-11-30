@@ -74823,11 +74823,14 @@ module.exports = {
             var self = this;
 
             // Post to the app to delete the comment
-            axios.post('/comment/' + self.comment.id + '/delete', { 'user': self.$root.authUser.id }).then(function (response) {
-                console.log(response);
+            axios.post('/comment/' + self.comment.id + '/delete', { user: self.$root.authUser.id }).then(function (response) {
                 self.$parent.$parent.comments.splice(self.index, 1);
             }).catch(function (error) {
                 console.error(error.response);
+                self.failure = true;
+                setTimeout(function () {
+                    return self.failure = false;
+                }, 1000);
             });
         },
         editComment: function editComment() {
@@ -101994,7 +101997,7 @@ var render = function() {
                           staticClass:
                             "badge badge-fail badge-danger rounded px-2 py-1"
                         },
-                        [_vm._v("Failed to save!")]
+                        [_vm._v("Error")]
                       )
                     ])
                   : _vm._e()
