@@ -101,9 +101,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-.notifications-dropdown{
-    width: 250%;
-}
-</style>

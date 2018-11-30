@@ -72,6 +72,15 @@
 }
 
 /*
+ * TOP BAR
+ */
+.notifications-dropdown{
+    @include media-breakpoint-up(md) {
+        width: 250%;
+    }
+}
+
+/*
  * SIDEBAR
  */
 .sidebar {
