@@ -26,6 +26,7 @@
                     class="form-control text-black-50"
                     v-model="editMessage"
                     @keydown.enter.prevent="updateComment"
+                    @keydown.esc.prevent="editComment"
                     name="message"
                     ref="edit">
                 </textarea>
@@ -112,7 +113,9 @@ module.exports = {
         editComment() {
             this.editMode = !this.editMode;
             // Focus the textarea. For some reason we need to wait a tick.
-            this.$nextTick(() => this.$refs.edit.focus());
+            if (this.editMode) {
+                this.$nextTick(() => this.$refs.edit.focus());
+            }
         },
         updateComment() {
             let self = this;

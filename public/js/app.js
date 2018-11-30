@@ -84617,6 +84617,7 @@ exports.push([module.i, "\n.edit-message > textarea[data-v-183a5ef8] {\n    resi
 //
 //
 //
+//
 
 module.exports = {
     props: {
@@ -84681,9 +84682,11 @@ module.exports = {
 
             this.editMode = !this.editMode;
             // Focus the textarea. For some reason we need to wait a tick.
-            this.$nextTick(function () {
-                return _this.$refs.edit.focus();
-            });
+            if (this.editMode) {
+                this.$nextTick(function () {
+                    return _this.$refs.edit.focus();
+                });
+            }
         },
         updateComment: function updateComment() {
             var self = this;
@@ -84809,22 +84812,40 @@ var render = function() {
                     attrs: { name: "message" },
                     domProps: { value: _vm.editMessage },
                     on: {
-                      keydown: function($event) {
-                        if (
-                          !("button" in $event) &&
-                          _vm._k(
-                            $event.keyCode,
-                            "enter",
-                            13,
-                            $event.key,
-                            "Enter"
-                          )
-                        ) {
-                          return null
+                      keydown: [
+                        function($event) {
+                          if (
+                            !("button" in $event) &&
+                            _vm._k(
+                              $event.keyCode,
+                              "enter",
+                              13,
+                              $event.key,
+                              "Enter"
+                            )
+                          ) {
+                            return null
+                          }
+                          $event.preventDefault()
+                          return _vm.updateComment($event)
+                        },
+                        function($event) {
+                          if (
+                            !("button" in $event) &&
+                            _vm._k(
+                              $event.keyCode,
+                              "esc",
+                              27,
+                              $event.key,
+                              "Escape"
+                            )
+                          ) {
+                            return null
+                          }
+                          $event.preventDefault()
+                          return _vm.editComment($event)
                         }
-                        $event.preventDefault()
-                        return _vm.updateComment($event)
-                      },
+                      ],
                       input: function($event) {
                         if ($event.target.composing) {
                           return
