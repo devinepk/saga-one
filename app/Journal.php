@@ -25,11 +25,11 @@ class Journal extends Model
     public $default_image_path = 'img/cover1.jpg';
 
     /**
-     * The attributes that should be mutated to dates.
+     * The attributes that should be cast to Carbon date instances.
      *
      * @var array
      */
-    protected $dates = ['deleted_at'];
+    protected $dates = ['created_at', 'updated_at', 'next_change', 'last_change'];
 
     /**
      * Get the user that created this journal
@@ -210,7 +210,8 @@ class Journal extends Model
         $this->current_user()->associate($this->next_user->id);
 
         // Update the date of the next rotation
-        $this->next_change = (new Carbon($this->next_change))->addSeconds($this->period);
+        $this->last_change = $this->next_change;
+        $this->next_change = $this->next_change->addSeconds($this->period);
         $this->save();
 
         // Mark all draft entries as "final"
