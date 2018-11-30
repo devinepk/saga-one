@@ -1,20 +1,33 @@
 @extends('emails.layout')
 
 @section('body')
-<h1>Site Statistics</h1>
+    @component('emails.components.h1')
+        Site Statistics
+    @endcomponent
 
 <hr>
 
-    <h2>Report date: {{ $report->meta->date }}</h2>
-    <h2>Environment level: {{ $report->environment->level }}</h2>
-    <h2>Environment name: {{ $report->environment->name }}</h2>
-    <h2>Site url: <a href="{{ $report->environment->url }}">{{ $report->environment->url }}</a></h2>
+    @component('emails.components.h2')
+        Report date: {{ $report->meta->date }}
+    @endcomponent
+
+    @component('emails.components.h2')
+        Environment level: {{ $report->environment->level }}
+    @endcomponent
+
+    @component('emails.components.h2')
+        Environment name: {{ $report->environment->name }}
+    @endcomponent
+
+    @component('emails.components.h2')
+        Site url: <a href="{{ $report->environment->url }}" style="color: #3869D4;">{{ $report->environment->url }}</a>
+    @endcomponent
 
 <hr>
 
 <table style="text-align:left; color:black; width:100%;">
     <tr>
-        <th style="width:50%;">Total registered users:</th>
+        <th>Total registered users:</th>
         <td>{{ $report->total->users }}</td>
     </tr>
     <tr>
