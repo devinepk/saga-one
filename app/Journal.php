@@ -61,7 +61,7 @@ class Journal extends Model
     /**
      * Access the computed attribute "queue", which represents
      * the list of users "waiting" for the journal. The current user
-     * will not be in this list.
+     * will be at the start of this list.
      *
      * @return Illuminate\Database\Eloquent\Collection
      */
@@ -69,17 +69,14 @@ class Journal extends Model
     {
         $queue = [];
 
-        if ($this->users()->count() > 1) {
+        // The queue of an archived journal should start with the creator.
+        $first_user_id = $this->current_user->id ?: $this->creator->id;
+        $next_user = $this->users()->find($first_user_id);
 
-            // The queue of an archived journal should start with the creator.
-            $first_user_id = $this->current_user->id ? $this->current_user->id : $this->creator->id;
-            $next_user = $this->users()->find($first_user_id);
-
-            do {
-                $queue[] = $next_user;
-                $next_user = $this->users()->find($next_user->subscription->next_user_id);
-            } while ($next_user->id != $first_user_id);
-        }
+        do {
+            $queue[] = $next_user;
+            $next_user = $this->users()->find($next_user->subscription->next_user_id);
+        } while (isset($next_user->id) && $next_user->id != $first_user_id);
 
         return collect($queue);
     }
