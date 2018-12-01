@@ -25,25 +25,25 @@
 
 <hr>
 
-<table style="text-align:left; color:black; width:100%;">
+<table style="text-align:left; color:black;">
     <tr>
-        <th>Total registered users:</th>
-        <td>{{ $report->total->users }}</td>
+        <th style="padding-right:10px;">Total registered users:</th>
+        <td >{{ $report->total->users }}</td>
     </tr>
     <tr>
-        <th>Total journals:</th>
+        <th style="padding-right:10px;">Total journals:</th>
         <td>{{ $report->total->journals }}</td>
     </tr>
     <tr>
-        <th>Total entries:</th>
+        <th style="padding-right:10px;">Total entries:</th>
         <td>{{ $report->total->entries }}</td>
     </tr>
     <tr>
-        <th>Total comments:</th>
+        <th style="padding-right:10px;">Total comments:</th>
         <td>{{ $report->total->comments }}</td>
     </tr>
     <tr>
-        <th>Total invites sent:</th>
+        <th style="padding-right:10px;">Total invites sent:</th>
         <td>{{ $report->total->invites }}</td>
     </tr>
 </table>
