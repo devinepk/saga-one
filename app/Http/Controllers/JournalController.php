@@ -36,14 +36,26 @@ class JournalController extends Controller
     {
         // Package journals with the user's current journals at the
         // beginning and archived journals at the end.
+        // Eager-load pending invites.
+        $current_journals = Auth::user()->current_journals()
+            ->with(['invites' => function ($query) {
+                $query->where('accepted_at', null)->where('declined_at', null);
+            }])->get();
+
+        $archived_journals = Auth::user()->journals()
+            ->where('active', 'false')
+            ->with(['invites' => function ($query) {
+                $query->where('accepted_at', null)->where('declined_at', null);
+            }])->get();
+
         $journals = [];
-        foreach (Auth::user()->current_journals as $journal) {
+        foreach ($current_journals as $journal) {
             $journals[] = $journal;
         }
         foreach (Auth::user()->other_journals as $journal) {
             $journals[] = $journal;
         }
-        foreach (Auth::user()->journals()->where('active', 'false')->get() as $journal) {
+        foreach ($archived_journals as $journal) {
             $journals[] = $journal;
         }
         return view('journal.index', compact('journals'));
@@ -107,6 +119,11 @@ class JournalController extends Controller
      */
     public function show(Request $request, Journal $journal)
     {
+        // Eager-load peding invites
+        $journal = Journal::with(['invites' => function ($query) {
+                $query->where('accepted_at', null)->where('declined_at', null);
+            }])->find($journal->id);
+
         // Show the journal if the user has permission
         if (Auth::user()->can('addEntry', $journal)) {
             $drafts = $journal->entries()->where('status', 'draft')->paginate(5);
@@ -313,6 +330,11 @@ class JournalController extends Controller
      */
     public function contents(Request $request, Journal $journal)
     {
+        // Eager load the invites relationship
+        $journal = Journal::with(['invites' => function ($query) {
+                $query->where('accepted_at', null)->where('declined_at', null);
+            }])->find($journal->id);
+
         if (Auth::user()->can('view', $journal)) {
             $entries = $journal->entries()->where('status', 'final')->paginate(10);
             $entries->withPath(route('journal.contents', $journal));

@@ -110,6 +110,8 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function getOtherJournalsAttribute()
     {
-        return $this->journals()->where('current_user_id', '<>', $this->id)->get();
+        return $this->journals()->where('current_user_id', '<>', $this->id)->with(['invites' => function ($query) {
+                $query->where('accepted_at', null)->where('declined_at', null);
+            }])->get();
     }
 }

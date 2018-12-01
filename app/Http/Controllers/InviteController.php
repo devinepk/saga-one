@@ -64,7 +64,11 @@ class InviteController extends Controller
     public function show(Invite $invite)
     {
         $this->authorize('view', $invite);
-        $journal = $invite->journal;
+        $journal = $invite->journal()->with(['current_user', 'invites'  => function ($query) {
+            $query->where('accepted_at', null)
+                  ->where('declined_at', null);
+        }])->first();
+
         return view('invite.show', compact('invite', 'journal'));
     }
 
