@@ -46,7 +46,7 @@
         <li v-for="user in queue"
             :key="user.id"
             class="list-group-item list-group-item-action"
-            :class="{active: user.id == authUser.id && authUser.id == journal.current_user.id}"
+            :class="{active: highlightUser(user)}"
         >
             <current-user-icon
                 v-if="user.id == journal.current_user.id"
@@ -56,14 +56,16 @@
             />
 
             <font-awesome-icon icon="user"></font-awesome-icon>
-
             <span class="ml-2">{{ user.name }}</span>
+        </li>
 
-
+        <li v-if="journal.invites.length" key="invites" class="list-group-item list-group-item-action">
+            <font-awesome-icon icon="plus" />
+            <span class="ml-2">{{ journal.invites.length }} invited to join</span>
         </li>
     </transition-group>
 
-    <alert v-else class="mb-0" level="secondary" :dismissible="false">
+    <alert v-if="showInviteMessage" class="mb-0" level="secondary" :dismissible="false">
         The real fun begins when you share this journal with others. <strong><a :href="settingsUrl" class="alert-link">Invite a friend</a> now!</strong>
     </alert>
 
@@ -163,8 +165,21 @@ export default {
         showBadgeCurrent: function() {
             return (this.useBadgeCurrent && this.journal.current_user && this.journal.current_user.id == this.authUser.id);
         },
+        showInviteMessage: function() {
+            return (this.queue.length == 1 &&
+                    this.authUser.id == this.journal.creator_id &&
+                    !this.journal.invites.length);
+        },
         prettyNextChange: function() {
             return Moment(this.journal.next_change).format("MMM Do [at] h:mm a");
+        }
+    },
+
+    methods: {
+        highlightUser: function(user) {
+            return (user.id == this.authUser.id &&
+                    this.authUser.id == this.journal.current_user.id &&
+                    this.queue.length > 1);
         }
     }
 }

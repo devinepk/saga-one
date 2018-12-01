@@ -14,17 +14,17 @@
         class="d-md-none mt-3"
         auth-user-json="{{ Auth::user() }}"
         read-url="{{ Auth::user()->can('view', $journal) ? route('journal.contents', $journal) : '' }}"
+        write-url="{{ Auth::user()->can('addEntry', $journal) ? route('journal.show', $journal) : '' }}"
         image-url="{{ Storage::url($journal->image_path) }}"
         settings-url="{{ Auth::user()->can('viewSettings', $journal) ? route('journal.settings', $journal) : '' }}"
         queue-json="{{ $journal->queue }}"
-        journal-json="{{ $journal }}"
     ></journal-card>
 
-    @if ($journal->queue->count())
-        <journal-countdown
+    @if ($journal->queue->count() > 1)
+        {{-- <journal-countdown
             target-date-string="{{ $journal->next_change }}"
             rotate-url="{{ route('api.journal.rotate', $journal) }}"
-        ></journal-countdown>
+        ></journal-countdown> --}}
     @endif
 
     <h2>Your entries</h2>
