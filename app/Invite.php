@@ -75,6 +75,9 @@ class Invite extends Model
 
         // Notify the sender of declination
         $this->sender->notify(new InviteDeclinedNotification($this));
+
+        // Mark the invite notification as read
+        $this->markInviteNotificationAsRead();
     }
 
     /**
@@ -95,5 +98,29 @@ class Invite extends Model
 
         // Notify the sender of acceptance
         $this->sender->notify(new InviteAcceptedNotification($this));
+
+        // Mark the invite notification as read
+        $this->markInviteNotificationAsRead();
+    }
+
+    /**
+     * Mark the invite notification as read.
+     *
+     * @return void
+     */
+    public function markInviteNotificationAsRead()
+    {
+        // First find the notification
+        // (can't directly query json values in the data field of the notifications table)
+        $notification = $this->user->unreadNotifications()
+            ->where('type', UserInvited::class)->get()
+            ->firstWhere('data.invite_id', $this->getKey());
+
+        // If the user was invited as a guest then there will be a GuestInvited notification,
+        // not a UserInvited notification. We don't show GuestInvited notifications in the
+        // database, so just ignore it.
+        if ($notification) {
+            $notification->markAsRead();
+        }
     }
 }
