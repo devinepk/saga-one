@@ -75,7 +75,7 @@
                 </div>
                 <div class="col-md-9 col-lg-6">
                     <h2 class="text-secondary">Connect with others</h2>
-                    <p>SagaOne leverages the power of the Internet to <strong class="text-secondary">create community</strong> but fosters a <strong class="text-secondary">small, intimate environment</strong>. It's a great way to share your life and build a sense of connection with others!</p>
+                    <p>SagaOne leverages the power of the Internet to <strong class="text-secondary">create community regardless of distance</strong> but fosters a <strong class="text-secondary">small, intimate environment</strong>. It's a great way to share your life and build a sense of connection with others!</p>
                 </div>
             </div>
     </section>
