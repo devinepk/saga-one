@@ -10,6 +10,8 @@
 @section('journal-content')
 <div class="container">
 
+    <h1>Read {{ $journal->title }}</h1>
+
     @if (!$journal->active)
 
         <alert level="primary" :dismissible="false">
@@ -54,7 +56,7 @@
     @else
 
         <alert level="secondary" :dismissible="false">
-            This journal is empty. Time to get writing!
+            This journal is empty. {{ $journal->active ? 'Time to get writing!' : '' }}
         </alert>
 
     @endif

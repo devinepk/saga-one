@@ -10,6 +10,8 @@
 @section('journal-content')
 <div class="container">
 
+    <h1>Write in {{ $journal->title }}</h1>
+
     <journal-card
         class="d-md-none mt-3"
         auth-user-json="{{ Auth::user() }}"
@@ -21,14 +23,13 @@
     ></journal-card>
 
     @if ($journal->queue->count() > 1)
-        {{-- <journal-countdown
+        <journal-countdown
             target-date-string="{{ $journal->next_change }}"
             rotate-url="{{ route('api.journal.rotate', $journal) }}"
-        ></journal-countdown> --}}
-    @endif
+        ></journal-countdown>
 
-    <h2>Your entries</h2>
-    <p>While you have this journal, you can read previous entries as well as add new ones. The entries you add now can be edited later as long as you have this journal, but once your turn is over, they will be published to the journal permanently. <strong>So make sure your entries are finished before the timer runs out!</strong></p>
+        <p>While you have this journal, you can read previous entries as well as add new ones. The entries you add now can be edited later as long as you have this journal, but once your turn is over, they will be published to the journal permanently. <strong>So make sure your entries are finished before the timer runs out!</strong></p>
+    @endif
 
     @component('component.addButton')
         @slot('url', route('journal.add', $journal))
