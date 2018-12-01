@@ -1,31 +1,23 @@
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark text-light p-0 shadow">
+<nav class="navbar navbar-dark navbar-expand fixed-top bg-dark text-light p-0 shadow">
 
     <a class="brand navbar-brand mx-3" href="{{ route('welcome') }}">
         <span class="saga">Saga</span>one
     </a>
 
-    <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navMenu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+    <div class="collapse navbar-collapse">
 
-    <div class="collapse navbar-collapse justify-content-end" id="navMenu">
-
-        {{-- Left Side Of Navbar --}}
-        <ul class="navbar-nav mr-auto">
-            @if (isset($journal) && empty($journals))
-            <li class="nav-item px-3">
-                <a class="nav-link d-md-none text-light" href="{{ route('journal.show', $journal) }}"><font-awesome-icon :icon="['fab', 'readme']"></font-awesome-icon><span class="ml-2">{{ $journal->title }}</span></a>
-            </li>
-            @endif
-
-        </ul>
-
-
-        {{-- Right Side Of Navbar --}}
         <ul class="navbar-nav ml-auto">
 
             {{-- Authentication links --}}
             @auth
+
+            @if (isset($journal) && empty($journals))
+            <li class="nav-item px-3">
+                <a class="nav-link d-md-none text-light" href="{{ route('journal.contents', $journal) }}">
+                    <font-awesome-icon :icon="['fab', 'readme']"></font-awesome-icon>
+                </a>
+            </li>
+            @endif
 
             {{-- Notifications --}}
             <notification-menu
@@ -44,7 +36,7 @@
                 {{-- User Menu --}}
                 <a class="nav-link dropdown-toggle" id="userMenuLabel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
                     <font-awesome-icon icon="user"></font-awesome-icon>
-                    <span class="ml-2">{{ Auth::user()->name }}</span>
+                    <span class="ml-2 d-none d-md-inline">{{ Auth::user()->name }}</span>
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenuLabel">

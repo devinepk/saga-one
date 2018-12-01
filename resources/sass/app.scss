@@ -75,6 +75,7 @@
  * TOP BAR
  */
 .notifications-dropdown{
+    width: 75vw;
     @include media-breakpoint-up(md) {
         width: 250%;
     }

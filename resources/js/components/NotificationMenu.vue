@@ -4,7 +4,7 @@
 
         <a class="nav-link" id="notificationsLabel" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <font-awesome-icon icon="bell"></font-awesome-icon>
-            <span class="ml-2">Notifications</span>
+            <span class="ml-2 d-none d-md-inline">Notifications</span>
             <span v-if="notifications.length" class="badge badge-light rounded ml-2 align-text-bottom">{{ notifications.length }}</span>
         </a>
 

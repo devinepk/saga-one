@@ -87973,7 +87973,9 @@ var render = function() {
       [
         _c("font-awesome-icon", { attrs: { icon: "bell" } }),
         _vm._v(" "),
-        _c("span", { staticClass: "ml-2" }, [_vm._v("Notifications")]),
+        _c("span", { staticClass: "ml-2 d-none d-md-inline" }, [
+          _vm._v("Notifications")
+        ]),
         _vm._v(" "),
         _vm.notifications.length
           ? _c(

@@ -11848,6 +11848,10 @@ a.text-dark:focus {
  * TOP BAR
  */
 
+.notifications-dropdown {
+  width: 75vw;
+}
+
 @media (min-width: 768px) {
   .notifications-dropdown {
     width: 250%;
