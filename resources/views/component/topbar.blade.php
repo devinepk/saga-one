@@ -12,8 +12,7 @@
 
         {{-- Left Side Of Navbar --}}
         <ul class="navbar-nav mr-auto">
-
-            @if (isset($journal))
+            @if (isset($journal) && empty($journals))
             <li class="nav-item px-3">
                 <a class="nav-link d-md-none text-light" href="{{ route('journal.show', $journal) }}"><font-awesome-icon :icon="['fab', 'readme']"></font-awesome-icon><span class="ml-2">{{ $journal->title }}</span></a>
             </li>
@@ -31,7 +30,7 @@
             {{-- Notifications --}}
             <notification-menu
                 auth-user-json="{{ Auth::user() }}"
-                journal-json="{{ isset($journal) ? $journal : '{}' }}"
+                journal-json="{{ isset($journal) && empty($journals) ? $journal : '{}' }}"
                 mark-as-read-url-pattern="{{ route('notification.read', 'ID') }}"
                 journal-settings-url-pattern="{{ route('journal.settings', 'ID') }}"
                 journal-write-url-pattern="{{ route('journal.show', 'ID') }}"
