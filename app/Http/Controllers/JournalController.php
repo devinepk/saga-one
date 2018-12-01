@@ -119,7 +119,7 @@ class JournalController extends Controller
      */
     public function show(Request $request, Journal $journal)
     {
-        // Eager-load peding invites
+        // Eager-load pending invites
         $journal = Journal::with(['invites' => function ($query) {
                 $query->where('accepted_at', null)->where('declined_at', null);
             }])->find($journal->id);
@@ -156,6 +156,11 @@ class JournalController extends Controller
      */
     public function settings(Request $request, Journal $journal)
     {
+        // Eager-load pending invites
+        $journal = Journal::with(['invites' => function ($query) {
+                $query->where('accepted_at', null)->where('declined_at', null);
+            }])->find($journal->id);
+
         if (Auth::user()->can('viewSettings', $journal)) {
             return view('journal.settings', compact('journal'));
         }
