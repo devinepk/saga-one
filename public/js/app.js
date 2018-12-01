@@ -86937,7 +86937,7 @@ var render = function() {
                     },
                     [
                       _c("font-awesome-icon", {
-                        attrs: { icon: "book-reader" }
+                        attrs: { icon: ["fab", "readme"] }
                       })
                     ],
                     1
@@ -86983,7 +86983,7 @@ var render = function() {
                   [
                     user.id == _vm.journal.current_user.id
                       ? _c("current-user-icon", {
-                          staticClass: "float-right mt-1",
+                          staticClass: "float-right",
                           attrs: {
                             authCurrent:
                               _vm.authUser.id == _vm.journal.current_user.id,

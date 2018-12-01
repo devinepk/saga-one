@@ -35,7 +35,7 @@
             <font-awesome-icon icon="pencil-alt" />
         </a>
         <a v-if="readUrl" :href="readUrl" class="col btn btn-secondary" data-toggle="tooltip" data-placement="top" :title="readTip">
-            <font-awesome-icon icon="book-reader"/>
+            <font-awesome-icon :icon="['fab', 'readme']" />
         </a>
         <a v-if="settingsUrl" :href="settingsUrl" class="col btn btn-secondary border-0" data-toggle="tooltip" data-placement="top" title="Journal settings">
             <font-awesome-icon icon="cogs" />
@@ -52,7 +52,7 @@
                 v-if="user.id == journal.current_user.id"
                 :authCurrent="authUser.id == journal.current_user.id"
                 :currentUser="journal.current_user.name"
-                class="float-right mt-1"
+                class="float-right"
             />
 
             <font-awesome-icon icon="user"></font-awesome-icon>
