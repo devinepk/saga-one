@@ -27,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
             // Force the URL generator to use the url specified in the env settings.
             // Otherwise the worker uses host 'localhost' for some reason.
             URL::forceRootUrl(config('app.url'));
+            URL::forceScheme('https');
         }
 
         VerifyEmail::toMailusing(function ($notifiable) {
