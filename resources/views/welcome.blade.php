@@ -27,13 +27,13 @@
 
     <section class="bg-dark p-5 mb-5 text-center shadow">
         <div class="row">
-            <div class="col-md mb-5 mb-md-0">
+            <div class="col-md pb-5 mb-5 pb-md-0 mb-md-0">
                 <font-awesome-icon icon="book" size="10x" class="d-block mx-auto mb-4"></font-awesome-icon>
                 <span class="h5 text-secondary text-uppercase">Step 1</span>
                 <h2>Create a journal</h2>
             </div>
 
-            <div class="col-md mb-5 mb-md-0">
+            <div class="col-md pb-5 mb-5 pb-md-0 mb-md-0">
                 <font-awesome-icon icon="users" size="10x" class="d-block mx-auto mb-4"></font-awesome-icon>
                 <span class="h5 text-secondary text-uppercase">Step 2</span>
                 <h2>Invite your friends</h2>
