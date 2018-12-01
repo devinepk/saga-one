@@ -365,6 +365,11 @@ class JournalController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function add(Request $request, Journal $journal) {
+        // Eager load the invites relationship
+        $journal = Journal::with(['invites' => function ($query) {
+                $query->where('accepted_at', null)->where('declined_at', null);
+            }])->find($journal->id);
+
         if (Auth::user()->can('addEntry', $journal)) {
             return view('entry.create', compact('journal'));
         }

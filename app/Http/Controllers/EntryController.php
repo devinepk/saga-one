@@ -66,7 +66,11 @@ class EntryController extends Controller
     public function show(Entry $entry)
     {
         if (Auth::user()->can('view', $entry)) {
-            $journal = $entry->journal;
+            // Eager load the invites and current_user relationships
+            $journal = Journal::with(['current_user', 'invites' => function ($query) {
+                    $query->where('accepted_at', null)->where('declined_at', null);
+                }])->find($entry->journal_id);
+
             return view('entry.show', compact('entry', 'journal'));
         }
 
@@ -89,7 +93,12 @@ class EntryController extends Controller
     public function edit(Entry $entry)
     {
         $this->authorize('update', $entry);
-        $journal = $entry->journal;
+
+        // Eager load the invites and current_user relationships
+        $journal = Journal::with(['current_user', 'invites' => function ($query) {
+                $query->where('accepted_at', null)->where('declined_at', null);
+            }])->find($entry->journal_id);
+
         return view('entry.edit', compact('entry', 'journal'));
     }
 
