@@ -27,13 +27,13 @@
 
     <section class="bg-dark p-5 mb-5 text-center shadow">
         <div class="row">
-            <div class="col-md mb-sm-5 mb-md-0">
+            <div class="col-md mb-5 mb-md-0">
                 <font-awesome-icon icon="book" size="10x" class="d-block mx-auto mb-4"></font-awesome-icon>
                 <span class="h5 text-secondary text-uppercase">Step 1</span>
                 <h2>Create a journal</h2>
             </div>
 
-            <div class="col-md mb-sm-5 mb-md-0">
+            <div class="col-md mb-5 mb-md-0">
                 <font-awesome-icon icon="users" size="10x" class="d-block mx-auto mb-4"></font-awesome-icon>
                 <span class="h5 text-secondary text-uppercase">Step 2</span>
                 <h2>Invite your friends</h2>
@@ -47,7 +47,7 @@
         </div>
     </section>
 
-    <section class="py-5">
+    <section class="p-5">
 
             <div class="row justify-content-center py-5">
                 <div class="col-md-3 col-lg-2 text-center">
@@ -80,21 +80,23 @@
             </div>
     </section>
 
-    <footer class="bg-dark p-5 row">
-        <div class="col pt-2">
-            <small>&copy; {{ now()->year }} SagaOne</small>
+    <footer class="bg-dark pt-5 px-3 pb-2">
+        <div class="row">
+            <nav class="col-md nav justify-content-end welcome-links">
+                @auth
+                    <a href="{{ route('journal.index') }}" class="nav-link text-light">{{ __('auth.home') }}</a>
+                    <a class="nav-link text-light" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('auth.logout') }}</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
+                @else
+                    <a href="{{ route('login') }}" class="nav-link text-light">{{ __('auth.login') }}</a>
+                    <a href="{{ route('register') }}" class="nav-link btn btn-outline-light font-weight-bold">{{ __('auth.register') }}</a>
+                @endauth
+            </nav>
         </div>
 
-        <nav class="col nav justify-content-end welcome-links">
-            @auth
-                <a href="{{ route('journal.index') }}" class="nav-link text-light">{{ __('auth.home') }}</a>
-                <a class="nav-link text-light" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('auth.logout') }}</a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
-            @else
-                <a href="{{ route('login') }}" class="nav-link text-light">{{ __('auth.login') }}</a>
-                <a href="{{ route('register') }}" class="nav-link btn btn-outline-light font-weight-bold">{{ __('auth.register') }}</a>
-            @endauth
-        </nav>
+        <div class="mt-5 text-center text-white-50">
+            <small>&copy; {{ now()->year }} SagaOne</small>
+        </div>
     </footer>
 
 </main>
