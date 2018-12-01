@@ -58,11 +58,11 @@
 
                     @if ($journal->has_custom_image)
                         <div class="form-group">
-                            <label>Remove the uploaded cover image?</label>
-                            <label class="rocker align-middle ml-3">
+                            <label class="mr-3">Remove the uploaded cover image?</label>
+                            <label class="rocker align-middle">
                                 <input type="checkbox" id="remove_image" name="remove_image">
                                 <span class="switch-left">Yes</span>
-                                <span class="switch-right">No</span>
+                                <span class="switch-right expect">No</span>
                             </label>
                         </div>
                     @endif

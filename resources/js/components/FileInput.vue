@@ -3,8 +3,8 @@
         <div class="col custom-file" :class="{ uploaded: uploaded }">
             <input type="file" @change="handleUpload" ref="fileInput" class="custom-file-input" :class="{ 'is-invalid': errors.cover_image }" :name="name" :id="id">
             <label class="custom-file-label" :for="id" :class="[ uploaded ? '' : 'text-muted font-weight-normal' ]">
-                <span>{{ placeholder }}</span>
                 <font-awesome-icon v-if="uploaded" icon="check-circle" class="text-primary ml-1" />
+                <span>{{ placeholder }}</span>
             </label>
             <span v-if="errors.cover_image" class="invalid-feedback" role="alert">
                 <strong>{{ errors.cover_image[0] }}</strong>
@@ -77,5 +77,9 @@ export default {
 <style>
 .remove-file {
     width: 40px;
+}
+.custom-file-label {
+    white-space: nowrap;
+    overflow: hidden;
 }
 </style>

@@ -189,6 +189,10 @@ label {
         bottom: 0;
         background-color: $danger;
         color: #fff;
+
+        &.expect{
+            background-color: $primary;
+        }
     }
 
     .switch-left::before,
@@ -219,13 +223,17 @@ label {
 }
 
 input:checked + .switch-left {
-    background-color: $primary;
+    background-color: $danger;
     color: #fff;
     bottom: 0px;
     left: 0.5em;
     height: 2.5em;
     width: 3em;
     transform: rotate(0deg) skewX(0deg);
+
+    &.expect {
+        background-color: $primary;
+    }
 }
 
 input:checked + .switch-left::before {
