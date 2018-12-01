@@ -41,6 +41,13 @@
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenuLabel">
 
+                    <div class="d-md-none px-4 text-black-50">
+                        <font-awesome-icon icon="user"></font-awesome-icon>
+                        <span class="ml-2">{{ Auth::user()->name }}</span>
+                    </div>
+
+                    <div class="d-md-none dropdown-divider"></div>
+
                     <a class="dropdown-item" href="{{ route('journal.index') }}">
                         <font-awesome-icon icon="book"></font-awesome-icon>
                         <span class="ml-2">Journals</span>
