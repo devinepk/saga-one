@@ -24,6 +24,11 @@ class JournalAPIController extends Controller
      */
     public function updateQueue(Request $request, Journal $journal)
     {
+        // Check that the request is coming from the creator of the journal.
+        if ($request->input('user.id') !== $journal->creator_id) {
+            abort(403);
+        }
+
         // Extract the user ids
         $users = array_map(function($user) {
             // Trim off 4 chars to erase the "user" prefix
@@ -72,11 +77,22 @@ class JournalAPIController extends Controller
      * Process an API request to rotate a journal
      * (Called from the JournalCountdown vue component.)
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Journal  $journal
      * @return \Illuminate\Http\Response
      */
-    public function rotate(Journal $journal)
+    public function rotate(Request $request, Journal $journal)
     {
+        // Check that the request is coming from the current user of the journal.
+        if ($request->input('user.id') !== $journal->current_user_id) {
+            abort(403);
+        }
+
+        // Check that the journal is actually due for rotation.
+        if ($journal->next_change > now()) {
+            abort(400, "Journal is not due for rotation.");
+        }
+
         $journal->sendTurnHasEndedNotification($journal->next_user);
         $journal->rotate();
 

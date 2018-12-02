@@ -136,7 +136,10 @@ export default {
             new_queue.unshift("user" + this.journal.current_user.id);
 
             // Post to the app to save the new queue
-            axios.post(self.queueUrl, { new_queue: new_queue } )
+            axios.post(self.queueUrl, {
+                    new_queue: new_queue,
+                    user: self.$root.authUser
+                })
                 .then(function (response) {
                     // Event.$emit('queueUpdateSuccess', response.data.new );
                     self.$root.journal = response.data;

@@ -134,8 +134,7 @@ module.exports = {
         },
 
         timeIsUp: function() {
-            // Time is up if there is less than a second left.
-            return this.diff < 100;
+            return this.diff <= 0;
         }
     },
 
@@ -156,7 +155,7 @@ module.exports = {
             self.loading = true;
 
             // Post to the app to trigger a journal rotation
-            axios.post(self.rotateUrl)
+            axios.post(self.rotateUrl, { user: self.$root.authUser })
                 .then(function(response) {
                     self.$root.journal = response.data;
                     self.loading = false;
@@ -164,6 +163,7 @@ module.exports = {
                 })
                 .catch(function(error) {
                     self.error = true;
+                    self.loading = false;
                     console.error(error.response);
                 });
         }
