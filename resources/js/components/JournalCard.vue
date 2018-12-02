@@ -2,9 +2,8 @@
 <div class="card journal-card mb-5">
     <div class="card-header">
 
-
         <h3 class="card-title mb-0">
-            <a v-if="readUrl" :href="readUrl" data-toggle="tooltip" data-placement="top" :title="readTip">{{ journal.title }}</a>
+            <a v-if="journal.action_urls.read" :href="journal.action_urls.read" data-toggle="tooltip" data-placement="top" :title="readTip">{{ journal.title }}</a>
             <template v-else>{{ journal.title }}</template>
 
             <small v-if="!journal.active" class="badge badge-archived badge-dark rounded ml-2 p-2" data-toggle="tooltip" data-placement="top" title="You can read, but not write in, archived journals.">
@@ -15,29 +14,26 @@
         <p v-if="journal.description" class="font-italic mb-0">{{ journal.description }}</p>
     </div>
 
-    <div class="journal-card-cover" :style="{'background-image': 'url(' + imageUrl + ')'}">
-        <a v-if="writeUrl" :href="writeUrl"></a>
-        <a v-else-if="readUrl" :href="readUrl"></a>
+    <div class="journal-card-cover" :style="{'background-image': 'url(' + journal.action_urls.image + ')'}">
 
         <div v-if="showNextChange" class="cover-overlay align-items-end p-1 text-center">
             <span v-if="queue.length > 1">until <strong>{{ prettyNextChange }}</strong></span>
         </div>
         <span v-if="showBadgeCurrent"
             class="badge badge-current badge-secondary text-white rounded-circle shadow"
-            data-toggle="tooltip" data-placement="top" title="You have this journal right now."
-        >
+            data-toggle="tooltip" data-placement="top" title="You have this journal right now.">
             <font-awesome-icon size="4x" icon="star" />
         </span>
     </div>
 
-    <div v-if="writeUrl || readUrl || settingsUrl" class="row no-gutters" role="group" aria-label="Journal actions">
-        <a v-if="writeUrl" :href="writeUrl" class="col btn btn-secondary" data-toggle="tooltip" data-placement="top" :title="writeTip">
+    <div v-if="showActionsBar" class="row no-gutters" role="group" aria-label="Journal actions">
+        <a v-if="journal.action_urls.write" :href="journal.action_urls.write" class="col btn btn-secondary" data-toggle="tooltip" data-placement="top" :title="writeTip">
             <font-awesome-icon icon="pencil-alt" />
         </a>
-        <a v-if="readUrl" :href="readUrl" class="col btn btn-secondary" data-toggle="tooltip" data-placement="top" :title="readTip">
+        <a v-if="journal.action_urls.read" :href="journal.action_urls.read" class="col btn btn-secondary" data-toggle="tooltip" data-placement="top" :title="readTip">
             <font-awesome-icon :icon="['fab', 'readme']" />
         </a>
-        <a v-if="settingsUrl" :href="settingsUrl" class="col btn btn-secondary border-0" data-toggle="tooltip" data-placement="top" title="Journal settings">
+        <a v-if="journal.action_urls.settings" :href="journal.action_urls.settings" class="col btn btn-secondary border-0" data-toggle="tooltip" data-placement="top" title="Journal settings">
             <font-awesome-icon icon="cogs" />
         </a>
     </div>
@@ -55,7 +51,7 @@
                 class="float-right"
             />
 
-            <font-awesome-icon icon="user"></font-awesome-icon>
+            <font-awesome-icon icon="user" />
             <span class="ml-2">{{ user.name }}</span>
         </li>
 
@@ -75,30 +71,6 @@
 <script>
 export default {
     props: {
-        writeUrl: {
-            type: String,
-            required: false,
-            default: ''
-        },
-        readUrl: {
-            type: String,
-            required: false,
-            default: ''
-        },
-        imageUrl: {
-            type: String,
-            required: false,
-            default: ''
-        },
-        settingsUrl: {
-            type: String,
-            required: false,
-            default: ''
-        },
-        queueJson: {
-            type: String,
-            default: '{}'
-        },
         useBadgeCurrent: {
             type: Boolean,
             default: true
@@ -115,7 +87,7 @@ export default {
 
     mounted() {
         let self = this;
-        self.queue = JSON.parse(self.queueJson);
+        self.queue = self.journal.queue;
 
         Event.$on('queueUpdateSuccess', (newQ) => {
             // Rearrange the queue property to match the new queue
@@ -163,12 +135,19 @@ export default {
             return 'Write in ' + this.journal.title;
         },
         showBadgeCurrent: function() {
-            return (this.useBadgeCurrent && this.journal.current_user && this.journal.current_user.id == this.authUser.id);
+            return (this.useBadgeCurrent &&
+                    this.journal.current_user &&
+                    this.journal.current_user.id == this.authUser.id);
         },
         showInviteMessage: function() {
             return (this.queue.length == 1 &&
                     this.authUser.id == this.journal.creator_id &&
                     !this.journal.invites.length);
+        },
+        showActionsBar: function() {
+            return (this.journal.action_urls.write ||
+                    this.journal.action_urls.read  ||
+                    this.journal.action_urls.settings);
         },
         prettyNextChange: function() {
             return Moment(this.journal.next_change).format("MMM Do [at] h:mm a");

@@ -12,6 +12,8 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class Journal extends Model
 {
@@ -36,7 +38,7 @@ class Journal extends Model
      *
      * @var array
      */
-    protected $appends = ['next_user'];
+    protected $appends = ['action_urls', 'next_user', 'queue'];
 
     /**
      * Get the user that created this journal
@@ -273,5 +275,28 @@ class Journal extends Model
     public function getHasCustomImageAttribute()
     {
         return ($this->image_path != $this->default_image_path);
+    }
+
+    /**
+     * Form the action urls for this journal
+     *
+     * @return bool
+     */
+    public function getActionUrlsAttribute()
+    {
+        $urls = ['image' => Storage::url($this->image_path)];
+
+        if (Auth::check()) {
+            // If someone is logged in, only return the urls this user is allowed to access
+            $urls['write']    = Auth::user()->can('addEntry', $this)     ? route('journal.show', $this)     : '';
+            $urls['read']     = Auth::user()->can('view', $this)         ? route('journal.contents', $this) : '';
+            $urls['settings'] = Auth::user()->can('viewSettings', $this) ? route('journal.settings', $this) : '';
+        } else {
+            $urls['write']    = route('journal.show', $this);
+            $urls['read']     = route('journal.contents', $this);
+            $urls['settings'] = route('journal.settings', $this);
+        }
+
+        return $urls;
     }
 }

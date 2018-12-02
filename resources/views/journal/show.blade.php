@@ -12,15 +12,7 @@
 
     <h1>Write in {{ $journal->title }}</h1>
 
-    <journal-card
-        class="d-md-none mt-3"
-        auth-user-json="{{ Auth::user() }}"
-        read-url="{{ Auth::user()->can('view', $journal) ? route('journal.contents', $journal) : '' }}"
-        write-url="{{ Auth::user()->can('addEntry', $journal) ? route('journal.show', $journal) : '' }}"
-        image-url="{{ Storage::url($journal->image_path) }}"
-        settings-url="{{ Auth::user()->can('viewSettings', $journal) ? route('journal.settings', $journal) : '' }}"
-        queue-json="{{ $journal->queue }}"
-    ></journal-card>
+    <journal-card class="d-md-none mt-3"></journal-card>
 
     @if ($journal->queue->count() > 1)
         <journal-countdown
