@@ -36,28 +36,18 @@ class JournalController extends Controller
     {
         // Package journals with the user's current journals at the
         // beginning and archived journals at the end.
-        // Eager-load pending invites.
-        $current_journals = Auth::user()->current_journals()
-            ->with(['invites' => function ($query) {
-                $query->where('accepted_at', null)->where('declined_at', null);
-            }])->get();
-
-        $archived_journals = Auth::user()->journals()
-            ->where('active', 'false')
-            ->with(['invites' => function ($query) {
-                $query->where('accepted_at', null)->where('declined_at', null);
-            }])->get();
 
         $journals = [];
-        foreach ($current_journals as $journal) {
+        foreach (Auth::user()->current_journals as $journal) {
             $journals[] = $journal;
         }
         foreach (Auth::user()->other_journals as $journal) {
             $journals[] = $journal;
         }
-        foreach ($archived_journals as $journal) {
+        foreach (Auth::user()->archived_journals as $journal) {
             $journals[] = $journal;
         }
+
         return view('journal.index', compact('journals'));
     }
 

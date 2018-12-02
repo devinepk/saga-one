@@ -91,7 +91,7 @@ class JournalAPIController extends Controller
 
         Log::debug("An API request triggered a journal rotation. Journal \"{$journal->title}\" rotated to {$journal->current_user->name}.");
 
-        // Load current_user and pending invites relationships
+        // Load current_user relationship
         return Journal::with('current_user')->find($journal->id)->toJson();
     }
 }

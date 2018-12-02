@@ -112,9 +112,17 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function getOtherJournalsAttribute()
     {
-        return $this->journals()->where('current_user_id', '<>', $this->id)->with(['invites' => function ($query) {
-                $query->where('accepted_at', null)->where('declined_at', null);
-            }])->get();
+        return $this->journals()->where('current_user_id', '<>', $this->id)->get();
+    }
+
+    /**
+     * Get the archived journals for this user
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public function getArchivedJournalsAttribute()
+    {
+        return $this->journals()->whereActive('false')->get();
     }
 
     /**
