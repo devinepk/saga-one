@@ -45,7 +45,7 @@
             :class="{active: highlightUser(user)}"
         >
             <current-user-icon
-                v-if="user.id == journal.current_user.id"
+                v-if="journal.active && user.id == journal.current_user.id"
                 :authCurrent="authUser.id == journal.current_user.id"
                 :currentUser="journal.current_user.name"
                 class="float-right"
@@ -62,7 +62,7 @@
     </transition-group>
 
     <alert v-if="showInviteMessage" class="mb-0" level="secondary" :dismissible="false">
-        The real fun begins when you share this journal with others. <strong><a :href="settingsUrl" class="alert-link">Invite a friend</a> now!</strong>
+        The real fun begins when you share this journal with others. <strong><a :href="journal.action_urls.settings" class="alert-link">Invite a friend</a> now!</strong>
     </alert>
 
 </div>
@@ -106,11 +106,12 @@ export default {
         },
         showBadgeCurrent: function() {
             return (this.useBadgeCurrent &&
-                    this.journal.current_user &&
+                    this.journal.active &&
                     this.journal.current_user.id == this.authUser.id);
         },
         showInviteMessage: function() {
-            return (this.journal.queue.length == 1 &&
+            return (this.journal.active &&
+                    this.journal.queue.length == 1 &&
                     this.authUser.id == this.journal.creator_id &&
                     !this.journal.pending_invites.length);
         },
@@ -127,6 +128,7 @@ export default {
     methods: {
         highlightUser: function(user) {
             return (user.id == this.authUser.id &&
+                    this.journal.current_user &&
                     this.authUser.id == this.journal.current_user.id &&
                     this.journal.queue.length > 1);
         }

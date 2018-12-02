@@ -53,7 +53,7 @@ class Journal extends Model
      */
     public function current_user()
     {
-        return $this->belongsTo(User::class)->withDefault();
+        return $this->belongsTo(User::class);
     }
 
     /**
@@ -79,13 +79,17 @@ class Journal extends Model
         $queue = [];
 
         // The queue of an archived journal should start with the creator.
-        $first_user_id = $this->current_user->id ?: $this->creator->id;
-        $next_user = $this->users()->find($first_user_id);
+        // An archived journal has no current_user.
+        if (isset($this->current_user)) {
+            $next_user = $this->users()->find($this->current_user_id);
+        } else {
+            $next_user = $this->users()->find($this->creator_id);
+        }
 
         do {
             $queue[] = $next_user;
             $next_user = $this->users()->find($next_user->subscription->next_user_id);
-        } while (isset($next_user->id) && $next_user->id != $first_user_id);
+        } while (isset($next_user) && $next_user->id != $first_user_id);
 
         return collect($queue);
     }
@@ -94,10 +98,13 @@ class Journal extends Model
      * Access the computed attribute "next_user", which represents
      * the next user in line for this journal
      *
-     * @return \App\User
+     * @return \App\User|null
      */
     public function getNextUserAttribute()
     {
+        if (empty($this->current_user)) {
+            return null;
+        }
         $next_user_id = $this->users()->find($this->current_user->id)->subscription->next_user_id;
         return $this->users()->find($next_user_id);
     }
