@@ -3,7 +3,7 @@
         <button v-if="dismissible" type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
-        <font-awesome-icon v-if="level == 'danger'" :icon="levelIcon" />
+        <font-awesome-icon v-if="icon && level == 'danger'" :icon="levelIcon" />
         <slot></slot>
     </div>
 </template>
@@ -23,6 +23,10 @@ module.exports = {
         dismissible: {
             type: Boolean,
             required: false,
+            default: true
+        },
+        icon: {
+            type: Boolean,
             default: true
         }
     },
