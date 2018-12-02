@@ -66,12 +66,7 @@ class EntryController extends Controller
     public function show(Entry $entry)
     {
         if (Auth::user()->can('view', $entry)) {
-            // Eager load the invites and current_user relationships
-            $journal = Journal::with(['current_user', 'invites' => function ($query) {
-                    $query->where('accepted_at', null)->where('declined_at', null);
-                }])->find($entry->journal_id);
-
-            return view('entry.show', compact('entry', 'journal'));
+            return view('entry.show', ['entry' => $entry, 'journal' => $entry->journal]);
         }
 
         // Show a flash message if the user belongs to the journal.
@@ -93,13 +88,7 @@ class EntryController extends Controller
     public function edit(Entry $entry)
     {
         $this->authorize('update', $entry);
-
-        // Eager load the invites and current_user relationships
-        $journal = Journal::with(['current_user', 'invites' => function ($query) {
-                $query->where('accepted_at', null)->where('declined_at', null);
-            }])->find($entry->journal_id);
-
-        return view('entry.edit', compact('entry', 'journal'));
+        return view('entry.edit', ['entry' => $entry, 'journal' => $entry->journal]);
     }
 
     /**
@@ -120,9 +109,8 @@ class EntryController extends Controller
         $entry->body = $request->body;
         $entry->title = $request->title;
         $entry->save();
-        $journal = $entry->journal;
 
-        return redirect()->route('journal.show', compact('journal'))
+        return redirect()->route('journal.show', ['journal' => $entry->journal])
             ->with('status', "<strong>{$entry->title}</strong> has been saved.");
     }
 
@@ -137,8 +125,7 @@ class EntryController extends Controller
         $this->authorize('delete', $entry);
 
         $entry->delete();
-        $journal = $entry->journal;
-        return redirect()->route('journal.show', compact('journal'))
+        return redirect()->route('journal.show', ['journal' => $entry->journal])
             ->with('status', "<strong>{$entry->title}</strong> has been deleted.");
     }
 }

@@ -55,9 +55,9 @@
             <span class="ml-2">{{ user.name }}</span>
         </li>
 
-        <li v-if="journal.invites.length" key="invites" class="list-group-item list-group-item-action">
+        <li v-if="journal.pending_invites.length" key="invites" class="list-group-item list-group-item-action">
             <font-awesome-icon icon="plus" />
-            <span class="ml-2">{{ journal.invites.length }} invited to join</span>
+            <span class="ml-2">{{ journal.pending_invites.length }} invited to join</span>
         </li>
     </transition-group>
 

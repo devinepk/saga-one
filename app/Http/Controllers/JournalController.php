@@ -119,11 +119,6 @@ class JournalController extends Controller
      */
     public function show(Request $request, Journal $journal)
     {
-        // Eager-load pending invites
-        $journal = Journal::with(['invites' => function ($query) {
-                $query->where('accepted_at', null)->where('declined_at', null);
-            }])->find($journal->id);
-
         // Show the journal if the user has permission
         if (Auth::user()->can('addEntry', $journal)) {
             $drafts = $journal->entries()->where('status', 'draft')->paginate(5);
@@ -156,11 +151,6 @@ class JournalController extends Controller
      */
     public function settings(Request $request, Journal $journal)
     {
-        // Eager-load pending invites
-        $journal = Journal::with(['invites' => function ($query) {
-                $query->where('accepted_at', null)->where('declined_at', null);
-            }])->find($journal->id);
-
         if (Auth::user()->can('viewSettings', $journal)) {
             return view('journal.settings', compact('journal'));
         }
@@ -335,11 +325,6 @@ class JournalController extends Controller
      */
     public function contents(Request $request, Journal $journal)
     {
-        // Eager load the invites relationship
-        $journal = Journal::with(['invites' => function ($query) {
-                $query->where('accepted_at', null)->where('declined_at', null);
-            }])->find($journal->id);
-
         if (Auth::user()->can('view', $journal)) {
             $entries = $journal->entries()->where('status', 'final')->paginate(10);
             $entries->withPath(route('journal.contents', $journal));
@@ -365,11 +350,6 @@ class JournalController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function add(Request $request, Journal $journal) {
-        // Eager load the invites relationship
-        $journal = Journal::with(['invites' => function ($query) {
-                $query->where('accepted_at', null)->where('declined_at', null);
-            }])->find($journal->id);
-
         if (Auth::user()->can('addEntry', $journal)) {
             return view('entry.create', compact('journal'));
         }

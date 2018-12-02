@@ -86977,7 +86977,7 @@ var render = function() {
                 )
               }),
               _vm._v(" "),
-              _vm.journal.invites.length
+              _vm.journal.pending_invites.length
                 ? _c(
                     "li",
                     {
@@ -86989,7 +86989,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("span", { staticClass: "ml-2" }, [
                         _vm._v(
-                          _vm._s(_vm.journal.invites.length) +
+                          _vm._s(_vm.journal.pending_invites.length) +
                             " invited to join"
                         )
                       ])

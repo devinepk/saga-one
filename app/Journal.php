@@ -38,7 +38,7 @@ class Journal extends Model
      *
      * @var array
      */
-    protected $appends = ['action_urls', 'next_user', 'queue'];
+    protected $appends = ['action_urls', 'next_user', 'pending_invites', 'queue'];
 
     /**
      * Get the user that created this journal
@@ -158,7 +158,7 @@ class Journal extends Model
      *
      * @param \App\Entry $entry
      * @param bool $no_drafts
-     * @return \App\Entry || null
+     * @return \App\Entry|null
      */
     public function getEntryAfter(Entry $entry, $no_drafts = true)
     {
@@ -180,7 +180,7 @@ class Journal extends Model
      *
      * @param \App\Entry $entry
      * @param bool $no_drafts
-     * @return \App\Entry || null
+     * @return \App\Entry|null
      */
     public function getEntryBefore(Entry $entry, $no_drafts = true)
     {
@@ -203,6 +203,15 @@ class Journal extends Model
     public function invites()
     {
         return $this->hasMany(Invite::class)->orderBy('created_at', 'desc');
+    }
+
+    /**
+     * Get the pending invites for this journal.
+     * Pending invites have been neither accepted nor declined.
+     */
+    public function getPendingInvitesAttribute()
+    {
+        return $this->invites()->where('accepted_at', null)->where('declined_at', null)->get();
     }
 
     /**
