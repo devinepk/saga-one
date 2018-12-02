@@ -86,34 +86,12 @@ export default {
     },
 
     mounted() {
-        let self = this;
-        self.queue = self.journal.queue;
-
-        Event.$on('queueUpdateSuccess', (newQ) => {
-            // Rearrange the queue property to match the new queue
-            let newQueue = [];
-
-            // Start with the current user
-            let currentUser = self.queue[0];
-            newQueue.push(currentUser);
-
-            // Loop through and update the queue
-            let currentId = currentUser.id
-            for (let i = 0; i < self.queue.length - 1; i++) {
-                let nextId = newQ[currentId];
-                // Find the user with the next id and add them to the new queue
-                newQueue.push(self.queue.filter(user => user.id == nextId)[0]);
-                currentId = nextId;
-            }
-
-            self.queue = newQueue;
-        });
+        this.queue = this.journal.queue;
+        Event.$on('queueUpdateSuccess', this.updateQueue);
     },
 
     data() {
-        return {
-            queue: []
-        };
+        return { queue: [] };
     },
 
     computed: {
@@ -159,6 +137,26 @@ export default {
             return (user.id == this.authUser.id &&
                     this.authUser.id == this.journal.current_user.id &&
                     this.queue.length > 1);
+        },
+
+        updateQueue: function(newQ) {
+            // Rearrange the queue property to match the new queue
+            let newQueue = [];
+
+            // Start with the current user
+            let currentUser = this.queue[0];
+            newQueue.push(currentUser);
+
+            // Loop through and update the queue
+            let currentId = currentUser.id
+            for (let i = 0; i < this.queue.length - 1; i++) {
+                let nextId = newQ[currentId];
+                // Find the user with the next id and add them to the new queue
+                newQueue.push(this.queue.filter(user => user.id == nextId)[0]);
+                currentId = nextId;
+            }
+
+            this.queue = newQueue;
         }
     }
 }

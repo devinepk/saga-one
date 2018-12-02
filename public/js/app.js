@@ -86687,40 +86687,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     mounted: function mounted() {
-        var self = this;
-        self.queue = self.journal.queue;
-
-        Event.$on('queueUpdateSuccess', function (newQ) {
-            // Rearrange the queue property to match the new queue
-            var newQueue = [];
-
-            // Start with the current user
-            var currentUser = self.queue[0];
-            newQueue.push(currentUser);
-
-            // Loop through and update the queue
-            var currentId = currentUser.id;
-
-            var _loop = function _loop(i) {
-                var nextId = newQ[currentId];
-                // Find the user with the next id and add them to the new queue
-                newQueue.push(self.queue.filter(function (user) {
-                    return user.id == nextId;
-                })[0]);
-                currentId = nextId;
-            };
-
-            for (var i = 0; i < self.queue.length - 1; i++) {
-                _loop(i);
-            }
-
-            self.queue = newQueue;
-        });
+        this.queue = this.journal.queue;
+        Event.$on('queueUpdateSuccess', this.updateQueue);
     },
     data: function data() {
-        return {
-            queue: []
-        };
+        return { queue: [] };
     },
 
 
@@ -86759,6 +86730,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         highlightUser: function highlightUser(user) {
             return user.id == this.authUser.id && this.authUser.id == this.journal.current_user.id && this.queue.length > 1;
+        },
+
+        updateQueue: function updateQueue(newQ) {
+            var _this = this;
+
+            // Rearrange the queue property to match the new queue
+            var newQueue = [];
+
+            // Start with the current user
+            var currentUser = this.queue[0];
+            newQueue.push(currentUser);
+
+            // Loop through and update the queue
+            var currentId = currentUser.id;
+
+            var _loop = function _loop(i) {
+                var nextId = newQ[currentId];
+                // Find the user with the next id and add them to the new queue
+                newQueue.push(_this.queue.filter(function (user) {
+                    return user.id == nextId;
+                })[0]);
+                currentId = nextId;
+            };
+
+            for (var i = 0; i < this.queue.length - 1; i++) {
+                _loop(i);
+            }
+
+            this.queue = newQueue;
         }
     }
 });
