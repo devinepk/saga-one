@@ -13,7 +13,7 @@
 
             @if (isset($journal) && empty($journals))
             <li class="nav-item px-3">
-                <a class="nav-link d-md-none text-light" href="{{ route('journal.contents', $journal) }}">
+                <a class="nav-link d-md-none" href="{{ route('journal.contents', $journal) }}">
                     <font-awesome-icon :icon="['fab', 'readme']"></font-awesome-icon>
                 </a>
             </li>
