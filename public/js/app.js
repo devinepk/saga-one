@@ -87970,9 +87970,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         this.notifications = JSON.parse(this.notificationsJson);
 
-        Echo.private('App.User.' + this.authUser.id).listen('UserInvited', function (e) {
-            console.log(e);
-        });
+        // Echo.private('App.User.' + this.authUser.id)
+        //     .listen('UserInvited', (e) => {
+        //         console.log(e);
+        //     });
     },
 
 
