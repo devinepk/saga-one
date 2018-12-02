@@ -6,6 +6,7 @@ use App\Comment;
 use App\Entry;
 use App\Invite;
 use App\Journal;
+use App\Notifications\QueuedResetPassword;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\CanResetPassword;
@@ -113,5 +114,17 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->journals()->where('current_user_id', '<>', $this->id)->with(['invites' => function ($query) {
                 $query->where('accepted_at', null)->where('declined_at', null);
             }])->get();
+    }
+
+    /**
+     * Send the password reset notification.
+     * Overrides the method in Illuminate\Contracts\Auth\CanResetPassword
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new QueuedResetPassword($token));
     }
 }
