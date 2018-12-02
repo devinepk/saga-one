@@ -86,6 +86,7 @@ class Journal extends Model
             $next_user = $this->users()->find($this->creator_id);
         }
 
+        $first_user_id = $next_user->id;
         do {
             $queue[] = $next_user;
             $next_user = $this->users()->find($next_user->subscription->next_user_id);
