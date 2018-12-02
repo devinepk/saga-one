@@ -86686,23 +86686,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
 
-    mounted: function mounted() {
-        this.queue = this.journal.queue;
-        Event.$on('queueUpdateSuccess', this.updateQueue);
-    },
-    data: function data() {
-        return { queue: [] };
-    },
-
-
     computed: {
         journal: function journal() {
             // If a journal was passed to this card, use it.
+            // Otherwise fall back to the journal stored in the root instance
             if (this.journalJson) {
                 return JSON.parse(this.journalJson);
+            } else {
+                return this.$root.journal;
             }
-            // Otherwise fall back to the journal stored in the root instance
-            return this.$root.journal;
         },
         authUser: function authUser() {
             return this.$root.authUser;
@@ -86717,7 +86709,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this.useBadgeCurrent && this.journal.current_user && this.journal.current_user.id == this.authUser.id;
         },
         showInviteMessage: function showInviteMessage() {
-            return this.queue.length == 1 && this.authUser.id == this.journal.creator_id && !this.journal.invites.length;
+            return this.journal.queue.length == 1 && this.authUser.id == this.journal.creator_id && !this.journal.invites.length;
         },
         showActionsBar: function showActionsBar() {
             return this.journal.action_urls.write || this.journal.action_urls.read || this.journal.action_urls.settings;
@@ -86729,36 +86721,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         highlightUser: function highlightUser(user) {
-            return user.id == this.authUser.id && this.authUser.id == this.journal.current_user.id && this.queue.length > 1;
-        },
-
-        updateQueue: function updateQueue(newQ) {
-            var _this = this;
-
-            // Rearrange the queue property to match the new queue
-            var newQueue = [];
-
-            // Start with the current user
-            var currentUser = this.queue[0];
-            newQueue.push(currentUser);
-
-            // Loop through and update the queue
-            var currentId = currentUser.id;
-
-            var _loop = function _loop(i) {
-                var nextId = newQ[currentId];
-                // Find the user with the next id and add them to the new queue
-                newQueue.push(_this.queue.filter(function (user) {
-                    return user.id == nextId;
-                })[0]);
-                currentId = nextId;
-            };
-
-            for (var i = 0; i < this.queue.length - 1; i++) {
-                _loop(i);
-            }
-
-            this.queue = newQueue;
+            return user.id == this.authUser.id && this.authUser.id == this.journal.current_user.id && this.journal.queue.length > 1;
         }
     }
 });
@@ -86838,7 +86801,7 @@ var render = function() {
                   staticClass: "cover-overlay align-items-end p-1 text-center"
                 },
                 [
-                  _vm.queue.length > 1
+                  _vm.journal.queue.length > 1
                     ? _c("span", [
                         _vm._v("until "),
                         _c("strong", [_vm._v(_vm._s(_vm.prettyNextChange))])
@@ -86939,7 +86902,7 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _vm.queue.length
+      _vm.journal.queue.length
         ? _c(
             "transition-group",
             {
@@ -86947,7 +86910,7 @@ var render = function() {
               attrs: { name: "flip-list", tag: "ul" }
             },
             [
-              _vm._l(_vm.queue, function(user) {
+              _vm._l(_vm.journal.queue, function(user) {
                 return _c(
                   "li",
                   {
@@ -87142,6 +87105,9 @@ module.exports = Component.exports
 //
 //
 //
+//
+//
+//
 
 module.exports = {
     props: {
@@ -87166,8 +87132,10 @@ module.exports = {
     data: function data() {
         return {
             targetDate: null,
+            showTurnOverMessage: false,
             diff: Infinity,
-            error: false
+            error: false,
+            loading: false
         };
     },
 
@@ -87242,9 +87210,13 @@ module.exports = {
         triggerRotation: function triggerRotation() {
             var self = this;
 
+            self.loading = true;
+
             // Post to the app to trigger a journal rotation
             axios.post(self.rotateUrl).then(function (response) {
-                Event.$emit('journalRotated', response.data);
+                self.$root.journal = response.data;
+                self.loading = false;
+                self.showTurnOverMessage = true;
             }).catch(function (error) {
                 self.error = true;
                 console.error(error.response);
@@ -87342,7 +87314,20 @@ var render = function() {
             "transition",
             { attrs: { name: "fade" } },
             [
-              _vm.timeIsUp
+              _vm.loading
+                ? _c(
+                    "div",
+                    { staticClass: "text-center p-2" },
+                    [
+                      _c("font-awesome-icon", {
+                        attrs: { icon: "spinner", spin: true }
+                      })
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.showTurnOverMessage
                 ? _c(
                     "alert",
                     {
@@ -87358,7 +87343,7 @@ var render = function() {
                       _c("strong", [_vm._v(_vm._s(_vm.$root.journal.title))]),
                       _vm._v(" has passed on to "),
                       _c("strong", [
-                        _vm._v(_vm._s(_vm.$root.journal.next_user.name))
+                        _vm._v(_vm._s(_vm.$root.journal.current_user.name))
                       ]),
                       _vm._v(".")
                     ]
@@ -88325,7 +88310,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             // Post to the app to save the new queue
             axios.post(self.queueUrl, { new_queue: new_queue }).then(function (response) {
-                Event.$emit('queueUpdateSuccess', response.data.new);
+                // Event.$emit('queueUpdateSuccess', response.data.new );
+                self.$root.journal = response.data;
                 self.savingInProgress = false;
                 self.saveStatus = 'Saved!';
                 setTimeout(self.resetSaveStatus, 2000);

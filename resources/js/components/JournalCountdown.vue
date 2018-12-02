@@ -33,7 +33,10 @@
         </div>
 
         <transition name="fade">
-            <alert v-if="timeIsUp" level="danger" :icon="false" :dismissible="false" class="mb-0">Your turn with this journal has ended. <strong>{{ $root.journal.title }}</strong> has passed on to <strong>{{ $root.journal.next_user.name }}</strong>.</alert>
+            <div v-if="loading" class="text-center p-2">
+                <font-awesome-icon icon="spinner" :spin="true" />
+            </div>
+            <alert v-if="showTurnOverMessage" level="danger" :icon="false" :dismissible="false" class="mb-0">Your turn with this journal has ended. <strong>{{ $root.journal.title }}</strong> has passed on to <strong>{{ $root.journal.current_user.name }}</strong>.</alert>
         </transition>
 
         <p class="mb-0 card-body">While you have this journal, you can read previous entries as well as add new ones. The entries you add now can be edited later as long as you have this journal, but once your turn is over, they will be published to the journal permanently. <strong>So make sure your entries are finished before the timer runs out!</strong></p>
@@ -72,8 +75,10 @@ module.exports = {
     data: function() {
         return {
             targetDate: null,
+            showTurnOverMessage: false,
             diff: Infinity,
-            error: false
+            error: false,
+            loading: false
         }
     },
 
@@ -148,10 +153,14 @@ module.exports = {
         triggerRotation: function() {
             let self = this;
 
+            self.loading = true;
+
             // Post to the app to trigger a journal rotation
             axios.post(self.rotateUrl)
                 .then(function(response) {
-                    Event.$emit('journalRotated', response.data);
+                    self.$root.journal = response.data;
+                    self.loading = false;
+                    self.showTurnOverMessage = true;
                 })
                 .catch(function(error) {
                     self.error = true;

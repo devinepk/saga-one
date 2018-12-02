@@ -17,7 +17,7 @@
     <div class="journal-card-cover" :style="{'background-image': 'url(' + journal.action_urls.image + ')'}">
 
         <div v-if="showNextChange" class="cover-overlay align-items-end p-1 text-center">
-            <span v-if="queue.length > 1">until <strong>{{ prettyNextChange }}</strong></span>
+            <span v-if="journal.queue.length > 1">until <strong>{{ prettyNextChange }}</strong></span>
         </div>
         <span v-if="showBadgeCurrent"
             class="badge badge-current badge-secondary text-white rounded-circle shadow"
@@ -38,8 +38,8 @@
         </a>
     </div>
 
-    <transition-group v-if="queue.length" name="flip-list" tag="ul" class="list-group list-group-flush">
-        <li v-for="user in queue"
+    <transition-group v-if="journal.queue.length" name="flip-list" tag="ul" class="list-group list-group-flush">
+        <li v-for="user in journal.queue"
             :key="user.id"
             class="list-group-item list-group-item-action"
             :class="{active: highlightUser(user)}"
@@ -85,23 +85,15 @@ export default {
         }
     },
 
-    mounted() {
-        this.queue = this.journal.queue;
-        Event.$on('queueUpdateSuccess', this.updateQueue);
-    },
-
-    data() {
-        return { queue: [] };
-    },
-
     computed: {
         journal: function() {
             // If a journal was passed to this card, use it.
+            // Otherwise fall back to the journal stored in the root instance
             if (this.journalJson) {
                 return JSON.parse(this.journalJson);
+            } else {
+                return this.$root.journal;
             }
-            // Otherwise fall back to the journal stored in the root instance
-            return this.$root.journal;
         },
         authUser: function() {
             return this.$root.authUser;
@@ -118,7 +110,7 @@ export default {
                     this.journal.current_user.id == this.authUser.id);
         },
         showInviteMessage: function() {
-            return (this.queue.length == 1 &&
+            return (this.journal.queue.length == 1 &&
                     this.authUser.id == this.journal.creator_id &&
                     !this.journal.invites.length);
         },
@@ -136,27 +128,7 @@ export default {
         highlightUser: function(user) {
             return (user.id == this.authUser.id &&
                     this.authUser.id == this.journal.current_user.id &&
-                    this.queue.length > 1);
-        },
-
-        updateQueue: function(newQ) {
-            // Rearrange the queue property to match the new queue
-            let newQueue = [];
-
-            // Start with the current user
-            let currentUser = this.queue[0];
-            newQueue.push(currentUser);
-
-            // Loop through and update the queue
-            let currentId = currentUser.id
-            for (let i = 0; i < this.queue.length - 1; i++) {
-                let nextId = newQ[currentId];
-                // Find the user with the next id and add them to the new queue
-                newQueue.push(this.queue.filter(user => user.id == nextId)[0]);
-                currentId = nextId;
-            }
-
-            this.queue = newQueue;
+                    this.journal.queue.length > 1);
         }
     }
 }
