@@ -112,7 +112,7 @@ export default {
         showInviteMessage: function() {
             return (this.journal.queue.length == 1 &&
                     this.authUser.id == this.journal.creator_id &&
-                    !this.journal.invites.length);
+                    !this.journal.pending_invites.length);
         },
         showActionsBar: function() {
             return (this.journal.action_urls.write ||
