@@ -7,6 +7,7 @@ use App\Entry;
 use App\Invite;
 use App\Journal;
 use App\Notifications\QueuedResetPassword;
+use App\Notifications\QueuedVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\CanResetPassword;
@@ -126,5 +127,16 @@ class User extends Authenticatable implements MustVerifyEmail
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new QueuedResetPassword($token));
+    }
+
+    /**
+     * Send the email verification notification.
+     * Overrides the method in Illuminate\Contracts\Auth\MustVerifyEmail
+     *
+     * @return void
+     */
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new QueuedVerifyEmail);
     }
 }

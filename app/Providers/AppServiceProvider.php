@@ -30,19 +30,6 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
         }
 
-        VerifyEmail::toMailusing(function ($notifiable) {
-            $verificationUrl = URL::temporarySignedRoute(
-                'verification.verify', Carbon::now()->addMinutes(60), ['id' => $notifiable->getKey()]
-            );
-
-            return (new MailMessage)
-                ->subject('Please verify your email address')
-                ->greeting("Nice to meet you, {$notifiable->name}!")
-                ->line('Thank you for registering for SagaOne! Please click the button below to verify your email address.')
-                ->action('Verify Email Address', $verificationUrl)
-                ->line('If you did not create an account, you may disregard this email.');
-        });
-
         // Queue logging
         Queue::after(function (JobProcessed $event) {
             Log::debug('Queue worker has completed a job:', [
