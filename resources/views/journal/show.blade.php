@@ -26,32 +26,27 @@
         <journal-countdown
             target-date-string="{{ $journal->next_change }}"
             rotate-url="{{ route('api.journal.rotate', $journal) }}"
+            add-entry-url="{{ route('journal.add', $journal) }}"
+            :entry-count="{{ $drafts->count() }}"
         ></journal-countdown>
-
-        <p>While you have this journal, you can read previous entries as well as add new ones. The entries you add now can be edited later as long as you have this journal, but once your turn is over, they will be published to the journal permanently. <strong>So make sure your entries are finished before the timer runs out!</strong></p>
     @endif
 
-    @component('component.addButton')
-        @slot('url', route('journal.add', $journal))
-        Add a new entry
-    @endcomponent
-
-    @if(count($drafts))
+    @if ($drafts->count())
         {{ $drafts->links() }}
-    @else
-        <alert level="secondary" :dismissible="false">You haven't added any entries yet. Time to get writing!</alert>
-    @endif
 
-    @foreach ($drafts as $draft)
-        <entry-card
-            entry-json="{{ $draft }}"
-            edit-url="{{ route('entry.edit', $draft) }}"
-            title-url="{{ route('entry.edit', $draft) }}"
-            delete-url="{{ route('entry.destroy', $draft) }}"
-        >
-            <template slot="deleteformfields">@csrf @method('DELETE')</template>
-        </entry-card>
-    @endforeach
+        @foreach ($drafts as $draft)
+            <entry-card
+                entry-json="{{ $draft }}"
+                edit-url="{{ route('entry.edit', $draft) }}"
+                title-url="{{ route('entry.edit', $draft) }}"
+                delete-url="{{ route('entry.destroy', $draft) }}"
+            >
+                <template slot="deleteformfields">@csrf @method('DELETE')</template>
+            </entry-card>
+        @endforeach
+
+        {{ $drafts->links() }}
+    @endif
 
 </div>
 @endsection

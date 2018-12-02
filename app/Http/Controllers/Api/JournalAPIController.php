@@ -82,11 +82,16 @@ class JournalAPIController extends Controller
      */
     public function rotate(Journal $journal)
     {
-        if ($journal->next_change <= now()) {
-            // This journal is, in fact, due for rotation.
-            $journal->rotate();
-            $journal->sendTurnNotification();
-            Log::debug("An API request triggered a journal rotation. Journal \"{$journal->title}\" rotated to {$journal->current_user->name}.");
-        }
+        $journal->sendTurnHasEndedNotification($journal->next_user);
+        $journal->rotate();
+
+        // We have to reload the relationship since it has changed in the DB
+        $journal->load('current_user');
+        $journal->sendTurnHasStartedNotification();
+
+        Log::debug("An API request triggered a journal rotation. Journal \"{$journal->title}\" rotated to {$journal->current_user->name}.");
+
+        // Load current_user and pending invites relationships
+        return Journal::with('current_user')->find($journal->id)->toJson();
     }
 }

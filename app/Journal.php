@@ -32,6 +32,13 @@ class Journal extends Model
     protected $dates = ['created_at', 'updated_at', 'next_change', 'last_change'];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['next_user'];
+
+    /**
      * Get the user that created this journal
      */
     public function creator()
