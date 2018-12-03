@@ -45,9 +45,6 @@ export default {
             bounds: 'main'
         });
 
-        // Activate tooltips
-        $('[data-toggle="tooltip"]').tooltip();
-
         // Display input passed in as a prop
         this.editor.root.innerHTML = this.value;
 
@@ -57,7 +54,7 @@ export default {
         // Grab toolbar and move to desired position inside the entry header
         this.toolbar = $('.ql-toolbar')[0];
         $('#entry-header').append(this.toolbar);
-        this.toolbar.classList.add('pl-3', 'border-top', 'border-bottom');
+        this.toolbar.classList.add('pl-3', 'border-top');
     },
 
     methods: {

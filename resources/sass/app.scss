@@ -113,13 +113,12 @@
 .ql-editor {
     min-height: 50vh;
 }
-.ql-toolbar {
-    background-color: $white;
-    position: fixed;
-    z-index: 1;
-    width: 100%;
-    white-space: nowrap;
-    overflow: auto;
+.ql-snow .ql-picker.ql-expanded .ql-picker-options {
+    // Align color palette to right so it won't extend off the screen on small screens
+    right: 0;
+    @include media-breakpoint-up(md) {
+        right: unset;
+    }
 }
 .entry-container {
     margin-top: 108px;
