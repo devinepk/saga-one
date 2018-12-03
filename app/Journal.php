@@ -304,7 +304,10 @@ class Journal extends Model
      */
     public function getActionUrlsAttribute()
     {
-        $urls = ['image' => Storage::url($this->image_path)];
+        $urls = [
+            'image'    => Storage::url($this->image_path),
+            'contents' => route('journal.contents', $this)
+        ];
 
         if (Auth::check()) {
             // If someone is logged in, only return the urls this user is allowed to access
