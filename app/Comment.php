@@ -23,4 +23,15 @@ class Comment extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Get the message attribute for this comment.
+     *
+     * @param  string $value
+     * @return string
+     */
+    public function getMessageAttribute($value)
+    {
+        return htmlspecialchars_decode($value);
+    }
 }
