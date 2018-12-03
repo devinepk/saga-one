@@ -1,6 +1,6 @@
 # SagaOne
 
-SagaOne is a turn-based online journal application. You can create a journal, invite friends to join it, and take turns writing in it. The journal automatically passes from person to person after a set period of time. For example, you can create a journal that rotates to the next user every day, every week, or every month.
+SagaOne is a turn-based shared journal application. You can create a journal, invite friends to join it, and take turns writing in it. The journal automatically passes from person to person after a set period of time. For example, you can create a journal that rotates to the next user every day, every week, or every month.
 
 Only the person who has the journal can read it. When it's your turn with a journal, you can write new entries, read previous entries, and even add comments to previous entries.
 
@@ -65,3 +65,7 @@ But AWS doesn't support crontab. Instead, setup a "worker" environment in AWS an
 In production, SagaOne uses an Amazon Simple Queue Service (SQS) queue, and the `QUEUE_CONNECTION` environment setting should be set to `sqs`. (Locally and in staging, this setting should be set to `sync`.) SQS will post queue items to `/worker/queue` on the worker environment. Make sure the version deployed to the worker environment matches the one deployed to production.
 
 The worker environment connects to the same database as the production environment.
+
+## Filesystem Considerations
+
+SagaOne uses an AWS S3 bucket as its default filesystem. Ensure that you have set the bucket credentials in the environment settings of each environment.
