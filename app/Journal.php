@@ -233,7 +233,7 @@ class Journal extends Model
         $this->current_user()->associate($this->next_user->id);
 
         // Update the date of the next rotation
-        $this->last_change = $this->next_change;
+        $this->last_change = now();
         $this->next_change = $this->next_change->addSeconds($this->period);
         $this->save();
 
