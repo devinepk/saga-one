@@ -66,6 +66,7 @@ class EntryController extends Controller
     public function show(Entry $entry)
     {
         if (Auth::user()->can('view', $entry)) {
+            $entry = Entry::with('author')->find($entry->id);
             return view('entry.show', ['entry' => $entry, 'journal' => $entry->journal]);
         }
 
@@ -88,6 +89,7 @@ class EntryController extends Controller
     public function edit(Entry $entry)
     {
         $this->authorize('update', $entry);
+        $entry = Entry::with('author')->find($entry->id);
         return view('entry.edit', ['entry' => $entry, 'journal' => $entry->journal]);
     }
 
