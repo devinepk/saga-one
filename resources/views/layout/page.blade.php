@@ -5,18 +5,19 @@
 @endsection
 
 @section('body')
-<div class="container-fluid">
 
     @include('component.topbar')
 
-    <div class="below-topbar">
-        <main class="container">
+    <main class="page-content">
+        <div class="container pt-5">
 
-        @include('component.flashMessage')
+            @include('component.flashMessage')
 
-        @yield('page-content')
+            @yield('page-content')
+        </div>
+    </main>
 
-        </main>
+    <div class="page-footer">
+        @yield('page-footer')
     </div>
-</div>
 @endsection

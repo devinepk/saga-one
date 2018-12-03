@@ -19,6 +19,10 @@
     scroll-behavior: smooth;
 }
 
+html, body {
+    height: 100%;
+}
+
 /**
  * WELCOME PAGE
  */
@@ -57,7 +61,7 @@
 }
 
 /**
- * COMMON ELEMENTS
+ * GENERAL LAYOUT
  */
 .full-height {
     height: 100vh;
@@ -67,8 +71,25 @@
     display: flex;
     justify-content: center;
 }
-.below-topbar, .belowTopbar {
-    padding-top: 64px;
+.flex-column {
+    flex-direction: column;
+}
+.topbar {
+    flex-shrink: 0;
+}
+.below-topbar {
+    flex-grow: 0;
+}
+.page-content {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+.page-footer {
+    flex-shrink: 0;
+}
+.journal-content {
+    flex-grow: 1;
+    overflow-y: auto;
 }
 .journal-title {
     font-variant: small-caps;
@@ -88,12 +109,6 @@
  * SIDEBAR
  */
 .sidebar {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 100; /* Behind the navbar */
-    padding: 64px 0 0; /* Height of navbar */
     box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
@@ -110,11 +125,11 @@
     line-height: $line-height-base;
 }
 #editor {
-    margin-top: 95px;
-    height: 71vh;
+    flex-grow: 1;
+    overflow-y: auto;
 }
 .ql-editor {
-    min-height: 50vh;
+    height: unset;
 }
 .ql-snow .ql-picker.ql-expanded .ql-picker-options {
     // Align color palette to right so it won't extend off the screen on small screens
@@ -124,7 +139,14 @@
     }
 }
 .entry-container {
-    margin-top: 108px;
+    flex-direction: column;
+}
+.entry-body {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+.entry-save-form{
+    flex-grow: 0;
 }
 
 /**

@@ -23,10 +23,11 @@
     </alert>
 
 @endif
+@endsection
 
-@component('component.addButton')
-    @slot('url', route('journal.create'))
-    Create a new journal
-@endcomponent
-
+@section('page-footer')
+    @component('component.addButton')
+        @slot('url', route('journal.create'))
+        Create a new journal
+    @endcomponent
 @endsection

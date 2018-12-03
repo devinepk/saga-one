@@ -3,7 +3,12 @@
 @section('page-title', "Pending Invites")
 
 @section('page-content')
-    <h1 class="mb-4">Your invites</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h1 class="mb-4">Your invites</h1>
+        </div>
+    </div>
 
     <div class="row justify-content-center">
 

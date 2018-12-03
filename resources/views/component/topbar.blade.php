@@ -1,4 +1,4 @@
-<nav class="navbar navbar-dark navbar-expand fixed-top bg-dark text-light p-0 shadow">
+<nav class="navbar navbar-dark navbar-expand topbar bg-dark text-light p-0">
 
     <a class="brand navbar-brand mx-3" href="{{ route('welcome') }}">
         <span class="saga">Saga</span>one

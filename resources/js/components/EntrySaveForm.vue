@@ -1,6 +1,6 @@
 <template>
 
-    <div class="row no-gutters fixed-bottom justify-content-end">
+    <div class="entry-save-form">
         <form method="post" class="d-none" :id="formId" :action="actionUrl">
             <slot name="csrf"></slot>
             <slot name="method"></slot>
@@ -8,7 +8,7 @@
             <input type="hidden" name="body" :value="entryBody">
         </form>
 
-        <button type="submit" :form="formId" class="col-md-9 btn btn-primary">Save</button>
+        <button type="submit" :form="formId" class="btn btn-block btn-primary">Save</button>
     </div>
 
 </template>

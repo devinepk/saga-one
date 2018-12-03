@@ -8,35 +8,25 @@
 @section('page-title', $entry->title)
 
 @section('journal-content')
-<entry-header
-    :display-entry-nav="true"
-    entry-json="{{ $entry }}"
-    author-json="{{ $entry->author }}"
-    edit-url="{{ Auth::user()->can('update', $entry) ? route('entry.edit', $entry) : '' }}"
-    @if($journal->getEntryBefore($entry))
-        previous-url="{{ route('entry.show', $journal->getEntryBefore($entry)) }}"
-    @endif
-    @if ($journal->getEntryAfter($entry))
-        next-url="{{ route('entry.show', $journal->getEntryAfter($entry)) }}"
-    @endif
-    contents-url="{{ route('journal.contents', $journal) }}"
->{{ $entry->title }}</entry-header>
+<div class="entry-container d-flex h-100">
+    <entry-header
+        :display-entry-nav="true"
+        entry-json="{{ $entry }}"
+    >{{ $entry->title }}</entry-header>
 
-<div class="row no-gutters entry-container">
+    <div class="row no-gutters entry-body">
 
-    <div class="col-lg-8">
+        <div class="col-lg-8">
+            <div class="ql-editor ql-snow p-3">{!! $entry->body !!}</div>
+        </div>
 
-        <entry-body body="{{ $entry->body }}"></entry-body>
-
-    </div>
-
-    <div class="col-lg-4 p-2">
-
-        <comments-card
-            comments-json="{{ $entry->comments()->with('user')->get()->toJson() }}"
-            post-url="{{ route('api.comment.add', $entry) }}"
-            auth-user-json="{{ Auth::user() }}"
-        ></comments-card>
+        <div class="col-lg-4 p-2">
+            <comments-card
+                comments-json="{{ $entry->comments()->with('user')->get()->toJson() }}"
+                post-url="{{ route('api.comment.add', $entry) }}"
+                auth-user-json="{{ Auth::user() }}"
+            ></comments-card>
+        </div>
 
     </div>
 </div>

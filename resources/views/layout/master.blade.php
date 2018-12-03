@@ -13,7 +13,7 @@
     <title>@yield('title')</title>
 </head>
 <body class="@yield('body_classes')">
-    <div id="app" v-cloak>
+    <div id="app" class="d-flex flex-column h-100" v-cloak>
 
     @yield('body')
 

@@ -8,24 +8,26 @@
 @endsection
 
 @section('journal-content')
-<entry-header entry-json="{{ $entry }}" author-json="{{ $entry->author }}">
-    <input type="text" form="entry-save-form" id="title" name="title" class="border-0 w-100 {{ $errors->has('title') ? ' is-invalid' : '' }}" style="outline:none;" value="{{ $errors->has('title') ? old('title') : $entry->title }}" placeholder="Title" autofocus>
-    @if ($errors->has('title'))
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $errors->first('title') }}</strong>
-        </span>
-    @endif
-</entry-header>
+<div class="entry-container d-flex h-100">
+    <entry-header entry-json="{{ $entry }}">
+        <input type="text" form="entry-save-form" id="title" name="title" class="border-0 w-100 {{ $errors->has('title') ? ' is-invalid' : '' }}" style="outline:none;" value="{{ $errors->has('title') ? old('title') : $entry->title }}" placeholder="Title" autofocus>
+        @if ($errors->has('title'))
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('title') }}</strong>
+            </span>
+        @endif
+    </entry-header>
 
-<quill-editor value="{{ $entry->body }}"></quill-editor>
+    <quill-editor value="{{ $entry->body }}"></quill-editor>
 
-<entry-save-form
-    form-id="entry-save-form"
-    action-url="{{ route('entry.update', $entry) }}"
-    :journal-id="{{ $journal->id }}"
-    initial-body="{{ $entry->body }}"
->
-    <template slot="csrf">@csrf</template>
-    <template slot="method">@method('PUT')</template>
-</entry-save-form>
+    <entry-save-form
+        form-id="entry-save-form"
+        action-url="{{ route('entry.update', $entry) }}"
+        :journal-id="{{ $journal->id }}"
+        initial-body="{{ $entry->body }}"
+    >
+        <template slot="csrf">@csrf</template>
+        <template slot="method">@method('PUT')</template>
+    </entry-save-form>
+</div>
 @endsection

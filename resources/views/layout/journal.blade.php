@@ -5,17 +5,14 @@
 @endsection
 
 @section('body')
-<div class="container-fluid">
 
     @include('component.topbar')
 
-    <div class="below-topbar">
-
-        <div class="row no-gutters">
+        <div class="page-content row no-gutters">
 
             @include('component.sidebar')
 
-            <main role="main" class="col-md-9 ml-sm-auto">
+            <main role="main" class="journal-content col-md-9 ml-sm-auto pt-4">
 
                 @include('component.flashMessage')
 
@@ -23,6 +20,4 @@
 
             </main>
         </div>
-    </div>
-</div>
 @endsection
