@@ -14,13 +14,21 @@
 
     <journal-card class="d-md-none mt-3"></journal-card>
 
-    @if ($journal->queue->count() > 1)
+    @if ($journal->next_change)
         <journal-countdown
             target-date-string="{{ $journal->next_change }}"
             rotate-url="{{ route('api.journal.rotate', $journal) }}"
             add-entry-url="{{ route('journal.add', $journal) }}"
             :entry-count="{{ $drafts->count() }}"
         ></journal-countdown>
+    @else
+        @component('component.addButton')
+            @slot('url', route('journal.add', $journal))
+            Add a new entry
+        @endcomponent
+        @if (!$drafts->count())
+            <alert level="secondary" :dismissible="false">You haven't added any entries yet. Time to get writing!</alert>
+        @endif
     @endif
 
     @if ($drafts->count())
