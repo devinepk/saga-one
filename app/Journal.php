@@ -274,10 +274,13 @@ class Journal extends Model
     }
 
     /**
-     * Get the journal cover image
+     * Get the journal cover image.
+     *
+     * Returns the image_path stored in the database, or the default
+     * image_path if no custom image has been uploaded.
      *
      * @param  string $value
-     * @return bool
+     * @return string path to the journal cover image
      */
     public function getImagePathAttribute($value)
     {
