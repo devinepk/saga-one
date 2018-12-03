@@ -45,9 +45,16 @@ html, body {
             font-size: 3.5rem;
             transition: 0.2s;
         }
+        .tag-line {
+            font-size: 0.8rem;
+            transition: 0.2s;
+        }
         @include media-breakpoint-up(sm) {
             .brand {
                 font-size: 6rem;
+            }
+            .tag-line {
+                font-size: 1rem;
             }
         }
     }

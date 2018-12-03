@@ -13,8 +13,9 @@
             </nav>
         @endauth
 
-        <div>
+        <div class="text-center">
             <h1 class="brand"><span class="saga">Saga</span>one</h1>
+            <p class="tag-line font-italic text-secondary">One story. One saga. Let's write it together.</p>
 
             @guest
                 <nav class="nav welcome-links justify-content-around mt-4">
