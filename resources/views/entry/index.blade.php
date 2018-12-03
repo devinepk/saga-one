@@ -10,7 +10,7 @@
 @section('journal-content')
 <div class="container">
 
-    <h1>Read {{ $journal->title }}</h1>
+    <h1>Read <span class="journal-title">{{ $journal->title }}</span></h1>
 
     @if (!$journal->active)
 

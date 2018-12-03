@@ -11,7 +11,7 @@
         </alert>
     @endif
 
-    <h1>{{ $journal->title }} Settings</h1>
+    <h1><span class="journal-title">{{ $journal->title }}</span> Settings</h1>
 
     @if (!$journal->active)
         <alert level="primary" :dismissible="false">
@@ -38,7 +38,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="title">Title</label>
-                        <input class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" id="title" name="title" value="{{ $errors->has('title') ? old('title') : $journal->title }}">
+                        <input class="journal-title form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" id="title" name="title" value="{{ $errors->has('title') ? old('title') : $journal->title }}">
                         @if ($errors->has('title'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('title') }}</strong>
@@ -48,7 +48,7 @@
 
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <input type="text" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" id="description" name="description" value="{{ $errors->has('description') ? old('description') : $journal->description }}">
+                        <input type="text" class="font-italic form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" id="description" name="description" value="{{ $errors->has('description') ? old('description') : $journal->description }}">
                         @if ($errors->has('description'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('description') }}</strong>

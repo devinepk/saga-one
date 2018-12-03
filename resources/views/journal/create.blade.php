@@ -12,7 +12,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="title">Give this journal a title:</label>
-                        <input class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" id="title" name="title" value="{{ old('title') }}"required autofocus>
+                        <input class="journal-title form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" id="title" name="title" value="{{ old('title') }}"required autofocus>
                         @if ($errors->has('title'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('title') }}</strong>
@@ -21,7 +21,7 @@
                     </div>
                     <div class="form-group">
                         <label for="description">Give this journal a short description (optional):</label>
-                        <input type="text" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" id="description" value="{{ old('description') }}" name="description">
+                        <input type="text" class="font-italic form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" id="description" value="{{ old('description') }}" name="description">
                         @if ($errors->has('description'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('description') }}</strong>

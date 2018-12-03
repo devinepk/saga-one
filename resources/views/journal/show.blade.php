@@ -10,7 +10,7 @@
 @section('journal-content')
 <div class="container">
 
-    <h1>Write in {{ $journal->title }}</h1>
+    <h1>Write in <span class="journal-title">{{ $journal->title }}</span></h1>
 
     <journal-card class="d-md-none mt-3"></journal-card>
 

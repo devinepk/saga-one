@@ -3,8 +3,8 @@
     <div class="card-header">
 
         <h3 class="card-title mb-0">
-            <a v-if="journal.action_urls.read" :href="journal.action_urls.read" data-toggle="tooltip" data-placement="top" :title="readTip">{{ journal.title }}</a>
-            <template v-else>{{ journal.title }}</template>
+            <a v-if="journal.action_urls.read" :href="journal.action_urls.read" class="journal-title" data-toggle="tooltip" data-placement="top" :title="readTip">{{ journal.title }}</a>
+            <span v-else class="journal-title">{{ journal.title }}</span>
 
             <small v-if="!journal.active" class="badge badge-archived badge-dark rounded ml-2 p-2" data-toggle="tooltip" data-placement="top" title="You can read, but not write in, archived journals.">
                 Archived

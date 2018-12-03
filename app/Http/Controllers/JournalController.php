@@ -97,7 +97,7 @@ class JournalController extends Controller
         $journal->users()->save(Auth::user());
 
         return redirect()->route('journal.settings', compact('journal'))
-            ->with('status', "You have created a new journal called <strong>{$journal->title}</strong>. You are currently the only participant.");
+            ->with('status', "You have created a new journal called <strong><span class=\"journal-title\">{$journal->title}</span></strong>. You are currently the only participant.");
     }
 
     /**
@@ -121,7 +121,7 @@ class JournalController extends Controller
             if ($journal->active) {
                 // Show a flash message if the user belongs to the journal and redirect.
                 return redirect()->route('journal.index')
-                    ->with('status', "{$journal->current_user->name} has <strong>{$journal->title}</strong> right now. You'll be able to view it when it's your turn.");
+                    ->with('status', "{$journal->current_user->name} has <strong><span class=\"journal-title\">{$journal->title}</span></strong> right now. You'll be able to view it when it's your turn.");
             } else {
                 // Redirect to the contents page
                 return redirect()->route('journal.contents', $journal);
@@ -148,7 +148,7 @@ class JournalController extends Controller
         // Show a flash message and redirect if the user belongs to the journal.
         if (Auth::user()->isInJournal($journal)) {
             return redirect()->route('journal.index')
-                ->with('status', "Only {$journal->creator->name} can edit the settings for <strong>{$journal->title}</strong>.");
+                ->with('status', "Only {$journal->creator->name} can edit the settings for <strong><span class=\"journal-title\">{$journal->title}</span></strong>.");
         }
 
         // Otherwise throw exception
@@ -174,7 +174,7 @@ class JournalController extends Controller
 
         $journal->title = $request->title;
         $journal->description = $request->description;
-        $status = "<strong>{$journal->title}</strong> has been updated.";
+        $status = "<strong><span class=\"journal-title\">{$journal->title}</span></strong> has been updated.";
 
         if ($request->filled('remove_image') && $journal->has_custom_image) {
             // Delete the old image and set the new image as the default.
@@ -230,14 +230,14 @@ class JournalController extends Controller
             $journal->current_user()->dissociate();
             $journal->save();
 
-            $request->session()->flash('status', "<strong>{$journal->title}</strong> has been archived.");
+            $request->session()->flash('status', "<strong><span class=\"journal-title\">{$journal->title}</span></strong> has been archived.");
         } else {
             // If inactive, then unarchive
             $journal->active = true;
             $journal->current_user()->associate(Auth::user());
             $journal->save();
 
-            $request->session()->flash('status', "<strong>{$journal->title}</strong> has been unarchived and is now in your possession.");
+            $request->session()->flash('status', "<strong><span class=\"journal-title\">{$journal->title}</span></strong> has been unarchived and is now in your possession.");
         }
         return redirect()->route('journal.settings', $journal);
     }
@@ -254,22 +254,7 @@ class JournalController extends Controller
 
         $journal->delete();
         return redirect()->route('journal.index')
-            ->with('status', "<strong>{$journal->title}</strong> has been deleted.");
-    }
-
-    /**
-     * Un-delete a journal
-     *
-     * @param  \App\Journal  $journal
-     * @return \Illuminate\Http\Response
-     */
-    public function restore(Journal $journal)
-    {
-        $this->authorize('restore', $journal);
-
-        $journal->restore();
-        return redirect()->route('journal.index')
-            ->with('status', "<strong>{$journal->title}</strong> has been restored from the archive.");
+            ->with('status', "<strong><span class=\"journal-title\">{$journal->title}</span></strong> has been deleted.");
     }
 
     /**
@@ -303,7 +288,7 @@ class JournalController extends Controller
         event(new UserInvited($invite));
 
         return redirect()->route('journal.settings', compact('journal'))
-            ->with('status', "An invitation to join <strong>{$journal->title}</strong> will be sent to <strong>{$invite->email}</strong>.");
+            ->with('status', "An invitation to join <strong><span class=\"journal-title\">{$journal->title}</span></strong> will be sent to <strong>{$invite->email}</strong>.");
     }
 
     /**
@@ -325,7 +310,7 @@ class JournalController extends Controller
         // Show a flash message if the user belongs to the journal.
         if (Auth::user()->isInJournal($journal)) {
             return redirect()->route('journal.index')
-                ->with('warning', "{$journal->current_user->name} has <strong>{$journal->title}</strong> right now. You'll be able to read it when it's your turn.");
+                ->with('warning', "{$journal->current_user->name} has <strong><span class=\"journal-title\">{$journal->title}</span></strong> right now. You'll be able to read it when it's your turn.");
         }
 
         // Otherwise throw exception
@@ -347,7 +332,7 @@ class JournalController extends Controller
         // Show a flash message if the user belongs to the journal.
         if (Auth::user()->isInJournal($journal)) {
             return redirect()->route('journal.index')
-                ->with('status', "{$journal->current_user->name} has <strong>{$journal->title}</strong> right now. You'll be able to write in it when it's your turn.");
+                ->with('status', "{$journal->current_user->name} has <strong><span class=\"journal-title\">{$journal->title}</span></strong> right now. You'll be able to write in it when it's your turn.");
         }
 
         // Otherwise throw exception
