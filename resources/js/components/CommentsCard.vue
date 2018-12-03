@@ -81,6 +81,9 @@ export default {
         submitComment() {
             let self = this;
 
+            // Don't post empty messages
+            if (self.newMessage == '') return;
+
             // Post to the app to save the new comment
             axios.post(self.postUrl, { message: self.newMessage } )
                 .then(function(response) {
