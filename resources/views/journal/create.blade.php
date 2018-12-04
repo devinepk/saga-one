@@ -47,11 +47,11 @@
                     <div class="form-group">
                         <label for="period">How often should this journal rotate?</label>
                         <select id="period" name="period" class="custom-select" required>
-                            <option value="86400">Every day</option>
-                            <option value="604800" selected>Every week</option>
-                            <option value="{{ 604800 * 2 }}">Every two weeks</option>
-                            <option value="{{ 604800 * 3 }}">Every three weeks</option>
-                            <option value="{{ 604800 * 4 }}">Every four weeks</option>
+                            <option value="{{ App\Journal::EVERY_DAY }}">Every day</option>
+                            <option value="{{ App\Journal::EVERY_WEEK }}" selected>Every week</option>
+                            <option value="{{ App\Journal::EVERY_TWO_WEEKS }}">Every two weeks</option>
+                            <option value="{{ App\Journal::EVERY_THREE_WEEKS }}">Every three weeks</option>
+                            <option value="{{ App\Journal::EVERY_FOUR_WEEKS }}">Every four weeks</option>
                         </select>
                         @if ($errors->has('period'))
                             <span class="invalid-feedback" role="alert">

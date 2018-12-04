@@ -19,6 +19,13 @@ class Journal extends Model
 {
     use Notifiable;
 
+    const EVERY_HOUR = 3600;
+    const EVERY_DAY = 86400;
+    const EVERY_WEEK = 604800;
+    const EVERY_TWO_WEEKS = 1209600;
+    const EVERY_THREE_WEEKS = 1814400;
+    const EVERY_FOUR_WEEKS = 2419200;
+
     /**
      * The default cover image to use if another isn't specified
      *
@@ -38,7 +45,7 @@ class Journal extends Model
      *
      * @var array
      */
-    protected $appends = ['action_urls', 'next_user', 'pending_invites', 'queue'];
+    protected $appends = ['action_urls', 'next_user', 'pending_invites', 'period_expression', 'queue'];
 
     /**
      * Get the user that created this journal
@@ -321,5 +328,37 @@ class Journal extends Model
         }
 
         return $urls;
+    }
+
+    /**
+     * Get a human-readable expression of the journal's rotation period.
+     *
+     * @return string
+     */
+    public function getPeriodExpressionAttribute()
+    {
+        $expression = "every ";
+
+        switch ($this->period) {
+            case self::EVERY_HOUR:
+                $expression .= "hour";
+            case self::EVERY_DAY:
+                $expression .= "day";
+                break;
+            case self::EVERY_WEEK:
+                $expression .= "week";
+                break;
+            case self::EVERY_TWO_WEEKS:
+                $expression .= "two weeks";
+                break;
+            case self::EVERY_THREE_WEEKS:
+                $expression .= "three weeks";
+                break;
+            case self::EVERY_FOUR_WEEKS:
+                $expression .= "four weeks";
+                break;
+        }
+
+        return $expression;
     }
 }

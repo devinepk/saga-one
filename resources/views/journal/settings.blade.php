@@ -85,11 +85,11 @@
                     <div class="form-group">
                         <label for="period">How often should this journal rotate?</label>
                         <select id="period" name="period" class="custom-select" required {{ $journal->active ? '' : 'disabled' }}>
-                            <option value="86400" {{ $journal->period == '86400' ? 'selected' : '' }}>Every day</option>
-                            <option value="604800" {{ $journal->period == '604800' ? 'selected' : '' }}>Every week</option>
-                            <option value="{{ 604800 * 2 }}" {{ $journal->period == 604800 * 2 ? 'selected' : '' }}>Every two weeks</option>
-                            <option value="{{ 604800 * 3 }}" {{ $journal->period == 604800 * 3 ? 'selected' : '' }}>Every three weeks</option>
-                            <option value="{{ 604800 * 4 }}" {{ $journal->period == 604800 * 4 ? 'selected' : '' }}>Every four weeks</option>
+                            <option value="{{ App\Journal::EVERY_DAY }}" {{ $journal->period == App\Journal::EVERY_DAY ? 'selected' : '' }}>Every day</option>
+                            <option value="{{ App\Journal::EVERY_WEEK }}" {{ $journal->period == App\Journal::EVERY_WEEK ? 'selected' : '' }}>Every week</option>
+                            <option value="{{ App\Journal::EVERY_TWO_WEEKS }}" {{ $journal->period == App\Journal::EVERY_TWO_WEEKS ? 'selected' : '' }}>Every two weeks</option>
+                            <option value="{{ App\Journal::EVERY_THREE_WEEKS }}" {{ $journal->period == App\Journal::EVERY_THREE_WEEKS ? 'selected' : '' }}>Every three weeks</option>
+                            <option value="{{ App\Journal::EVERY_FOUR_WEEKS }}" {{ $journal->period == App\Journal::EVERY_FOUR_WEEKS ? 'selected' : '' }}>Every four weeks</option>
                         </select>
                         @if ($errors->has('period'))
                             <span class="invalid-feedback" role="alert">
