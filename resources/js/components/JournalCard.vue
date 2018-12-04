@@ -128,7 +128,7 @@ export default {
                     || this.journal.action_urls.settings);
         },
         prettyNextChange: function() {
-            return Moment(this.journal.next_change).format("MMM Do [at] h:mm a");
+            return Moment(this.journal.next_change).format("MMM Do [at] h:mma");
         },
         journalIsActive: function() {
             return (this.journal.active);
