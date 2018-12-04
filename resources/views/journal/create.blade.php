@@ -12,7 +12,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="title">Give this journal a title:</label>
-                        <input class="journal-title form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" id="title" name="title" value="{{ old('title') }}"required autofocus>
+                        <input v-focus class="journal-title form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" id="title" name="title" value="{{ old('title') }}"required>
                         @if ($errors->has('title'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('title') }}</strong>

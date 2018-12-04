@@ -26,7 +26,7 @@
 
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input id="name" name="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ $errors->has('name') ? old('name') : Auth::user()->name }}">
+                    <input id="name" name="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ $errors->has('name') ? old('name') : Auth::user()->name }}" required>
                     @if ($errors->has('name'))
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $errors->first('name') }}</strong>
@@ -36,7 +36,7 @@
 
                 <div class="form-group">
                     <label for="email">E-Mail Address</label>
-                    <input id="email" name="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ $errors->has('email') ? old('email') : Auth::user()->email }}">
+                    <input id="email" name="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ $errors->has('email') ? old('email') : Auth::user()->email }}" required>
                     @if ($errors->has('email'))
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $errors->first('email') }}</strong>
