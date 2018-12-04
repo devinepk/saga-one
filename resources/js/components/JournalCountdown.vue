@@ -83,9 +83,7 @@ module.exports = {
     },
 
     mounted: function() {
-        // Interpret the target date in EST (UTC-5)
-        // TODO: Store dates in the DB in UTC
-        this.targetDate = Moment(this.targetDateString + '-5:00', 'YYYY-MM-DD HH-mm-ssZ');
+        this.targetDate = Moment(this.targetDateString);
         requestAnimationFrame(this.updateRemaining);
     },
 
