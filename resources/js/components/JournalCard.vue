@@ -17,7 +17,7 @@
     <div class="journal-card-cover" :style="{'background-image': 'url(' + journal.action_urls.image + ')'}">
 
         <div v-if="showNextChange" class="cover-overlay align-items-end p-1 text-center">
-            <span v-if="journal.queue.length > 1">until <strong>{{ prettyNextChange }}</strong></span>
+            <span v-if="journal.next_change">rotates <strong>{{ journal.period_expression }}</strong></span>
         </div>
         <span v-if="showBadgeCurrent"
             class="badge badge-current badge-secondary text-white rounded-circle shadow"
@@ -42,17 +42,24 @@
         <li v-for="user in journal.queue"
             :key="user.id"
             class="list-group-item list-group-item-action"
-            :class="{active: highlightUser(user)}"
+            :class="{active: shouldHighlightUser(user)}"
         >
-            <current-user-icon
-                v-if="journal.active && user.id == journal.current_user.id"
-                :authCurrent="authUser.id == journal.current_user.id"
-                :currentUser="journal.current_user.name"
-                class="float-right"
-            />
-
-            <font-awesome-icon icon="user" />
-            <span class="ml-2">{{ user.name }}</span>
+            <div class="row no-gutters">
+                <div class="col-1">
+                    <font-awesome-icon icon="user" />
+                </div>
+                <div class="col">
+                    <p class="mb-0">{{ user.name }}</p>
+                    <p v-if="shouldShowNextChange(user)" class="mb-0 next-change">until <strong>{{ prettyNextChange }}</strong></p>
+                </div>
+                <div class="col-1 text-right">
+                    <current-user-icon
+                        v-if="journalIsActive && isCurrentUser(user)"
+                        :authCurrent="isAuthUser(user)"
+                        :currentUser="journal.current_user.name"
+                    />
+                </div>
+            </div>
         </li>
 
         <li v-if="journal.pending_invites.length" key="invites" class="list-group-item list-group-item-action">
@@ -105,32 +112,46 @@ export default {
             return 'Write in ' + this.journal.title;
         },
         showBadgeCurrent: function() {
-            return (this.useBadgeCurrent &&
-                    this.journal.active &&
-                    this.journal.current_user.id == this.authUser.id);
+            return (this.useBadgeCurrent
+                    && this.journalIsActive
+                    && this.isCurrentUser(this.authUser));
         },
         showInviteMessage: function() {
-            return (this.journal.active &&
-                    this.journal.queue.length == 1 &&
-                    this.authUser.id == this.journal.creator_id &&
-                    !this.journal.pending_invites.length);
+            return (this.journalIsActive
+                    && this.journal.queue.length == 1
+                    && this.isAuthUser(this.journal.creator)
+                    && !this.journal.pending_invites.length);
         },
         showActionsBar: function() {
-            return (this.journal.action_urls.write ||
-                    this.journal.action_urls.read  ||
-                    this.journal.action_urls.settings);
+            return (this.journal.action_urls.write
+                    || this.journal.action_urls.read
+                    || this.journal.action_urls.settings);
         },
         prettyNextChange: function() {
             return Moment(this.journal.next_change).format("MMM Do [at] h:mm a");
+        },
+        journalIsActive: function() {
+            return (this.journal.active);
         }
     },
 
     methods: {
-        highlightUser: function(user) {
-            return (user.id == this.authUser.id &&
-                    this.journal.current_user &&
-                    this.authUser.id == this.journal.current_user.id &&
-                    this.journal.queue.length > 1);
+        isCurrentUser: function(user) {
+            return (user.id == this.journal.current_user.id);
+        },
+        isAuthUser: function(user) {
+            return (user.id == this.authUser.id);
+        },
+        shouldHighlightUser: function(user) {
+            return (this.journalIsActive
+                    && this.isCurrentUser(user)
+                    && this.isAuthUser(user)
+                    && this.journal.queue.length > 1);
+        },
+        shouldShowNextChange: function(user) {
+            return (this.journalIsActive
+                    && this.isCurrentUser(user)
+                    && this.journal.next_change);
         }
     }
 }
@@ -172,5 +193,8 @@ export default {
     flex-wrap: wrap;
     font-variant: small-caps;
     letter-spacing: -0.5px;
+}
+.next-change {
+    font-size: 0.8rem;
 }
 </style>
