@@ -4,7 +4,7 @@
 
 @section('page-content')
 
-<div class="row justify-content-center">
+<div class="row justify-content-center mb-4">
     <div class="col-md-8 col-lg-12">
         <h1>Your account</h1>
 
@@ -17,7 +17,7 @@
 </div>
 
 <div class="row justify-content-center">
-    <div class="col-md-8 col-lg-6 my-5">
+    <div class="col-md-8 col-lg-6 mb-5">
         <div class="card">
             <h2 class="card-header">Contact information</h2>
             <form class="card-body" method="post" action="{{ route('user.update') }}" id="account-form">
@@ -45,11 +45,11 @@
                 </div>
 
             </form>
-            <button type="submit" class="btn btn-block btn-primary" form="account-form">Save account information</button>
+            <button type="submit" class="btn btn-block btn-primary" form="account-form">Save contact information</button>
         </div>
     </div>
 
-    <div class="col-md-8 col-lg-6 my-5">
+    <div class="col-md-8 col-lg-6 mb-5">
         <div class="card">
             <h2 class="card-header">Change password</h2>
             <form class="card-body" method="post" action="{{ route('user.changePassword') }}" id="password-form">
