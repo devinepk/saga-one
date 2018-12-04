@@ -85,7 +85,6 @@
                     <div class="form-group">
                         <label for="period">How often should this journal rotate?</label>
                         <select id="period" name="period" class="custom-select" required {{ $journal->active ? '' : 'disabled' }}>
-                            <option value="3600" {{ $journal->period == '3600' ? 'selected' : '' }}>Every hour</option>
                             <option value="86400" {{ $journal->period == '86400' ? 'selected' : '' }}>Every day</option>
                             <option value="604800" {{ $journal->period == '604800' ? 'selected' : '' }}>Every week</option>
                             <option value="{{ 604800 * 2 }}" {{ $journal->period == 604800 * 2 ? 'selected' : '' }}>Every two weeks</option>
